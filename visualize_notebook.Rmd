@@ -1,21 +1,32 @@
+---
+title: "Plotly 3D drug similarity scatterplots"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+Initial 3D scatterplots:
+
+```{r echo = F}
 ## this script visualizes the similarities in phenotypic, target and structural space.
+suppressMessages(library(plyr))
+suppressMessages(library(dplyr))
+suppressMessages(library(data.table))
+suppressMessages(library(ggplot2))
+suppressMessages(library(tidyr))
+suppressMessages(library(ggrepel))
+suppressMessages(library(gdata))
+suppressMessages(library(scatterplot3d))
+suppressMessages(library(plotly))
+```
 
-library(plyr)
-library(dplyr)
-library(data.table)
-library(ggplot2)
-library(tidyr)
-library(ggrepel)
-library(gdata)
-library(scatterplot3d)
-library(plotly)
-
+```{r}
 ######################################################################################T
 # Set directories and import files -----
 ######################################################################################T
-Dir_input<-"/Users/nicholasclark/Desktop/Git/Public_Github/hms_drug"
+#Dir_input<-"/Users/nicholasclark/Desktop/Git/Public_Github/hms_drug"
+#setwd(Dir_input)
 
-setwd(Dir_input)
 cube_table<-read.csv("sim_table_chem_jaccard_pheno.csv")%>%arrange(cmpd1)
 toolscore_table<-read.csv("toolscore_mapped_lincs.csv")
 
@@ -51,7 +62,9 @@ p
 #scatterplot3d(c.data$chem_sim,c.data$jaccard_sim,c.data$pearson_corr)
 ## would be better to have the limits fixed limits:
 # x=c(0,1),y=(0,1),z(-1,1)
+```
 
+```{r}
 ######################################################################################T
 # Example query #2: show all ERK inhibitors in relation to best ERK inhibitor -----
 ######################################################################################T
@@ -85,6 +98,4 @@ q
 #scatterplot3d(c.data$chem_sim,c.data$jaccard_sim,c.data$pearson_corr)
 ## would be better to have the limits fixed limits:
 # x=c(0,1),y=(0,1),z(-1,1)
-
-
-
+```
