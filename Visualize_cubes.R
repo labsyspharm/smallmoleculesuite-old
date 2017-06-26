@@ -7,11 +7,13 @@ library(ggplot2)
 library(tidyr)
 library(ggrepel)
 library(gdata)
+library(scatterplot3d)
+library(plotly)
 
 ######################################################################################T
 # Set directories and import files -----
 ######################################################################################T
-Dir_input<-"/Users/nienke/Dropbox/Harvard/CBDM-SORGER/Collaborations/LINCS_Compound_Database_NM/Cubes"
+Dir_input<-"/Users/nicholasclark/Desktop/Git/Public_Github/hms_drug"
 
 setwd(Dir_input)
 cube_table<-read.csv("sim_table_chem_jaccard_pheno.csv")%>%arrange(cmpd1)
@@ -35,7 +37,15 @@ c.data<-as.data.frame(cube_table.g[[match(c.query,query_cmpds)]])%>%
   filter(n_pairs>5)%>%
   filter(n_common>5)
 
-scatterplot3d(c.data$chem_sim,c.data$jaccard_sim,c.data$pearson_corr)
+c.data$cmpd2 = factor(c.data$cmpd2)
+p <- plot_ly(c.data, x = ~chem_sim, y = ~jaccard_sim, z = ~pearson_corr, color = ~cmpd2) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'Chemical Similarity'),
+                      yaxis = list(title = 'Jaccard Similarity'),
+                      zaxis = list(title = 'Pearson Correlation')))
+p
+
+#scatterplot3d(c.data$chem_sim,c.data$jaccard_sim,c.data$pearson_corr)
 ## would be better to have the limits fixed limits:
 # x=c(0,1),y=(0,1),z(-1,1)
 
@@ -49,16 +59,24 @@ c.inhibitors<-toolscore_table%>%filter(gene_id %in% c.query_gene & selectivity>=
   arrange(desc(tool_score))
 c.best_inhibitor<-c.inhibitors$source_id[1]
 
-c.data<-as.data.frame(cube_table.g[[match(c.best_inhibitor,query_cmpds)]])%>%
+c.data2<-as.data.frame(cube_table.g[[match(c.best_inhibitor,query_cmpds)]])%>%
   filter(cmpd2 %in% c.inhibitors$source_id)
 
 ## add additional qc filters
-c.data<-as.data.frame(cube_table.g[[match(c.best_inhibitor,query_cmpds)]])%>%
+c.data2<-as.data.frame(cube_table.g[[match(c.best_inhibitor,query_cmpds)]])%>%
   filter(cmpd2 %in% c.inhibitors$source_id)%>%
   filter(n_pairs>5)%>%
   filter(n_common>5)
 
-scatterplot3d(c.data$chem_sim,c.data$jaccard_sim,c.data$pearson_corr)
+c.data2$cmpd2 = factor(c.data2$cmpd2)
+q <- plot_ly(c.data2, x = ~chem_sim, y = ~jaccard_sim, z = ~pearson_corr, color = ~cmpd2) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'Chemical Similarity'),
+                      yaxis = list(title = 'Jaccard Similarity'),
+                      zaxis = list(title = 'Pearson Correlation')))
+q
+
+#scatterplot3d(c.data$chem_sim,c.data$jaccard_sim,c.data$pearson_corr)
 ## would be better to have the limits fixed limits:
 # x=c(0,1),y=(0,1),z(-1,1)
 
