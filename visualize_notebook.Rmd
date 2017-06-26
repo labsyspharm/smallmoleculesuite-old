@@ -7,7 +7,7 @@ output:
 
 Initial 3D scatterplots:
 
-```{r echo = F}
+```{r}
 ## this script visualizes the similarities in phenotypic, target and structural space.
 suppressMessages(library(plyr))
 suppressMessages(library(dplyr))
