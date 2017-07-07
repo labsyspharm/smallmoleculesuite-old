@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(plotly)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -19,12 +20,20 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
        uiOutput('select_genes'),
-       uiOutput("threshold_slider")
+       uiOutput('select_genes2'),
+       uiOutput("threshold_slider"),
+       sliderInput("n_common", "n_common value", min = 0, max = 15,
+                   step = 1, value = 5),
+       sliderInput("n_pairs", "n_pairs value", min = 0, max = 15,
+                   step = 1, value = 5),
+       verbatimTextOutput('best_inhibitor')
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
-       plotlyOutput('testplot')
+       plotlyOutput('mainplot'),
+       dataTableOutput('data_table'),
+       dataTableOutput('toolscore_table')
     )
   )
 ))

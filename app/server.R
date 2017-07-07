@@ -8,62 +8,85 @@
 #
 
 library(shiny)
-library(plyr)
+#library(plyr)
 library(dplyr)
-library(data.table)
+#library(data.table)
+#library(tidyr)
+
 library(ggplot2)
-library(tidyr)
-library(ggrepel)
-library(gdata)
-library(scatterplot3d)
 library(plotly)
 
 cube_table<-read.csv("input/sim_table_chem_jaccard_pheno.csv")
+cube_table$cmpd2_name = cube_table$cmpd2
+cube_table$cmpd2 = factor(cube_table$cmpd2)
 toolscore_table<-read.csv("input/toolscore_mapped_lincs.csv")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
+  values = reactiveValues(cube_table = NULL, toolscore_table = NULL)
   # Selectize box for query genes
   output$select_genes = renderUI({
     selectizeInput('query_genes', 'Select Query Genes', 
-                   choices = unique(cube_table$cmpd1), multiple = T)
+                   choices = sort(unique(cube_table$cmpd1)), multiple = T)
+  })
+  output$select_genes2 = renderUI({
+    selectizeInput('query_genes2', 'Select Query Genes (toolscore)', 
+                   choices = sort(unique(toolscore_table$gene_id)), multiple = T)
   })
   
   output$threshold_slider = renderUI({
     sliderInput('threshold', label = "Selectivity Threshold",
-                min = round_any(min(toolscore_table$selectivity, na.rm = T), 0.1, floor),
-                max = round_any(max(toolscore_table$selectivity, na.rm = T), 0.1, ceiling),
+                min = plyr::round_any(min(toolscore_table$selectivity, na.rm = T), 0.1, floor),
+                max = plyr::round_any(max(toolscore_table$selectivity, na.rm = T), 0.1, ceiling),
                 step = 0.1, value = 0.3)
   })
   
-  # Observer for inputs
-  observeEvent(c(input$query_genes, input$threshold), {
-    ######################################################################################T
-    # create grouped table -----
-    ######################################################################################T
-    query_cmpds<-unique(cube_table$cmpd1)
-    cube_table.g<-dlply(cube_table,.(cmpd1),c)
-    
-    ######################################################################################T
-    # Example query #1: show all compounds in relation to 10101 -----
-    ######################################################################################T
-    if(!is.null(input$query_genes)) {
-      c.data<-as.data.frame(cube_table.g[[match(input$query_genes,query_cmpds)]])
-    ## add additional qc filters
-    c.data<-as.data.frame(cube_table.g[[match(input$query_genes,query_cmpds)]])%>%
-      filter(n_pairs>5)%>%
-      filter(n_common>5)
-    
-    c.data$cmpd2 = factor(c.data$cmpd2)
-    p <- plot_ly(c.data, x = ~chem_sim, y = ~jaccard_sim, z = ~pearson_corr, color = ~cmpd2) %>%
+  observeEvent(c(input$query_genes, input$threshold, input$n_common, input$n_pairs), {
+    values$cube_table = cube_table[cube_table$cmpd1 %in% input$query_genes & 
+                                              cube_table$n_pairs > input$n_pairs &
+                                              cube_table$n_common > input$n_common,]
+    output$data_table = renderDataTable(values$cube_table)
+  })
+  
+  observeEvent(c(input$query_genes2, input$threshold, input$n_common, input$n_pairs), {
+    values$toolscore_table = toolscore_table[toolscore_table$gene_id %in% input$query_genes2 &
+                                               toolscore_table$selectivity >= input$threshold &
+                                               toolscore_table$source_id %in% unique(cube_table$cmpd1),] %>%
+      arrange(desc(tool_score))
+    print(head(toolscore_table))
+    print(head(values$toolscore_table))
+    c.best_inhibitor <- values$toolscore_table$source_id[1]
+    c.best_inhibitor_name = values$toolscore_table$name[1]
+    output$best_inhibitor = renderPrint(c.best_inhibitor_name)
+    output$toolscore_table = renderDataTable(values$toolscore_table)
+
+    values$cube_table = cube_table[cube_table$cmpd1 == c.best_inhibitor &
+                                   cube_table$cmpd2_name %in% unique(values$toolscore_table$source_id) & 
+                                   cube_table$n_pairs > input$n_pairs &
+                                   cube_table$n_common > input$n_common,]
+    output$data_table = renderDataTable(values$cube_table)
+  })
+  
+  observeEvent(values$cube_table, {
+      p1 <- plot_ly(values$cube_table, x = ~chem_sim, y = ~jaccard_sim, color = ~cmpd2) %>%
       add_markers() %>%
       layout(scene = list(xaxis = list(title = 'Chemical Similarity',
-                                       range = c(-0.1,1.1)),
+                                       range = c(-0.1, 1.1)),
                           yaxis = list(title = 'Jaccard Similarity',
-                                       range = c(-0.1,1.1)),
-                          zaxis = list(title = 'Pearson Correlation',
+                                       range = c(-0.1, 1.1))))
+    p2 <- plot_ly(values$cube_table, x = ~chem_sim, y = ~pearson_corr, color = ~cmpd2) %>%
+      add_markers() %>%
+      layout(scene = list(xaxis = list(title = 'Chemical Similarity',
+                                       range = c(-0.1, 1.1)),
+                          yaxis = list(title = 'Pearson Correlation',
                                        range = c(-1.1,1.1))))
-    output$testplot <- renderPlotly(p)
-    }
+    p3 <-  plot_ly(values$cube_table, x = ~pearson_corr, y = ~jaccard_sim, color = ~cmpd2) %>%
+      add_markers() %>%
+      layout(scene = list(xaxis = list(title = 'Pearson Correlation',
+                                       range = c(-1.1, 1.1)),
+                          yaxis = list(title = 'Jaccard Similarity',
+                                       range = c(-0.1, 1.1))))
+    p <- subplot(p1, p2, p3, shareX = F, shareY = F, titleX = T, titleY = T)
+    output$mainplot <- renderPlotly(p)
   })
 })
