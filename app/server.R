@@ -1,11 +1,3 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
 
 library(shiny)
 #library(plyr)
@@ -21,17 +13,19 @@ cube_table$cmpd2_name = cube_table$cmpd2
 cube_table$cmpd2 = factor(cube_table$cmpd2)
 toolscore_table<-read.csv("input/toolscore_mapped_lincs.csv")
 
-# Define server logic required to draw a histogram
 shinyServer(function(input, output) {
   values = reactiveValues(cube_table = NULL, toolscore_table = NULL)
   # Selectize box for query genes
   output$select_genes = renderUI({
-    selectizeInput('query_genes', 'Select Query Genes', 
-                   choices = sort(unique(cube_table$cmpd1)), multiple = T)
-  })
-  output$select_genes2 = renderUI({
-    selectizeInput('query_genes2', 'Select Query Genes (toolscore)', 
-                   choices = sort(unique(toolscore_table$gene_id)), multiple = T)
+    fluidRow(
+      radioButtons('query_type', "", choices = c("Query type 1", "Query type 2"), inline = T),
+      conditionalPanel(condition = "input.query_type=='Query type 1'",
+      selectizeInput('query_genes', 'Select Query Genes', 
+                       choices = sort(unique(cube_table$cmpd1)), multiple = T)),
+      conditionalPanel(condition = "input.query_type=='Query type 2'",
+      selectizeInput('query_genes2', 'Select Query Genes (toolscore)', 
+                     choices = sort(unique(toolscore_table$gene_id)), multiple = T))
+    )
   })
   
   output$threshold_slider = renderUI({
@@ -41,6 +35,16 @@ shinyServer(function(input, output) {
                 step = 0.1, value = 0.3)
   })
   
+  output$show_table = renderUI({
+    fluidRow(
+      radioButtons('which_data', "", choices = c("Cube table", "Toolscore table"), inline = T),
+      conditionalPanel(condition = "input.which_data=='Cube table'",
+                       dataTableOutput('data_table')),
+      conditionalPanel(condition = "input.which_data=='Toolscore table'",
+                       dataTableOutput('toolscore_table'))
+    )
+  })
+                   
   observeEvent(c(input$query_genes, input$threshold, input$n_common, input$n_pairs), {
     values$cube_table = cube_table[cube_table$cmpd1 %in% input$query_genes & 
                                               cube_table$n_pairs > input$n_pairs &
