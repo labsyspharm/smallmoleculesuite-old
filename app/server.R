@@ -16,14 +16,14 @@ toolscore_table<-read.csv("input/toolscore_mapped_lincs.csv")
 shinyServer(function(input, output) {
   values = reactiveValues(cube_table = NULL, toolscore_table = NULL)
   # Selectize box for query genes
-  output$select_genes = renderUI({
+  output$select_input = renderUI({
     fluidRow(
-      radioButtons('query_type', "", choices = c("Query type 1", "Query type 2"), inline = T),
-      conditionalPanel(condition = "input.query_type=='Query type 1'",
-      selectizeInput('query_genes', 'Select Query Genes', 
+      radioButtons('query_type', "", choices = c("Query Compound", "Query Genes"), inline = T),
+      conditionalPanel(condition = "input.query_type=='Query Compound'",
+      selectizeInput('query_compound', 'Select Query Compound', 
                        choices = sort(unique(cube_table$cmpd1)), multiple = T)),
-      conditionalPanel(condition = "input.query_type=='Query type 2'",
-      selectizeInput('query_genes2', 'Select Query Genes (toolscore)', 
+      conditionalPanel(condition = "input.query_type=='Query Genes'",
+      selectizeInput('query_genes', 'Select Query Genes', 
                      choices = sort(unique(toolscore_table$gene_id)), multiple = T))
     )
   })
@@ -45,15 +45,15 @@ shinyServer(function(input, output) {
     )
   })
                    
-  observeEvent(c(input$query_genes, input$threshold, input$n_common, input$n_pairs), {
-    values$cube_table = cube_table[cube_table$cmpd1 %in% input$query_genes & 
+  observeEvent(c(input$query_compound, input$threshold, input$n_common, input$n_pairs), {
+    values$cube_table = cube_table[cube_table$cmpd1 %in% input$query_compound & 
                                               cube_table$n_pairs > input$n_pairs &
                                               cube_table$n_common > input$n_common,]
     output$data_table = renderDataTable(values$cube_table)
   })
   
-  observeEvent(c(input$query_genes2, input$threshold, input$n_common, input$n_pairs), {
-    values$toolscore_table = toolscore_table[toolscore_table$gene_id %in% input$query_genes2 &
+  observeEvent(c(input$query_genes, input$threshold, input$n_common, input$n_pairs), {
+    values$toolscore_table = toolscore_table[toolscore_table$gene_id %in% input$query_genes &
                                                toolscore_table$selectivity >= input$threshold &
                                                toolscore_table$source_id %in% unique(cube_table$cmpd1),] %>%
       arrange(desc(tool_score))
