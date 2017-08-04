@@ -19,10 +19,12 @@ affinity_selectivity<-read.csv("affinity_selectivity_table_ChemblV22_1_20170804.
 c.compound<-10020
 c.data<-similarity_table%>%filter(hmsID_1==c.compound)
 
-View(c.data)
+head(c.data)
 
 ## display scatterplots
 ## show c.data plotted w/selection boxes
+
+c.data_title<-paste0(unique(c.data$hmsID_1),";",unique(c.data$name_1))
 
 ## after selecting 2 additional compounds
 selected_1<-10023
