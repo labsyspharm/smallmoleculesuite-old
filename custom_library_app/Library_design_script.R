@@ -6,10 +6,14 @@ library(dplyr)
 ################################################################################################T
 dir_selection_tables<-"add_directory_path"
 
-setwd(dir_selection_tables)
-selection_table_selectivity<-read.csv("selection_table_cmpds_best_and_second_class.csv",stringsAsFactors = F)
-selection_table_clindev<-read.csv("selection_table_clinical_development.csv",stringsAsFactors = F)
+dir_selection_tables<-paste0("/Users/nienke/Dropbox/Harvard/CBDM-SORGER/Collaborations/LINCS_Compound_Database_NM/custom_informer_set",
+                             "/drug_browser/custom_library_app")
 
+setwd(dir_selection_tables)
+selection_table_selectivity<-read.csv("selection_table_selectivity.csv",stringsAsFactors = F)
+selection_table_clindev<-read.csv("selection_table_clinical_development.csv",stringsAsFactors = F)
+merge_cmpd_info<-read.csv("cmpd_info_library_designer.csv")
+merge_table_geneinfo<-read.csv("gene_info_library_designer.csv")
 
 ################################################################################################T
 # example ------------
@@ -55,6 +59,22 @@ output_clindev<-selection_table_clindev%>%filter(source %in% c.sources_clindev)%
   filter(mean_aff<=max_mean_affinity_threshold)%>%
   filter(SD_aff<=max_sd_treshold)%>%
   filter(n_measurement>=min_measurement_threshold)
+names(output_clindev)[5]<-"mean_Kd"
 
-output_table<-rbind(output_selectivity[c("gene_id","molregno","source")],output_clindev[c("gene_id","molregno","source")])
-View(output_table)
+output_table<-rbind(output_selectivity[c("gene_id","molregno","mean_Kd","n_measurement","source")],
+                    output_clindev[c("gene_id","molregno","mean_Kd","n_measurement","source")])
+
+table_display_per_entry<-unique(output_table%>%
+                                  merge(merge_cmpd_info[c("molregno","chembl_id","pref_name","max_phase")],by="molregno")%>%
+                                  merge(merge_table_geneinfo,by="gene_id"))
+table_display_per_entry<-table_display_per_entry[c("symbol","chembl_id","pref_name","source",
+                                                   "max_phase","mean_Kd","n_measurement","gene_id","tax_id")]
+table_display_per_cmpd<-unique(output_table%>%
+                                 merge(merge_cmpd_info[c("molregno","chembl_id","pref_name","max_phase","alt_names","inchi")],
+                                       by="molregno")%>%
+                                 merge(merge_table_geneinfo,by="gene_id"))%>%
+  group_by(molregno,chembl_id,pref_name,alt_names,inchi,max_phase)%>%
+  summarise(sources=toString(paste0(symbol,";",source)))
+
+View(table_display_per_cmpd)
+View(table_display_per_entry)
