@@ -2,20 +2,35 @@ library(shiny)
 library(plotly)
 library(dplyr)
 library(readr)
+library(DT)
 
-selection_table_selectivity = read_csv("selection_table_cmpds_best_and_second_class_edited.csv")
+# load tables
+selection_table_selectivity = read_csv("selection_table_selectivity_edited.csv")
 selection_table_clindev = read_csv("selection_table_clinical_development.csv")
+merge_cmpd_info = read_csv("cmpd_info_library_designer.csv")
+merge_table_geneinfo = read_csv("gene_info_library_designer.csv")
+
+# Define genes found in our data
 all_genes = intersect(unique(selection_table_clindev$symbol), unique(selection_table_selectivity$symbol))
+
+# Names of classes in the selectivity table
 best = c("bestclass_I", "bestclass_II")
-non = c("non_selective")
-second = c("secondclass_I", "secondclass_II")
-un = c("unknown_selectivity_I", "unknown_selectivity_II")
+second = c(best, "secondclass_I", "secondclass_II")
+non = c(best, second, "non_selective")
+un = c(best, second, non, "unknown_selectivity_I", "unknown_selectivity_II")
+none = NULL
+# Names of phases in the clinical development table
+approved = "approved"
+three = c(approved, "max_phase_3")
+two = c(three, "max_phase_2")
+one = c(two, "max_phase_1")
 
 shinyServer(function(input, output, session) {
   # Define reactive values
   values = reactiveValues(gene_list = NULL, genes_not_found = NULL, gene_list_found = 0,
-                          genes_not_found_paste = NULL, output_table = NULL,
-                          sources = NULL, probes = NULL)
+                          genes_not_found_paste = NULL,
+                          sources = NULL, probes = NULL, clinical = NULL,
+                          display_per_cmpd = NULL, display_per_entry = NULL)
 
   # Make sure genes given are in the genes that we have info for
   observeEvent(eventExpr = input$gene_list, handlerExpr = {
@@ -30,11 +45,15 @@ shinyServer(function(input, output, session) {
   # Get probe class selections
   observeEvent(input$probes, {
     print(input$probes)
-    values$probes = NULL
-    for(i in 1:length(input$probes)) {
-      values$probes = c(values$probes, get(input$probes[i]))
-    }
+    values$probes = get(input$probes)
     print(values$probes)
+  })
+  
+  # Get clinical phase selections
+  observeEvent(input$clinical, {
+    print(input$clinical)
+    values$clinical = get(input$clinical)
+    print(values$clinical)
   })
   
   observeEvent(input$submitButton, {
@@ -43,14 +62,44 @@ shinyServer(function(input, output, session) {
       filter_(~source %in% values$probes)
     output_clindev = selection_table_clindev %>%
       filter_(~symbol %in% values$gene_list_found) %>%
-      filter_(~source %in% input$clinical) %>%
-      filter_(~mean_aff <= input$affinity) %>%
+      filter_(~source %in% values$clinical) %>%
+      filter_(~mean_Kd <= input$affinity) %>%
       filter_(~SD_aff <= input$sd) %>%
       filter_(~n_measurement>= input$meas)
-    values$output_table = rbind(output_selectivity[c("gene_id","symbol","molregno","source")],
-                                output_clindev[c("gene_id","symbol","molregno","source")])
+    output_table = rbind(output_selectivity[c("gene_id","molregno","mean_Kd",
+                                               "n_measurement","source")],
+                          output_clindev[c("gene_id","molregno","mean_Kd",
+                                           "n_measurement","source")])
+    
+    values$display_per_entry = unique(output_table %>%
+      merge(merge_cmpd_info[c("molregno","chembl_id","pref_name","max_phase")],
+            by="molregno") %>%
+      merge(merge_table_geneinfo,by="gene_id"))
+
+    values$display_per_entry = values$display_per_entry[c("symbol","chembl_id",
+      "pref_name","source","max_phase","mean_Kd","n_measurement",
+      "gene_id","tax_id")]
+    
+    values$display_per_cmpd = unique(output_table %>%
+      merge(merge_cmpd_info[c("molregno","chembl_id","pref_name",
+        "max_phase","alt_names","inchi")], by="molregno") %>%
+      merge(merge_table_geneinfo,by="gene_id")) %>%
+      group_by(molregno,chembl_id,pref_name,alt_names,inchi,max_phase) %>%
+      summarise(sources=toString(paste0(symbol,";",source)))
   })
 
-  output$output_table = renderDataTable(values$output_table)
+  # Show output table after submit button is clicked
+  observeEvent(input$submitButton, {
+    showElement(id = "show_output_table", anim = T, animType = "fade")
+  })
+  
+  # display correct table
+  observeEvent(input$table, {
+    if(input$table == "entry") {
+      output$output_table = DT::renderDataTable(values$display_per_entry)
+    } else {
+      output$output_table = DT::renderDataTable(values$display_per_cmpd)
+    }
+  })
 
 })

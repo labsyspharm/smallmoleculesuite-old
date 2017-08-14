@@ -1,13 +1,61 @@
 library(shiny)
 library(shiny.semantic)
 library(shinyjs)
+library(DT)
+
+# logifySlider javascript function
+JS.logify <-
+  "
+// function to logify a sliderInput
+function logifySlider (sliderId, sci = false) {
+if (sci) {
+// scientific style
+$('#'+sliderId).data('ionRangeSlider').update({
+'prettify': function (num) { return ('10<sup>'+num+'</sup>'); }
+})
+} else {
+// regular number style
+$('#'+sliderId).data('ionRangeSlider').update({
+'prettify': function (num) { return (Math.pow(10, num)); }
+})
+}
+}"
+
+# call logifySlider for each relevant sliderInput
+JS.onload <-
+  "
+// execute upon document loading
+$(document).ready(function() {
+// wait a few ms to allow other scripts to execute
+setTimeout(function() {
+// include call for each slider
+logifySlider('affinity', sci = false)
+
+logifySlider('sd', sci = false)
+}, 5)})
+"
+
+JS.slider <-
+  "
+// test
+$(#affinity).ionRangeSlider({
+  grid: true,
+  min: 10,
+  max: 10000,
+  from: 1000,
+  values: [10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
+});
+"
 
 shinyUI(
   semanticPage(
-    title = "My page",
+    title = "Custom Library App",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
     br(),
+    # tags$head(tags$script(HTML(JS.logify))),
+    # tags$head(tags$script(HTML(JS.onload))),
+    tags$head(tags$script(HTML(JS.slider))),
     tags$style(type = "text/css", "
       .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
@@ -36,59 +84,42 @@ shinyUI(
           div(class = "ui button red action-button", "Submit", id = "submitButton")
             ),
         div(class = "column",
-          a(class = "ui red ribbon label", "Probes"),
+          a(class = "ui red ribbon label", "Maximum clinical phase"),
           div(class = "ui form",
             div(class = "ui raised segment",
-  checkboxGroupInput("probes", "", choiceNames = c("Best Class", "Second Class", "Non-specific", "Unknown Selectivity"), choiceValues = c("best", "second", "non", "un"))
-            )),
-            a(class = "ui red ribbon label", "Clinical Contribution"),
-          div(class = "ui form",
-            div(class = "ui raised segment",
-  checkboxGroupInput("clinical", "", choiceNames = c("Approved", "Phase I", "Phase II", "Phase III"), choiceValues = c("approved", "max_phase_1", "max_phase_2", "max_phase_3"))
+  radioButtons("clinical", "", choiceNames = c("None","Approved only","Approved and phase III only", "Approved and phases II and III only", "Approved and phases I, II, and III"), choiceValues = c("none","approved", "three", "two", "one"), selected = "approved"),
+  hr(),
+  sliderInput(inputId = "affinity", label = "Maximum Kd for query target (log10 nM)",
+              min = log10(10), max = log10(10000), value = log10(1000), step = 1),
+  sliderInput(inputId = "meas", label = "Minimum number of measurements",
+              min = 1, max = 400, value = 2),
+  sliderInput(inputId = "sd", label = "Maximum std. dev. of Kd (log10 nM)",
+              min = log10(10), max = log10(100000), value = log10(100))
             )
           )
         ),
         div(class = "column",
+          a(class = "ui red ribbon label", "Probes"),
+          div(class = "ui form",
+              div(class = "ui raised segment",
+                  radioButtons("probes", "", choiceNames = c("None","Best class only", "Best class and second class only", "Best class, second class, and non-specific only", "All including compounds with unknown selectivity"), choiceValues = c("none","best", "second", "non", "un"), selected = "best")
+              )),
           a(class = "ui red ribbon label", "Legacy compounds"),
           div(class = "ui form",
               div(class = "ui raised segment",
-  checkboxGroupInput("legacy", "", choiceNames = c("Gray best inhibitor list", "chemicalprobes.org 4.0 star rating"), choiceValues = c("gray", "chem_probe"))
-            )
-          )
-        )
-      ),
-      div(class = "ui three column centered grid",
-        div(class = "column",
-          div(class = "ui form",
-            div(class = "ui raised segment",
-              div(class = "ui range",
-  sliderInput(inputId = "affinity", label = "Maximum mean affinity(nM)",
-              min = 0, max = 1000, value = 1000)
+                  checkboxGroupInput("legacy", "", choiceNames = c("Gray best inhibitor list", "chemicalprobes.org 4.0 star rating"), choiceValues = c("gray", "chem_probe"))
               )
-            )
-          )
-        ),
-        div(class = "column",
-          div(class = "ui form",
-            div(class = "ui raised segment",
-  sliderInput(inputId = "sd", label = "Maximum affinity std. dev. (nM)",
-              min = 0, max = 100, value = 100)
-            )
-          )
-        ),
-        div(class = "column",
-          div(class = "ui form",
-            div(class = "ui raised segment",
-  sliderInput(inputId = "meas", label = "Minimum measurement threshold",
-              min = 0, max = 10, value = 1)
-            )
           )
         )
       ),
       div(class = "ui one column centered grid",
         div(class = "column",
-          div(class = "ui form",
-  dataTableOutput("output_table")
+  hidden(
+          div(class = "ui form", id = "show_output_table",
+  radioButtons(inputId = "table", "", choiceNames = c("Display per entry", "Display per compound"),
+               choiceValues = c("entry", "cmpd"), inline = T),
+  DT::dataTableOutput("output_table")
+  )
           )
         )
       )
