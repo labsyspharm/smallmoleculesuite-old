@@ -55,7 +55,7 @@ shinyUI(
     br(),
     # tags$head(tags$script(HTML(JS.logify))),
     # tags$head(tags$script(HTML(JS.onload))),
-    tags$head(tags$script(HTML(JS.slider))),
+    #tags$head(tags$script(HTML(JS.slider))),
     tags$style(type = "text/css", "
       .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
@@ -89,12 +89,12 @@ shinyUI(
             div(class = "ui raised segment",
   radioButtons("clinical", "", choiceNames = c("None","Approved only","Approved and phase III only", "Approved and phases II and III only", "Approved and phases I, II, and III"), choiceValues = c("none","approved", "three", "two", "one"), selected = "approved"),
   hr(),
-  sliderInput(inputId = "affinity", label = "Maximum Kd for query target (log10 nM)",
-              min = log10(10), max = log10(10000), value = log10(1000), step = 1),
+  sliderInput(inputId = "affinity", label = "Maximum Kd for query target (nM)",
+              min = 10, max = 10000, value = 1000),
   sliderInput(inputId = "meas", label = "Minimum number of measurements",
               min = 1, max = 400, value = 2),
-  sliderInput(inputId = "sd", label = "Maximum std. dev. of Kd (log10 nM)",
-              min = log10(10), max = log10(100000), value = log10(100))
+  sliderInput(inputId = "sd", label = "Maximum std. dev. of Kd (nM)",
+              min = 10, max = 100000, value = 100)
             )
           )
         ),

@@ -11,7 +11,7 @@ merge_cmpd_info = read_csv("cmpd_info_library_designer.csv")
 merge_table_geneinfo = read_csv("gene_info_library_designer.csv")
 
 # Define genes found in our data
-all_genes = intersect(unique(selection_table_clindev$symbol), unique(selection_table_selectivity$symbol))
+all_genes = union(unique(selection_table_clindev$symbol), unique(selection_table_selectivity$symbol))
 
 # Names of classes in the selectivity table
 best = c("bestclass_I", "bestclass_II")
@@ -28,7 +28,7 @@ one = c(two, "max_phase_1")
 shinyServer(function(input, output, session) {
   # Define reactive values
   values = reactiveValues(gene_list = NULL, genes_not_found = NULL, gene_list_found = 0,
-                          genes_not_found_paste = NULL,
+                          genes_not_found_paste = NULL, submitted = F,
                           sources = NULL, probes = NULL, clinical = NULL,
                           display_per_cmpd = NULL, display_per_entry = NULL)
 
@@ -57,35 +57,39 @@ shinyServer(function(input, output, session) {
   })
   
   observeEvent(input$submitButton, {
-    output_selectivity = selection_table_selectivity %>%
-      filter_(~symbol %in% values$gene_list_found) %>%
-      filter_(~source %in% values$probes)
-    output_clindev = selection_table_clindev %>%
-      filter_(~symbol %in% values$gene_list_found) %>%
-      filter_(~source %in% values$clinical) %>%
-      filter_(~mean_Kd <= input$affinity) %>%
-      filter_(~SD_aff <= input$sd) %>%
-      filter_(~n_measurement>= input$meas)
-    output_table = rbind(output_selectivity[c("gene_id","molregno","mean_Kd",
-                                               "n_measurement","source")],
-                          output_clindev[c("gene_id","molregno","mean_Kd",
-                                           "n_measurement","source")])
-    
-    values$display_per_entry = unique(output_table %>%
-      merge(merge_cmpd_info[c("molregno","chembl_id","pref_name","max_phase")],
-            by="molregno") %>%
-      merge(merge_table_geneinfo,by="gene_id"))
-
-    values$display_per_entry = values$display_per_entry[c("symbol","chembl_id",
-      "pref_name","source","max_phase","mean_Kd","n_measurement",
-      "gene_id","tax_id")]
-    
-    values$display_per_cmpd = unique(output_table %>%
-      merge(merge_cmpd_info[c("molregno","chembl_id","pref_name",
-        "max_phase","alt_names","inchi")], by="molregno") %>%
-      merge(merge_table_geneinfo,by="gene_id")) %>%
-      group_by(molregno,chembl_id,pref_name,alt_names,inchi,max_phase) %>%
-      summarise(sources=toString(paste0(symbol,";",source)))
+    values$submitted = T
+    observeEvent(c(input$clinical, input$probes, input$meas, 
+                   input$sd, input$affinity, input$legacy), {
+      output_selectivity = selection_table_selectivity %>%
+        filter_(~symbol %in% values$gene_list_found) %>%
+        filter_(~source %in% values$probes)
+      output_clindev = selection_table_clindev %>%
+        filter_(~symbol %in% values$gene_list_found) %>%
+        filter_(~source %in% values$clinical) %>%
+        filter_(~mean_Kd <= input$affinity) %>%
+        filter_(~SD_aff <= input$sd) %>%
+        filter_(~n_measurement>= input$meas)
+      output_table = rbind(output_selectivity[c("gene_id","molregno","mean_Kd",
+                                                 "n_measurement","source")],
+                            output_clindev[c("gene_id","molregno","mean_Kd",
+                                             "n_measurement","source")])
+      
+      values$display_per_entry = unique(output_table %>%
+        merge(merge_cmpd_info[c("molregno","chembl_id","pref_name","max_phase")],
+              by="molregno") %>%
+        merge(merge_table_geneinfo,by="gene_id"))
+  
+      values$display_per_entry = values$display_per_entry[c("symbol","chembl_id",
+        "pref_name","source","max_phase","mean_Kd","n_measurement",
+        "gene_id","tax_id")]
+      
+      values$display_per_cmpd = unique(output_table %>%
+        merge(merge_cmpd_info[c("molregno","chembl_id","pref_name",
+          "max_phase","alt_names","inchi")], by="molregno") %>%
+        merge(merge_table_geneinfo,by="gene_id")) %>%
+        group_by(molregno,chembl_id,pref_name,alt_names,inchi,max_phase) %>%
+        summarise(sources=toString(paste0(symbol,";",source)))
+    })
   })
 
   # Show output table after submit button is clicked
@@ -101,5 +105,4 @@ shinyServer(function(input, output, session) {
       output$output_table = DT::renderDataTable(values$display_per_cmpd)
     }
   })
-
 })
