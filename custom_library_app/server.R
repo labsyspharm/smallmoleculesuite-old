@@ -9,6 +9,8 @@ selection_table_selectivity = read_csv("selection_table_selectivity_edited.csv")
 selection_table_clindev = read_csv("selection_table_clinical_development.csv")
 merge_cmpd_info = read_csv("cmpd_info_library_designer.csv")
 merge_table_geneinfo = read_csv("gene_info_library_designer.csv")
+# table for kinase example
+kinase_example = read_tsv("kinhub_kinases.tsv")
 
 # Define genes found in our data
 all_genes = union(unique(selection_table_clindev$symbol), unique(selection_table_selectivity$symbol))
@@ -25,12 +27,31 @@ three = c(approved, "max_phase_3")
 two = c(three, "max_phase_2")
 one = c(two, "max_phase_1")
 
+tab.js = "$('.menu .item')
+  .tab()
+;"
+
 shinyServer(function(input, output, session) {
+  runjs(tab.js)
   # Define reactive values
   values = reactiveValues(gene_list = NULL, genes_not_found = NULL, gene_list_found = 0,
                           genes_not_found_paste = NULL, submitted = F,
                           sources = NULL, probes = NULL, clinical = NULL,
                           display_per_cmpd = NULL, display_per_entry = NULL)
+  # Make app stop when you close the webpage
+  session$onSessionEnded(stopApp)
+  
+  # Load example gene set of kinases
+  observeEvent(eventExpr = input$load_example_kinases, handlerExpr = {
+    updateTextAreaInput(session, inputId = "gene_list", value = paste0(kinase_example$`HGNC Name`, collapse = "\n"))
+  })
+  
+  observeEvent(input$submitButton, {
+    removeClass(id = "tab1_top", class = "active")
+    removeClass(id = "tab1_bottom", class = "active")
+    addClass(id = "tab2_top", class = "active")
+    addClass(id = "tab2_bottom", class = "active")
+  })
 
   # Make sure genes given are in the genes that we have info for
   observeEvent(eventExpr = input$gene_list, handlerExpr = {
