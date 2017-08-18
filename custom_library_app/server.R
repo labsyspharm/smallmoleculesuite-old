@@ -46,12 +46,21 @@ shinyServer(function(input, output, session) {
     updateTextAreaInput(session, inputId = "gene_list", value = paste0(kinase_example$`HGNC Name`, collapse = "\n"))
   })
   
+  # Jump to results tab when "Submit" is clicked
   observeEvent(input$submitButton, {
     removeClass(id = "tab1_top", class = "active")
     removeClass(id = "tab1_bottom", class = "active")
     addClass(id = "tab2_top", class = "active")
     addClass(id = "tab2_bottom", class = "active")
   })
+  
+  # Disable suspend for outputs to fix issue with certain outputs not updating 
+  # after "submit" button is pushed... probably an issue with "shiny.semantic"
+  output$search_genes = renderText("")
+  output$gene_total = renderText("")
+  outputOptions(output, "search_genes", suspendWhenHidden = FALSE)
+  outputOptions(output, "gene_total", suspendWhenHidden = FALSE)
+  
 
   # Make sure genes given are in the genes that we have info for
   observeEvent(eventExpr = input$gene_list, handlerExpr = {
