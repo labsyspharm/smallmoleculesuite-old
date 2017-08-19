@@ -48,6 +48,7 @@ shinyServer(function(input, output, session) {
   
   # Jump to results tab when "Submit" is clicked
   observeEvent(input$submitButton, {
+    showElement("tab2_top")
     removeClass(id = "tab1_top", class = "active")
     removeClass(id = "tab1_bottom", class = "active")
     addClass(id = "tab2_top", class = "active")
@@ -112,13 +113,21 @@ shinyServer(function(input, output, session) {
       values$display_per_entry = values$display_per_entry[c("symbol","chembl_id",
         "pref_name","source","max_phase","mean_Kd","n_measurement",
         "gene_id","tax_id")]
-      
+      values$display_per_entry = values$display_per_entry %>% mutate(
+        symbol = factor(symbol), chembl_id = factor(chembl_id), pref_name = factor(pref_name),
+        source = factor(source), gene_id = factor(gene_id), tax_id = factor(tax_id),
+        max_phase = as.integer(max_phase)
+      )
+
       values$display_per_cmpd = unique(output_table %>%
         merge(merge_cmpd_info[c("molregno","chembl_id","pref_name",
           "max_phase","alt_names","inchi")], by="molregno") %>%
         merge(merge_table_geneinfo,by="gene_id")) %>%
         group_by(molregno,chembl_id,pref_name,alt_names,inchi,max_phase) %>%
-        summarise(sources=toString(paste0(symbol,";",source)))
+        summarise(sources=toString(paste0(symbol,";",source))) %>% as.data.frame %>% mutate(
+        molregno = factor(molregno), chembl_id = factor(chembl_id), pref_name = factor(pref_name),
+        max_phase = as.integer(max_phase)
+      )
     })
   })
 
@@ -130,9 +139,37 @@ shinyServer(function(input, output, session) {
   # display correct table
   observeEvent(input$table, {
     if(input$table == "entry") {
-      output$output_table = DT::renderDataTable(values$display_per_entry)
+      output$output_table = DT::renderDataTable({
+        datatable(values$display_per_entry, extensions = c('Buttons', 'FixedHeader'),
+                  filter = 'top',
+                  rownames = F, options = list(
+          dom = 'lBfrtip',
+          buttons = c('copy', 'csv', 'excel'),
+          initComplete = JS(
+            "function(settings, json) {",
+            "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+            "}"),
+          searchHighlight = TRUE,
+          fixedHeader = TRUE,
+          autoWidth = TRUE
+        ))
+                  }, server = FALSE)
     } else {
-      output$output_table = DT::renderDataTable(values$display_per_cmpd)
+      output$output_table = DT::renderDataTable({
+        datatable(values$display_per_cmpd, extensions = c('Buttons','FixedHeader'),
+                  filter = 'top',
+                  rownames = F, options = list(
+          dom = 'lBfrtip',
+          buttons = c('copy', 'csv', 'excel'),
+          initComplete = JS(
+            "function(settings, json) {",
+            "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+            "}"),
+          searchHighlight = TRUE,
+          fixedHeader = TRUE,
+          autoWidth = TRUE
+        ))
+      })
     }
   })
 })

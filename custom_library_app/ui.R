@@ -4,8 +4,7 @@ library(shinyjs)
 library(DT)
 
 # logifySlider javascript function
-JS.logify <-
-  "
+JS.logify = "
 // function to logify a sliderInput
 function logifySlider (sliderId, sci = false) {
 if (sci) {
@@ -21,6 +20,7 @@ $('#'+sliderId).data('ionRangeSlider').update({
 }
 }"
 
+
 # call logifySlider for each relevant sliderInput
 JS.onload <-
   "
@@ -29,32 +29,21 @@ $(document).ready(function() {
 // wait a few ms to allow other scripts to execute
 setTimeout(function() {
 // include call for each slider
-logifySlider('affinity', sci = false)
+// logifySlider('affinity', sci = false)
 
 logifySlider('sd', sci = false)
-}, 5)})
-"
-
-JS.slider <-
-  "
-// test
-$(#affinity).ionRangeSlider({
-  grid: true,
-  min: 10,
-  max: 10000,
-  from: 1000,
-  values: [10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
-});
-"
+)}, 5)}"
 
 shinyUI(
   semanticPage(
     title = "Custom Library App",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
-    # tags$head(tags$script(HTML(JS.logify))),
-    # tags$head(tags$script(HTML(JS.onload))),
-    #tags$head(tags$script(HTML(JS.slider))),
+    #tags$head(tags$script(HTML(JS.logify))),
+    #tags$head(tags$script(HTML(JS.onload))),
+    inlineCSS(".form-control {
+  box-sizing: border-box;
+              }"),
     tags$style(type = "text/css", "
       .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
@@ -80,7 +69,9 @@ shinyUI(
         div(class = "ui main container attached segment",
           div(class="ui top secondary pointing menu", id = "tabs",
               a(class="item active", `data-tab`="tab1", "Gene input", id = "tab1_top"),
+              hidden(
               a(class="item", `data-tab`="tab2", "Results", id = "tab2_top")
+              )
           ),
       div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
         div(class = "ui stackable two column centered grid", 
@@ -146,12 +137,12 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
   radioButtons(inputId = "table", "", choiceNames = c("Display per entry", "Display per compound"),
                choiceValues = c("entry", "cmpd"), inline = T),
   DT::dataTableOutput("output_table")
-                )
+              )
+            )
           )
         )
       )
-    )
-  ),
+    ),
   div(class = "ui inverted vertical footer segment",
     div(class = "ui center aligned container",
       div(class = "ui horizontal inverted small divided link list",
