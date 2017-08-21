@@ -55,6 +55,25 @@ shinyUI(
                .irs-single {color:black; background:white; fond-size: 20px;}
                .irs-slider {width: 20px; height: 20px; top: 17px;}
                "),
+    div(class = "ui mini modal",
+        div(class = "actions",
+            div(class = "ui red basic circular cancel icon button", uiicon(type = "window close") )
+        ),
+        div(class = "ui center aligned basic segment",
+            h3("Website and application design"),
+            p("Nienke Moret, Marc Hafner, Nicholas Clark"),
+            h3("Application programming"),
+            p("Nienke Moret (R scripts), Nicholas Clark (R/Shiny application)"),
+            p("[others??]"),
+            p("[Developed at Sorger lab, Harvard Medical School]"),
+            br(),
+            p("[cite paper here]"),
+            h3("Links"),
+            p("[sorger lab website]"),
+            p("[github repo]"),
+            p("LINCS/BD2K website?")
+        )
+        ),
     div(class = "ui container",
     div(class = "ui top attached inverted menu",
       div(class = "ui container",
@@ -100,45 +119,52 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
         )
       ),
     div(class="ui bottom tab basic segment", `data-tab`="tab2", id = "tab2_bottom",
-        div(class = "ui two column centered grid",
-          div(class = "column",
-            a(class = "ui red ribbon label", "Maximum clinical phase"),
-            div(class = "ui form",
-              div(class = "ui raised segment",
-  radioButtons("clinical", "", choiceNames = c("None","Approved only","Approved and phase III only", "Approved and phases II and III only", "Approved and phases I, II, and III"), choiceValues = c("none","approved", "three", "two", "one"), selected = "approved"),
-  hr(),
+        div(class = "row",
+        div(class = "circular ui icon button action-button", uiicon(type = "caret right", id = "filter_right"),
+            hidden(uiicon(type = "caret down", id = "filter_down")), "Filters", id = "filter_button",
+        uiicon(type = "filter")
+        )
+        ),
+        br(),
+        hidden(
+          div(class = "ui form", id = "filters",
+        div(class = "ui four column centered grid",
+        div(class = "row",
+          div(class = "four wide column",
+          a(class = "ui red label", "Maximum clinical phase"),
+  selectizeInput("clinical", "", choices = list(Approved = "approved", `Phase III` = "three", 
+    `Phase II` = "two", `Phase I` = "one"), selected = "approved", multiple = T)
+  ),
+          div(class = "four wide column",
   sliderInput(inputId = "affinity", label = "Maximum Kd for query target (nM)",
-              min = 10, max = 10000, value = 1000),
+              min = 10, max = 10000, value = 1000)
+  ),
+           div(class = "four wide column",
   sliderInput(inputId = "meas", label = "Minimum number of measurements",
-              min = 1, max = 400, value = 2),
+              min = 1, max = 400, value = 2)
+  ),
+          div(class = "four wide column",
   sliderInput(inputId = "sd", label = "Maximum std. dev. of Kd (nM)",
               min = 10, max = 100000, value = 100)
-              )
+  )),
+        div(class = "row",
+          div(class = "four wide column",
+            a(class = "ui red label", "Probes"),
+  selectizeInput("probes", "", choices = list(`Best class` = "best", `Second Class` = "second", `Non-specific` = "non", `Unknown Selectivity` = "un"), selected = "best", multiple = T)
+              ),
+  div(class = "four wide column",
+            a(class = "ui red label", "Legacy compounds"),
+  selectizeInput("legacy", "", choices = c(`Gray best inhibitor list` = "gray", `chemicalprobes.org 4.0 star rating` = "chem_probe"), multiple = T)
+                  ),
+  div(class = "four wide column"),
+  div(class = "four wide column")
             )
-          ),
-          div(class = "column",
-            a(class = "ui red ribbon label", "Probes"),
-            div(class = "ui form",
-              div(class = "ui raised segment",
-  radioButtons("probes", "", choiceNames = c("None","Best class only", "Best class and second class only", "Best class, second class, and non-specific only", "All including compounds with unknown selectivity"), choiceValues = c("none","best", "second", "non", "un"), selected = "best")
-              )),
-                a(class = "ui red ribbon label", "Legacy compounds"),
-                div(class = "ui form",
-                  div(class = "ui raised segment",
-  checkboxGroupInput("legacy", "", choiceNames = c("Gray best inhibitor list", "chemicalprobes.org 4.0 star rating"), choiceValues = c("gray", "chem_probe"))
-                  )
-                )
-              )
-            ),
+  ))),
             div(class = "ui one column centered grid",
               div(class = "column",
-  hidden(
-                div(class = "ui form", id = "show_output_table",
   radioButtons(inputId = "table", "", choiceNames = c("Display per entry", "Display per compound"),
                choiceValues = c("entry", "cmpd"), inline = T),
   DT::dataTableOutput("output_table")
-              )
-            )
           )
         )
       )
@@ -146,11 +172,12 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
   div(class = "ui inverted vertical footer segment",
     div(class = "ui center aligned container",
       div(class = "ui horizontal inverted small divided link list",
-        a(class = "item", "About"),
-        a(class = "item", "Contact Us")
+        a(class = "item", div(class = "action-button", "About", id = "about") ),
+        a(class = "item", "Contact Us"),
+        a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/drug_browser")
       )
     )
   )
-    )
+)
 )
 )

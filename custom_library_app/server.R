@@ -17,18 +17,22 @@ all_genes = union(unique(selection_table_clindev$symbol), unique(selection_table
 
 # Names of classes in the selectivity table
 best = c("bestclass_I", "bestclass_II")
-second = c(best, "secondclass_I", "secondclass_II")
-non = c(best, second, "non_selective")
-un = c(best, second, non, "unknown_selectivity_I", "unknown_selectivity_II")
+second = c("secondclass_I", "secondclass_II")
+non = c("non_selective")
+un = c("unknown_selectivity_I", "unknown_selectivity_II")
 none = NULL
 # Names of phases in the clinical development table
 approved = "approved"
-three = c(approved, "max_phase_3")
-two = c(three, "max_phase_2")
-one = c(two, "max_phase_1")
+three = c("max_phase_3")
+two = c("max_phase_2")
+one = c("max_phase_1")
 
 tab.js = "$('.menu .item')
   .tab()
+;"
+
+about.modal.js = "$('.ui.mini.modal')
+  .modal('show')
 ;"
 
 shinyServer(function(input, output, session) {
@@ -40,6 +44,11 @@ shinyServer(function(input, output, session) {
                           display_per_cmpd = NULL, display_per_entry = NULL)
   # Make app stop when you close the webpage
   session$onSessionEnded(stopApp)
+  
+  # Load "about" modal
+  observeEvent(input$about, {
+    runjs(about.modal.js)
+  })
   
   # Load example gene set of kinases
   observeEvent(eventExpr = input$load_example_kinases, handlerExpr = {
@@ -131,9 +140,11 @@ shinyServer(function(input, output, session) {
     })
   })
 
-  # Show output table after submit button is clicked
-  observeEvent(input$submitButton, {
-    showElement(id = "show_output_table", anim = T, animType = "fade")
+  # Toggle filters when button is clicked
+  observeEvent(input$filter_button, {
+    toggleElement(id = "filters", anim = T, animType = "fade")
+    toggleElement(id = "filter_down")
+    toggleElement(id = "filter_right")
   })
   
   # display correct table
