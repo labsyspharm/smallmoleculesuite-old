@@ -9,6 +9,9 @@ selection_table_selectivity = read_csv("selection_table_selectivity_edited.csv")
 selection_table_clindev = read_csv("selection_table_clinical_development.csv")
 merge_cmpd_info = read_csv("cmpd_info_library_designer.csv")
 merge_table_geneinfo = read_csv("gene_info_library_designer.csv")
+
+selection_table_selectivity$SD_aff = NA
+
 # table for kinase example
 kinase_example = read_tsv("kinhub_kinases.tsv")
 
@@ -119,12 +122,13 @@ shinyServer(function(input, output, session) {
       output_clindev = selection_table_clindev %>%
         filter_(~symbol %in% values$gene_list_found) %>%
         filter_(~source %in% values$clinical) %>%
-        filter_(~mean_Kd <= input$affinity) %>%
-        filter_(~SD_aff <= input$sd | is.na(SD_aff)) %>%
+        # sliders "sd" and "affinity" are in log10 scale
+        filter_(~mean_Kd <= 10^input$affinity) %>%
+        filter_(~SD_aff <= 10^input$sd | is.na(SD_aff)) %>%
         filter_(~n_measurement >= input$meas)
-      output_table = rbind(output_selectivity[c("gene_id","molregno","mean_Kd",
+      output_table = rbind(output_selectivity[c("gene_id","molregno","mean_Kd", "SD_aff",
                                                  "n_measurement","source")],
-                            output_clindev[c("gene_id","molregno","mean_Kd",
+                            output_clindev[c("gene_id","molregno","mean_Kd", "SD_aff",
                                              "n_measurement","source")])
       print(output_table)
       values$display_per_entry = unique(output_table %>%
@@ -133,7 +137,7 @@ shinyServer(function(input, output, session) {
         merge(merge_table_geneinfo,by="gene_id"))
   
       values$display_per_entry = values$display_per_entry[c("symbol","chembl_id",
-        "pref_name","source","max_phase","mean_Kd","n_measurement",
+        "pref_name","source","max_phase","mean_Kd", "SD_aff","n_measurement",
         "gene_id","tax_id")]
       values$display_per_entry = values$display_per_entry %>% mutate(
         symbol = factor(symbol), chembl_id = factor(chembl_id), pref_name = factor(pref_name),

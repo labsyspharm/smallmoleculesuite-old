@@ -4,43 +4,39 @@ library(shinyjs)
 library(DT)
 
 # logifySlider javascript function
-JS.logify = "
+JS.logify <-
+  "
 // function to logify a sliderInput
-function logifySlider (sliderId, sci = false) {
-if (sci) {
-// scientific style
-$('#'+sliderId).data('ionRangeSlider').update({
-'prettify': function (num) { return ('10<sup>'+num+'</sup>'); }
-})
-} else {
+function logifySlider (sliderId) {
 // regular number style
 $('#'+sliderId).data('ionRangeSlider').update({
-'prettify': function (num) { return (Math.pow(10, num)); }
-})
+'prettify': function (num) {
+  return (Math.pow(10, num).toLocaleString());
 }
+})
 }"
-
 
 # call logifySlider for each relevant sliderInput
 JS.onload <-
-  "
+"
 // execute upon document loading
 $(document).ready(function() {
 // wait a few ms to allow other scripts to execute
 setTimeout(function() {
 // include call for each slider
-// logifySlider('affinity', sci = false)
+logifySlider('sd')
+logifySlider('affinity')
+}, 5)})
+"
 
-logifySlider('sd', sci = false)
-)}, 5)}"
 
 shinyUI(
   semanticPage(
     title = "Custom Library App",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
-    #tags$head(tags$script(HTML(JS.logify))),
-    #tags$head(tags$script(HTML(JS.onload))),
+    tags$head(tags$script(HTML(JS.logify))),
+    tags$head(tags$script(HTML(JS.onload))),
     inlineCSS(".form-control {
   box-sizing: border-box;
               }"),
@@ -48,8 +44,8 @@ shinyUI(
       .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
                .irs-line {border: 0px solid black; height: 5px; border-radius: 0px;}
-               .irs-grid-pol {display: none;}
-               .irs-grid-text {font-size: 0px;}
+               //.irs-grid-pol {display: none;}
+               .irs-grid-text {font-size: 10px;}
                .irs-max {font-family: 'arial'; color: black;}
                .irs-min {font-family: 'arial'; color: black;}
                .irs-single {color:black; background:white; fond-size: 20px;}
@@ -116,14 +112,15 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
           )
         ),
         div(class="ui bottom tab basic segment", `data-tab`="tab2", id = "tab2_bottom",
-          div(class = "row",
+          div(class = "ui segment",
+            div(class = "row",
     div(class = "circular ui icon button action-button", uiicon(type = "caret right", id = "filter_right"),
     hidden(uiicon(type = "caret down", id = "filter_down")), "Filters", id = "filter_button",
       uiicon(type = "filter")
     )
           ),
-    br(),
     hidden(
+          br(),
           div(class = "ui form", id = "filters",
             div(class = "ui two column centered grid",
               div(class = "row",
@@ -135,7 +132,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                 ),
                 div(class = "four wide column",
   sliderInput(inputId = "affinity", label = "Maximum Kd for query target (nM)",
-    min = 10, max = 10000, value = 1000)
+    min = log10(10), max = log10(10000), value = log10(1000))
                 )
               ),
               div(class = "row",
@@ -147,7 +144,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                 ),
                 div(class = "four wide column",
   sliderInput(inputId = "meas", label = "Minimum number of measurements",
-    min = 1, max = 400, value = 2)
+    min = 1, max = 40, value = 2)
                 )
               ),
               div(class = "row",
@@ -157,11 +154,12 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                 ),
                 div(class = "four wide column",
   sliderInput(inputId = "sd", label = "Maximum std. dev. of Kd (nM)",
-    min = 10, max = 100000, value = 100)
+    min = log10(10), max = log10(100000), value = log10(100))
                 )
               )
             )
-          )),
+          ))
+  ),
           div(class = "ui one column centered grid",
             div(class = "column",
   radioButtons(inputId = "table", "", choiceNames = c("Display per entry", "Display per compound"),
