@@ -82,38 +82,51 @@ shinyServer(function(input, output, session) {
     output$gene_total = renderText({ paste(length(values$gene_list_found), "gene(s) entered.") })
   })
   
-  # Get probe class selections
-  observeEvent(input$probes, {
-    print(input$probes)
-    values$probes = get(input$probes)
-    print(values$probes)
-  })
-  
-  # Get clinical phase selections
-  observeEvent(input$clinical, {
-    print(input$clinical)
-    values$clinical = get(input$clinical)
-    print(values$clinical)
-  })
-  
   observeEvent(input$submitButton, {
     values$submitted = T
+    # Get probe class selections
+    observeEvent(input$probes, {
+      print(input$probes)
+      values$probes = NULL
+      if(!is.null(input$probes)) {
+        for(i in 1:length(input$probes)) {
+          values$probes = c(values$probes, get(input$probes[i]))
+        }
+      } else {
+        values$probes = NULL
+      }
+      print(values$probes)
+    }, ignoreNULL = F)
+    
+    # Get clinical phase selections
+    observeEvent(input$clinical, {
+      print(input$clinical)
+      if(!is.null(input$clinical)) {
+        values$clinical = NULL
+        for(i in 1:length(input$clinical)) {
+          values$clinical = c(values$clinical, get(input$clinical[i]))
+        }
+      } else {
+        values$clinical = NULL
+      }
+      print(values$clinical)
+    }, ignoreNULL = F)
     observeEvent(c(input$clinical, input$probes, input$meas, 
                    input$sd, input$affinity, input$legacy), {
       output_selectivity = selection_table_selectivity %>%
-        filter_(~symbol %in% values$gene_list_found) %>%
-        filter_(~source %in% values$probes)
+        filter(symbol %in% values$gene_list_found) %>%
+        filter(source %in% values$probes)
       output_clindev = selection_table_clindev %>%
         filter_(~symbol %in% values$gene_list_found) %>%
         filter_(~source %in% values$clinical) %>%
         filter_(~mean_Kd <= input$affinity) %>%
-        filter_(~SD_aff <= input$sd) %>%
-        filter_(~n_measurement>= input$meas)
+        filter_(~SD_aff <= input$sd | is.na(SD_aff)) %>%
+        filter_(~n_measurement >= input$meas)
       output_table = rbind(output_selectivity[c("gene_id","molregno","mean_Kd",
                                                  "n_measurement","source")],
                             output_clindev[c("gene_id","molregno","mean_Kd",
                                              "n_measurement","source")])
-      
+      print(output_table)
       values$display_per_entry = unique(output_table %>%
         merge(merge_cmpd_info[c("molregno","chembl_id","pref_name","max_phase")],
               by="molregno") %>%
@@ -137,7 +150,7 @@ shinyServer(function(input, output, session) {
         molregno = factor(molregno), chembl_id = factor(chembl_id), pref_name = factor(pref_name),
         max_phase = as.integer(max_phase)
       )
-    })
+    }, ignoreNULL = F)
   })
 
   # Toggle filters when button is clicked

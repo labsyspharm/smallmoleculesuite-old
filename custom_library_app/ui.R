@@ -166,6 +166,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
             div(class = "column",
   radioButtons(inputId = "table", "", choiceNames = c("Display per entry", "Display per compound"),
     choiceValues = c("entry", "cmpd"), inline = T),
+  br(),
   DT::dataTableOutput("output_table")
             )
           )
