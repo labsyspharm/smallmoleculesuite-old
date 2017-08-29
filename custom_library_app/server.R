@@ -172,7 +172,7 @@ shinyServer(function(input, output, session) {
                   filter = 'top',
                   rownames = F, options = list(
           dom = 'lBfrtip',
-          buttons = c('copy', 'csv', 'excel'),
+          buttons = c('copy', 'csv', 'excel', 'colvis'),
           initComplete = JS(
             "function(settings, json) {",
             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
@@ -188,11 +188,13 @@ shinyServer(function(input, output, session) {
                   filter = 'top',
                   rownames = F, options = list(
           dom = 'lBfrtip',
-          buttons = c('copy', 'csv', 'excel'),
+          buttons = c('copy', 'csv', 'excel', 'colvis'),
           initComplete = JS(
             "function(settings, json) {",
             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
             "}"),
+          # hide molregno column
+          columnDefs = list(list(visible=FALSE, targets=0)),
           searchHighlight = TRUE,
           fixedHeader = TRUE,
           autoWidth = TRUE
