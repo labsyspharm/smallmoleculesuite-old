@@ -37,9 +37,11 @@ shinyUI(
     suppressDependencies("bootstrap"),
     tags$head(tags$script(HTML(JS.logify))),
     tags$head(tags$script(HTML(JS.onload))),
+    # CSS for sizing of data table search boxes
     inlineCSS(".form-control {
   box-sizing: border-box;
               }"),
+    # CSS for slider styling
     tags$style(type = "text/css", "
       .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
@@ -50,6 +52,14 @@ shinyUI(
                .irs-single {color:black; background:white; fond-size: 20px;}
                .irs-slider {width: 20px; height: 20px; top: 17px;}
                "),
+    # CSS for hiding border on horizontal segments and making them fixed width
+    tags$style(type = "text/css", "
+      .ui.noshadow.segments {
+          box-shadow: none;
+          border: none;
+               }
+               "
+    ),
     div(class = "ui mini modal",
       div(class = "actions",
         div(class = "ui red basic circular cancel icon button", uiicon(type = "window close")
@@ -113,70 +123,97 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
         div(class="ui bottom tab basic segment", `data-tab`="tab2", id = "tab2_bottom",
           div(class = "ui segment",
             div(class = "row",
-    div(class = "circular ui icon button action-button", uiicon(type = "caret right", id = "filter_right"),
-    hidden(uiicon(type = "caret down", id = "filter_down")), "Filters", id = "filter_button",
+    div(class = "circular ui icon button action-button", uiicon(type = "caret down", id = "filter_right"),
+    hidden(uiicon(type = "caret right", id = "filter_down")), "Filters", id = "filter_button",
       uiicon(type = "filter")
     )
           ),
-    hidden(
           br(),
           div(class = "ui form", id = "filters",
-            div(class = "ui four column centered grid",
-              div(class = "row",
-                div(class = "four wide column",
-                  div(class = "ui inverted segment",
-    p("First, select up to which selectivity level you want chemical probes to be included in the library.")
-                  )
-                ),
-                div(class = "four wide column",
+            div(class = "ui stackable two column centered grid container",
+              div(class = "column", id = "col1and2",
+                div(class = "row",
+                  div(class = "ui noshadow horizontal segments",
+                    tags$style(type='text/css', "#col1and2 { min-width: 500px; width: 500px;}"),
+                    tags$style(type='text/css', "#col1 { min-width: 300px; width: 300px; border-left: 0px;
+          border-right: 0px;}"),
+                    tags$style(type='text/css', "#col2 { min-width: 200px; width: 200px; border-left: 0px;
+          border-right: 0px;}"),
+                    tags$style(type='text/css', "#col3 { min-width: 300px; width: 300px;}"),
+                    div(class = "ui basic segment", id = "col1",
+                      h5(class = "ui attached inverted header", "First"),
+                      div(class = "ui inverted attached segment",
+    p("Select the selectivity levels for which you want chemical probes to be included in the library.")
+                      )
+                    ),
+                    div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Probes"),
   selectizeInput("probes", "", choices = list(`Best class` = "best", 
     `Second Class` = "second", `Non-specific` = "non", 
     `Unknown Selectivity` = "un"), selected = "best", multiple = T)
-                ),
-                div(class = "one wide column"),
-                div(class = "four wide column",
-  sliderInput(inputId = "affinity", label = "Maximum Kd for query target (nM)",
-    min = log10(10), max = log10(10000), value = log10(1000))
-                )
-              ),
-              div(class = "row",
-                div(class = "four wide column",
-                  div(class = "ui segment inverted",
-  p("Second, select compound in clinical development to be added to the library.")
+                    )
                   )
                 ),
-                div(class = "four wide column",
+                div(class = "row",
+                  div(class = "ui noshadow horizontal segments",
+                    div(class = "ui basic segment", id = "col1",
+                      h5(class = "ui attached inverted header", "Second"),
+                      div(class = "ui inverted attached segment",
+                        p("Select compound in clinical development to be added to the library.")
+                      )
+                    ),
+                    div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Maximum clinical phase"),
   selectizeInput("clinical", "", choices = list(Approved = "approved", 
     `Phase III` = "three", `Phase II` = "two", `Phase I` = "one"), 
     selected = "approved", multiple = T)
-                ),
-                div(class = "one wide column"),
-                div(class = "four wide column",
-  sliderInput(inputId = "meas", label = "Minimum number of measurements",
-    min = 1, max = 40, value = 2)
-                )
-              ),
-              div(class = "row",
-                div(class = "four wide column",
-                  div(class = "ui segment inverted",
-                    p("Lastly, select compounds that are endorsed by other users to be added to the library.")
+                    )
                   )
                 ),
-                div(class = "four wide column",
+                div(class = "row",
+                  div(class = "ui noshadow horizontal segments",
+                    div(class = "ui basic segment", id = "col1",
+  h5(class = "ui attached inverted header", "Lastly"),
+  div(class = "ui inverted attached segment",
+    p("Select compound in clinical development to be added to the library.")
+  )
+                    ),
+                    div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Legacy compounds"),
-  selectizeInput("legacy", "", choices = c(`Gray best inhibitor list` = "gray", `chemicalprobes.org 4.0 star rating` = "chem_probe"), multiple = T)
-                ),
-                div(class = "one wide column"),
-                div(class = "four wide column",
-  sliderInput(inputId = "sd", label = "Maximum std. dev. of Kd (nM)",
-    min = log10(10), max = log10(100000), value = log10(100))
+  selectizeInput("legacy", "", choices = c(`Gray best inhibitor list` = "gray",
+    `chemicalprobes.org 4.0 star rating` = "chem_probe"), multiple = T)
+                    )
+                  )
                 )
+              ),
+              div(class = "padded column", id = "col3",
+                div(class = "ui center aligned segment inverted",
+                  h3(class = "ui header inverted",
+                    uiicon(type = "options"),
+                    div(class = "content", "Filter drugs",
+                      div(class = "sub header inverted",
+                        "Refine binding filters for compound in clinical development.")
+                    )
+                  )
+                ),
+                div(class = "ui center aligned basic segment",
+                  div(class = "row",
+  sliderInput(inputId = "affinity", label = "Maximum Kd for query target (nM)",
+              min = log10(10), max = log10(10000), value = log10(1000))
+                  ),
+                  div(class = "row",
+  sliderInput(inputId = "meas", label = "Minimum number of measurements",
+              min = 1, max = 40, value = 2)
+                  ),
+                  div(class = "row",
+  sliderInput(inputId = "sd", label = "Maximum std. dev. of Kd (nM)",
+              min = log10(10), max = log10(100000), value = log10(100))
+                  )
+                )
+  )
               )
             )
-          ))
-  ),
+          ),
           div(class = "ui one column centered grid",
             div(class = "column",
   radioButtons(inputId = "table", "", choiceNames = c("Display per entry", "Display per compound"),
