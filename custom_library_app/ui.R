@@ -44,7 +44,6 @@ shinyUI(
       .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
                .irs-line {border: 0px solid black; height: 5px; border-radius: 0px;}
-               //.irs-grid-pol {display: none;}
                .irs-grid-text {font-size: 10px;}
                .irs-max {font-family: 'arial'; color: black;}
                .irs-min {font-family: 'arial'; color: black;}
@@ -122,14 +121,20 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
     hidden(
           br(),
           div(class = "ui form", id = "filters",
-            div(class = "ui two column centered grid",
+            div(class = "ui four column centered grid",
               div(class = "row",
+                div(class = "four wide column",
+                  div(class = "ui inverted segment",
+    p("First, select up to which selectivity level you want chemical probes to be included in the library.")
+                  )
+                ),
                 div(class = "four wide column",
   a(class = "ui red label", "Probes"),
   selectizeInput("probes", "", choices = list(`Best class` = "best", 
     `Second Class` = "second", `Non-specific` = "non", 
     `Unknown Selectivity` = "un"), selected = "best", multiple = T)
                 ),
+                div(class = "one wide column"),
                 div(class = "four wide column",
   sliderInput(inputId = "affinity", label = "Maximum Kd for query target (nM)",
     min = log10(10), max = log10(10000), value = log10(1000))
@@ -137,11 +142,17 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
               ),
               div(class = "row",
                 div(class = "four wide column",
+                  div(class = "ui segment inverted",
+  p("Second, select compound in clinical development to be added to the library.")
+                  )
+                ),
+                div(class = "four wide column",
   a(class = "ui red label", "Maximum clinical phase"),
   selectizeInput("clinical", "", choices = list(Approved = "approved", 
     `Phase III` = "three", `Phase II` = "two", `Phase I` = "one"), 
     selected = "approved", multiple = T)
                 ),
+                div(class = "one wide column"),
                 div(class = "four wide column",
   sliderInput(inputId = "meas", label = "Minimum number of measurements",
     min = 1, max = 40, value = 2)
@@ -149,9 +160,15 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
               ),
               div(class = "row",
                 div(class = "four wide column",
+                  div(class = "ui segment inverted",
+                    p("Lastly, select compounds that are endorsed by other users to be added to the library.")
+                  )
+                ),
+                div(class = "four wide column",
   a(class = "ui red label", "Legacy compounds"),
   selectizeInput("legacy", "", choices = c(`Gray best inhibitor list` = "gray", `chemicalprobes.org 4.0 star rating` = "chem_probe"), multiple = T)
                 ),
+                div(class = "one wide column"),
                 div(class = "four wide column",
   sliderInput(inputId = "sd", label = "Maximum std. dev. of Kd (nM)",
     min = log10(10), max = log10(100000), value = log10(100))
