@@ -98,8 +98,8 @@ shinyUI(
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
           div(class = "ui stackable two column centered grid", 
             div(class = "five wide column",
-  h4(class="ui horizontal divider header", "Type/paste genes below", uiicon("paste")),
-              a(class = "ui red ribbon label", "Genes/targets"),
+  h4(class="ui horizontal divider header", "Type/paste gene symbols below", uiicon("paste")),
+              a(class = "ui red ribbon label", "Genes (drug targets)"),
                 div(class = "ui form",
   textAreaInput(inputId = "gene_list", label = "", value = "", placeholder = "MTOR\nRPS6KB1\nAKT\n...\netc.")
             ),
@@ -160,7 +160,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                       )
                     ),
                     div(class = "ui basic segment", id = "col1",
-  p("Select the selectivity levels for which you want chemical probes to be included in the library.", id = "steps")
+  p("Choose the selectivity levels for which you want chemical probes to be included in the library.", id = "steps")
                     ),
                     div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Probes"),
@@ -180,7 +180,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                       )
                     ),
                     div(class = "ui basic segment", id = "col1",
-  p("Select compound in clinical development to be added to the library.", id = "steps")
+  p("Select compounds in clinical development to be added to the library.", id = "steps")
                     ),
                     div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Maximum clinical phase"),
@@ -200,7 +200,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                         )
                     ),
                     div(class = "ui basic segment", id = "col1",
-  p("Select compound in clinical development to be added to the library.", id = "steps")
+  p("Select compounds that are endorsed by other users to be added to the library", id = "steps")
                     ),
                     div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Legacy compounds"),
