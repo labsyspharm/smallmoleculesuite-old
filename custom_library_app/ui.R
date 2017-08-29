@@ -82,12 +82,12 @@ shinyUI(
       )
     ),
     div(class = "ui container",
-      div(class = "ui top attached inverted menu",
-        div(class = "ui container",
-          a(class = "header item", img(class = "logo", src = "logo_harvard_150.png") ),
-          a(class = "item", "Query Drug App"),
-          a(class = "item", "Query Gene App"),
-          a(class = "item", "Custom Library App")
+      div(class = "ui top attached inverted four item menu",
+        div(class = "ui center aligned container",
+            a(class = "header item", img(class = "logo", src = "logo_harvard_150.png") ),
+            a(class = "item", "Custom Library App"),
+            a(class = "item", "Query Drug App"),
+            a(class = "item", "Query Gene App")
         )
       ),
       div(class = "ui main container attached segment",
@@ -114,7 +114,7 @@ shinyUI(
             ),
             div(class = "ten wide column",
               div(class = "ui form",
-                div(class = "ui segment text container",
+                div(class = "ui segment",
   h3("Description"),
   p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consectetur rutrum magna sed blandit. Aliquam erat volutpat. Aliquam erat volutpat. In hac habitasse platea dictumst. Suspendisse ut purus semper, dapibus odio nec, iaculis purus. Morbi ut scelerisque lacus. Cras tincidunt quis diam sit amet vestibulum.
 
@@ -139,11 +139,11 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
               div(class = "column", id = "col01and2",
                 div(class = "row",
                   div(class = "ui noshadow horizontal segments",
-                    tags$style(type='text/css', "#col01and2 { min-width: 500px; width: 500px; border-left: 0px;
+                    tags$style(type='text/css', "#col01and2 { min-width: 550px; width: 550px; border-left: 0px;
           border-right: 0px;}}"),
                     tags$style(type='text/css', "#col0 { min-width: 100px; width: 100px; border-left: 0px;
           border-right: 0px;}"),
-                    tags$style(type='text/css', "#col1 { min-width: 200px; width: 200px; border-left: 0px;
+                    tags$style(type='text/css', "#col1 { min-width: 250px; width: 250px; border-left: 0px;
           border-right: 0px;}"),
                     tags$style(type='text/css', "#col2 { min-width: 200px; width: 200px; border-left: 0px;
           border-right: 0px;}"),
@@ -152,6 +152,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
           border-right: 0px;}"),
                     tags$style(type='text/css', "#col5 { min-width: 200px; width: 200px; border-left: 0px;
           border-right: 0px;}"),
+                    tags$style(type='text/css', "#steps { font-size: medium; }"),
                     div(class = "ui basic compact segment", id = "col0",
                       h2(class = "ui header",
                         uiicon("bullseye"),
@@ -159,13 +160,14 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                       )
                     ),
                     div(class = "ui basic segment", id = "col1",
-      p("Select the selectivity levels for which you want chemical probes to be included in the library.")
+  p("Select the selectivity levels for which you want chemical probes to be included in the library.", id = "steps")
                     ),
                     div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Probes"),
   selectizeInput("probes", "", choices = list(`Best class` = "best", 
     `Second Class` = "second", `Non-specific` = "non", 
-    `Unknown Selectivity` = "un"), selected = "best", multiple = T)
+    `Unknown Selectivity` = "un"), selected = "best", multiple = T, options = list(
+      'plugins' = list('remove_button')))
                     )
                   )
                 ),
@@ -178,13 +180,14 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                       )
                     ),
                     div(class = "ui basic segment", id = "col1",
-                      p("Select compound in clinical development to be added to the library.")
+  p("Select compound in clinical development to be added to the library.", id = "steps")
                     ),
                     div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Maximum clinical phase"),
   selectizeInput("clinical", "", choices = list(Approved = "approved", 
     `Phase III` = "three", `Phase II` = "two", `Phase I` = "one"), 
-    selected = "approved", multiple = T)
+    selected = "approved", multiple = T, options = list(
+      'plugins' = list('remove_button')))
                     )
                   )
                 ),
@@ -197,12 +200,13 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                         )
                     ),
                     div(class = "ui basic segment", id = "col1",
-    p("Select compound in clinical development to be added to the library.")
+  p("Select compound in clinical development to be added to the library.", id = "steps")
                     ),
                     div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Legacy compounds"),
   selectizeInput("legacy", "", choices = c(`Gray best inhibitor list` = "gray",
-    `chemicalprobes.org 4.0 star rating` = "chem_probe"), multiple = T)
+    `chemicalprobes.org 4.0 star rating` = "chem_probe"), multiple = T, options = list(
+      'plugins' = list('remove_button')))
                     )
                   )
                 )
@@ -217,7 +221,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                       )
                     ),
                     div(class = "ui basic segment", id = "col5",
-                      p("Refine binding filters for compound in clinical development.")
+  p("Refine binding filters for compound in clinical development.", id = "steps")
                     )
                   )
                 ),
@@ -252,7 +256,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
       ),
       div(class = "ui inverted vertical footer segment",
         div(class = "ui center aligned container",
-          div(class = "ui horizontal inverted small divided link list",
+          div(class = "ui horizontal inverted large divided link list",
   a(class = "item", div(class = "action-button", "About", id = "about") ),
   a(class = "item", "Contact Us"),
   a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/drug_browser")

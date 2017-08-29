@@ -143,7 +143,10 @@ shinyServer(function(input, output, session) {
         symbol = factor(symbol), chembl_id = factor(chembl_id), pref_name = factor(pref_name),
         source = factor(source), gene_id = factor(gene_id), tax_id = factor(tax_id),
         max_phase = as.integer(max_phase)
-      )
+      ) %>% mutate_at(c("mean_Kd", "SD_aff"), funs(if_else(. > 1, round(.,1), signif(.,2)))) %>%
+        rename(`mean_Kd_(nM)` = mean_Kd, `SD_Kd_(nM)` = SD_aff, reason_included = source)
+      # rounds mean and SD to closest 0.1 if greater than 1.
+      # if less than one, rounds to two significant digits.
 
       values$display_per_cmpd = unique(output_table %>%
         merge(merge_cmpd_info[c("molregno","chembl_id","pref_name",
@@ -153,7 +156,7 @@ shinyServer(function(input, output, session) {
         summarise(sources=toString(paste0(symbol,";",source))) %>% as.data.frame %>% mutate(
         molregno = factor(molregno), chembl_id = factor(chembl_id), pref_name = factor(pref_name),
         max_phase = as.integer(max_phase)
-      )
+      ) %>% rename(reason_included = sources)
     }, ignoreNULL = F)
   })
 
