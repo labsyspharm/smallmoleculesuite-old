@@ -57,8 +57,9 @@ shinyUI(
       .ui.noshadow.segments {
           box-shadow: none;
           border: none;
-               }
-               "
+          margin-top: 0px;
+          margin-bottom: 0px;
+      }"
     ),
     div(class = "ui mini modal",
       div(class = "actions",
@@ -97,6 +98,7 @@ shinyUI(
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
           div(class = "ui stackable two column centered grid", 
             div(class = "five wide column",
+  h4(class="ui horizontal divider header", "Type/paste genes below", uiicon("paste")),
               a(class = "ui red ribbon label", "Genes/targets"),
                 div(class = "ui form",
   textAreaInput(inputId = "gene_list", label = "", value = "", placeholder = "MTOR\nRPS6KB1\nAKT\n...\netc.")
@@ -104,13 +106,15 @@ shinyUI(
   br(),
   div(class = "ui button red action-button", "Submit", id = "submitButton"),
   br(),
-  actionLink("load_example_kinases", "Load Example"),
   textOutput("gene_total"),
-  textOutput("search_genes")
+  textOutput("search_genes"),
+    h4(class="ui horizontal divider header",
+       div(class = "item action-button shiny-bound-input", id = "load_example_kinases",
+       a(class = "action-button", "Or load example", uiicon("lightning"), href = "#")))
             ),
             div(class = "ten wide column",
               div(class = "ui form",
-                div(class = "ui raised segment",
+                div(class = "ui segment text container",
   h3("Description"),
   p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consectetur rutrum magna sed blandit. Aliquam erat volutpat. Aliquam erat volutpat. In hac habitasse platea dictumst. Suspendisse ut purus semper, dapibus odio nec, iaculis purus. Morbi ut scelerisque lacus. Cras tincidunt quis diam sit amet vestibulum.
 
@@ -121,30 +125,41 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
           )
         ),
         div(class="ui bottom tab basic segment", `data-tab`="tab2", id = "tab2_bottom",
-          div(class = "ui segment",
-            div(class = "row",
-    div(class = "circular ui icon button action-button", uiicon(type = "caret down", id = "filter_right"),
-    hidden(uiicon(type = "caret right", id = "filter_down")), "Filters", id = "filter_button",
-      uiicon(type = "filter")
-    )
-          ),
-          br(),
+            style = "padding: 0px;",
+          div(class = "ui basic segment", style = "padding: 0px;",
+            h4(class="ui horizontal divider header",
+              div(class = "item action-button shiny-bound-input", id = "filter_button",
+                a(class = "action-button", p(uiicon("caret down", id = "filter_right"),
+                  hidden(uiicon(type = "caret right", id = "filter_down")),
+                  "Show/hide filters", uiicon(type = "filter")), href = "#")
+              )
+            ),
           div(class = "ui form", id = "filters",
-            div(class = "ui stackable two column centered grid container",
-              div(class = "column", id = "col1and2",
+            div(class = "ui stackable two column grid container",
+              div(class = "column", id = "col01and2",
                 div(class = "row",
                   div(class = "ui noshadow horizontal segments",
-                    tags$style(type='text/css', "#col1and2 { min-width: 500px; width: 500px;}"),
-                    tags$style(type='text/css', "#col1 { min-width: 300px; width: 300px; border-left: 0px;
+                    tags$style(type='text/css', "#col01and2 { min-width: 500px; width: 500px; border-left: 0px;
+          border-right: 0px;}}"),
+                    tags$style(type='text/css', "#col0 { min-width: 100px; width: 100px; border-left: 0px;
+          border-right: 0px;}"),
+                    tags$style(type='text/css', "#col1 { min-width: 200px; width: 200px; border-left: 0px;
           border-right: 0px;}"),
                     tags$style(type='text/css', "#col2 { min-width: 200px; width: 200px; border-left: 0px;
           border-right: 0px;}"),
                     tags$style(type='text/css', "#col3 { min-width: 300px; width: 300px;}"),
-                    div(class = "ui basic segment", id = "col1",
-                      h5(class = "ui attached inverted header", "First"),
-                      div(class = "ui inverted attached segment",
-    p("Select the selectivity levels for which you want chemical probes to be included in the library.")
+                    tags$style(type='text/css', "#col4 { min-width: 100px; width: 100px; border-left: 0px;
+          border-right: 0px;}"),
+                    tags$style(type='text/css', "#col5 { min-width: 200px; width: 200px; border-left: 0px;
+          border-right: 0px;}"),
+                    div(class = "ui basic compact segment", id = "col0",
+                      h2(class = "ui header",
+                        uiicon("bullseye"),
+                        div(class = "content", 1)
                       )
+                    ),
+                    div(class = "ui basic segment", id = "col1",
+      p("Select the selectivity levels for which you want chemical probes to be included in the library.")
                     ),
                     div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Probes"),
@@ -156,11 +171,14 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                 ),
                 div(class = "row",
                   div(class = "ui noshadow horizontal segments",
-                    div(class = "ui basic segment", id = "col1",
-                      h5(class = "ui attached inverted header", "Second"),
-                      div(class = "ui inverted attached segment",
-                        p("Select compound in clinical development to be added to the library.")
+                    div(class = "ui basic compact segment", id = "col0",
+                      h2(class = "ui header",
+                        uiicon("pie chart"),
+                        div(class = "content", 2)
                       )
+                    ),
+                    div(class = "ui basic segment", id = "col1",
+                      p("Select compound in clinical development to be added to the library.")
                     ),
                     div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Maximum clinical phase"),
@@ -172,11 +190,14 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                 ),
                 div(class = "row",
                   div(class = "ui noshadow horizontal segments",
+                    div(class = "ui basic compact segment", id = "col0",
+                        h2(class = "ui header",
+                           uiicon("add square"),
+                           div(class = "content", 3)
+                        )
+                    ),
                     div(class = "ui basic segment", id = "col1",
-  h5(class = "ui attached inverted header", "Lastly"),
-  div(class = "ui inverted attached segment",
     p("Select compound in clinical development to be added to the library.")
-  )
                     ),
                     div(class = "ui basic segment", id = "col2",
   a(class = "ui red label", "Legacy compounds"),
@@ -186,17 +207,22 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                   )
                 )
               ),
-              div(class = "padded column", id = "col3",
-                div(class = "ui center aligned segment inverted",
-                  h3(class = "ui header inverted",
-                    uiicon(type = "options"),
-                    div(class = "content", "Filter drugs",
-                      div(class = "sub header inverted",
-                        "Refine binding filters for compound in clinical development.")
+              div(class = "centered column", id = "col3",
+                div(class = "row",
+                  div(class = "ui noshadow horizontal segments",
+                    div(class = "ui basic segment", id = "col4",
+                      h2(class = "ui header",
+                        uiicon("options"),
+                        div(class = "content", 4)
+                      )
+                    ),
+                    div(class = "ui basic segment", id = "col5",
+                      p("Refine binding filters for compound in clinical development.")
                     )
                   )
                 ),
-                div(class = "ui center aligned basic segment",
+                div(class = "ui center aligned basic compact segment", style="
+    padding-top: 0px; margin: 0px;",
                   div(class = "row",
   sliderInput(inputId = "affinity", label = "Maximum Kd for query target (nM)",
               min = log10(10), max = log10(10000), value = log10(1000))
@@ -210,10 +236,10 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
               min = log10(10), max = log10(100000), value = log10(100))
                   )
                 )
-  )
               )
             )
           ),
+  h4(class="ui horizontal divider header", "Output table", uiicon("table"), style = "margin: 0px;"),
           div(class = "ui one column centered grid",
             div(class = "column",
   radioButtons(inputId = "table", "", choiceNames = c("Display per entry", "Display per compound"),
@@ -231,6 +257,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
   a(class = "item", "Contact Us"),
   a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/drug_browser")
           )
+        )
         )
       )
     )
