@@ -81,7 +81,7 @@ shinyUI(
       )
     ),
     div(class = "ui container",
-      div(class = "ui top attached inverted five item menu",
+      div(class = "ui top attached inverted five item stackable menu",
         div(class = "ui center aligned container",
             a(class = "item", img(class = "logo", src = "dcic.png"),
               href = "http://lincs-dcic.org"),
@@ -92,7 +92,7 @@ shinyUI(
               href = "http://sorger.med.harvard.edu" )
         )
       ),
-      div(class = "ui main container attached segment",
+      div(class = "ui main attached segment", style = "margin: 0px;",
         div(class="ui top secondary pointing menu", id = "tabs",
           a(class="item active", `data-tab`="tab1", "Gene input", id = "tab1_top"),
           hidden( a(class="item", `data-tab`="tab2", "Results", id = "tab2_top") )
@@ -100,7 +100,7 @@ shinyUI(
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
           div(class = "ui stackable two column centered grid", 
             div(class = "column", id = "col_input",
-  h4(class="ui centered header", "Type/paste gene symbols below", uiicon("paste")),
+  h4(class="ui header", "Type/paste gene symbols below", uiicon("paste")),
   a(class = "ui red ribbon label", "Genes (drug targets)"),
                 div(class = "ui form",
   textAreaInput(inputId = "gene_list", label = "", value = "", placeholder = "MTOR\nRPS6KB1\nAKT\n...\netc.")
@@ -115,17 +115,17 @@ shinyUI(
        a(class = "action-button", "Or load example", uiicon("lightning"), href = "#")))
             ),
   tags$style(type='text/css', "#col_input { min-width: 300px; width: 300px;}"),
-  tags$style(type='text/css', "#instructions { font-size: medium; }"),
-            div(class = "column", id = "col_instructions",
+  tags$style(type='text/css', "#instructions { font-size: medium; padding: 0px; margin: 0px;}"),
+            div(class = "column", style = "width: calc(100% - 300px);",
               div(class = "ui form",
   h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
-                  div(class = "ui container segment basic", id = "instructions",
+                div(class = "ui container segment basic", id = "instructions",
   p("Type/paste a list of gene symbols into the text box (or load ",
        a(class = "action-button", "our example gene list", href = "#", id = "load_example_kinases2"), ") and click 'Submit'."),
   p("Only gene symbols from ", a("HUGO Gene Nomenclature Committee (HGNC)", href = "http://www.genenames.org/"),
     " are accepted. Non-HGNC gene symbols and genes for which we lack drug information will be ignored."),
   p("After submitting your gene list, a downloadable table of drugs targeting those genes will be generated. You may further filter these drugs by selectivity level, FDA approval/clinical phase, and other parameters.")
-                  )
+                )
               )
             )
           )
@@ -261,7 +261,7 @@ shinyUI(
         )
       )
       ),
-      div(class = "ui bottom attached inverted footer segment",
+      div(class = "ui bottom attached inverted footer segment", style = "margin: 0px;",
         div(class = "ui center aligned container",
           div(class = "ui horizontal inverted large divided link list",
   a(class = "item", div(class = "action-button", "About", id = "about") ),

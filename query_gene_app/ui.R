@@ -41,7 +41,7 @@ shinyUI(
       )
     ),
     div(class = "ui container",
-      div(class = "ui top attached inverted five item menu",
+      div(class = "ui top attached inverted five item stackable menu",
         div(class = "ui center aligned container",
             a(class = "item", img(class = "logo", src = "dcic.png"),
               href = "http://lincs-dcic.org"),
@@ -52,7 +52,7 @@ shinyUI(
               href = "http://sorger.med.harvard.edu" )
         )
       ),
-      div(class = "ui main container attached segment",
+      div(class = "ui main container attached segment", style = "margin: 0px;",
         div(class="ui top secondary pointing menu", id = "tabs",
           a(class="item active", `data-tab`="tab1", "Gene input", id = "tab1_top"),
           hidden( a(class="item", `data-tab`="tab2", "Results", id = "tab2_top") )
@@ -68,7 +68,7 @@ shinyUI(
         )
       )
     ),
-    div(class = "ui bottom attached inverted footer segment",
+    div(class = "ui bottom attached inverted footer segment", style = "margin: 0px;",
       div(class = "ui center aligned container",
         div(class = "ui horizontal inverted large divided link list",
   a(class = "item", div(class = "action-button", "About", id = "about") ),
