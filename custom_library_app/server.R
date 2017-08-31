@@ -1,5 +1,4 @@
 library(shiny)
-library(plotly)
 library(dplyr)
 library(readr)
 library(DT)
