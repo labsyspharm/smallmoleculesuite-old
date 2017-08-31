@@ -8,6 +8,8 @@ shinyUI(
     title = "Query Gene App",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
+    # Fix for mobile viewing
+    tags$meta(name="viewport", content="width=device-width, initial-scale=1.0"),
     # CSS for sizing of data table search boxes
     inlineCSS(".form-control {
   box-sizing: border-box;

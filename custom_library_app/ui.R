@@ -29,7 +29,6 @@ logifySlider('affinity')
 }, 5)})
 "
 
-
 shinyUI(
   semanticPage(
     title = "Custom Library App",
@@ -37,6 +36,8 @@ shinyUI(
     suppressDependencies("bootstrap"),
     tags$head(tags$script(HTML(JS.logify))),
     tags$head(tags$script(HTML(JS.onload))),
+    # Fix for mobile viewing
+    tags$meta(name="viewport", content="width=device-width, initial-scale=1.0"),
     # CSS for sizing of data table search boxes
     inlineCSS(".form-control {
   box-sizing: border-box;
@@ -103,7 +104,7 @@ shinyUI(
   h4(class="ui header", "Type/paste gene symbols below", uiicon("paste")),
   a(class = "ui red ribbon label", "Genes (drug targets)"),
                 div(class = "ui form",
-  textAreaInput(inputId = "gene_list", label = "", value = "", placeholder = "MTOR\nRPS6KB1\nAKT\n...\netc.")
+  textAreaInput(inputId = "gene_list", label = "", value = "", placeholder = "MTOR\r\nRPS6KB1\r\nAKT\r\n...\r\netc.")
             ),
   br(),
   div(class = "ui button red action-button", "Submit", id = "submitButton"),
