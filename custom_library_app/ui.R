@@ -82,12 +82,15 @@ shinyUI(
       )
     ),
     div(class = "ui container",
-      div(class = "ui top attached inverted four item menu",
+      div(class = "ui top attached inverted five item menu",
         div(class = "ui center aligned container",
-            a(class = "header item", img(class = "logo", src = "logo_harvard_150.png") ),
+            a(class = "item", img(class = "logo", src = "dcic.png"),
+              href = "http://lincs-dcic.org"),
             a(class = "item", "Custom Library App"),
             a(class = "item", "Query Drug App"),
-            a(class = "item", "Query Gene App")
+            a(class = "item", "Query Gene App"),
+            a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
+              href = "http://sorger.med.harvard.edu" )
         )
       ),
       div(class = "ui main container attached segment",
