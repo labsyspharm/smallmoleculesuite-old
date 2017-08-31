@@ -67,18 +67,17 @@ shinyUI(
         )
       ),
       div(class = "ui center aligned basic segment",
-          h3("Website and application design"),
-          p("Nienke Moret, Marc Hafner, Nicholas Clark"),
+          p("Developed at Harvard Medical School (Sorger lab) by ", "Nienke Moret, ", a("Marc Hafner", href = "https://scholar.harvard.edu/hafner"), ", and ", a("Nicholas Clark", href = "https://github.com/NicholasClark/")),
           h3("Application programming"),
-          p("Nienke Moret (R scripts), Nicholas Clark (R/Shiny application)"),
-          p("[others??]"),
-          p("[Developed at Sorger lab, Harvard Medical School]"),
+          p("Nienke Moret (R scripts)"),
+          p("Nicholas Clark (R/Shiny application)"),
           br(),
-          p("[cite paper here]"),
+          p("[paper citation]"),
           h3("Links"),
-          p("[sorger lab website]"),
-          p("[github repo]"),
-          p("LINCS/BD2K website?")
+          p(a(class = "item", "Sorger lab website", href = "http://sorger.med.harvard.edu")),
+          p(a(class = "item", "Project github repository", uiicon("github"), 
+            href = "https://github.com/sorgerlab/drug_browser")),
+          p(a(class = "item", "LINCS-DCIC website", href = "http://lincs-dcic.org"))
       )
     ),
     div(class = "ui container",
@@ -100,9 +99,9 @@ shinyUI(
         ),
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
           div(class = "ui stackable two column centered grid", 
-            div(class = "five wide column",
-  h4(class="ui horizontal divider header", "Type/paste gene symbols below", uiicon("paste")),
-              a(class = "ui red ribbon label", "Genes (drug targets)"),
+            div(class = "column", id = "col_input",
+  h4(class="ui centered header", "Type/paste gene symbols below", uiicon("paste")),
+  a(class = "ui red ribbon label", "Genes (drug targets)"),
                 div(class = "ui form",
   textAreaInput(inputId = "gene_list", label = "", value = "", placeholder = "MTOR\nRPS6KB1\nAKT\n...\netc.")
             ),
@@ -115,14 +114,18 @@ shinyUI(
        div(class = "item action-button shiny-bound-input", id = "load_example_kinases",
        a(class = "action-button", "Or load example", uiicon("lightning"), href = "#")))
             ),
-            div(class = "ten wide column",
+  tags$style(type='text/css', "#col_input { min-width: 300px; width: 300px;}"),
+  tags$style(type='text/css', "#instructions { font-size: medium; }"),
+            div(class = "column", id = "col_instructions",
               div(class = "ui form",
-                div(class = "ui segment",
-  h3("Description"),
-  p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consectetur rutrum magna sed blandit. Aliquam erat volutpat. Aliquam erat volutpat. In hac habitasse platea dictumst. Suspendisse ut purus semper, dapibus odio nec, iaculis purus. Morbi ut scelerisque lacus. Cras tincidunt quis diam sit amet vestibulum.
-
-Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque nec gravida scelerisque, dui sapien iaculis est, at rutrum est nisl id lectus. Integer semper, lacus ac laoreet dapibus, velit nibh suscipit libero, vel imperdiet lacus nunc sed mauris. Donec condimentum lobortis porttitor. Ut nec leo eleifend sem ultricies dignissim at id mauris. Mauris a lacus aliquet, ultrices metus id, tempor arcu. Curabitur a mauris vel est lobortis mollis. Cras vehicula, metus ac rutrum porta, tellus quam tincidunt felis, eget maximus nulla ante molestie orci. Nunc sollicitudin lorem non aliquam ultrices. Integer lorem ante, sodales et efficitur ac, dictum tincidunt dui. Sed cursus nec ligula vitae iaculis. Integer venenatis tortor at justo dignissim, egestas aliquet dui ullamcorper. Aenean porta libero magna, sit amet ultricies mi sodales in. Donec non euismod dolor. Donec eget orci quis mi tincidunt sollicitudin.")
-                )
+  h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
+                  div(class = "ui container segment basic", id = "instructions",
+  p("Type/paste a list of gene symbols into the text box (or load ",
+       a(class = "action-button", "our example gene list", href = "#", id = "load_example_kinases2"), ") and click 'Submit'."),
+  p("Only gene symbols from ", a("HUGO Gene Nomenclature Committee (HGNC)", href = "http://www.genenames.org/"),
+    " are accepted. Non-HGNC gene symbols and genes for which we lack drug information will be ignored."),
+  p("After submitting your gene list, a downloadable table of drugs targeting those genes will be generated. You may further filter these drugs by selectivity level, FDA approval/clinical phase, and other parameters.")
+                  )
               )
             )
           )
@@ -143,7 +146,7 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
                 div(class = "row",
                   div(class = "ui noshadow horizontal segments",
                     tags$style(type='text/css', "#col01and2 { min-width: 550px; width: 550px; border-left: 0px;
-          border-right: 0px;}}"),
+          border-right: 0px;}"),
                     tags$style(type='text/css', "#col0 { min-width: 100px; width: 100px; border-left: 0px;
           border-right: 0px;}"),
                     tags$style(type='text/css', "#col1 { min-width: 250px; width: 250px; border-left: 0px;
@@ -256,15 +259,15 @@ Sed mollis faucibus turpis, a euismod sem condimentum ut. Sed vestibulum, neque 
             )
           )
         )
+      )
       ),
-      div(class = "ui inverted vertical footer segment",
+      div(class = "ui bottom attached inverted footer segment",
         div(class = "ui center aligned container",
           div(class = "ui horizontal inverted large divided link list",
   a(class = "item", div(class = "action-button", "About", id = "about") ),
   a(class = "item", "Contact Us"),
   a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/drug_browser")
           )
-        )
         )
       )
     )

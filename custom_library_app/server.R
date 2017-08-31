@@ -54,9 +54,9 @@ shinyServer(function(input, output, session) {
   })
   
   # Load example gene set of kinases
-  observeEvent(eventExpr = input$load_example_kinases, handlerExpr = {
+  observeEvent(eventExpr = c(input$load_example_kinases, input$load_example_kinases2), handlerExpr = {
     updateTextAreaInput(session, inputId = "gene_list", value = paste0(kinase_example$`HGNC Name`, collapse = "\n"))
-  })
+  }, ignoreInit = T, ignoreNULL = T)
   
   # Jump to results tab when "Submit" is clicked
   observeEvent(input$submitButton, {
