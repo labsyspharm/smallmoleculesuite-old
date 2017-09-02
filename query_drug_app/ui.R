@@ -3,7 +3,12 @@ library(shiny.semantic)
 library(shinyjs)
 library(DT)
 library(plotly)
-library(shinycssloaders)
+library(readr)
+
+cube_table = read_csv("input/sim_table_chem_jaccard_pheno.csv")
+merge_table = read_csv("input/toolscore_mapped_lincs.csv")
+cube_table$cmpd1_name = merge_table$name[match(cube_table$cmpd1, merge_table$source_id)]
+cube_table$cmpd2_name = merge_table$name[match(cube_table$cmpd2, merge_table$source_id)]
 
 shinyUI(
   semanticPage(
@@ -16,22 +21,6 @@ shinyUI(
     inlineCSS(".form-control {
   box-sizing: border-box;
               }"),
-    # loader styling
-    # tags$style(type="text/css", "
-    #        #loader2 {
-    #            position: relative;
-    #            top: 50px;
-    #            //left: 0px;
-    #            width: 100%;
-    #            padding: 5px 0px 5px 0px;
-    #            text-align: center;
-    #            font-weight: bold;
-    #            font-size: 100%;
-    #            color: #000000;
-    #            z-index: 105;
-    #            }
-    #           "),
-    # CSS for slider styling
     tags$style(type = "text/css", "
                .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
@@ -90,14 +79,15 @@ shinyUI(
   h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
   p("Select a drug to query by searching in the box below. Adjust the sliders to change the parameters. [ explain what the application does and how the parameters work here ]."),
   selectizeInput('query_compound', 'Select Query Compound', selected = NULL,
-    choices = sort(unique(cube_table$cmpd1)), multiple = F),
+                 choices = sort(unique(cube_table$cmpd1_name)), multiple = F),
   sliderInput("n_common", "n_common value", min = 0, max = 15, step = 1, value = 5),
   sliderInput("n_pairs", "n_pairs value", min = 0, max = 15, step = 1, value = 5)
               ),
               div(class = "stackable column", style = "width: calc(100% - 300px)",
   h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
-                   hidden(div(class = "ui active loader", id = "loader1"))),
+                   hidden(div(class = "ui active text loader", id = "loader1",
+                              "Loading Plot"))),
                    plotlyOutput("mainplot", inline = T)
               )
             ),
@@ -105,7 +95,8 @@ shinyUI(
               div(class = "column", style = "margin-bottom: 50px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
-    hidden(div(class = "ui active loader", id = "loader2", style = "margin-top: 50px; margin-bottom: 50px;"))),
+    hidden(div(class = "ui active text loader", id = "loader2", "Loading Table",
+               style = "margin-top: 50px; margin-bottom: 50px;"))),
     DT::dataTableOutput('data_table')
               )
             )
