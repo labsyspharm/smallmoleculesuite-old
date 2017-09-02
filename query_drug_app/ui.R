@@ -2,6 +2,8 @@ library(shiny)
 library(shiny.semantic)
 library(shinyjs)
 library(DT)
+library(plotly)
+library(shinycssloaders)
 
 shinyUI(
   semanticPage(
@@ -14,6 +16,32 @@ shinyUI(
     inlineCSS(".form-control {
   box-sizing: border-box;
               }"),
+    # loader styling
+    # tags$style(type="text/css", "
+    #        #loader2 {
+    #            position: relative;
+    #            top: 50px;
+    #            //left: 0px;
+    #            width: 100%;
+    #            padding: 5px 0px 5px 0px;
+    #            text-align: center;
+    #            font-weight: bold;
+    #            font-size: 100%;
+    #            color: #000000;
+    #            z-index: 105;
+    #            }
+    #           "),
+    # CSS for slider styling
+    tags$style(type = "text/css", "
+               .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
+               .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
+               .irs-line {border: 0px solid black; height: 5px; border-radius: 0px;}
+               .irs-grid-text {font-size: 10px;}
+               .irs-max {font-family: 'arial'; color: black;}
+               .irs-min {font-family: 'arial'; color: black;}
+               .irs-single {color:black; background:white; fond-size: 20px;}
+               .irs-slider {width: 20px; height: 20px; top: 17px;}
+               "),
     # CSS for hiding border on horizontal segments and making them fixed width
     tags$style(type = "text/css", "
       .ui.noshadow.segments {
@@ -43,7 +71,7 @@ shinyUI(
       )
     ),
     div(class = "ui container",
-      div(class = "ui top attached inverted five item stackable menu",
+      div(class = "ui top attached inverted five item stackable menu", style = "width: 100%;",
         div(class = "ui center aligned container",
             a(class = "item", img(class = "logo", src = "dcic.png"),
               href = "http://lincs-dcic.org"),
@@ -55,27 +83,43 @@ shinyUI(
         )
       ),
       div(class = "ui main container attached segment", style = "margin: 0px;",
-        div(class="ui top secondary pointing menu", id = "tabs",
-          a(class="item active", `data-tab`="tab1", "Drug input", id = "tab1_top"),
-          hidden( a(class="item", `data-tab`="tab2", "Results", id = "tab2_top") )
-        ),
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
-          p("this is the main tab")
-        ),
-        div(class="ui bottom tab basic segment", `data-tab`="tab2", id = "tab2_bottom",
-            style = "padding: 0px;",
-          div(class = "ui basic segment", style = "padding: 0px;",
-            p("this is the results tab")
+          div(class = "ui grid",
+            div(class = "row", style = "height: 450px;",
+              div(class = "stackable column", style = "width: 300px; min-width: 300px;",
+  h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
+  p("Select a drug to query by searching in the box below. Adjust the sliders to change the parameters. [ explain what the application does and how the parameters work here ]."),
+  selectizeInput('query_compound', 'Select Query Compound', selected = NULL,
+    choices = sort(unique(cube_table$cmpd1)), multiple = F),
+  sliderInput("n_common", "n_common value", min = 0, max = 15, step = 1, value = 5),
+  sliderInput("n_pairs", "n_pairs value", min = 0, max = 15, step = 1, value = 5)
+              ),
+              div(class = "stackable column", style = "width: calc(100% - 300px)",
+  h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
+  conditionalPanel(condition="$('html').hasClass('shiny-busy')",
+                   hidden(div(class = "ui active loader", id = "loader1"))),
+                   plotlyOutput("mainplot", inline = T)
+              )
+            ),
+            div(class = "row",
+              div(class = "column", style = "margin-bottom: 50px;",
+  h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
+  conditionalPanel(condition="$('html').hasClass('shiny-busy')",
+    hidden(div(class = "ui active loader", id = "loader2", style = "margin-top: 50px; margin-bottom: 50px;"))),
+    DT::dataTableOutput('data_table')
+              )
+            )
           )
         )
-      )
-    ),
-    div(class = "ui bottom attached inverted footer segment", style = "margin: 0px;",
+      ),
+  
+    div(class = "ui bottom attached inverted footer segment", style = "margin: 0px; width: 100%;",
       div(class = "ui center aligned container",
         div(class = "ui horizontal inverted large divided link list",
   a(class = "item", div(class = "action-button", "About", id = "about") ),
   a(class = "item", "Contact Us"),
   a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/drug_browser")
+        )
         )
       )
     )
