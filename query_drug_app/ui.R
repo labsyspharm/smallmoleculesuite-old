@@ -79,7 +79,10 @@ shinyUI(
   h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
   p("Select a drug to query by searching in the box below. Adjust the sliders to change the parameters. [ explain what the application does and how the parameters work here ]."),
   selectizeInput('query_compound', 'Select Query Compound', selected = NULL,
-                 choices = sort(unique(cube_table$cmpd1_name)), multiple = F),
+                 choices = sort(unique(cube_table$cmpd1_name)), multiple = F,
+                 options = list(placeholder = "Select a drug",
+                                onInitialize = I('function() { this.setValue(""); }')
+                                )),
   sliderInput("n_common", "n_common value", min = 0, max = 15, step = 1, value = 5),
   sliderInput("n_pairs", "n_pairs value", min = 0, max = 15, step = 1, value = 5)
               ),
