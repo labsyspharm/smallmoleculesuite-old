@@ -5,16 +5,42 @@ library(DT)
 library(plotly)
 library(readr)
 
-cube_table = read_csv("input/sim_table_chem_jaccard_pheno.csv")
-merge_table = read_csv("input/toolscore_mapped_lincs.csv")
-cube_table$cmpd1_name = merge_table$name[match(cube_table$cmpd1, merge_table$source_id)]
-cube_table$cmpd2_name = merge_table$name[match(cube_table$cmpd2, merge_table$source_id)]
+similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
+affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
+
+# logifySlider javascript function
+JS.logify <-
+  "
+// function to logify a sliderInput
+function logifySlider (sliderId) {
+// regular number style
+$('#'+sliderId).data('ionRangeSlider').update({
+'prettify': function (num) {
+return (Math.pow(10, num).toLocaleString());
+}
+})
+}"
+
+# call logifySlider for each relevant sliderInput
+JS.onload <-
+  "
+// execute upon document loading
+$(document).ready(function() {
+// wait a few ms to allow other scripts to execute
+setTimeout(function() {
+// include call for each slider
+logifySlider('sd')
+logifySlider('affinity')
+}, 5)})
+"
 
 shinyUI(
   semanticPage(
     title = "Query Drug App",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
+    tags$head(tags$script(HTML(JS.logify))),
+    tags$head(tags$script(HTML(JS.onload))),
     # Fix for mobile viewing
     tags$meta(name="viewport", content="width=device-width, initial-scale=1.0"),
     # CSS for sizing of data table search boxes
@@ -74,17 +100,20 @@ shinyUI(
       div(class = "ui main container attached segment", style = "margin: 0px;",
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
           div(class = "ui grid",
-            div(class = "row", style = "height: 450px;",
+            div(class = "row", style = "height: 600px;",
               div(class = "stackable column", style = "width: 300px; min-width: 300px;",
   h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
   p("Select a drug to query by searching in the box below. Adjust the sliders to change the parameters. [ explain what the application does and how the parameters work here ]."),
   selectizeInput('query_compound', 'Select Query Compound', selected = NULL,
-                 choices = sort(unique(cube_table$cmpd1_name)), multiple = F,
+                 choices = sort(unique(similarity_table$name_1)), multiple = F,
                  options = list(placeholder = "Select a drug",
                                 onInitialize = I('function() { this.setValue(""); }')
                                 )),
-  sliderInput("n_common", "n_common value", min = 0, max = 15, step = 1, value = 5),
-  sliderInput("n_pairs", "n_pairs value", min = 0, max = 15, step = 1, value = 5)
+  sliderInput("n_common", "n_assays_common_active value", min = 0, max = 15, step = 1, value = 0),
+  sliderInput("n_pheno", "n_pheno_assays_active_common value", min = 0, max = 15, step = 1, value = 0),
+  sliderInput("affinity", "Minimum/maximum affinity", min = -3, max = 10, step = 1, value = c(-3,6)),
+  sliderInput("sd", "Maximum std. dev. of affinity", min = 0, max = 10, step = 1, value = 5),
+  sliderInput("min_measurements", "min_measurements value", min = 1, max = 15, step = 1, value = 2)
               ),
               div(class = "stackable column", style = "width: calc(100% - 300px)",
   h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
