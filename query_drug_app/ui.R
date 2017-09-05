@@ -4,7 +4,7 @@ library(shinyjs)
 library(DT)
 library(plotly)
 library(readr)
-library(d3scatter)
+library(ggvis)
 
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
@@ -131,31 +131,27 @@ shinyUI(
             div(class = "row",
   h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot")
             ),
-            div(class = "row",
+            div(class = "row", style = "height: 350px",
               div(class = "stackable five wide column",
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                  hidden(div(class = "ui active text loader", id = "loader1",
                             "Loading Plot 1"))),
-  d3scatterOutput("mainplot1")
+  ggvisOutput("mainplot1")
               ),
               div(class = "stackable five wide column",
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                  hidden(div(class = "ui active text loader", id = "loader2",
                             "Loading Plot 2"))),
-  d3scatterOutput("mainplot2")
+  ggvisOutput("mainplot2")
               ),
               div(class = "stackable five wide column",
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                  hidden(div(class = "ui active text loader", id = "loader3",
                             "Loading Plot 3"))),
-  d3scatterOutput("mainplot3")
+  ggvisOutput("mainplot3")
               )
             ),
-  #           div(class = "row",
-  # #verbatimTextOutput("brush"),
-  # #verbatimTextOutput("hover")
-  #           ),
-            div(class = "row",
+            div(class = "row", style = "height: 750px",
               div(class = "column", style = "margin-bottom: 50px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",

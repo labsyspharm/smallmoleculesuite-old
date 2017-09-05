@@ -7,15 +7,24 @@ library(plotly)
 library(readr)
 library(crosstalk)
 library(d3scatter)
+library(ggvis)
 
-
+# load data
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
 
+# Function for toolip values
+all_values <- function(x) {
+  if(is.null(x)) return(NULL)
+  paste0(names(x), ": ", format(x), collapse = "<br />")
+}
+
+# hide tabs
 tab.js = "$('.menu .item')
   .tab()
 ;"
 
+# open about modal
 about.modal.js = "$('.ui.mini.modal')
   .modal('show')
 ;"
@@ -99,7 +108,64 @@ shinyServer(function(input, output, session) {
     #   cube_table$n_common > input$n_common,] %>%
     #   mutate(chem_sim = round(chem_sim, 3))
     ############
-    output$data_table = renderDataTable(values$c.data, extensions = c('Buttons', 'FixedHeader'),
+    
+    lb = linked_brush(keys = 1:dim(values$c.data)[1], "red") 
+    selected = reactive({
+      values$c.data[lb$selected(),]
+    })
+
+    values$c.data %>% 
+      ggvis(x = ~structural_similarity, y = ~PFP, fill := "black", stroke:= "black", fillOpacity := 0.5, strokeOpacity := 0.5) %>%
+      layer_points(stroke.brush := "red") %>%
+      ggvis::hide_legend(c("fill", "stroke")) %>%
+      set_options(height = 300, width = 300) %>%
+      #add_axis("x", title = "x_name") %>%
+      #add_axis("y", title = "y_name") %>%
+      lb$input() %>%
+      add_tooltip(all_values, on = c("hover", "click")) %>%
+      layer_points(data = selected, x = ~structural_similarity, y = ~PFP, stroke.update := "red",
+                   fillOpacity.update := 0, strokeOpacity.update := 0.5) %>%
+      bind_shiny("mainplot1")
+    
+    values$c.data %>% 
+      ggvis(x = ~structural_similarity, y = ~TAS, fill := "black", stroke := "black", fillOpacity := 0.5, strokeOpacity := 0.5) %>%
+      layer_points(stroke.brush := "red") %>%
+      ggvis::hide_legend(c("fill", "stroke")) %>%
+      set_options(height = 300, width = 300) %>%
+      #add_axis("x", title = "x_name") %>%
+      #add_axis("y", title = "y_name") %>%
+      lb$input() %>%
+      add_tooltip(all_values, on = c("hover", "click")) %>%
+      layer_points(data = selected, x = ~structural_similarity, y = ~TAS, stroke.update := "red",
+                   fillOpacity.update := 0, strokeOpacity.update := 0.5) %>%
+      bind_shiny("mainplot2")
+    
+    values$c.data %>% 
+      ggvis(x = ~TAS, y = ~PFP, fill := "black", stroke:= "black", fillOpacity := 0.5, strokeOpacity := 0.5) %>% 
+      layer_points(stroke.brush := "red") %>%
+      ggvis::hide_legend(c("fill", "stroke")) %>%
+      set_options(height = 300, width = 300) %>%
+      #add_axis("x", title = "x_name") %>%
+      #add_axis("y", title = "y_name") %>%
+      lb$input() %>%
+      add_tooltip(all_values, on = c("hover", "click")) %>%
+      layer_points(data = selected, x = ~TAS, y = ~PFP, stroke.update := "red",
+                   fillOpacity.update := 0, strokeOpacity.update := 0.5) %>%
+      bind_shiny("mainplot3")
+    
+    output$data_table = renderDataTable( {
+      values$c.data$selected = lb$selected()
+      print("c.data")
+      print(head(values$c.data))
+      if(sum(lb$selected()) == 0) {
+        values$c.data
+      } else {
+        DT::formatStyle(DT::datatable(values$c.data), "selected", target = "row",
+                        color = DT::styleEqual(c(0, 1), c('black', 'white')),
+                        backgroundColor = DT::styleEqual(c(0, 1), c('white', 'black')))
+      }
+      },
+        extensions = c('Buttons', 'FixedHeader'),
         rownames = F, options = list(
           #columnDefs = list(list(visible=FALSE, targets=c(0,1))),
           dom = 'lBfrtip',
@@ -110,21 +176,9 @@ shinyServer(function(input, output, session) {
             "}"),
           searchHighlight = TRUE,
           fixedHeader = TRUE,
-          autoWidth = TRUE))
-    outputOptions(output, 'data_table', suspendWhenHidden=FALSE)
-  }, ignoreInit = T, ignoreNULL = T)
-  
-  observeEvent(values$c.data, {
-    c.data_shared = SharedData$new(values$c.data)
-    p1 <- d3scatter(data = c.data_shared, x = ~structural_similarity, y = ~PFP, color = ~name_2)
-    p2 <- d3scatter(data = c.data_shared, x = ~structural_similarity, y = ~TAS, color = ~name_2)
-    p3 <-  d3scatter(data = c.data_shared, x = ~TAS, y = ~PFP, color = ~name_2)
-    
-    output$mainplot1 = renderD3scatter(p1)
-    output$mainplot2 = renderD3scatter(p2)
-    output$mainplot3 = renderD3scatter(p3)
-    #outputOptions(output, 'mainplot', suspendWhenHidden=FALSE)
-  }, ignoreInit = T)
+          autoWidth = TRUE)
+      )
+    }, ignoreInit = T, ignoreNULL = T)
   
   # Brush/hover events
   # output$hover <- renderPrint({
