@@ -4,6 +4,7 @@ library(shinyjs)
 library(DT)
 library(plotly)
 library(readr)
+library(d3scatter)
 
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
@@ -51,10 +52,12 @@ shinyUI(
                .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
                .irs-line {border: 0px solid black; height: 5px; border-radius: 0px;}
-               .irs-grid-text {font-size: 10px;}
+               .irs-grid-text {font-family: 'arial'; font-size: 10px;}
+               .irs-from {font-family: 'arial'; background:white; color: black;}
+               .irs-to {font-family: 'arial'; background:white; color: black;}
                .irs-max {font-family: 'arial'; color: black;}
                .irs-min {font-family: 'arial'; color: black;}
-               .irs-single {color:black; background:white; fond-size: 20px;}
+               .irs-single {font-family: 'arial'; color:black; background:white;}
                .irs-slider {width: 20px; height: 20px; top: 17px;}
                "),
     # CSS for hiding border on horizontal segments and making them fixed width
@@ -100,7 +103,7 @@ shinyUI(
       div(class = "ui main container attached segment", style = "margin: 0px;",
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
           div(class = "ui grid",
-            div(class = "row", style = "height: 600px;",
+            div(class = "row",
               div(class = "stackable column", style = "width: 300px; min-width: 300px;",
   h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
   p("Select a drug to query by searching in the box below. Adjust the sliders to change the parameters. [ explain what the application does and how the parameters work here ]."),
@@ -108,26 +111,55 @@ shinyUI(
                  choices = sort(unique(similarity_table$name_1)), multiple = F,
                  options = list(placeholder = "Select a drug",
                                 onInitialize = I('function() { this.setValue(""); }')
-                                )),
+                                ))
+              ),
+              div(class = "stackable column", style = "width: calc(100% - 300px)",
+  h3(class="ui horizontal divider header", uiicon("filter"), "Filters"),
+                div(class = "ui noshadow horizontal segments",
+                  div(class = "ui basic compact segment",
   sliderInput("n_common", "n_assays_common_active value", min = 0, max = 15, step = 1, value = 0),
-  sliderInput("n_pheno", "n_pheno_assays_active_common value", min = 0, max = 15, step = 1, value = 0),
+  sliderInput("n_pheno", "n_pheno_assays_active_common value", min = 0, max = 15, step = 1, value = 0)
+                  ),
+                  div(class = "ui basic compact segment",
   sliderInput("affinity", "Minimum/maximum affinity", min = -3, max = 10, step = 1, value = c(-3,6)),
   sliderInput("sd", "Maximum std. dev. of affinity", min = 0, max = 10, step = 1, value = 5),
   sliderInput("min_measurements", "min_measurements value", min = 1, max = 15, step = 1, value = 2)
-              ),
-              div(class = "stackable column", style = "width: calc(100% - 300px)",
-  h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
-  conditionalPanel(condition="$('html').hasClass('shiny-busy')",
-                   hidden(div(class = "ui active text loader", id = "loader1",
-                              "Loading Plot"))),
-                   plotlyOutput("mainplot", inline = T)
+                  )
+                )
               )
             ),
+            div(class = "row",
+  h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot")
+            ),
+            div(class = "row",
+              div(class = "stackable five wide column",
+  conditionalPanel(condition="$('html').hasClass('shiny-busy')",
+                 hidden(div(class = "ui active text loader", id = "loader1",
+                            "Loading Plot 1"))),
+  d3scatterOutput("mainplot1")
+              ),
+              div(class = "stackable five wide column",
+  conditionalPanel(condition="$('html').hasClass('shiny-busy')",
+                 hidden(div(class = "ui active text loader", id = "loader2",
+                            "Loading Plot 2"))),
+  d3scatterOutput("mainplot2")
+              ),
+              div(class = "stackable five wide column",
+  conditionalPanel(condition="$('html').hasClass('shiny-busy')",
+                 hidden(div(class = "ui active text loader", id = "loader3",
+                            "Loading Plot 3"))),
+  d3scatterOutput("mainplot3")
+              )
+            ),
+  #           div(class = "row",
+  # #verbatimTextOutput("brush"),
+  # #verbatimTextOutput("hover")
+  #           ),
             div(class = "row",
               div(class = "column", style = "margin-bottom: 50px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
-    hidden(div(class = "ui active text loader", id = "loader2", "Loading Table",
+    hidden(div(class = "ui active text loader", id = "loader_tab", "Loading Table",
                style = "margin-top: 50px; margin-bottom: 50px;"))),
     DT::dataTableOutput('data_table')
               )
@@ -135,7 +167,6 @@ shinyUI(
           )
         )
       ),
-  
     div(class = "ui bottom attached inverted footer segment", style = "margin: 0px; width: 100%;",
       div(class = "ui center aligned container",
         div(class = "ui horizontal inverted large divided link list",

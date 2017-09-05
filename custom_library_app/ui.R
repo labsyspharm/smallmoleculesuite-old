@@ -47,13 +47,13 @@ shinyUI(
       .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
                .irs-line {border: 0px solid black; height: 5px; border-radius: 0px;}
-               .irs-grid-text {font-size: 10px;}
+               .irs-grid-text {font-family: 'arial'; font-size: 10px;}
                .irs-max {font-family: 'arial'; color: black;}
                .irs-min {font-family: 'arial'; color: black;}
-               .irs-single {color:black; background:white; fond-size: 20px;}
+               .irs-single {font-family: 'arial'; color:black; background:white;}
                .irs-slider {width: 20px; height: 20px; top: 17px;}
                "),
-    # CSS for hiding border on horizontal segments and making them fixed width
+    # CSS for hiding border on horizontal segments
     tags$style(type = "text/css", "
       .ui.noshadow.segments {
           box-shadow: none;

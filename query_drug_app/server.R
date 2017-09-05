@@ -5,6 +5,8 @@ library(DT)
 library(ggplot2)
 library(plotly)
 library(readr)
+library(crosstalk)
+library(d3scatter)
 
 
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
@@ -39,12 +41,18 @@ shinyServer(function(input, output, session) {
                  input$affinity, input$max_sd, input$min_measurements), {
     showElement("loader1")
     showElement("loader2")
+    showElement("loader3")
+    showElement("loader_tab")
 
     ## subset current data
     values$c.data = similarity_table %>%
       filter(name_1 == input$query_compound) %>%
       filter(n_assays_common_active >= input$n_common | is.na(n_assays_common_active)) %>%
-      filter(n_pheno_assays_active_common >= input$n_pheno | is.na(n_pheno_assays_active_common))
+      filter(n_pheno_assays_active_common >= input$n_pheno | is.na(n_pheno_assays_active_common)) %>%
+      mutate_at(vars(PFP), funs(ifelse(is.na(PFP), -1.1, PFP))) %>%
+      mutate_at(vars(TAS), funs(ifelse(is.na(TAS), -0.1, TAS))) %>%
+      mutate_at(vars(structural_similarity), funs(ifelse(is.na(structural_similarity), -0.1, structural_similarity)))
+      
     # ^are these the right filters?
     # filter by name or hms ID?
     
@@ -107,26 +115,81 @@ shinyServer(function(input, output, session) {
   }, ignoreInit = T, ignoreNULL = T)
   
   observeEvent(values$c.data, {
-    p1 <- plot_ly(values$c.data, x = ~structural_similarity, y = ~PFP, color = ~name_2) %>%
-      add_markers() %>%
-      layout(scene = list(xaxis = list(title = 'Structural Similarity',
-                                       range = c(-0.1, 1.1)),
-                          yaxis = list(title = 'PFP',
-                                       range = c(-1.1, 1.1))))
-    p2 <- plot_ly(values$c.data, x = ~structural_similarity, y = ~TAS, color = ~name_2) %>%
-      add_markers() %>%
-      layout(scene = list(xaxis = list(title = 'Structural Similarity',
-                                       range = c(-0.1, 1.1)),
-                          yaxis = list(title = 'TAS',
-                                       range = c(-0.1,1.1))))
-    p3 <-  plot_ly(values$c.data, x = ~TAS, y = ~PFP, color = ~name_2) %>%
-      add_markers() %>%
-      layout(scene = list(xaxis = list(title = 'TAS',
-                                       range = c(-0.1, 1.1)),
-                          yaxis = list(title = 'PFP',
-                                       range = c(-0.1, 1.1))))
-    p <- subplot(p1, p2, p3, shareX = F, shareY = F, titleX = T, titleY = T)
-    output$mainplot <- renderPlotly(p)
-    outputOptions(output, 'mainplot', suspendWhenHidden=FALSE)
+    c.data_shared = SharedData$new(values$c.data)
+    p1 <- d3scatter(data = c.data_shared, x = ~structural_similarity, y = ~PFP, color = ~name_2)
+    p2 <- d3scatter(data = c.data_shared, x = ~structural_similarity, y = ~TAS, color = ~name_2)
+    p3 <-  d3scatter(data = c.data_shared, x = ~TAS, y = ~PFP, color = ~name_2)
+    
+    output$mainplot1 = renderD3scatter(p1)
+    output$mainplot2 = renderD3scatter(p2)
+    output$mainplot3 = renderD3scatter(p3)
+    #outputOptions(output, 'mainplot', suspendWhenHidden=FALSE)
   }, ignoreInit = T)
+  
+  # Brush/hover events
+  # output$hover <- renderPrint({
+  #   d <- event_data("plotly_hover")
+  #   if (is.null(d)) "Hover events appear here (unhover to clear)" else d
+  # })
+  # output$brush <- renderPrint({
+  #   d <- event_data("plotly_selected")
+  #   if (is.null(d)) "Click and drag events (i.e., select/lasso) appear here (double-click to clear)" else d
+  # })
+  
+  # Click/zoom events
+  # output$click <- renderPrint({
+  #   d <- event_data("plotly_click")
+  #   if (is.null(d)) "Click events appear here (double-click to clear)" else d
+  # })
+  # output$zoom <- renderPrint({
+  #   d <- event_data("plotly_relayout")
+  #   if (is.null(d)) "Relayout (i.e., zoom) events appear here" else d
+  # })
+  # 
+  #c.data_shared <- SharedData$new(values$c.data, ~rowname)
+  # highlight selected rows in the scatterplot
+  # output$p1 <- renderPlotly({
+  #   s <- input$data_table_rows_selected
+  #   if (!length(s)) {
+  #     p <- d %>%
+  #       plot_ly(x = ~mpg, y = ~disp, mode = "markers", color = I('black'), name = 'Unfiltered') %>%
+  #       layout(showlegend = T) %>%
+  #       highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = 'Filtered'))
+  #   } else if (length(s)) {
+  #     pp <- m %>%
+  #       plot_ly() %>%
+  #       add_trace(x = ~mpg, y = ~disp, mode = "markers", color = I('black'), name = 'Unfiltered') %>%
+  #       layout(showlegend = T)
+  # 
+  #     # selected data
+  #     pp <- add_trace(pp, data = m[s, , drop = F], x = ~mpg, y = ~disp, mode = "markers",
+  #                     color = I('red'), name = 'Filtered')
+  #   }
+  # 
+  # })
+  # 
+  # # highlight selected rows in the table
+  # output$data_table <- DT::renderDataTable({
+  #   m2 <- m[d$selection(),]
+  #   dt <- DT::datatable(m)
+  #   if (NROW(m2) == 0) {
+  #     dt
+  #   } else {
+  #     DT::formatStyle(dt, "rowname", target = "row",
+  #                     color = DT::styleEqual(m2$rowname, rep("white", length(m2$rowname))),
+  #                     backgroundColor = DT::styleEqual(m2$rowname, rep("black", length(m2$rowname))))
+  #   }
+  # })
+  # 
+  # # download the filtered data
+  # output$x3 = downloadHandler('mtcars-filtered.csv', content = function(file) {
+  #   s <- input$x1_rows_selected
+  #   if (length(s)) {
+  #     write.csv(m[s, , drop = FALSE], file)
+  #   } else if (!length(s)) {
+  #     write.csv(m[d$selection(),], file)
+  #   }
+  # })
+  
+  
 })
