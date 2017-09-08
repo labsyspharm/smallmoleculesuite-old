@@ -12,6 +12,7 @@ library(ggvis)
 # load data
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
+selectivity_order = c("best_class","second_class","non_specific","unknown","other")
 
 # Function for toolip values
 all_values <- function(x) {
@@ -70,8 +71,6 @@ shinyServer(function(input, output, session) {
     ## show c.data plotted w/selection boxes
     
     ## show affinity data of reference compound+ selected compounds
-    selectivity_order = c("best_class","second_class","non_specific","unknown","other")
-    
     # filter by name or hms id?
     values$c.binding_data = affinity_selectivity %>% filter(name == input$query_compound) %>%
       filter(mean_affinity >= 10^input$affinity[1]) %>%
@@ -85,29 +84,6 @@ shinyServer(function(input, output, session) {
     # title should be same as above, right?
     # by default it will display 10 rows at a time
     values$c.display_table = values$c.binding_data[,c(3,4,5)]
-    
-    # selection1.binding_data<-affinity_selectivity%>%filter(hms_id==selected_1)%>%
-    #   filter(mean_affinity>=min_affinity & mean_affinity<= max_affinity)%>%
-    #   filter(SD_affinity<=max_sd)%>%
-    #   filter(n_measurements>=min_measurements)%>%mutate(selectivity_class=factor(selectivity_class,levels=selectivity_order))%>%
-    #   arrange(selectivity_class,mean_affinity)
-    # selection1.title<-paste0(unique(selection1.binding_data$hms_id),";",unique(selection1.binding_data$name))
-    # selection1.display_table<-selection1.binding_data[1:7,c(3,4,5)]
-    # 
-    # selection2.binding_data<-affinity_selectivity%>%filter(hms_id==selected_2)%>%
-    #   filter(mean_affinity>=min_affinity & mean_affinity<= max_affinity)%>%
-    #   filter(SD_affinity<=max_sd)%>%
-    #   filter(n_measurements>=min_measurements)%>%mutate(selectivity_class=factor(selectivity_class,levels=selectivity_order))%>%
-    #   arrange(selectivity_class,mean_affinity)
-    # selection2.title<-paste0(unique(selection2.binding_data$hms_id),";",unique(selection2.binding_data$name))
-    # selection2.display_table<-selection2.binding_data[1:7,c(3,4,5)]
-    
-    #############
-    # values$cube_table = cube_table[cube_table$cmpd1_name %in% input$query_compound & 
-    #   cube_table$n_pairs > input$n_pairs &
-    #   cube_table$n_common > input$n_common,] %>%
-    #   mutate(chem_sim = round(chem_sim, 3))
-    ############
     
     lb = linked_brush(keys = 1:dim(values$c.data)[1], "red") 
     selected = reactive({
@@ -155,8 +131,6 @@ shinyServer(function(input, output, session) {
     
     output$data_table = renderDataTable( {
       values$c.data$selected = lb$selected()
-      print("c.data")
-      print(head(values$c.data))
       if(sum(lb$selected()) == 0) {
         values$c.data
       } else {
@@ -178,7 +152,112 @@ shinyServer(function(input, output, session) {
           fixedHeader = TRUE,
           autoWidth = TRUE)
       )
+    
+    # Main table output
+    output$binding_data = renderDataTable(
+      values$c.display_table,
+      extensions = c('Buttons', 'FixedHeader'),
+      rownames = F, options = list(
+        #columnDefs = list(list(visible=FALSE, targets=c(0,1))),
+        dom = 'lBfrtip',
+        buttons = c('copy', 'csv', 'excel', 'colvis'),
+        initComplete = JS(
+          "function(settings, json) {",
+          "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+          "}"),
+        searchHighlight = TRUE,
+        fixedHeader = TRUE,
+        autoWidth = TRUE)
+      )
     }, ignoreInit = T, ignoreNULL = T)
+  
+  # Make other tables on row selection
+  observeEvent(input$data_table_rows_selected, {
+    row = input$data_table_rows_selected
+    print(row)
+    for(i in length(row)) {
+      name_data = paste("selection.binding_data", i, sep = "")
+      name_display = paste("selection.display_table", i, sep = "")
+      name_title = paste("selection.title", i, sep = "")
+      
+      drug = values$c.data$name_2[ row[i] ]
+      print(drug)
+      
+      values[[name_data]] = affinity_selectivity %>%
+        filter(name == drug) %>%
+        filter(mean_affinity >= 10^input$affinity[1]) %>%
+        filter(mean_affinity <= 10^input$affinity[2]) %>%
+        filter(SD_affinity <= 10^input$sd) %>%
+        filter(n_measurements >= input$min_measurements) %>%
+        mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
+        arrange(selectivity_class, mean_affinity) %>%
+        mutate(mean_affinity = round(mean_affinity))
+
+      print(values[[name_data]])
+      values[[name_display]] = values[[name_data]][,c(3,4,5)]
+      values[[name_title]] = paste0(unique(values[[name_data]]$hms_id),";",unique(values[[name_data]]$name))
+      print(values[[name_title]])
+      
+      output_name = paste("selection", i, sep = "")
+      print(output_name)
+      print(name_display)
+      # output[[output_name]] = renderDataTable(
+      #   values[[name_display]],
+      #   extensions = c('Buttons'),
+      #   rownames = F, options = list(
+      #     dom = 't',
+      #     buttons = c('copy', 'csv', 'excel', 'colvis'),
+      #     initComplete = JS(
+      #       "function(settings, json) {",
+      #       "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+      #       "}"),
+      #     autoWidth = TRUE)
+      # )
+    }
+  })
+  
+  output$selection1 = renderDataTable(
+    values$selection.display_table1,
+    extensions = c('Buttons'),
+    rownames = F, options = list(
+      dom = 't',
+      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+        "}"),
+      autoWidth = TRUE)
+  )
+  
+  output$selection3 = renderDataTable(
+    values$selection.display_table2,
+    extensions = c('Buttons'),
+    rownames = F, options = list(
+      dom = 't',
+      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+        "}"),
+      autoWidth = TRUE)
+  )
+  
+  output$selection3 = renderDataTable(
+    values$selection.display_table3,
+    extensions = c('Buttons'),
+    rownames = F, options = list(
+      dom = 't',
+      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+        "}"),
+      autoWidth = TRUE)
+  )
+  
+  output$sel1_drug = renderText({ values$selection.title1 })
+  output$sel2_drug = renderText({ values$selection.title2 })
+  output$sel3_drug = renderText({ values$selection.title3 })
   
   # Brush/hover events
   # output$hover <- renderPrint({

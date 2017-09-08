@@ -151,6 +151,23 @@ shinyUI(
   ggvisOutput("mainplot3")
               )
             ),
+            div(class = "row", 
+              div(class = "five wide column",
+  h3(class="ui horizontal divider header", uiicon("table"), "Table 1"),
+  textOutput("sel1_drug"),
+  DT::dataTableOutput("selection1")
+              ),
+              div(class = "five wide column",
+  h3(class="ui horizontal divider header", uiicon("table"), "Table 2"),
+  textOutput("sel2_drug"),
+  DT::dataTableOutput("selection2")
+              ),
+              div(class = "five wide column",
+  h3(class="ui horizontal divider header", uiicon("table"), "Table 3"),
+  textOutput("sel3_drug"),
+  DT::dataTableOutput("selection3")
+              )
+            ),
             div(class = "row", style = "height: 750px",
               div(class = "column", style = "margin-bottom: 50px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
@@ -158,6 +175,11 @@ shinyUI(
     hidden(div(class = "ui active text loader", id = "loader_tab", "Loading Table",
                style = "margin-top: 50px; margin-bottom: 50px;"))),
     DT::dataTableOutput('data_table')
+              )
+            ),
+            div(class = "row",
+              div(class = "column",
+    DT::dataTableOutput("binding_data")
               )
             )
           )
