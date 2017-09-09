@@ -107,11 +107,12 @@ shinyUI(
               div(class = "stackable column", style = "width: 300px; min-width: 300px;",
   h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
   p("Select a drug to query by searching in the box below. Adjust the sliders to change the parameters. [ explain what the application does and how the parameters work here ]."),
-  selectizeInput('query_compound', 'Select Query Compound', selected = NULL,
-                 choices = sort(unique(similarity_table$name_1)), multiple = F,
-                 options = list(placeholder = "Select a drug",
-                                onInitialize = I('function() { this.setValue(""); }')
-                                ))
+  uiOutput("drug_search")
+  # selectizeInput('query_compound', 'Select Query Compound', selected = NULL,
+  #                choices = sort(unique(similarity_table$name_1)), multiple = F,
+  #                options = list(placeholder = "Select a drug",
+  #                               onInitialize = I('function() { this.setValue(""); }')
+  #                               ))
               ),
               div(class = "stackable column", style = "width: calc(100% - 300px)",
   h3(class="ui horizontal divider header", uiicon("filter"), "Filters"),
@@ -128,10 +129,10 @@ shinyUI(
                 )
               )
             ),
-            div(class = "row",
+            hidden(div(class = "row", id = "result_row1",
   h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot")
-            ),
-            div(class = "row", style = "height: 350px",
+            )),
+            hidden(div(class = "row", style = "height: 350px", id = "result_row2",
               div(class = "stackable five wide column",
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                  hidden(div(class = "ui active text loader", id = "loader1",
@@ -150,38 +151,50 @@ shinyUI(
                             "Loading Plot 3"))),
   ggvisOutput("mainplot3")
               )
-            ),
-            div(class = "row", 
-              div(class = "five wide column",
-  h3(class="ui horizontal divider header", uiicon("table"), "Table 1"),
-  textOutput("sel1_drug"),
+            )),
+  tags$style(type = "text/css", "#row3_col1 { width: calc((100% - 375px)/2); }"),
+  tags$style(type = "text/css", "#row3_col2 { width: calc((100% - 375px)/2); }"),
+  tags$style(type = "text/css", "#row3_col3 { width: 320px; min-width: 320px; }"),
+  tags$style(type = "text/css", "#row3_bind_data { width: 375px; min-width: 375px; }"),
+            hidden(div(class = "row", id = "result_row3",
+             div(class = "stackable column", id = "row3_bind_data",
+                 h3(class="ui horizontal divider header", uiicon("table"), "Binding data"),
+                 tags$style(type='text/css', "#binding_data { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+                 tags$style(type='text/css', "#sel_drug1 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+                 tags$style(type='text/css', "#sel_drug2 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+                 tags$style(type='text/css', "#sel_drug3 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+                 DT::dataTableOutput("binding_data")
+             ),
+              hidden(div(class = "padded stackable column", id = "row3_col1",
+  h3(class="ui horizontal divider header", uiicon("table"), "Selection 1"), 
+  h4(class = "ui centered header", textOutput("sel1_drug")),
   DT::dataTableOutput("selection1")
-              ),
-              div(class = "five wide column",
-  h3(class="ui horizontal divider header", uiicon("table"), "Table 2"),
-  textOutput("sel2_drug"),
+              )),
+              hidden(div(class = "stackable column", id = "row3_col2",
+  h3(class="ui horizontal divider header", uiicon("table"), "Selection 2"),
+  h4(class = "ui centered header", textOutput("sel2_drug")),
   DT::dataTableOutput("selection2")
-              ),
-              div(class = "five wide column",
-  h3(class="ui horizontal divider header", uiicon("table"), "Table 3"),
-  textOutput("sel3_drug"),
+              )),
+              hidden(div(class = "stackable column", id = "row3_col3",
+  h3(class="ui horizontal divider header", uiicon("table"), "Selection 3"),
+  h4(class = "ui centered header", textOutput("sel3_drug")),
   DT::dataTableOutput("selection3")
-              )
-            ),
-            div(class = "row", style = "height: 750px",
-              div(class = "column", style = "margin-bottom: 50px;",
+              ))
+            )),
+            hidden(div(class = "row", id = "button_row",
+  div(class = "ui secondary button action-button", "Clear selections", id = "clearButton")
+            )),
+            hidden(div(class = "row", id = "result_row4",
+              div(class = "column", style = "min-height: 200px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
+  h4(class = "ui centered header", "Select rows below to see drug targets and binding affinities for a given drug."),
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
-    hidden(div(class = "ui active text loader", id = "loader_tab", "Loading Table",
-               style = "margin-top: 50px; margin-bottom: 50px;"))),
-    DT::dataTableOutput('data_table')
+  hidden(div(class = "ui active text loader", id = "loader_tab", "Loading Table",
+             style = "margin-top: 50px; margin-bottom: 50px;"))),
+  DT::dataTableOutput('data_table'),
+  tags$style(type='text/css', "#data_table { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;}")
               )
-            ),
-            div(class = "row",
-              div(class = "column",
-    DT::dataTableOutput("binding_data")
-              )
-            )
+            ))
           )
         )
       ),
