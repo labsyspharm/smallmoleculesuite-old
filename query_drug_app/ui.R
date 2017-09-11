@@ -93,9 +93,9 @@ shinyUI(
         div(class = "ui center aligned container",
             a(class = "item", img(class = "logo", src = "dcic.png"),
               href = "http://lincs-dcic.org"),
-            a(class = "item", "Custom Library App"),
-            a(class = "item", "Query Drug App"),
-            a(class = "item", "Query Gene App"),
+            a(class = "item", "Custom Library App", href = "http://shiny.ilincs.org/custom_library_app/"),
+            a(class = "item", "Query Drug App", href = "http://shiny.ilincs.org/query_drug_app/"),
+            a(class = "item", "Query Gene App", href = "http://shiny.ilincs.org/query_gene_app/"),
             a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
               href = "http://sorger.med.harvard.edu" )
         )
@@ -108,11 +108,6 @@ shinyUI(
   h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
   p("Select a drug to query by searching in the box below. Adjust the sliders to change the parameters. [ explain what the application does and how the parameters work here ]."),
   uiOutput("drug_search")
-  # selectizeInput('query_compound', 'Select Query Compound', selected = NULL,
-  #                choices = sort(unique(similarity_table$name_1)), multiple = F,
-  #                options = list(placeholder = "Select a drug",
-  #                               onInitialize = I('function() { this.setValue(""); }')
-  #                               ))
               ),
               div(class = "stackable column", style = "width: calc(100% - 300px)",
   h3(class="ui horizontal divider header", uiicon("filter"), "Filters"),
