@@ -7,11 +7,15 @@ library(ggvis)
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity$selectivity_class[is.na(affinity_selectivity$selectivity_class)] = "unknown"
 selectivity_order<-c("best_class","second_class","non_specific","unknown","other")
+# add "id" column for tooltip
+affinity_selectivity$id <- 1:nrow(affinity_selectivity)
 
 # Function for toolip values
 all_values <- function(x) {
   if(is.null(x)) return(NULL)
-  paste0(names(x), ": ", format(x), collapse = "<br />")
+  row <- as.data.frame(affinity_selectivity[affinity_selectivity$id == x$id, c("name", "hms_id", 
+    "selectivity_class", "selectivity", "mean_affinity")])
+  paste0(names(row), ": ", format(row), collapse = "<br />")
 }
 
 about.modal.js = "$('.ui.mini.modal')
@@ -97,7 +101,7 @@ shinyServer(function(input, output, session) {
       }, server = FALSE)
       
       values$c.binding_data %>%
-        ggvis(x = ~selectivity, y = ~mean_affinity, fill = ~selectivity_class, stroke = ~selectivity_class, fillOpacity := 0.5, strokeOpacity := 0.5) %>%
+        ggvis(x = ~selectivity, y = ~mean_affinity, fill = ~selectivity_class, stroke = ~selectivity_class, fillOpacity := 0.5, strokeOpacity := 0.5, key := ~id) %>%
           layer_points(stroke.brush := "red") %>%
           scale_numeric("y", trans = "log", expand = 0) %>%
           #scale_numeric("x", range = c(-0.5, max(values$c.binding_data$selectivity, na.rm=T))) %>%
