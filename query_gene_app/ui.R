@@ -121,6 +121,7 @@ shinyUI(
             hidden(div(class = "row", id = "table_row",
               div(class = "column", style = "min-height: 200px;",
     h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
+    h4(class = "ui centered header", "Select rows below to see drug targets and binding affinities for a given drug."),
     conditionalPanel(condition="$('html').hasClass('shiny-busy')",
       hidden(div(class = "ui active text loader", id = "loader_table", "Loading Table"))
     ),
@@ -152,7 +153,7 @@ shinyUI(
                ))
     )),
     hidden(div(class = "row", id = "button_row",
-               div(class = "ui secondary button action-button", "Clear selections", id = "clearButton")
+      div(class = "ui secondary button action-button", "Clear selections", id = "clearButton")
     ))
           )
         )
