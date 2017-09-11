@@ -111,6 +111,7 @@ shinyUI(
     sliderInput("min_measurements", "min_measurements value", min = 1, max = 15, step = 1, value = 2)
               ),
               hidden(div(class = "stackable column", style = "width: 300px; min-width: 300px;", id = "plot_col",
+    h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
     conditionalPanel(condition="$('html').hasClass('shiny-busy')",
       hidden(div(class = "ui active text loader", id = "loader1", "Loading Plot"))
     ),
@@ -118,11 +119,41 @@ shinyUI(
               )
             )),
             hidden(div(class = "row", id = "table_row",
+              div(class = "column", style = "min-height: 200px;",
+    h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
     conditionalPanel(condition="$('html').hasClass('shiny-busy')",
       hidden(div(class = "ui active text loader", id = "loader_table", "Loading Table"))
     ),
-    DT::dataTableOutput("output_table")
-            ))
+    DT::dataTableOutput("output_table"),
+    tags$style(type='text/css', "#output_table { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;}")
+              )
+            )),
+    tags$style(type = "text/css", "#row3_col1 { width: calc(100%/3); min-width: 350px; }"),
+    tags$style(type = "text/css", "#row3_col2 { width: calc(100%/3); min-width: 350px; }"),
+    tags$style(type = "text/css", "#row3_col3 { width: calc(100%/3); min-width: 350px; }"),
+            hidden(div(class = "row", id = "result_row3",
+    tags$style(type='text/css', "#sel_drug1 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+    tags$style(type='text/css', "#sel_drug2 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+    tags$style(type='text/css', "#sel_drug3 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+               hidden(div(class = "padded stackable column", id = "row3_col1",
+                          h3(class="ui horizontal divider header", uiicon("table"), "Selection 1"), 
+                          h4(class = "ui centered header", textOutput("sel1_drug")),
+                          DT::dataTableOutput("selection1", width = "250px")
+               )),
+               hidden(div(class = "stackable column", id = "row3_col2",
+                          h3(class="ui horizontal divider header", uiicon("table"), "Selection 2"),
+                          h4(class = "ui centered header", textOutput("sel2_drug")),
+                          DT::dataTableOutput("selection2", width = "250px")
+               )),
+               hidden(div(class = "stackable column", id = "row3_col3",
+                          h3(class="ui horizontal divider header", uiicon("table"), "Selection 3"),
+                          h4(class = "ui centered header", textOutput("sel3_drug")),
+                          DT::dataTableOutput("selection3", width = "250px")
+               ))
+    )),
+    hidden(div(class = "row", id = "button_row",
+               div(class = "ui secondary button action-button", "Clear selections", id = "clearButton")
+    ))
           )
         )
       ),

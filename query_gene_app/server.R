@@ -89,34 +89,125 @@ shinyServer(function(input, output, session) {
     }
   }, ignoreInit = T)
 
-  # selected_1<-10411
-  # selected_2<-10103
-  # selected_3<-10175
-  # 
-  # selection1.binding_data = affinity_selectivity %>%
-  #   filter(hms_id==selected_1)%>%
-  #   filter(mean_affinity>=min_affinity & mean_affinity<= max_affinity)%>%
-  #   filter(SD_affinity<=max_sd)%>%
-  #   filter(n_measurements>=min_measurements)%>%mutate(selectivity_class=factor(selectivity_class,levels=selectivity_order))%>%
-  #   arrange(mean_affinity,selectivity_class)
-  # selection1.title<-paste0(unique(selection1.binding_data$hms_id),";",unique(selection1.binding_data$name))
-  # selection1.display_table<-selection1.binding_data[1:7,c(3,4,5)]
-
+  # Make other tables on row selection
+  observeEvent(input$output_table_rows_selected, {
+    showElement("result_row3")
+    row = input$output_table_rows_selected
+    # show/hide the selection tables
+    if(length(row) == 1) {
+      showElement("row3_col1")
+      hideElement("row3_col2")
+      hideElement("row3_col3")
+      showElement("button_row")
+    } else if(length(row) == 2) {
+      showElement("row3_col1")
+      showElement("row3_col2")
+      hideElement("row3_col3")
+      showElement("button_row")
+    } else if(length(row) == 3) {
+      showElement("row3_col1")
+      showElement("row3_col2")
+      showElement("row3_col3")
+      showElement("button_row")
+    }
+    for(i in length(row)) {
+      if(length(row) == 0) {
+        hideElement("row3_col1")
+        hideElement("row3_col2")
+        hideElement("row3_col3")
+        hideElement("button_row")
+        break
+      }
+      if(length(row) > 3) { break }
+      
+      name_data = paste("selection.binding_data", i, sep = "")
+      name_display = paste("selection.display_table", i, sep = "")
+      name_title = paste("selection.title", i, sep = "")
+      drug = values$selection_table$name[ row[i] ]
+      
+      values[[name_data]] = affinity_selectivity %>%
+        filter(name == drug) %>%
+        filter(mean_affinity >= 10^input$affinity[1]) %>%
+        filter(mean_affinity <= 10^input$affinity[2]) %>%
+        filter(SD_affinity <= 10^input$sd) %>%
+        filter(n_measurements >= input$min_measurements) %>%
+        mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
+        arrange(selectivity_class, mean_affinity) %>%
+        mutate(mean_affinity = round(mean_affinity))
+      
+      values[[name_display]] = values[[name_data]][1:7,c(3,4,5)]
+      print(head(values[[name_display]]))
+      if(length(values[[name_data]]$hms_id) == 0) {
+        values[[name_title]] = drug
+      } else {
+        values[[name_title]] = paste0(unique(values[[name_data]]$hms_id),"; ", drug)
+      }
+      output_name = paste("selection", i, sep = "")
+    }
+  }, ignoreInit = T, ignoreNULL = F)
+  
+  proxy = dataTableProxy('output_table')
+  
+  observeEvent(input$clearButton, {
+    proxy %>% selectRows(NULL)
+  })
+  
+  output$selection1 = renderDataTable(
+    values$selection.display_table1,
+    extensions = c('Buttons'),
+    rownames = F, options = list(
+      dom = 't',
+      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+        "}"),
+      autoWidth = TRUE)
+  )
+  
+  output$selection2 = renderDataTable(
+    values$selection.display_table2,
+    extensions = c('Buttons'),
+    rownames = F, options = list(
+      dom = 't',
+      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+        "}"),
+      autoWidth = TRUE)
+  )
+  
+  output$selection3 = renderDataTable(
+    values$selection.display_table3,
+    extensions = c('Buttons'),
+    rownames = F, options = list(
+      dom = 't',
+      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+        "}"),
+      autoWidth = TRUE)
+  )
+  
+  output$sel1_drug = renderText({ values$selection.title1 })
+  output$sel2_drug = renderText({ values$selection.title2 })
+  output$sel3_drug = renderText({ values$selection.title3 })
   
   # display results table
-      output$output_table = DT::renderDataTable({
-        datatable(values$selection_table, extensions = c('Buttons', 'FixedHeader'),
-                  filter = 'top',
-                  rownames = F, options = list(
-          dom = 'lBfrtip',
-          buttons = c('copy', 'csv', 'excel', 'colvis'),
-          initComplete = JS(
-            "function(settings, json) {",
-            "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
-            "}"),
-          searchHighlight = TRUE,
-          fixedHeader = TRUE,
-          autoWidth = TRUE
-        ))
-                  }, server = FALSE)
+  output$output_table = DT::renderDataTable({
+    datatable(values$selection_table, extensions = c('Buttons'),
+              filter = 'top',
+              rownames = F, options = list(
+      dom = 'lBfrtip',
+      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+        "}"),
+      searchHighlight = TRUE,
+      autoWidth = TRUE
+    ))
+              }, server = FALSE)
 })
