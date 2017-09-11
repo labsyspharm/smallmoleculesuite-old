@@ -70,18 +70,41 @@ shinyServer(function(input, output, session) {
                                                           "offtarget_IC50_Q1", "offtarget_IC50_N")]
     ## plot data
     ##! we should include a solution for NA points as well.
-  
-      # ggplot(values$c.binding_data, aes(x = selectivity, y = mean_affinity, color = selectivity_class)) +
-      #   geom_point() +
-      #   scale_y_log10(limits = c((10^input$affinity[1] + 0.01), 10^input$affinity[2])) +
-      #   scale_x_continuous(limits = c(0, max(values$c.binding_data$selectivity,na.rm=T)))
+      lb = linked_brush(keys = 1:dim(values$selection_table)[1], "red") 
+      selected = reactive({
+        values$selection_table[lb$selected(),]
+      })
+      
+      # display results table
+      output$output_table = DT::renderDataTable({
+        if(sum(lb$selected()) == 0) {
+          dt = values$selection_table
+        } else {
+          dt = values$selection_table[lb$selected(),]
+        }
+        datatable(dt, extensions = c('Buttons'),
+                  filter = 'top',
+                  rownames = F, options = list(
+                    dom = 'lBfrtip',
+                    buttons = c('copy', 'csv', 'excel', 'colvis'),
+                    initComplete = JS(
+                      "function(settings, json) {",
+                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+                      "}"),
+                    searchHighlight = TRUE,
+                    autoWidth = TRUE
+                  ))
+      }, server = FALSE)
+      
       values$c.binding_data %>%
         ggvis(x = ~selectivity, y = ~mean_affinity, fill = ~selectivity_class, stroke = ~selectivity_class, fillOpacity := 0.5, strokeOpacity := 0.5) %>%
+          layer_points(stroke.brush := "red") %>%
           scale_numeric("y", trans = "log", expand = 0) %>%
           #scale_numeric("x", range = c(-0.5, max(values$c.binding_data$selectivity, na.rm=T))) %>%
           layer_points(stroke.brush := "red") %>%
           #ggvis::hide_legend(c("fill", "stroke")) %>%
           set_options(height = 300, width = 500) %>%
+          lb$input() %>%
           #add_axis("x", title = "x_name") %>%
           #add_axis("y", title = "y_name") %>%
           add_tooltip(all_values, on = c("hover", "click")) %>%
@@ -194,20 +217,4 @@ shinyServer(function(input, output, session) {
   output$sel1_drug = renderText({ values$selection.title1 })
   output$sel2_drug = renderText({ values$selection.title2 })
   output$sel3_drug = renderText({ values$selection.title3 })
-  
-  # display results table
-  output$output_table = DT::renderDataTable({
-    datatable(values$selection_table, extensions = c('Buttons'),
-              filter = 'top',
-              rownames = F, options = list(
-      dom = 'lBfrtip',
-      buttons = c('copy', 'csv', 'excel', 'colvis'),
-      initComplete = JS(
-        "function(settings, json) {",
-        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
-        "}"),
-      searchHighlight = TRUE,
-      autoWidth = TRUE
-    ))
-              }, server = FALSE)
 })
