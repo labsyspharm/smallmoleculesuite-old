@@ -74,13 +74,14 @@ shinyServer(function(input, output, session) {
                                                           "offtarget_IC50_Q1", "offtarget_IC50_N")]
     ## plot data
     ##! we should include a solution for NA points as well.
-      lb = linked_brush(keys = 1:dim(values$selection_table)[1], "red") 
+      lb = linked_brush(keys = values$c.binding_data$id, "red") 
       selected = reactive({
         values$selection_table[lb$selected(),]
       })
       
       # display results table
       output$output_table = DT::renderDataTable({
+        print(which(lb$selected()))
         if(sum(lb$selected()) == 0) {
           dt = values$selection_table
         } else {

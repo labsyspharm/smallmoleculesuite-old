@@ -33,7 +33,7 @@ logifySlider('affinity')
 
 shinyUI(
   semanticPage(
-    title = "Query Drug App",
+    title = "Query Gene App",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
     tags$head(tags$script(HTML(JS.logify))),
