@@ -108,7 +108,7 @@ shinyServer(function(input, output, session) {
           #scale_numeric("x", range = c(-0.5, max(values$c.binding_data$selectivity, na.rm=T))) %>%
           layer_points(stroke.brush := "red") %>%
           #ggvis::hide_legend(c("fill", "stroke")) %>%
-          set_options(height = 300, width = 500) %>%
+          set_options(height = 680, width = "auto", resizable = T) %>%
           lb$input() %>%
           #add_axis("x", title = "x_name") %>%
           #add_axis("y", title = "y_name") %>%

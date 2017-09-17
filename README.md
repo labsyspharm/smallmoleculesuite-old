@@ -52,7 +52,7 @@ shiny::runGitHub("sorgerlab/drug_browser", subdir = "custom_library_app")
 <br>
 
 # Development and links
-<br>
+
 Design/idea by [Nienke Moret](https://github.com/nmoret/) and [Marc Hafner](https://scholar.harvard.edu/hafner) (HMS)
 
 R code by [Nienke Moret](https://github.com/nmoret/) (HMS)

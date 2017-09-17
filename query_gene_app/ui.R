@@ -61,8 +61,10 @@ shinyUI(
                .ui.noshadow.segments {
                box-shadow: none;
                border: none;
+               border-left: 0px;
                margin-top: 0px;
                margin-bottom: 0px;
+               padding: 0px;
                }"
     ),
     div(class = "ui mini modal",
@@ -99,25 +101,58 @@ shinyUI(
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
           div(class = "ui grid",
             div(class = "row",
-              div(class = "stackable column", style = "width: 300px; min-width: 300px;",
+              div(class = "stackable column", style = "width: 350px; min-width: 350px;",
     h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
-    p("Select a gene to query by searching in the box below. Adjust the sliders to change the parameters. [ explain what the application does and how the parameters work here ]."),
-    uiOutput("gene_search")
-              ),
-              div(class = "stackable column", style = "width: 300px; min-width: 300px;",
+    tags$style(type='text/css', "#instructions { font-size: medium; padding: 0px; margin: 0px;}"),
+    tags$style(type='text/css', "#step1{ font-size: medium; padding: 0px; margin: 0px;}"),
+    p(id = "instructions" ,"This app lets you see all compounds in the ", a("HMS Laboratory of Systems Pharmacology (LSP)", href = "http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology"), "collection that are shown to bind your gene target of interest."),
+      br(), br(),
+                div(class = "ui noshadow horizontal segments",
+                  div(class = "ui basic compact segment", style = "width: 60px; min-width: 60px; padding: 0px;",
+    h2(class = "ui header",
+       img(class = "logo", src = "gene.png", style = "width: 31px; height: 31px; display: inline;"),
+       div(class = "content", 1, style = "padding-left: 0px;")
+    )
+                  ),
+                  div(class = "ui basic compact segment",
+                    style = "border-left: 0px; padding: 0px;",
+    p(id = "step1", "To find compounds, first select your target of interest (gene) from the box below.")
+                  )
+                ),
+    br(),
+    uiOutput("gene_search", style = "display: block; margin: auto; width: 200px;"),
     h3(class="ui horizontal divider header", uiicon("filter"), "Filters"),
-    sliderInput("affinity", "Minimum/maximum affinity", min = -3, max = 10, step = 1, value = c(-3,6)),
-    sliderInput("sd", "Maximum std. dev. of affinity", min = 0, max = 10, step = 1, value = 5),
-    sliderInput("min_measurements", "min_measurements value", min = 1, max = 15, step = 1, value = 2)
+                div(class = "ui noshadow horizontal segments",
+                  div(class = "ui basic compact segment",
+                    style = "width: 60px; min-width: 60px; padding: 0px;",
+    h2(class = "ui header",
+      uiicon("options", style = "display: inline;"),
+      div(class = "content", 2, style = "display: inline; padding-left: 0px;")
+    )
+                  ),
+                  div(class = "ui basic compact segment",
+                    style = "padding: 0px; border-left: 0px;",
+    p("Filter binding criteria for compound in clinical development.", style = "font-size: medium;")
+                  )
+                ),
+    h5("Minimum/maximum affinity", style = "text-align: center; margin-top: 10px; margin-bottom: 10px;"),
+    sliderInput("affinity", "", min = -3, max = 10, step = 1, value = c(-3,6)),
+    h5("Maximum std. dev. of affinity", style = "text-align: center; margin-top: 10px; margin-bottom: 10px;"),
+    sliderInput("sd", "", min = 0, max = 10, step = 1, value = 5),
+    h5("Minimum number of measurements", style = "text-align: center; margin-top: 10px; margin-bottom: 10px;"),
+    sliderInput("min_measurements", "", min = 1, max = 15, step = 1, value = 2)
               ),
-              hidden(div(class = "stackable column", style = "width: 300px; min-width: 300px;", id = "plot_col",
+                div(class = "stackable column", style = "width: calc(100% - 350px); min-width: 400px;",
     h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
+                  hidden(div(id = "plot_col",
     conditionalPanel(condition="$('html').hasClass('shiny-busy')",
       hidden(div(class = "ui active text loader", id = "loader1", "Loading Plot"))
     ),
     ggvisOutput("mainplot")
+                  )
+                )
               )
-            )),
+            ),
             hidden(div(class = "row", id = "table_row",
               div(class = "column", style = "min-height: 200px;",
     h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
