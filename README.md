@@ -1,6 +1,8 @@
 # <img src="query_gene_app/www/dcic.png" height = "50" width= "85" alt="LINCS DCIC"> HMS LINCS Small Molecule Library apps <img src="query_gene_app/www/logo_harvard_150.png" height = "50" width = "42" alt = "HMS LINCS Center">
 
-This repository contains three web applications that are currently in development as part of the [NIH LINCS Consortium](http://www.lincsproject.org/) in a collaboration between Harvard Medical School's [Sorger Lab](http://sorger.med.harvard.edu/) and [Laboratory of Systems Pharmacology (LSP)](http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/about/) and the University of Cincinnati's [Laboratory for Statistical Genomics and Systems Biology](http://eh3.uc.edu/). The former (HMS) is one of the LINCS [Data and Signature Generation Centers (DSGCs)](http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers) and the latter (Cincinnati) is part of the [BD2K-LINCS Data Coordination and Integration Center (DCIC)](http://lincs-dcic.org/). All of the web applications are implemented in [R](https://www.r-project.org/), using the [Shiny](https://shiny.rstudio.com/) framework for interactive applications.
+This repository contains three related web applications that are currently in development as part of the [NIH LINCS Consortium](http://www.lincsproject.org/) in a collaboration between Harvard Medical School's [Sorger Lab](http://sorger.med.harvard.edu/) and [Laboratory of Systems Pharmacology (LSP)](http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/about/) and the University of Cincinnati's [Laboratory for Statistical Genomics and Systems Biology](http://eh3.uc.edu/). The former (HMS) is one of the LINCS [Data and Signature Generation Centers (DSGCs)](http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers) and the latter (Cincinnati) is part of the [BD2K-LINCS Data Coordination and Integration Center (DCIC)](http://lincs-dcic.org/). 
+
+All of the web applications are implemented in [R](https://www.r-project.org/), using the [Shiny](https://shiny.rstudio.com/) framework for interactive applications.
 
 The applications are in active development (as of Sept. 16th 2017) and are likely to change in name, features, and hosting location in the near future. The apps may be visited on the web at the links below (these are temporary/development links and subject to change) or run offline in a local R installation.
 
@@ -47,9 +49,10 @@ Or run locally in R:
 ```r
 shiny::runGitHub("sorgerlab/drug_browser", subdir = "custom_library_app")
 ```
+<br>
 
-## Development
-
+# Development and links
+<br>
 Design/idea by [Nienke Moret](https://github.com/nmoret/) and [Marc Hafner](https://scholar.harvard.edu/hafner) (HMS)
 
 R code by [Nienke Moret](https://github.com/nmoret/) (HMS)
@@ -58,18 +61,21 @@ Shiny/R web application development by [Nicholas Clark](https://github.com/Nicho
 
 Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS)
 
-### Links
+### BD2K-LINCS Project <img src="query_gene_app/www/dcic.png" height = "50" width= "85" alt="BD2K-LINCS">
 
-NIH LINCS Consortium http://www.lincsproject.org/
+**NIH LINCS Consortium**<br>http://www.lincsproject.org/
 
-HMS LINCS Center http://lincs.hms.harvard.edu/
+**HMS LINCS Center**<br>http://lincs.hms.harvard.edu/
 
-HMS Laboratory of Systems Pharmacology (LSP) http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/
+**LINCS Data and Signature Generation Centers (DSGCs)**<br>http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers
 
-Sorger Lab http://sorger.med.harvard.edu/
+**BD2K-LINCS Data Coordination and Integration Center (DCIC)**<br>http://lincs-dcic.org/
 
-University of Cincinnati Laboratory for Statistical Genomics and Systems Biology http://eh3.uc.edu/
+### Harvard Medical School <img src="query_gene_app/www/logo_harvard_150.png" height = "50" width = "42" alt = "Harvard Medical School">
+**Laboratory of Systems Pharmacology (LSP)**<br>http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/
 
-LINCS Data and Signature Generation Centers (DSGCs) http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers
+**Sorger Lab**<br>http://sorger.med.harvard.edu/
 
-BD2K-LINCS Data Coordination and Integration Center (DCIC) http://lincs-dcic.org/
+### University of Cincinnati <img src="shared/uc_logo_crop.png" height = "50" width ="64"  alt = "University of Cincinnati">
+
+**Laboratory for Statistical Genomics and Systems Biology**<br>http://eh3.uc.edu/
