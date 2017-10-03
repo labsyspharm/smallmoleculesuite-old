@@ -4,7 +4,7 @@ library(shinyjs)
 library(DT)
 library(plotly)
 library(readr)
-library(ggvis)
+library(plotly)
 
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
@@ -132,19 +132,19 @@ shinyUI(
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                  hidden(div(class = "ui active text loader", id = "loader1",
                             "Loading Plot 1"))),
-  ggvisOutput("mainplot1")
+  plotlyOutput("mainplot1")
               ),
               div(class = "stackable five wide column",
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                  hidden(div(class = "ui active text loader", id = "loader2",
                             "Loading Plot 2"))),
-  ggvisOutput("mainplot2")
+  plotlyOutput("mainplot2")
               ),
               div(class = "stackable five wide column",
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                  hidden(div(class = "ui active text loader", id = "loader3",
                             "Loading Plot 3"))),
-  ggvisOutput("mainplot3")
+  plotlyOutput("mainplot3")
               )
             )),
   tags$style(type = "text/css", "#row3_col1 { width: calc((100% - 375px)/2); }"),

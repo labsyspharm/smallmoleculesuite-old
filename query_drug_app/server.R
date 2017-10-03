@@ -6,8 +6,6 @@ library(ggplot2)
 library(plotly)
 library(readr)
 library(crosstalk)
-library(d3scatter)
-library(ggvis)
 
 # load data
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
@@ -104,63 +102,89 @@ shinyServer(function(input, output, session) {
       mutate(mean_affinity = round(mean_affinity, 3)) %>%
       arrange(selectivity_class, mean_affinity)
     
+    d <- SharedData$new(values$c.data, ~name_2)
+    
     #c.title<-paste0(unique(c.binding_data$hms_id),";",unique(c.binding_data$name))
     # title should be same as above, right?
     # by default it will display 10 rows at a time
     values$c.display_table = values$c.binding_data[,c(3,4,5)]
     
-    lb = linked_brush(keys = 1:dim(values$c.data)[1], "red") 
-    selected = reactive({
-      values$c.data[lb$selected(),]
+    # p <- plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length,
+    #              marker = list(size = 10,
+    #                            color = 'rgba(255, 182, 193, .9)',
+    #                            line = list(color = 'rgba(152, 0, 0, .8)',
+    #                                        width = 2))) %>%
+    #   layout(title = 'Styled Scatter',
+    #          yaxis = list(zeroline = FALSE),
+    #          xaxis = list(zeroline = FALSE))
+    
+    output$mainplot1 <- renderPlotly({
+      s <- input$data_table_rows_selected
+      if (!length(s)) {
+        p <- d %>%
+          plot_ly(x = ~structural_similarity, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2, text = ~paste('Drug: ', name_2), hoverinfo = "text") %>%
+          layout(showlegend = F) %>% 
+          highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2), text = ~paste('Drug: ', name_2), hoverinfo = "text")
+      } else if (length(s)) {
+        pp <- values$c.data %>%
+          plot_ly() %>% 
+          add_trace(x = ~structural_similarity, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2, text = ~paste('Drug: ', name_2), hoverinfo = "text") %>%
+          layout(showlegend = F)
+        
+        # selected data
+        pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
+                        x = ~structural_similarity, y = ~PFP, mode = "markers",
+                        color = I('red'), name = ~name_2)
+      }
     })
-
-    values$c.data %>% 
-      ggvis(x = ~structural_similarity, y = ~PFP, fill := "black", stroke:= "black", fillOpacity := 0.5, strokeOpacity := 0.5) %>%
-      layer_points(stroke.brush := "red") %>%
-      ggvis::hide_legend(c("fill", "stroke")) %>%
-      set_options(height = 300, width = 300) %>%
-      #add_axis("x", title = "x_name") %>%
-      #add_axis("y", title = "y_name") %>%
-      lb$input() %>%
-      add_tooltip(all_values, on = c("hover", "click")) %>%
-      layer_points(data = selected, x = ~structural_similarity, y = ~PFP, stroke.update := "red",
-                   fillOpacity.update := 0, strokeOpacity.update := 0.5) %>%
-      bind_shiny("mainplot1")
     
-    values$c.data %>% 
-      ggvis(x = ~structural_similarity, y = ~TAS, fill := "black", stroke := "black", fillOpacity := 0.5, strokeOpacity := 0.5) %>%
-      layer_points(stroke.brush := "red") %>%
-      ggvis::hide_legend(c("fill", "stroke")) %>%
-      set_options(height = 300, width = 300) %>%
-      #add_axis("x", title = "x_name") %>%
-      #add_axis("y", title = "y_name") %>%
-      lb$input() %>%
-      add_tooltip(all_values, on = c("hover", "click")) %>%
-      layer_points(data = selected, x = ~structural_similarity, y = ~TAS, stroke.update := "red",
-                   fillOpacity.update := 0, strokeOpacity.update := 0.5) %>%
-      bind_shiny("mainplot2")
+    output$mainplot2 <- renderPlotly({
+      s <- input$data_table_rows_selected
+      if (!length(s)) {
+        p <- d %>%
+          plot_ly(x = ~structural_similarity, y = ~TAS, mode = "markers", color = I('black'), name = ~name_2) %>%
+          layout(showlegend = F) %>% 
+          highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
+      } else if (length(s)) {
+        pp <- values$c.data %>%
+          plot_ly() %>% 
+          add_trace(x = ~structural_similarity, y = ~TAS, mode = "markers", color = I('black'), name = ~name_2) %>%
+          layout(showlegend = F)
+        
+        # selected data
+        pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
+                        x = ~structural_similarity, y = ~TAS, mode = "markers",
+                        color = I('red'), name = ~name_2)
+      }
+    })
     
-    values$c.data %>% 
-      ggvis(x = ~TAS, y = ~PFP, fill := "black", stroke:= "black", fillOpacity := 0.5, strokeOpacity := 0.5) %>% 
-      layer_points(stroke.brush := "red") %>%
-      ggvis::hide_legend(c("fill", "stroke")) %>%
-      set_options(height = 300, width = 300) %>%
-      #add_axis("x", title = "x_name") %>%
-      #add_axis("y", title = "y_name") %>%
-      lb$input() %>%
-      add_tooltip(all_values, on = c("hover", "click")) %>%
-      layer_points(data = selected, x = ~TAS, y = ~PFP, stroke.update := "red",
-                   fillOpacity.update := 0, strokeOpacity.update := 0.5) %>%
-      bind_shiny("mainplot3")
+    output$mainplot3 <- renderPlotly({
+      s <- input$data_table_rows_selected
+      if (!length(s)) {
+        p <- d %>%
+          plot_ly(x = ~TAS, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2) %>%
+          layout(showlegend = F) %>% 
+          highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
+      } else if (length(s)) {
+        pp <- values$c.data %>%
+          plot_ly() %>% 
+          add_trace(x = ~TAS, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2) %>%
+          layout(showlegend = F)
+        
+        # selected data
+        pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
+                        x = ~TAS, y = ~PFP, mode = "markers",
+                        color = I('red'), name = ~name_2)
+      }
+    })
     
     output$data_table = renderDataTable( {
-      values$c.data$selected = lb$selected()
-      if(sum(lb$selected()) == 0) {
-        values$c.data
+      m2 <- values$c.data[d$selection(), , drop = F]
+      dt <- DT::datatable(values$c.data)
+      if(NROW(m2) == 0) {
+        dt
       } else {
-        DT::formatStyle(DT::datatable(values$c.data), "selected", target = "row",
-                        color = DT::styleEqual(c(0, 1), c('black', 'white')),
-                        backgroundColor = DT::styleEqual(c(0, 1), c('white', 'black')))
+        m2
       }
       },
         extensions = c('Buttons'),
