@@ -1,4 +1,5 @@
 library(shiny)
+library(shinyBS)
 library(shiny.semantic)
 library(shinyjs)
 library(DT)
@@ -107,7 +108,13 @@ shinyUI(
               div(class = "stackable column", style = "width: 300px; min-width: 300px;",
                 div(class = "ui basic center aligned segment",
   h4(class="ui header", "Select reference compound"),
-  uiOutput("drug_search")
+  selectizeInput(inputId = "query_compound", label = "", choices = sort(unique(similarity_table$name_1)),
+                 options = list(
+                   placeholder = 'Search for a compound',
+                   onInitialize = I('function() { this.setValue(""); }')
+                 )
+  )
+  #uiOutput("drug_search")
                 )
               ),
               div(class = "stackable column", style = "width: calc(100% - 300px); min-width: 300px;",
@@ -180,6 +187,16 @@ sliderInput("n_pheno", "Number of phenotypic assays in common with reference com
   tags$style(type = "text/css", "#row3_col2 { width: calc((100% - 375px)/2); }"),
   tags$style(type = "text/css", "#row3_col3 { width: 320px; min-width: 320px; }"),
   tags$style(type = "text/css", "#row3_bind_data { width: 375px; min-width: 375px; }"),
+            hidden(div(class = "row", id = "result_row4",
+              div(class = "column", style = "min-height: 200px;",
+  h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
+  h4(class = "ui centered header", "Select up to three similar compounds for which target affinity information will be displayed"),
+              conditionalPanel(condition="$('html').hasClass('shiny-busy')",
+                hidden(div(class = "ui active text loader", id = "loader_tab", "Loading Table",style = "margin-top: 50px; margin-bottom: 50px;"))),
+   DT::dataTableOutput('data_table'),
+   tags$style(type='text/css', "#data_table { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;}")
+             )
+            )),
             hidden(div(class = "row", id = "result_row3",
              div(class = "stackable column", id = "row3_bind_data",
    h3(class="ui horizontal divider header", uiicon("table"), "Binding data"),
@@ -207,17 +224,6 @@ sliderInput("n_pheno", "Number of phenotypic assays in common with reference com
             )),
             hidden(div(class = "row", id = "button_row",
   div(class = "ui secondary button action-button", "Clear selections", id = "clearButton")
-            )),
-            hidden(div(class = "row", id = "result_row4",
-              div(class = "column", style = "min-height: 200px;",
-  h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
-  h4(class = "ui centered header", "Select rows below to see drug targets and binding affinities for a given drug."),
-  conditionalPanel(condition="$('html').hasClass('shiny-busy')",
-  hidden(div(class = "ui active text loader", id = "loader_tab", "Loading Table",
-             style = "margin-top: 50px; margin-bottom: 50px;"))),
-  DT::dataTableOutput('data_table'),
-  tags$style(type='text/css', "#data_table { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;}")
-              )
             ))
           )
         )

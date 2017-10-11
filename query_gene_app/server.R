@@ -40,24 +40,23 @@ shinyServer(function(input, output, session) {
     toggleElement(id = "filter_right")
   })
   
-  search_api <- function(affinity_selectivity, q){
-    has_matching <- function(field) {
-      grepl(q, field, ignore.case = T)
-    }
-    affinity_selectivity %>%
-      mutate(symbol = as.character(symbol)) %>%
-      arrange(symbol) %>%
-      select(symbol) %>%
-      unique %>%
-      filter(has_matching(symbol)) %>%
-      head(5) %>%
-      transmute(name = symbol,
-                value = symbol)
-  }
-  
-  search_api_url = shiny.semantic::register_search(session, affinity_selectivity, search_api)
-  output$gene_search = shiny::renderUI(search_selection_api("query_gene", search_api_url, multiple = FALSE))
-
+  # search_api <- function(affinity_selectivity, q){
+  #   has_matching <- function(field) {
+  #     grepl(q, field, ignore.case = T)
+  #   }
+  #   affinity_selectivity %>%
+  #     mutate(symbol = as.character(symbol)) %>%
+  #     arrange(symbol) %>%
+  #     select(symbol) %>%
+  #     unique %>%
+  #     filter(has_matching(symbol)) %>%
+  #     head(5) %>%
+  #     transmute(name = symbol,
+  #               value = symbol)
+  # }
+  # 
+  # search_api_url = shiny.semantic::register_search(session, affinity_selectivity, search_api)
+  # output$gene_search = shiny::renderUI(search_selection_api("query_gene", search_api_url, multiple = FALSE))
   
   observeEvent(c(input$query_gene, input$affinity, input$sd, input$min_measurements) , {
     if(input$query_gene != "") {

@@ -34,23 +34,23 @@ shinyServer(function(input, output, session) {
     runjs(about.modal.js)
   })
 
-  search_api <- function(similarity_table, q){
-    has_matching <- function(field) {
-      grepl(q, field, ignore.case = T)
-    }
-    similarity_table %>%
-      mutate(name_1 = as.character(name_1)) %>%
-      arrange(name_1) %>%
-      select(name_1) %>%
-      unique %>%
-      filter(has_matching(name_1)) %>%
-      head(5) %>%
-      transmute(name = name_1,
-                value = name_1)
-  }
-
-  search_api_url = shiny.semantic::register_search(session, similarity_table, search_api)
-  output$drug_search = shiny::renderUI(search_selection_api("query_compound", search_api_url, multiple = FALSE))
+  # search_api <- function(similarity_table, q){
+  #   has_matching <- function(field) {
+  #     grepl(q, field, ignore.case = T)
+  #   }
+  #   similarity_table %>%
+  #     mutate(name_1 = as.character(name_1)) %>%
+  #     arrange(name_1) %>%
+  #     select(name_1) %>%
+  #     unique %>%
+  #     filter(has_matching(name_1)) %>%
+  #     head(5) %>%
+  #     transmute(name = name_1,
+  #               value = name_1)
+  # }
+  # 
+  # search_api_url = shiny.semantic::register_search(session, similarity_table, search_api)
+  # output$drug_search = shiny::renderUI(search_selection_api("query_compound", search_api_url, multiple = FALSE))
 
   observeEvent(input$query_compound, {
     if(length(input$query_compound) > 0) {
