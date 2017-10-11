@@ -63,7 +63,7 @@ shinyServer(function(input, output, session) {
                           c.display_table = NULL, drug_select = NULL)
   
   # update the table upon parameter/input changes
-  observeEvent(c(values$drug_select, input$n_common, input$n_pheno), {
+  observeEvent(c(values$drug_select, input$n_common, input$n_pheno, input$query_compound), {
     if(!is.null(values$drug_select) & values$drug_select != "") {
     showElement("result_row1")
     showElement("result_row2")
@@ -93,10 +93,10 @@ shinyServer(function(input, output, session) {
     ## show affinity data of reference compound+ selected compounds
     # filter by name or hms id?
     values$c.binding_data = affinity_selectivity %>% filter(name == values$drug_select) %>%
-      filter(mean_affinity >= 0) %>%
-      filter(mean_affinity <= 10^20) %>%
-      filter(SD_affinity <= 10^20) %>%
-      filter(n_measurements >= 0) %>%
+    #filter(mean_affinity >= 10^input$affinity[1]) %>%
+    #filter(mean_affinity <= 10^input$affinity[2]) %>%
+    #filter(SD_affinity <= 10^input$sd) %>%
+    #filter(n_measurements >= input$min_measurements) %>%
       mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
       mutate(mean_affinity = round(mean_affinity, 3)) %>%
       arrange(selectivity_class, mean_affinity)
@@ -110,9 +110,6 @@ shinyServer(function(input, output, session) {
     d = SharedData$new(values$c.data, ~name_2)
     
     output$mainplot1 <- renderPlotly({
-      d = SharedData$new(values$c.data, ~name_2)
-      print("render")
-      print(values$drug_select)
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
@@ -135,7 +132,6 @@ shinyServer(function(input, output, session) {
     })
     
     output$mainplot2 <- renderPlotly({
-      d = SharedData$new(values$c.data, ~name_2)
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
@@ -159,7 +155,6 @@ shinyServer(function(input, output, session) {
     })
     
     output$mainplot3 <- renderPlotly({
-      d = SharedData$new(values$c.data, ~name_2)
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
@@ -259,10 +254,10 @@ shinyServer(function(input, output, session) {
 
       values[[name_data]] = affinity_selectivity %>%
         filter(name == drug) %>%
-        filter(mean_affinity >= 0) %>%
-        filter(mean_affinity <= 10^20) %>%
-        filter(SD_affinity <= 0) %>%
-        filter(n_measurements >= 0) %>%
+        #filter(mean_affinity >= 10^input$affinity[1]) %>%
+        #filter(mean_affinity <= 10^input$affinity[2]) %>%
+        #filter(SD_affinity <= 10^input$sd) %>%
+        #filter(n_measurements >= input$min_measurements) %>%
         mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
         arrange(selectivity_class, mean_affinity) %>%
         mutate(mean_affinity = round(mean_affinity))
