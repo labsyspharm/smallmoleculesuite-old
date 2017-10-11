@@ -28,12 +28,12 @@ shinyServer(function(input, output, session) {
   values = reactiveValues(test = NULL)
   # Make app stop when you close the webpage
   session$onSessionEnded(stopApp)
-  
+
   # Load "about" modal
   observeEvent(input$about, {
     runjs(about.modal.js)
   })
-  
+
   search_api <- function(similarity_table, q){
     has_matching <- function(field) {
       grepl(q, field, ignore.case = T)
@@ -48,22 +48,22 @@ shinyServer(function(input, output, session) {
       transmute(name = name_1,
                 value = name_1)
   }
-  
+
   search_api_url = shiny.semantic::register_search(session, similarity_table, search_api)
   output$drug_search = shiny::renderUI(search_selection_api("query_compound", search_api_url, multiple = FALSE))
-  
+
   observeEvent(input$query_compound, {
     if(length(input$query_compound) > 0) {
       values$drug_select = input$query_compound
     }
   })
-  
+
   # reactive values
   values = reactiveValues(c.data = NULL, c.data_title = NULL, c.binding_data = NULL,
                           c.display_table = NULL, drug_select = NULL)
-  
+
   # update the table upon parameter/input changes
-  observeEvent(c(values$drug_select, input$n_common, input$n_pheno, input$query_compound), {
+  observeEvent(c(values$drug_select, input$n_common, input$n_pheno), {
     if(!is.null(values$drug_select) & values$drug_select != "") {
     showElement("result_row1")
     showElement("result_row2")
@@ -82,52 +82,53 @@ shinyServer(function(input, output, session) {
       mutate_at(vars(PFP), funs(ifelse(is.na(PFP), -1.1, PFP))) %>%
       mutate_at(vars(TAS), funs(ifelse(is.na(TAS), -0.1, TAS))) %>%
       mutate_at(vars(structural_similarity), funs(ifelse(is.na(structural_similarity), -0.1, structural_similarity)))
-      
+
     # ^are these the right filters?
     # filter by name or hms ID?
-    
+
     values$c.data_title = paste0(unique(values$c.data$hmsID_1),";",unique(values$c.data$name_1))
     ## display scatterplots
     ## show c.data plotted w/selection boxes
-    
+
     ## show affinity data of reference compound+ selected compounds
     # filter by name or hms id?
     values$c.binding_data = affinity_selectivity %>% filter(name == values$drug_select) %>%
-    #filter(mean_affinity >= 10^input$affinity[1]) %>%
-    #filter(mean_affinity <= 10^input$affinity[2]) %>%
-    #filter(SD_affinity <= 10^input$sd) %>%
-    #filter(n_measurements >= input$min_measurements) %>%
+      #filter(mean_affinity >= 10^input$affinity[1]) %>%
+      #filter(mean_affinity <= 10^input$affinity[2]) %>%
+      #filter(SD_affinity <= 10^input$sd) %>%
+      #filter(n_measurements >= input$min_measurements) %>%
       mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
       mutate(mean_affinity = round(mean_affinity, 3)) %>%
       arrange(selectivity_class, mean_affinity)
-    
-    
+
+    d <- SharedData$new(values$c.data, ~name_2)
+
     #c.title<-paste0(unique(c.binding_data$hms_id),";",unique(c.binding_data$name))
     # title should be same as above, right?
     # by default it will display 10 rows at a time
     values$c.display_table = values$c.binding_data[,c(3,4,5)]
-    
-    d = SharedData$new(values$c.data, ~name_2)
-    
+
     output$mainplot1 <- renderPlotly({
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~PFP, mode = "markers", 
-                  color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
-                    name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, "\ny: ", PFP, sep = ""), hoverinfo = "text") %>%
+            color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
+            name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, "\ny: ", 
+            PFP, sep = ""), hoverinfo = "text") %>%
           layout(showlegend = F) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2), hoverinfo = "text")
       } else if (length(s)) {
         pp <- values$c.data %>%
           plot_ly() %>% 
-          add_trace(x = ~structural_similarity, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2, hoverinfo = "text") %>%
+          add_trace(x = ~structural_similarity, y = ~PFP, mode = "markers", 
+            color = I('black'), name = ~name_2, hoverinfo = "text") %>%
           layout(showlegend = F)
         
         # selected data
         pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
-                        x = ~structural_similarity, y = ~PFP, mode = "markers",
-                        color = I('red'), name = ~name_2)
+          x = ~structural_similarity, y = ~PFP, mode = "markers",
+          color = I('red'), name = ~name_2)
       }
     })
     
@@ -136,21 +137,22 @@ shinyServer(function(input, output, session) {
       if (!length(s)) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~TAS, mode = "markers", 
-                  color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
-                    name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, 
-                    "\ny: ", TAS, sep = ""), hoverinfo = "text") %>%
+            color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
+            name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, 
+            "\ny: ", TAS, sep = ""), hoverinfo = "text") %>%
           layout(showlegend = F) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
       } else if (length(s)) {
         pp <- values$c.data %>%
           plot_ly() %>% 
-          add_trace(x = ~structural_similarity, y = ~TAS, mode = "markers", color = I('black'), name = ~name_2) %>%
+          add_trace(x = ~structural_similarity, y = ~TAS, mode = "markers",
+            color = I('black'), name = ~name_2) %>%
           layout(showlegend = F)
         
         # selected data
         pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
-                        x = ~structural_similarity, y = ~TAS, mode = "markers",
-                        color = I('red'), name = ~name_2)
+          x = ~structural_similarity, y = ~TAS, mode = "markers",
+            color = I('red'), name = ~name_2)
       }
     })
     
@@ -159,9 +161,9 @@ shinyServer(function(input, output, session) {
       if (!length(s)) {
         p <- d %>%
           plot_ly(x = ~TAS, y = ~PFP, mode = "markers", 
-                  color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
-                    name_1, "\nDrug 2: ", name_2, "\nx: ", TAS, 
-                    "\ny: ", PFP, sep = ""), hoverinfo = "text") %>%
+            color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
+            name_1, "\nDrug 2: ", name_2, "\nx: ", TAS, "\ny: ", PFP, sep = ""),
+            hoverinfo = "text") %>%
           layout(showlegend = F) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
       } else if (length(s)) {
@@ -172,11 +174,11 @@ shinyServer(function(input, output, session) {
         
         # selected data
         pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
-                        x = ~TAS, y = ~PFP, mode = "markers",
-                        color = I('red'), name = ~name_2)
+          x = ~TAS, y = ~PFP, mode = "markers",
+          color = I('red'), name = ~name_2)
       }
     })
-    
+
     output$data_table = renderDataTable( {
       m2 <- values$c.data[d$selection(), , drop = F]
       dt <- DT::datatable(values$c.data)
@@ -198,14 +200,14 @@ shinyServer(function(input, output, session) {
           searchHighlight = TRUE,
           autoWidth = TRUE)
       )
-    
+
     # Main table output
     output$binding_data = renderDataTable(
       values$c.display_table,
       extensions = c('Buttons'),
       rownames = F, options = list(
         dom = 'lBfrtip',
-        #buttons = c('copy', 'csv', 'excel'),
+        buttons = c('copy', 'csv', 'excel'),
         initComplete = JS(
           "function(settings, json) {",
           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
@@ -215,7 +217,7 @@ shinyServer(function(input, output, session) {
       )
     }
     }, ignoreInit = T, ignoreNULL = T)
-  
+
   # Make other tables on row selection
   observeEvent(input$data_table_rows_selected, {
     showElement("result_row3")
@@ -271,13 +273,13 @@ shinyServer(function(input, output, session) {
       output_name = paste("selection", i, sep = "")
     }
   }, ignoreInit = T, ignoreNULL = F)
-  
+
   proxy = dataTableProxy('data_table')
-  
+
   observeEvent(input$clearButton, {
     proxy %>% selectRows(NULL)
   })
-  
+
   output$selection1 = renderDataTable(
     values$selection.display_table1,
     extensions = c('Buttons'),
@@ -290,7 +292,7 @@ shinyServer(function(input, output, session) {
         "}"),
       autoWidth = TRUE)
   )
-  
+
   output$selection2 = renderDataTable(
     values$selection.display_table2,
     extensions = c('Buttons'),
@@ -303,7 +305,7 @@ shinyServer(function(input, output, session) {
         "}"),
       autoWidth = TRUE)
   )
-  
+
   output$selection3 = renderDataTable(
     values$selection.display_table3,
     extensions = c('Buttons'),
@@ -316,11 +318,11 @@ shinyServer(function(input, output, session) {
         "}"),
       autoWidth = TRUE)
   )
-  
+
   output$sel1_drug = renderText({ values$selection.title1 })
   output$sel2_drug = renderText({ values$selection.title2 })
   output$sel3_drug = renderText({ values$selection.title3 })
-  
+
   # Brush/hover events
   # output$hover <- renderPrint({
   #   d <- event_data("plotly_hover")
@@ -330,7 +332,7 @@ shinyServer(function(input, output, session) {
   #   d <- event_data("plotly_selected")
   #   if (is.null(d)) "Click and drag events (i.e., select/lasso) appear here (double-click to clear)" else d
   # })
-  
+
   # Click/zoom events
   # output$click <- renderPrint({
   #   d <- event_data("plotly_click")
@@ -340,7 +342,7 @@ shinyServer(function(input, output, session) {
   #   d <- event_data("plotly_relayout")
   #   if (is.null(d)) "Relayout (i.e., zoom) events appear here" else d
   # })
-  # 
+  #
   #c.data_shared <- SharedData$new(values$c.data, ~rowname)
   # highlight selected rows in the scatterplot
   # output$p1 <- renderPlotly({
@@ -355,14 +357,14 @@ shinyServer(function(input, output, session) {
   #       plot_ly() %>%
   #       add_trace(x = ~mpg, y = ~disp, mode = "markers", color = I('black'), name = 'Unfiltered') %>%
   #       layout(showlegend = T)
-  # 
+  #
   #     # selected data
   #     pp <- add_trace(pp, data = m[s, , drop = F], x = ~mpg, y = ~disp, mode = "markers",
   #                     color = I('red'), name = 'Filtered')
   #   }
   # 
   # })
-  # 
+  #
   # # highlight selected rows in the table
   # output$data_table <- DT::renderDataTable({
   #   m2 <- m[d$selection(),]
@@ -375,7 +377,7 @@ shinyServer(function(input, output, session) {
   #                     backgroundColor = DT::styleEqual(m2$rowname, rep("black", length(m2$rowname))))
   #   }
   # })
-  # 
+  #
   # # download the filtered data
   # output$x3 = downloadHandler('mtcars-filtered.csv', content = function(file) {
   #   s <- input$x1_rows_selected
@@ -385,6 +387,6 @@ shinyServer(function(input, output, session) {
   #     write.csv(m[d$selection(),], file)
   #   }
   # })
-  
-  
+
+
 })
