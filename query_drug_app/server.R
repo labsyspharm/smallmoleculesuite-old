@@ -63,8 +63,7 @@ shinyServer(function(input, output, session) {
                           c.display_table = NULL, drug_select = NULL)
   
   # update the table upon parameter/input changes
-  observeEvent(c(values$drug_select, input$n_common, input$n_pheno,
-                 input$affinity, input$sd, input$min_measurements), {
+  observeEvent(c(values$drug_select, input$n_common, input$n_pheno), {
     if(!is.null(values$drug_select) & values$drug_select != "") {
     showElement("result_row1")
     showElement("result_row2")
@@ -94,31 +93,26 @@ shinyServer(function(input, output, session) {
     ## show affinity data of reference compound+ selected compounds
     # filter by name or hms id?
     values$c.binding_data = affinity_selectivity %>% filter(name == values$drug_select) %>%
-      filter(mean_affinity >= 10^input$affinity[1]) %>%
-      filter(mean_affinity <= 10^input$affinity[2]) %>%
-      filter(SD_affinity <= 10^input$sd) %>%
-      filter(n_measurements >= input$min_measurements) %>%
+      filter(mean_affinity >= 0) %>%
+      filter(mean_affinity <= 10^20) %>%
+      filter(SD_affinity <= 10^20) %>%
+      filter(n_measurements >= 0) %>%
       mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
       mutate(mean_affinity = round(mean_affinity, 3)) %>%
       arrange(selectivity_class, mean_affinity)
     
-    d <- SharedData$new(values$c.data, ~name_2)
     
     #c.title<-paste0(unique(c.binding_data$hms_id),";",unique(c.binding_data$name))
     # title should be same as above, right?
     # by default it will display 10 rows at a time
     values$c.display_table = values$c.binding_data[,c(3,4,5)]
     
-    # p <- plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length,
-    #              marker = list(size = 10,
-    #                            color = 'rgba(255, 182, 193, .9)',
-    #                            line = list(color = 'rgba(152, 0, 0, .8)',
-    #                                        width = 2))) %>%
-    #   layout(title = 'Styled Scatter',
-    #          yaxis = list(zeroline = FALSE),
-    #          xaxis = list(zeroline = FALSE))
+    d = SharedData$new(values$c.data, ~name_2)
     
     output$mainplot1 <- renderPlotly({
+      d = SharedData$new(values$c.data, ~name_2)
+      print("render")
+      print(values$drug_select)
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
@@ -141,6 +135,7 @@ shinyServer(function(input, output, session) {
     })
     
     output$mainplot2 <- renderPlotly({
+      d = SharedData$new(values$c.data, ~name_2)
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
@@ -164,6 +159,7 @@ shinyServer(function(input, output, session) {
     })
     
     output$mainplot3 <- renderPlotly({
+      d = SharedData$new(values$c.data, ~name_2)
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
@@ -214,7 +210,7 @@ shinyServer(function(input, output, session) {
       extensions = c('Buttons'),
       rownames = F, options = list(
         dom = 'lBfrtip',
-        buttons = c('copy', 'csv', 'excel'),
+        #buttons = c('copy', 'csv', 'excel'),
         initComplete = JS(
           "function(settings, json) {",
           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
@@ -263,10 +259,10 @@ shinyServer(function(input, output, session) {
 
       values[[name_data]] = affinity_selectivity %>%
         filter(name == drug) %>%
-        filter(mean_affinity >= 10^input$affinity[1]) %>%
-        filter(mean_affinity <= 10^input$affinity[2]) %>%
-        filter(SD_affinity <= 10^input$sd) %>%
-        filter(n_measurements >= input$min_measurements) %>%
+        filter(mean_affinity >= 0) %>%
+        filter(mean_affinity <= 10^20) %>%
+        filter(SD_affinity <= 0) %>%
+        filter(n_measurements >= 0) %>%
         mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
         arrange(selectivity_class, mean_affinity) %>%
         mutate(mean_affinity = round(mean_affinity))

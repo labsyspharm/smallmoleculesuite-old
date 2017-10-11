@@ -33,6 +33,13 @@ shinyServer(function(input, output, session) {
     runjs(about.modal.js)
   })
   
+  # show/hide filters
+  observeEvent(input$filter_button, {
+    toggleElement(id = "filters", anim = T, animType = "fade")
+    toggleElement(id = "filter_down")
+    toggleElement(id = "filter_right")
+  })
+  
   search_api <- function(affinity_selectivity, q){
     has_matching <- function(field) {
       grepl(q, field, ignore.case = T)
@@ -69,9 +76,10 @@ shinyServer(function(input, output, session) {
       arrange(selectivity_class, mean_affinity)
       
       ## show selection table -- user selects up to three compounds
-      values$selection_table = values$c.binding_data[ , c("name", "hms_id", "symbol", "selectivity_class",
-                                                          "mean_affinity", "selectivity", "ontarget_IC50_Q1",
-                                                          "offtarget_IC50_Q1", "offtarget_IC50_N")]
+      values$selection_table = values$c.binding_data
+      # values$selection_table = values$c.binding_data[ , c("name", "hms_id", "symbol", "selectivity_class",
+      #                                                     "mean_affinity", "selectivity", "ontarget_IC50_Q1",
+      #                                                     "offtarget_IC50_Q1", "offtarget_IC50_N")]
     ## plot data
     ##! we should include a solution for NA points as well.
       lb = linked_brush(keys = values$c.binding_data$id, "red") 
@@ -108,7 +116,7 @@ shinyServer(function(input, output, session) {
           #scale_numeric("x", range = c(-0.5, max(values$c.binding_data$selectivity, na.rm=T))) %>%
           layer_points(stroke.brush := "red") %>%
           #ggvis::hide_legend(c("fill", "stroke")) %>%
-          set_options(height = 680, width = "auto", resizable = T) %>%
+          set_options(height = 400, width = "auto", resizable = T) %>%
           lb$input() %>%
           #add_axis("x", title = "x_name") %>%
           #add_axis("y", title = "y_name") %>%

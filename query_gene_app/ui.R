@@ -121,12 +121,12 @@ shinyUI(
                 ),
     br(),
     uiOutput("gene_search", style = "display: block; margin: auto; width: 200px;"),
-    h3(class="ui horizontal divider header", uiicon("filter"), "Filters"),
+    br(),
                 div(class = "ui noshadow horizontal segments",
                   div(class = "ui basic compact segment",
                     style = "width: 60px; min-width: 60px; padding: 0px;",
     h2(class = "ui header",
-      uiicon("options", style = "display: inline;"),
+      uiicon("options", style = "display: inline;", class = "red"),
       div(class = "content", 2, style = "display: inline; padding-left: 0px;")
     )
                   ),
@@ -135,15 +135,37 @@ shinyUI(
     p("Filter binding criteria for compound in clinical development.", style = "font-size: medium;")
                   )
                 ),
+    h3(class="ui horizontal divider header",
+       div(class = "item action-button shiny-bound-input", id = "filter_button",
+           a(class = "action-button", p(uiicon("caret down", id = "filter_right"),
+                                        hidden(uiicon(type = "caret right", id = "filter_down")),
+                                        "Show/hide filters", uiicon(type = "filter")), href = "#")
+       )
+    ),
+                hidden(div(id = "filters",
     h5("Minimum/maximum affinity", style = "text-align: center; margin-top: 10px; margin-bottom: 10px;"),
     sliderInput("affinity", "", min = -3, max = 10, step = 1, value = c(-3,6)),
     h5("Maximum std. dev. of affinity", style = "text-align: center; margin-top: 10px; margin-bottom: 10px;"),
     sliderInput("sd", "", min = 0, max = 10, step = 1, value = 5),
     h5("Minimum number of measurements", style = "text-align: center; margin-top: 10px; margin-bottom: 10px;"),
     sliderInput("min_measurements", "", min = 1, max = 15, step = 1, value = 2)
-              ),
+                )
+              )),
                 div(class = "stackable column", style = "width: calc(100% - 350px); min-width: 400px;",
     h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
+                  div(class = "ui noshadow horizontal segments",
+                      div(class = "ui basic compact segment",
+                          style = "width: 60px; min-width: 60px; padding: 0px;",
+                          h2(class = "ui header",
+                             uiicon("crop", style = "display: inline;", class = "red"),
+                             div(class = "content", 3, style = "display: inline; padding-left: 0px;")
+                          )
+                      ),
+                      div(class = "ui basic compact segment",
+                          style = "padding: 0px; border-left: 0px;",
+                          p("Select a rectangle of the plot with your drug(s) of interest", style = "font-size: medium;")
+                      )
+                  ),
                   hidden(div(id = "plot_col",
     conditionalPanel(condition="$('html').hasClass('shiny-busy')",
       hidden(div(class = "ui active text loader", id = "loader1", "Loading Plot"))
