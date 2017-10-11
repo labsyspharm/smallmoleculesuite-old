@@ -122,13 +122,15 @@ shinyServer(function(input, output, session) {
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
-          plot_ly(x = ~structural_similarity, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2, text = ~paste('Drug: ', name_2), hoverinfo = "text") %>%
+          plot_ly(x = ~structural_similarity, y = ~PFP, mode = "markers", 
+                  color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
+                    name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, "\ny: ", PFP, sep = ""), hoverinfo = "text") %>%
           layout(showlegend = F) %>% 
-          highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2), text = ~paste('Drug: ', name_2), hoverinfo = "text")
+          highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2), hoverinfo = "text")
       } else if (length(s)) {
         pp <- values$c.data %>%
           plot_ly() %>% 
-          add_trace(x = ~structural_similarity, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2, text = ~paste('Drug: ', name_2), hoverinfo = "text") %>%
+          add_trace(x = ~structural_similarity, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2, hoverinfo = "text") %>%
           layout(showlegend = F)
         
         # selected data
@@ -142,7 +144,10 @@ shinyServer(function(input, output, session) {
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
-          plot_ly(x = ~structural_similarity, y = ~TAS, mode = "markers", color = I('black'), name = ~name_2) %>%
+          plot_ly(x = ~structural_similarity, y = ~TAS, mode = "markers", 
+                  color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
+                    name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, 
+                    "\ny: ", TAS, sep = ""), hoverinfo = "text") %>%
           layout(showlegend = F) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
       } else if (length(s)) {
@@ -162,7 +167,10 @@ shinyServer(function(input, output, session) {
       s <- input$data_table_rows_selected
       if (!length(s)) {
         p <- d %>%
-          plot_ly(x = ~TAS, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2) %>%
+          plot_ly(x = ~TAS, y = ~PFP, mode = "markers", 
+                  color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
+                    name_1, "\nDrug 2: ", name_2, "\nx: ", TAS, 
+                    "\ny: ", PFP, sep = ""), hoverinfo = "text") %>%
           layout(showlegend = F) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
       } else if (length(s)) {
