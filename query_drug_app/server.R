@@ -61,10 +61,20 @@ shinyServer(function(input, output, session) {
   # reactive values
   values = reactiveValues(c.data = NULL, c.data_title = NULL, c.binding_data = NULL,
                           c.display_table = NULL, drug_select = NULL)
+  
+  # show/hide intro
+  observeEvent(input$intro_hide, {
+    toggleElement(id = "intro", anim = T, animType = "fade")
+    toggleElement(id = "caret_down")
+    toggleElement(id = "caret_right")
+  })
 
   # update the table upon parameter/input changes
   observeEvent(c(values$drug_select, input$n_common, input$n_pheno), {
     if(!is.null(values$drug_select) & values$drug_select != "") {
+    hideElement(id = "intro", anim = T, animType = "fade", time = 1)
+    showElement("filters_head")
+    showElement("filters")
     showElement("result_row1")
     showElement("result_row2")
     showElement("result_row4")

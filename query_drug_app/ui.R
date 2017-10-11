@@ -104,106 +104,41 @@ shinyUI(
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
           div(class = "ui grid",
             div(class = "row",
-              div(class = "stackable column", style = "width: 300px; min-width: 300px; font-size: medium;",
-  h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
-  p("This app is designed to let you explore compounds that are similar to a compound of interest."),
-  p("Similarity is regarded in threefold:"),
-  p("1. Structural similarity "),
-  p("2. Target Affinity Spectrum similarity (TAS)"),
-  p("3. Phenotypic FingerPrint similarity (PFP).")
-  # p("To view compounds that are similar, first select a reference compound of your choice, then set thresholds for the distance metrics, and finally select up to three similar compounds that you would like to explore further. We show the known targets and affinities for the selected compounds.
-  # ")
+              div(class = "stackable column", style = "width: 300px; min-width: 300px;",
+                div(class = "ui basic center aligned segment",
+  h4(class="ui header", "Select reference compound"),
+  uiOutput("drug_search")
+                )
+              ),
+              div(class = "stackable column", style = "width: calc(100% - 300px); min-width: 300px;",
+                div(class = "ui basic segment", style = "font-size: medium;",
+  h3(class="ui horizontal divider header",
+    div(class = "item action-button shiny-bound-input", id = "intro_hide",
+      a(class = "action-button", p(uiicon("caret down", id = "caret_down"),
+      hidden(uiicon(type = "caret right", id = "caret_right")),
+      "Instructions", uiicon(type = "info_circle")), href = "#")
+     )
+  ),
+  div(id = "intro",
+  p("This app is designed to let you explore compounds that are similar to your compound of interest. Similarity is regarded in threefold: structural similarity, target affinity spectrum similarity (TAS) and phenotypic fingerprint similarity (PFP).
+"),
+  p(" To view compounds that are similar, you first select a reference compound of your choice, you then set some thresholds for the distance metrics and finally select up to three similar compounds that you like to explore further. We show the known targets and affinities for the selected compounds, for your information.")
+  )
+                )
               ),
   tags$style(type='text/css', "#steps { font-size: medium; }"),
               div(class = "stackable column", style = "width: 350px",
   tags$style(type='text/css', "#col0 { min-width: 100px; width: 100px; border-left: 0px;
           border-right: 0px;}"),
-  tags$style(type='text/css', "#col1 { border-left: 0px; border-right: 0px;}"),
-                div(class = "row",
-                  div(class = "ui noshadow horizontal segments",
-                    div(class = "ui basic compact segment", id = "col0",
-                      h2(class = "ui header",
-                         img(src = "small_molecule.png", style = "width: 60px"),
-                         div(class = "content", 1)
-                      )
-                    ),
-                    div(class = "ui basic center aligned segment", id = "col1",
-  p("Select reference compound", id = "steps"),
-  uiOutput("drug_search")
-
-                    )
-                  )
-                ),
-                div(class = "row",
-                  div(class = "ui noshadow horizontal segments",
-                    div(class = "ui basic segment", id = "col0",
-                        h2(class = "ui header",
-                           uiicon("options", style = "width: 60px"),
-                           div(class = "content", 2)
-                        )
-                    ),
-                    div(class = "ui basic compact center aligned segment", id = "col1",
-                      style = "padding: 0px;",
-  p("Set similarity thresholds", id = "steps"),
-  sliderInput("n_common", "Number of biological assays in common with reference compound
-", min = 0, max = 15, step = 1, value = 0),
-  sliderInput("n_pheno", "Number of phenotypic assays in common with reference compound
-", min = 0, max = 15, step = 1, value = 0)
-                    )
-                  )
-                )
-              ),
-              div(class = "stackable column", style = "width: calc(100% - 650px); padding: 0px;",
-                div(class = "row",
-                  div(class = "ui noshadow horizontal segments",
-                    div(class = "ui basic segment", id = "col0",
-                      h2(class = "ui header",
-                        uiicon("crop", style = "width: 60px"),
-                        div(class = "content", 3)
-                      )
-                    ),
-                    div(class = "ui basic compact center aligned segment", id = "col1",
-  p("Select an area of similarity you are interested in", id = "steps")
-                    )
-                  )
-                ),
-                div(class = "row",
-                  div(class = "ui noshadow horizontal segments",
-                    div(class = "ui basic segment", id = "col0",
-                      h2(class = "ui header",
-                        uiicon("add square", style = "width: 60px"),
-                        div(class = "content", 4)
-                      )
-                    ),
-                    div(class = "ui basic compact center aligned segment", id = "col1",
-  p("Select individual drugs of interest in the table", id = "steps")
-                    )
-                  )
-                ),
-                div(class = "row",
-                  div(class = "ui noshadow horizontal segments",
-                    div(class = "ui basic segment", id = "col0",
-  h2(class = "ui header",
-    uiicon("table", style = "width: 60px"),
-    div(class = "content", 5)
-  )
-                    ),
-                    div(class = "ui basic compact center aligned segment", id = "col1",
-  p("Download output tables", id = "steps")
-                    )
-                  )
-                )
+  tags$style(type='text/css', "#col1 { border-left: 0px; border-right: 0px;}")
               )
             ),
             hidden(div(class = "row", id = "result_row1", style = "margin: 0px; padding: 0px",
               div(class = "ui basic center aligned segment",
   h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
-  h5("Select an area of similarity you are interested in",
-     style = "margin: 0px; padding: 0px"),
-  br(),
-  h5("Double-click on plot to un-select region.", style = "margin: 0px; padding: 0px")
-              )
-            )),
+  h5("Select an area of similarity you are interested in. Double-click on plot to un-select region.",
+     style = "margin: 0px; padding: 0px")
+            ))),
             hidden(div(class = "row", style = "height: 500px", id = "result_row2",
               div(class = "stackable five wide column",
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
@@ -224,6 +159,23 @@ shinyUI(
   plotlyOutput("mainplot3")
               )
             )),
+            hidden(div(class = "row", style = "margin: 0px; padding: 0px;", id = "filters_head",
+              div(class = "ui basic center aligned segment",
+  h3(class = "ui horizontal divider header", "Set similarity thresholds")
+              )
+            )),
+            hidden(div(class = "row", style = "margin: 0px; padding: 0px;",
+              id = "filters",
+              div(class = "four wide column"),
+              div(class = "four wide column",
+sliderInput("n_common", "Number of biological assays in common with reference compound
+            ", min = 0, max = 15, step = 1, value = 0)
+),
+              div(class = "four wide column",
+sliderInput("n_pheno", "Number of phenotypic assays in common with reference compound
+            ", min = 0, max = 15, step = 1, value = 0)
+)
+                )),
   tags$style(type = "text/css", "#row3_col1 { width: calc((100% - 375px)/2); }"),
   tags$style(type = "text/css", "#row3_col2 { width: calc((100% - 375px)/2); }"),
   tags$style(type = "text/css", "#row3_col3 { width: 320px; min-width: 320px; }"),
