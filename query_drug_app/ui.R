@@ -43,6 +43,9 @@ shinyUI(
     suppressDependencies("bootstrap"),
     tags$head(tags$script(HTML(JS.logify))),
     tags$head(tags$script(HTML(JS.onload))),
+    tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "drug_app.css")
+    ),
     # Fix for mobile viewing
     tags$meta(name="viewport", content="width=device-width, initial-scale=1.0"),
     # CSS for sizing of data table search boxes
@@ -76,32 +79,22 @@ shinyUI(
         )
       ),
       div(class = "ui center aligned basic segment",
-          p("Developed at Harvard Medical School (Sorger lab) by ", "Nienke Moret, ", a("Marc Hafner", href = "https://scholar.harvard.edu/hafner"), ", and ", a("Nicholas Clark", href = "https://github.com/NicholasClark/")),
-          h3("Application programming"),
-          p("Nienke Moret (R scripts)"),
-          p("Nicholas Clark (R/Shiny application)"),
-          br(),
-          p("[paper citation]"),
-          h3("Links"),
-          p(a(class = "item", "Sorger lab website", href = "http://sorger.med.harvard.edu")),
-          p(a(class = "item", "Project github repository", uiicon("github"), 
-            href = "https://github.com/sorgerlab/drug_browser")),
-          p(a(class = "item", "LINCS-DCIC website", href = "http://lincs-dcic.org"))
+        includeMarkdown("www/about.md")
       )
     ),
-    div(class = "ui container",
+    div(class = "ui container", style = "width: 1125px; min-width: 1125x; margin: 0px;",
       div(class = "ui top attached inverted five item stackable menu", style = "width: 100%;",
         div(class = "ui center aligned container",
             a(class = "item", img(class = "logo", src = "dcic.png"),
               href = "http://lincs-dcic.org"),
             a(class = "item", "Custom Library App", href = "http://shiny.ilincs.org/custom_library_app/"),
-            a(class = "item", "Query Drug App", href = "http://shiny.ilincs.org/query_drug_app/"),
+            a(class = "active item", "Query Drug App", href = "http://shiny.ilincs.org/query_drug_app/"),
             a(class = "item", "Query Gene App", href = "http://shiny.ilincs.org/query_gene_app/"),
             a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
               href = "http://sorger.med.harvard.edu" )
         )
       ),
-      div(class = "ui main container attached segment", style = "margin: 0px;",
+      div(class = "ui main container attached segment", style = "margin: 0px; padding-right: 0px; padding-left: 0px;",
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
           div(class = "ui grid",
             div(class = "row",
@@ -117,7 +110,7 @@ shinyUI(
   #uiOutput("drug_search")
                 )
               ),
-              div(class = "stackable column", style = "width: calc(100% - 300px); min-width: 300px;",
+              div(class = "stackable column", style = "width: calc(100% - 300px); min-width: calc(100% - 300px);",
                 div(class = "ui basic segment", style = "font-size: medium;",
   h3(class="ui horizontal divider header",
     div(class = "item action-button shiny-bound-input", id = "intro_hide",
@@ -127,9 +120,7 @@ shinyUI(
      )
   ),
   div(id = "intro",
-  p("This app is designed to let you explore compounds that are similar to your compound of interest. Similarity is regarded in threefold: structural similarity, target affinity spectrum similarity (TAS) and phenotypic fingerprint similarity (PFP).
-"),
-  p(" To view compounds that are similar, you first select a reference compound of your choice, you then set some thresholds for the distance metrics and finally select up to three similar compounds that you like to explore further. We show the known targets and affinities for the selected compounds, for your information.")
+    includeMarkdown("www/intro.md")
   )
                 )
               ),
@@ -142,11 +133,11 @@ shinyUI(
             ),
             hidden(div(class = "row", id = "result_row1", style = "margin: 0px; padding: 0px",
               div(class = "ui basic center aligned segment",
-  h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
-  h5("Select an area of similarity you are interested in. Double-click on plot to un-select region.",
+  h3(class="ui horizontal divider header", uiicon("bar chart"), "Compound similarity plots"),
+  h5("Select an area of similarity you are interested in. ", intToUtf8(160),intToUtf8(160), " Hover over points for more information. ", intToUtf8(160),intToUtf8(160), " Double-click on plot to un-select region.",
      style = "margin: 0px; padding: 0px")
             ))),
-            hidden(div(class = "row", style = "height: 500px", id = "result_row2",
+            hidden(div(class = "row", style = "height: 450px", id = "result_row2",
               div(class = "stackable five wide column",
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                  hidden(div(class = "ui active text loader", id = "loader1",
@@ -168,7 +159,13 @@ shinyUI(
             )),
             hidden(div(class = "row", style = "margin: 0px; padding: 0px;", id = "filters_head",
               div(class = "ui basic center aligned segment",
-  h3(class = "ui horizontal divider header", "Set similarity thresholds")
+  h3(class="ui horizontal divider header",
+    div(class = "item action-button shiny-bound-input", id = "filter_button",
+      a(class = "action-button", p(uiicon("caret down", id = "caret_down_fil"),
+      hidden(uiicon(type = "caret right", id = "caret_right_fil")),
+      "Set similarity thresholds", uiicon(type = "filter")), href = "#")
+     )
+  )
               )
             )),
             hidden(div(class = "row", style = "margin: 0px; padding: 0px;",
@@ -198,12 +195,13 @@ sliderInput("n_pheno", "Number of phenotypic assays in common with reference com
              )
             )),
             hidden(div(class = "row", id = "result_row3",
-             div(class = "stackable column", id = "row3_bind_data",
+             div(class = "stackable center aligned column", id = "row3_bind_data", style = "font-size: medium;",
    h3(class="ui horizontal divider header", uiicon("table"), "Binding data"),
    tags$style(type='text/css', "#binding_data { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
    tags$style(type='text/css', "#sel_drug1 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
    tags$style(type='text/css', "#sel_drug2 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
    tags$style(type='text/css', "#sel_drug3 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+   textOutput("binding_drug", inline = T),
                  DT::dataTableOutput("binding_data")
              ),
               hidden(div(class = "padded stackable column", id = "row3_col1",

@@ -27,11 +27,15 @@ shinyServer(function(input, output, session) {
   # Define reactive values
   values = reactiveValues(test = NULL)
   # Make app stop when you close the webpage
-  session$onSessionEnded(stopApp)
+  #session$onSessionEnded(stopApp)
 
   # Load "about" modal
   observeEvent(input$about, {
     runjs(about.modal.js)
+  })
+  
+  observeEvent(input$query_compound, {
+    output$binding_drug = renderText(paste0("Gene target binding data for ",input$query_compound, ":"))
   })
 
   # search_api <- function(similarity_table, q){
@@ -68,13 +72,20 @@ shinyServer(function(input, output, session) {
     toggleElement(id = "caret_down")
     toggleElement(id = "caret_right")
   })
+  
+  # show/hide filters
+  observeEvent(input$filter_button, {
+    toggleElement(id = "filters", anim = T, animType = "fade")
+    toggleElement(id = "caret_down_fil")
+    toggleElement(id = "caret_right_fil")
+  })
 
   # update the table upon parameter/input changes
   observeEvent(c(values$drug_select, input$n_common, input$n_pheno), {
     if(!is.null(values$drug_select) & values$drug_select != "") {
-    hideElement(id = "intro", anim = T, animType = "fade", time = 1)
+    #hideElement(id = "intro", anim = T, animType = "fade", time = 1)
     showElement("filters_head")
-    showElement("filters")
+    #showElement("filters")
     showElement("result_row1")
     showElement("result_row2")
     showElement("result_row4")
@@ -86,7 +97,7 @@ shinyServer(function(input, output, session) {
     ## subset current data
     values$c.data = similarity_table %>%
       filter(name_1 == values$drug_select) %>%
-      filter(n_assays_common_active >= input$n_common | is.na(n_assays_common_active)) %>%
+      filter(n_biol_assays_common_active >= input$n_common | is.na(n_biol_assays_common_active)) %>%
       filter(n_pheno_assays_active_common >= input$n_pheno | is.na(n_pheno_assays_active_common)) %>%
       mutate(PFP = round(PFP, 3), TAS = round(TAS, 3), structural_similarity = round(structural_similarity, 3)) %>%
       mutate_at(vars(PFP), funs(ifelse(is.na(PFP), -1.1, PFP))) %>%
@@ -103,13 +114,13 @@ shinyServer(function(input, output, session) {
     ## show affinity data of reference compound+ selected compounds
     # filter by name or hms id?
     values$c.binding_data = affinity_selectivity %>% filter(name == values$drug_select) %>%
-      #filter(mean_affinity >= 10^input$affinity[1]) %>%
-      #filter(mean_affinity <= 10^input$affinity[2]) %>%
-      #filter(SD_affinity <= 10^input$sd) %>%
+      #filter(`mean_Kd_(nM)` >= 10^input$affinity[1]) %>%
+      #filter(`mean_Kd_(nM)` <= 10^input$affinity[2]) %>%
+      #filter(`SD_Kd_(nM)` <= 10^input$sd) %>%
       #filter(n_measurements >= input$min_measurements) %>%
       mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
-      mutate(mean_affinity = round(mean_affinity, 3)) %>%
-      arrange(selectivity_class, mean_affinity)
+      mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`, 3)) %>%
+      arrange(selectivity_class, `mean_Kd_(nM)`)
 
     d <- SharedData$new(values$c.data, ~name_2)
 
@@ -119,74 +130,86 @@ shinyServer(function(input, output, session) {
     values$c.display_table = values$c.binding_data[,c(3,4,5)]
 
     output$mainplot1 <- renderPlotly({
-      s <- input$data_table_rows_selected
-      if (!length(s)) {
+      #s <- input$data_table_rows_selected
+      #if (!length(s)) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~PFP, mode = "markers", 
             color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
             name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, "\ny: ", 
             PFP, sep = ""), hoverinfo = "text") %>%
-          layout(showlegend = F) %>% 
+          layout(showlegend = F,
+                 xaxis = list(range = c(-0.15, 1.15),
+                              title = "Structural similarity"),
+                 yaxis = list(range = c(-1.2, 1.2),
+                              title = "PFP")) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2), hoverinfo = "text")
-      } else if (length(s)) {
-        pp <- values$c.data %>%
-          plot_ly() %>% 
-          add_trace(x = ~structural_similarity, y = ~PFP, mode = "markers", 
-            color = I('black'), name = ~name_2, hoverinfo = "text") %>%
-          layout(showlegend = F)
-        
-        # selected data
-        pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
-          x = ~structural_similarity, y = ~PFP, mode = "markers",
-          color = I('red'), name = ~name_2)
-      }
+      # } else if (length(s)) {
+      #   pp <- values$c.data %>%
+      #     plot_ly() %>% 
+      #     add_trace(x = ~structural_similarity, y = ~PFP, mode = "markers", 
+      #       color = I('black'), name = ~name_2, hoverinfo = "text") %>%
+      #     layout(showlegend = F)
+      #   
+      #   # selected data
+      #   pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
+      #     x = ~structural_similarity, y = ~PFP, mode = "markers",
+      #     color = I('red'), name = ~name_2)
+      # }
     })
     
     output$mainplot2 <- renderPlotly({
-      s <- input$data_table_rows_selected
-      if (!length(s)) {
+      #s <- input$data_table_rows_selected
+      #if (!length(s)) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~TAS, mode = "markers", 
             color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
             name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, 
             "\ny: ", TAS, sep = ""), hoverinfo = "text") %>%
-          layout(showlegend = F) %>% 
+          layout(showlegend = F,
+                  xaxis = list(range = c(-0.15, 1.15),
+                               title = "Structural similarity"),
+                  yaxis = list(range = c(-0.15, 1.15),
+                               title = "TAS")) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
-      } else if (length(s)) {
-        pp <- values$c.data %>%
-          plot_ly() %>% 
-          add_trace(x = ~structural_similarity, y = ~TAS, mode = "markers",
-            color = I('black'), name = ~name_2) %>%
-          layout(showlegend = F)
-        
-        # selected data
-        pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
-          x = ~structural_similarity, y = ~TAS, mode = "markers",
-            color = I('red'), name = ~name_2)
-      }
+      # } else if (length(s)) {
+      #   pp <- values$c.data %>%
+      #     plot_ly() %>% 
+      #     add_trace(x = ~structural_similarity, y = ~TAS, mode = "markers",
+      #       color = I('black'), name = ~name_2) %>%
+      #     layout(showlegend = F)
+      #   
+      #   # selected data
+      #   pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
+      #     x = ~structural_similarity, y = ~TAS, mode = "markers",
+      #       color = I('red'), name = ~name_2)
+      # }
     })
     
     output$mainplot3 <- renderPlotly({
-      s <- input$data_table_rows_selected
-      if (!length(s)) {
+      #s <- input$data_table_rows_selected
+      #if (!length(s)) {
         p <- d %>%
           plot_ly(x = ~TAS, y = ~PFP, mode = "markers", 
             color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
             name_1, "\nDrug 2: ", name_2, "\nx: ", TAS, "\ny: ", PFP, sep = ""),
             hoverinfo = "text") %>%
-          layout(showlegend = F) %>% 
+          layout(showlegend = F,
+                 xaxis = list(range = c(-0.15, 1.15),
+                              title = "TAS"),
+                 yaxis = list(range = c(-1.2, 1.2),
+                              title = "PFP")) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
-      } else if (length(s)) {
-        pp <- values$c.data %>%
-          plot_ly() %>% 
-          add_trace(x = ~TAS, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2) %>%
-          layout(showlegend = F)
-        
-        # selected data
-        pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
-          x = ~TAS, y = ~PFP, mode = "markers",
-          color = I('red'), name = ~name_2)
-      }
+      # } else if (length(s)) {
+      #   pp <- values$c.data %>%
+      #     plot_ly() %>% 
+      #     add_trace(x = ~TAS, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2) %>%
+      #     layout(showlegend = F)
+      #   
+      #   # selected data
+      #   pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
+      #     x = ~TAS, y = ~PFP, mode = "markers",
+      #     color = I('red'), name = ~name_2)
+      # }
     })
 
     output$data_table = renderDataTable( {
@@ -217,7 +240,7 @@ shinyServer(function(input, output, session) {
       extensions = c('Buttons'),
       rownames = F, options = list(
         dom = 'lBfrtip',
-        buttons = c('copy', 'csv', 'excel'),
+        #buttons = c('copy', 'csv', 'excel'),
         initComplete = JS(
           "function(settings, json) {",
           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
@@ -266,13 +289,13 @@ shinyServer(function(input, output, session) {
 
       values[[name_data]] = affinity_selectivity %>%
         filter(name == drug) %>%
-        #filter(mean_affinity >= 10^input$affinity[1]) %>%
-        #filter(mean_affinity <= 10^input$affinity[2]) %>%
-        #filter(SD_affinity <= 10^input$sd) %>%
+        #filter(`mean_Kd_(nM)` >= 10^input$affinity[1]) %>%
+        #filter(`mean_Kd_(nM)` <= 10^input$affinity[2]) %>%
+        #filter(`SD_Kd_(nM)` <= 10^input$sd) %>%
         #filter(n_measurements >= input$min_measurements) %>%
         mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
-        arrange(selectivity_class, mean_affinity) %>%
-        mutate(mean_affinity = round(mean_affinity))
+        arrange(selectivity_class, `mean_Kd_(nM)`) %>%
+        mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`))
 
       values[[name_display]] = values[[name_data]][,c(3,4,5)]
       if(length(values[[name_data]]$hms_id) == 0) {
