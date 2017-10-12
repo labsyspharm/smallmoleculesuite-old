@@ -97,8 +97,8 @@ shinyServer(function(input, output, session) {
     ## subset current data
     values$c.data = similarity_table %>%
       filter(name_1 == values$drug_select) %>%
-      filter(n_biol_assays_common_active >= input$n_common | is.na(n_biol_assays_common_active)) %>%
-      filter(n_pheno_assays_active_common >= input$n_pheno | is.na(n_pheno_assays_active_common)) %>%
+      filter(n_biol_assays_common_active >= 2^input$n_common | is.na(n_biol_assays_common_active)) %>%
+      filter(n_pheno_assays_active_common >= 2^input$n_pheno | is.na(n_pheno_assays_active_common)) %>%
       mutate(PFP = round(PFP, 3), TAS = round(TAS, 3), structural_similarity = round(structural_similarity, 3)) %>%
       mutate_at(vars(PFP), funs(ifelse(is.na(PFP), -1.1, PFP))) %>%
       mutate_at(vars(TAS), funs(ifelse(is.na(TAS), -0.1, TAS))) %>%

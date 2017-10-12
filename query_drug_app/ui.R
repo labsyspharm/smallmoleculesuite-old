@@ -18,7 +18,7 @@ function logifySlider (sliderId) {
 // regular number style
 $('#'+sliderId).data('ionRangeSlider').update({
 'prettify': function (num) {
-return (Math.pow(10, num).toLocaleString());
+return (Math.pow(2, num).toLocaleString());
 }
 })
 }"
@@ -31,8 +31,10 @@ $(document).ready(function() {
 // wait a few ms to allow other scripts to execute
 setTimeout(function() {
 // include call for each slider
-logifySlider('sd')
-logifySlider('affinity')
+//logifySlider('sd')
+//logifySlider('affinity')
+logifySlider('n_pheno')
+logifySlider('n_common')
 }, 5)})
 "
 
@@ -173,11 +175,11 @@ shinyUI(
               div(class = "four wide column"),
               div(class = "four wide column",
 sliderInput("n_common", "Number of biological assays in common with reference compound
-            ", min = 0, max = 15, step = 1, value = 0)
+            ", min = 0, max = 8, step = 1, value = 0)
 ),
               div(class = "four wide column",
 sliderInput("n_pheno", "Number of phenotypic assays in common with reference compound
-            ", min = 0, max = 15, step = 1, value = 0)
+            ", min = 0, max = 8, step = 1, value = 0)
 )
                 )),
   tags$style(type = "text/css", "#row3_col1 { width: calc((100% - 375px)/2); }"),
