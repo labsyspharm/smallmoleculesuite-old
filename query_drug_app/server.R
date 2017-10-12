@@ -234,10 +234,10 @@ shinyServer(function(input, output, session) {
           autoWidth = TRUE)
       )
 
-    # Main table output
+    # Binding table output
     output$binding_data = renderDataTable(
       values$c.display_table,
-      extensions = c('Buttons'),
+      #extensions = c('Buttons'),
       rownames = F, options = list(
         dom = 'lBfrtip',
         #buttons = c('copy', 'csv', 'excel'),
