@@ -38,7 +38,10 @@ shiny::runGitHub("sorgerlab/drug_browser", subdir = "query_drug_app")
 
 ### Library app
 
-[description here]
+This app composes a custom chemical genetics library for a set of genes. The compounds of genes are selected based on affinity, selectivity and clinical development phase. Additionally we source several expert opinion "best-in-class" list. For this tool to work, please submit a list of genes symbols* of your interest in the text box (or load our example gene list) and click 'Submit'. 
+After submitting your gene list, a downloadable table of drugs targeting those genes will be generated. You may further adjust the library by selectivity level and clinical development phase. You will also have the opportunity to add compounds from the expert opinion "best-in-class" compounds.
+
+*Only gene symbols from HUGO Gene Nomenclature Committee (HGNC) are accepted. Non-HGNC gene symbols and genes for which we lack drug information will be ignored.
 
 Visit on the web:
 
