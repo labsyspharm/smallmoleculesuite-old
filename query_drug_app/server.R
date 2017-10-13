@@ -10,7 +10,7 @@ library(crosstalk)
 # load data
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
-selectivity_order = c("best_class","second_class","non_specific","unknown","other")
+selectivity_order = c("Most selective","Semi-selective","Poly-selective","Unknown","Other")
 
 # Function for toolip values
 all_values <- function(x) {
