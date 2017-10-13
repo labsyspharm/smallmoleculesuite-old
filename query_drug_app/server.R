@@ -39,14 +39,33 @@ shinyServer(function(input, output, session) {
     runjs(about.modal.js)
   })
   
-  observeEvent(input$query_compound, {
+  observeEvent(values$c.binding_display, {
+    print(values$c.binding_display)
+    
+    # Binding table output
+    output$binding_data = renderDataTable(
+      if(dim(values$c.binding_display) > 0) {
+        as.data.frame(values$c.binding_display)
+      } else {
+        NULL
+      }, rownames = F, options = list(
+        dom = 't',
+        initComplete = JS(
+          "function(settings, json) {",
+          "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+          "}"),
+        searchHighlight = TRUE,
+        autoWidth = TRUE)
+    )
+    
     output$binding_drug = renderText(
-      if(dim(values$c.display_table)[1] > 0) {
+      if(dim(values$c.binding_display)[1] > 0) {
         paste0("Gene target binding data for ",input$query_compound, ":")
       } else {
         paste0("No gene target binding data available for ",input$query_compound)
       })
   })
+  
 
   # search_api <- function(similarity_table, q){
   #   has_matching <- function(field) {
@@ -73,8 +92,9 @@ shinyServer(function(input, output, session) {
   })
 
   # reactive values
-  values = reactiveValues(c.data = NULL, c.data_title = NULL, c.binding_data = NULL,
-                          c.display_table = NULL, drug_select = NULL)
+  values = reactiveValues(c.data = NULL, c.data_display = NULL, c.data_title = NULL, 
+                          c.binding_data = NULL, c.binding_display = NULL, 
+                          drug_select = NULL)
   
   # show/hide intro
   observeEvent(input$intro_hide, {
@@ -114,12 +134,13 @@ shinyServer(function(input, output, session) {
       mutate_at(vars(TAS), funs(ifelse(is.na(TAS), -0.1, TAS))) %>%
       mutate_at(vars(structural_similarity), funs(ifelse(is.na(structural_similarity), -0.1, structural_similarity)))
 
-    # ^are these the right filters?
-    # filter by name or hms ID?
+    # Get rid of extra columns for display table
+    values$c.data_display = values$c.data
+    values$c.data_display$SS_text = NULL
+    values$c.data_display$PFP_text = NULL
+    values$c.data_display$TAS_text = NULL
 
     values$c.data_title = paste0(unique(values$c.data$hmsID_1),";",unique(values$c.data$name_1))
-    ## display scatterplots
-    ## show c.data plotted w/selection boxes
 
     ## show affinity data of reference compound+ selected compounds
     # filter by name or hms id?
@@ -137,7 +158,7 @@ shinyServer(function(input, output, session) {
     #c.title<-paste0(unique(c.binding_data$hms_id),";",unique(c.binding_data$name))
     # title should be same as above, right?
     # by default it will display 10 rows at a time
-    values$c.display_table = values$c.binding_data[,c(3,4,5)]
+    values$c.binding_display = values$c.binding_data[,c(3,4,5)]
 
     output$mainplot1 <- renderPlotly({
       #s <- input$data_table_rows_selected
@@ -255,16 +276,16 @@ shinyServer(function(input, output, session) {
     })
 
     output$data_table = renderDataTable( {
-      m2 <- values$c.data[d$selection(), , drop = F]
-      dt <- DT::datatable(values$c.data)
+      m2 <- values$c.data_display[d$selection(), , drop = F]
+      dt <- values$c.data_display
       if(NROW(m2) == 0) {
         dt
       } else {
         m2
       }
-      },extensions = c('Buttons'),
+      },
+      extensions = 'Buttons',
         rownames = F, options = list(
-          columnDefs = list(list(visible=FALSE, targets=c("PFP_text","TAS_text","SS_text"))),
           dom = 'lBfrtip',
           buttons = c('copy', 'csv', 'excel', 'colvis'),
           initComplete = JS(
@@ -273,25 +294,6 @@ shinyServer(function(input, output, session) {
             "}"),
           searchHighlight = TRUE,
           autoWidth = TRUE)
-      )
-
-    # Binding table output
-    output$binding_data = renderDataTable(
-      if(dim(values$c.display_table)[1] > 0) {
-        values$c.display_table
-      } else {
-        NULL
-      },
-      #extensions = c('Buttons'),
-      rownames = F, options = list(
-        dom = 'lBfrtip',
-        #buttons = c('copy', 'csv', 'excel'),
-        initComplete = JS(
-          "function(settings, json) {",
-          "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
-          "}"),
-        searchHighlight = TRUE,
-        autoWidth = TRUE)
       )
     }
     }, ignoreInit = T, ignoreNULL = T)
