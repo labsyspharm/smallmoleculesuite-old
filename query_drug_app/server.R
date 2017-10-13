@@ -12,6 +12,11 @@ similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
 selectivity_order = c("Most selective","Semi-selective","Poly-selective","Unknown","Other")
 
+similarity_table$PFP_text = as.character(round(similarity_table$PFP, 3))
+similarity_table$TAS_text = as.character(round(similarity_table$TAS, 3))
+similarity_table$SS_text = as.character(round(similarity_table$structural_similarity, 3))
+
+
 # Function for toolip values
 all_values <- function(x) {
   if(is.null(x)) return(NULL)
@@ -35,7 +40,12 @@ shinyServer(function(input, output, session) {
   })
   
   observeEvent(input$query_compound, {
-    output$binding_drug = renderText(paste0("Gene target binding data for ",input$query_compound, ":"))
+    output$binding_drug = renderText(
+      if(dim(values$c.display_table)[1] > 0) {
+        paste0("Gene target binding data for ",input$query_compound, ":")
+      } else {
+        paste0("No gene target binding data available for ",input$query_compound)
+      })
   })
 
   # search_api <- function(similarity_table, q){
@@ -135,14 +145,26 @@ shinyServer(function(input, output, session) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~PFP, mode = "markers", 
             color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
-            name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, "\ny: ", 
-            PFP, sep = ""), hoverinfo = "text") %>%
+            name_1, "\nDrug 2: ", name_2, "\nx: ", SS_text, "\ny: ", 
+            PFP_text, sep = ""), hoverinfo = "text") %>%
           layout(showlegend = F,
+                 shapes = list(list(type='line', x0= -0.1, x1= -0.1, y0=-1.2, y1=1.2,
+                             line=list(dash='dot', width=2, color = "red")),
+                             list(type='line', x0= -0.15, x1= 1.15, y0=-1.1, y1=-1.1,
+                                  line=list(dash='dot', width=2, color = "red"))),
                  xaxis = list(range = c(-0.15, 1.15),
-                              title = "Structural similarity"),
+                              title = "Structural similarity",
+                              tickmode = "array",
+                              tickvals = c(-0.1, seq(0,1,.25)),
+                              ticktext = c("NA", as.character(seq(0,1,.25))) ),
                  yaxis = list(range = c(-1.2, 1.2),
-                              title = "PFP")) %>% 
+                              title = "PFP",
+                              tickmode = "array",
+                              tickvals = c(-1.1, seq(-1,1,.5)),
+                              ticktext = c("NA", as.character(seq(-1,1,.5))) )
+                              ) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2), hoverinfo = "text")
+        build <<- p
       # } else if (length(s)) {
       #   pp <- values$c.data %>%
       #     plot_ly() %>% 
@@ -163,13 +185,23 @@ shinyServer(function(input, output, session) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~TAS, mode = "markers", 
             color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
-            name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, 
-            "\ny: ", TAS, sep = ""), hoverinfo = "text") %>%
+            name_1, "\nDrug 2: ", name_2, "\nx: ", SS_text, 
+            "\ny: ", TAS_text, sep = ""), hoverinfo = "text") %>%
           layout(showlegend = F,
+                 shapes = list(list(type='line', x0= -0.1, x1= -0.1, y0= -0.15, y1= 1.15,
+                                    line=list(dash='dot', width=2, color = "red")),
+                               list(type='line', x0= -0.15, x1= 1.15, y0= -0.1, y1= -0.1,
+                                    line=list(dash='dot', width=2, color = "red"))),
                   xaxis = list(range = c(-0.15, 1.15),
-                               title = "Structural similarity"),
+                               title = "Structural similarity",
+                               tickmode = "array",
+                               tickvals = c(-0.15, seq(0,1,.25)),
+                               ticktext = c("NA", as.character(seq(0,1,.25))) ),
                   yaxis = list(range = c(-0.15, 1.15),
-                               title = "TAS")) %>% 
+                               title = "TAS",
+                               tickmode = "array",
+                               tickvals = c(-0.15, seq(0,1,.2)),
+                               ticktext = c("NA", as.character(seq(0,1,.2))) )) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
       # } else if (length(s)) {
       #   pp <- values$c.data %>%
@@ -191,13 +223,23 @@ shinyServer(function(input, output, session) {
         p <- d %>%
           plot_ly(x = ~TAS, y = ~PFP, mode = "markers", 
             color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
-            name_1, "\nDrug 2: ", name_2, "\nx: ", TAS, "\ny: ", PFP, sep = ""),
+            name_1, "\nDrug 2: ", name_2, "\nx: ", TAS_text, "\ny: ", PFP_text, sep = ""),
             hoverinfo = "text") %>%
           layout(showlegend = F,
+                 shapes = list(list(type='line', x0= -0.1, x1= -0.1, y0=-1.2, y1=1.2,
+                                    line=list(dash='dot', width=2, color = "red")),
+                               list(type='line', x0= -0.15, x1= 1.15, y0=-1.1, y1=-1.1,
+                                    line=list(dash='dot', width=2, color = "red"))),
                  xaxis = list(range = c(-0.15, 1.15),
-                              title = "TAS"),
+                              title = "TAS",
+                              tickmode = "array",
+                              tickvals = c(-0.15, seq(0,1,.25)),
+                              ticktext = c("NA", as.character(seq(0,1,.25))) ),
                  yaxis = list(range = c(-1.2, 1.2),
-                              title = "PFP")) %>% 
+                              title = "PFP",
+                              tickmode = "array",
+                              tickvals = c(-1.2, seq(-1,1,.5)),
+                              ticktext = c("NA", as.character(seq(-1,1,.5))))) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
       # } else if (length(s)) {
       #   pp <- values$c.data %>%
@@ -220,10 +262,9 @@ shinyServer(function(input, output, session) {
       } else {
         m2
       }
-      },
-        extensions = c('Buttons'),
+      },extensions = c('Buttons'),
         rownames = F, options = list(
-          #columnDefs = list(list(visible=FALSE, targets=c(0,1))),
+          columnDefs = list(list(visible=FALSE, targets=c("PFP_text","TAS_text","SS_text"))),
           dom = 'lBfrtip',
           buttons = c('copy', 'csv', 'excel', 'colvis'),
           initComplete = JS(
@@ -236,7 +277,11 @@ shinyServer(function(input, output, session) {
 
     # Binding table output
     output$binding_data = renderDataTable(
-      values$c.display_table,
+      if(dim(values$c.display_table)[1] > 0) {
+        values$c.display_table
+      } else {
+        NULL
+      },
       #extensions = c('Buttons'),
       rownames = F, options = list(
         dom = 'lBfrtip',
