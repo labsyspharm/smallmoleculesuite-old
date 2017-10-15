@@ -184,7 +184,9 @@ sliderInput("n_pheno", "Number of phenotypic assays in common with reference com
                 )),
   tags$style(type = "text/css", "#row3_col1 { width: calc((100% - 375px)/2); }"),
   tags$style(type = "text/css", "#row3_col2 { width: calc((100% - 375px)/2); }"),
-  tags$style(type = "text/css", "#row3_col3 { width: 320px; min-width: 320px; }"),
+  tags$style(type = "text/css", "#row3_col3 { width: 375px; min-width: 375px; }"),
+  tags$style(type = "text/css", "#row3_col4 { width: calc((100% - 375px)/2); }"),
+  tags$style(type = "text/css", "#row3_col5 { width: calc((100% - 375px)/2); }"),
   tags$style(type = "text/css", "#row3_bind_data { width: 375px; min-width: 375px; }"),
             hidden(div(class = "row", id = "result_row4",
               div(class = "column", style = "min-height: 200px;",
@@ -215,14 +217,29 @@ sliderInput("n_pheno", "Number of phenotypic assays in common with reference com
   h3(class="ui horizontal divider header", uiicon("table"), "Selection 2"),
   h4(class = "ui centered header", textOutput("sel2_drug")),
   DT::dataTableOutput("selection2")
+              ))
               )),
+  div(class = "row", id = "result_row_next",
               hidden(div(class = "stackable column", id = "row3_col3",
   h3(class="ui horizontal divider header", uiicon("table"), "Selection 3"),
   h4(class = "ui centered header", textOutput("sel3_drug")),
   DT::dataTableOutput("selection3")
+              )),
+              hidden(div(class = "stackable column",  id = "row3_col4",
+  h3(class="ui horizontal divider header", uiicon("table"), "Selection 4"),
+  h4(class = "ui centered header", textOutput("sel4_drug")),
+  DT::dataTableOutput("selection4")
+              )),
+              hidden(div(class = "stackable column", id = "row3_col5",
+  h3(class="ui horizontal divider header", uiicon("table"), "Selection 5"),
+  h4(class = "ui centered header", textOutput("sel5_drug")),
+  DT::dataTableOutput("selection5")
               ))
-            )),
+            ),
             hidden(div(class = "row", id = "button_row",
+  div(class = "ui secondary button action-button shiny-download-link",
+     "Download Binding Data (.csv)", id = "downloadBind2"),
+  downloadButton("downloadBind", "DL"),
   div(class = "ui secondary button action-button", "Clear selections", id = "clearButton")
             ))
           )

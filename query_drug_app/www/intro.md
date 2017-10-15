@@ -10,4 +10,4 @@ This app is designed to let you explore compounds that are similar to your compo
 
 **Next, select an area of interest on one of the similarity plots**. This will highlight the compounds in the other plots and show only the selected compounds in the output table (double click to de-select). You may also set thresholds for the number of biological and phenotypic assays that the LSP compounds share with your reference compound.
 
-**Finally, select up to three similar compounds in the output table that you like to explore further**. This will show the known gene targets and affinities for the selected compounds, for your information. Click the "Download tables" button to download the these tables as well as the table of binding data for your reference compound.
+**Finally, select up to five similar compounds in the output table that you like to explore further**. This will show the known gene targets and affinities for the selected compounds, for your information. Click the "Download tables" button to download the these tables as well as the table of binding data for your reference compound.

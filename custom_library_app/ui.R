@@ -210,7 +210,7 @@ shinyUI(
   p("Select compounds that are endorsed by other users to be added to the library", id = "steps")
                     ),
                     div(class = "ui basic segment", id = "col2",
-  a(class = "ui red label", "Legacy compounds"),
+  a(class = "ui red label", "Expert opinion compounds"),
   selectizeInput("legacy", "", choices = c(`Gray best inhibitor list` = "gray",
     `chemicalprobes.org 4.0 star rating` = "chem_probe"), multiple = T, options = list(
       'plugins' = list('remove_button')))

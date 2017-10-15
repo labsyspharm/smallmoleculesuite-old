@@ -7,6 +7,27 @@ library(plotly)
 library(readr)
 library(crosstalk)
 
+zipped_csv <- function(df_list, zippedfile, filenames, stamp) {
+  dir = tempdir()
+  mkdir = paste0("mkdir ", dir, "/", stamp)
+  system(mkdir)
+  len = length(df_list)
+  for(i in 1:len) {
+    # filename in temp directory 
+    assign(paste0("temp",i), paste0(dir, "/", stamp, "/", filenames[i], ".csv"))
+    # write temp csv
+    write_csv(df_list[[i]], path=get(paste0("temp",i)))
+  }
+  # zip temp csv
+  print(dir)
+  print(filenames)
+  zip(zippedfile, paste0(dir,"/", stamp, "/", filenames, ".csv"), flags = "-j" )
+  # delete temp csv
+  for(i in 1:len) {
+    unlink( paste0("temp",i) )
+  }
+}
+
 # load data
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
@@ -29,8 +50,6 @@ about.modal.js = "$('.ui.mini.modal')
 ;"
 
 shinyServer(function(input, output, session) {
-  # Define reactive values
-  values = reactiveValues(test = NULL)
   # Make app stop when you close the webpage
   #session$onSessionEnded(stopApp)
 
@@ -49,7 +68,7 @@ shinyServer(function(input, output, session) {
       } else {
         NULL
       }, rownames = F, options = list(
-        dom = 't',
+        dom = 'tp',
         initComplete = JS(
           "function(settings, json) {",
           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
@@ -66,25 +85,6 @@ shinyServer(function(input, output, session) {
       })
   })
   
-
-  # search_api <- function(similarity_table, q){
-  #   has_matching <- function(field) {
-  #     grepl(q, field, ignore.case = T)
-  #   }
-  #   similarity_table %>%
-  #     mutate(name_1 = as.character(name_1)) %>%
-  #     arrange(name_1) %>%
-  #     select(name_1) %>%
-  #     unique %>%
-  #     filter(has_matching(name_1)) %>%
-  #     head(5) %>%
-  #     transmute(name = name_1,
-  #               value = name_1)
-  # }
-  # 
-  # search_api_url = shiny.semantic::register_search(session, similarity_table, search_api)
-  # output$drug_search = shiny::renderUI(search_selection_api("query_compound", search_api_url, multiple = FALSE))
-
   observeEvent(input$query_compound, {
     if(length(input$query_compound) > 0) {
       values$drug_select = input$query_compound
@@ -94,7 +94,7 @@ shinyServer(function(input, output, session) {
   # reactive values
   values = reactiveValues(c.data = NULL, c.data_display = NULL, c.data_title = NULL, 
                           c.binding_data = NULL, c.binding_display = NULL, 
-                          drug_select = NULL)
+                          drug_select = NULL, num_selected = 0)
   
   # show/hide intro
   observeEvent(input$intro_hide, {
@@ -115,6 +115,7 @@ shinyServer(function(input, output, session) {
     if(!is.null(values$drug_select) & values$drug_select != "") {
     #hideElement(id = "intro", anim = T, animType = "fade", time = 1)
     showElement("filters_head")
+    showElement("button_row")
     #showElement("filters")
     showElement("result_row1")
     showElement("result_row2")
@@ -161,8 +162,6 @@ shinyServer(function(input, output, session) {
     values$c.binding_display = values$c.binding_data[,c(3,4,5)]
 
     output$mainplot1 <- renderPlotly({
-      #s <- input$data_table_rows_selected
-      #if (!length(s)) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~PFP, mode = "markers", 
             color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
@@ -185,24 +184,9 @@ shinyServer(function(input, output, session) {
                               ticktext = c("NA", as.character(seq(-1,1,.5))) )
                               ) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2), hoverinfo = "text")
-        build <<- p
-      # } else if (length(s)) {
-      #   pp <- values$c.data %>%
-      #     plot_ly() %>% 
-      #     add_trace(x = ~structural_similarity, y = ~PFP, mode = "markers", 
-      #       color = I('black'), name = ~name_2, hoverinfo = "text") %>%
-      #     layout(showlegend = F)
-      #   
-      #   # selected data
-      #   pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
-      #     x = ~structural_similarity, y = ~PFP, mode = "markers",
-      #     color = I('red'), name = ~name_2)
-      # }
     })
     
     output$mainplot2 <- renderPlotly({
-      #s <- input$data_table_rows_selected
-      #if (!length(s)) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~TAS, mode = "markers", 
             color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
@@ -224,23 +208,9 @@ shinyServer(function(input, output, session) {
                                tickvals = c(-0.15, seq(0,1,.2)),
                                ticktext = c("NA", as.character(seq(0,1,.2))) )) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
-      # } else if (length(s)) {
-      #   pp <- values$c.data %>%
-      #     plot_ly() %>% 
-      #     add_trace(x = ~structural_similarity, y = ~TAS, mode = "markers",
-      #       color = I('black'), name = ~name_2) %>%
-      #     layout(showlegend = F)
-      #   
-      #   # selected data
-      #   pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
-      #     x = ~structural_similarity, y = ~TAS, mode = "markers",
-      #       color = I('red'), name = ~name_2)
-      # }
     })
     
     output$mainplot3 <- renderPlotly({
-      #s <- input$data_table_rows_selected
-      #if (!length(s)) {
         p <- d %>%
           plot_ly(x = ~TAS, y = ~PFP, mode = "markers", 
             color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
@@ -262,17 +232,6 @@ shinyServer(function(input, output, session) {
                               tickvals = c(-1.2, seq(-1,1,.5)),
                               ticktext = c("NA", as.character(seq(-1,1,.5))))) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
-      # } else if (length(s)) {
-      #   pp <- values$c.data %>%
-      #     plot_ly() %>% 
-      #     add_trace(x = ~TAS, y = ~PFP, mode = "markers", color = I('black'), name = ~name_2) %>%
-      #     layout(showlegend = F)
-      #   
-      #   # selected data
-      #   pp <- add_trace(pp, data = values$c.data[s, , drop = F], 
-      #     x = ~TAS, y = ~PFP, mode = "markers",
-      #     color = I('red'), name = ~name_2)
-      # }
     })
 
     output$data_table = renderDataTable( {
@@ -308,31 +267,56 @@ shinyServer(function(input, output, session) {
       showElement("row3_col1")
       hideElement("row3_col2")
       hideElement("row3_col3")
-      showElement("button_row")
+      hideElement("row3_col4")
+      hideElement("row3_col5")
+      #showElement("button_row")
     } else if(length(row) == 2) {
       showElement("row3_col1")
       showElement("row3_col2")
       hideElement("row3_col3")
-      showElement("button_row")
+      hideElement("row3_col4")
+      hideElement("row3_col5")
+      #showElement("button_row")
     } else if(length(row) == 3) {
       showElement("row3_col1")
       showElement("row3_col2")
       showElement("row3_col3")
-      showElement("button_row")
+      hideElement("row3_col4")
+      hideElement("row3_col5")
+      #showElement("button_row")
+    } else if(length(row) == 4) {
+      showElement("row3_col1")
+      showElement("row3_col2")
+      showElement("row3_col3")
+      showElement("row3_col4")
+      hideElement("row3_col5")
+      #showElement("button_row")
+    } else if(length(row) == 5) {
+      showElement("row3_col1")
+      showElement("row3_col2")
+      showElement("row3_col3")
+      showElement("row3_col4")
+      showElement("row3_col5")
+      #showElement("button_row")
     }
     for(i in length(row)) {
       if(length(row) == 0) {
         hideElement("row3_col1")
         hideElement("row3_col2")
         hideElement("row3_col3")
-        hideElement("button_row")
+        hideElement("row3_col4")
+        hideElement("row3_col5")
+        #hideElement("button_row")
         break
       }
-      if(length(row) > 3) { break }
+      if(length(row) > 5) { break }
       name_data = paste("selection.binding_data", i, sep = "")
       name_display = paste("selection.display_table", i, sep = "")
       name_title = paste("selection.title", i, sep = "")
+      name_file = paste0("selection.drug", i)
       drug = values$c.data$name_2[ row[i] ]
+      values[[name_file]] = drug
+      values$num_selected = length(row)
 
       values[[name_data]] = affinity_selectivity %>%
         filter(name == drug) %>%
@@ -358,14 +342,16 @@ shinyServer(function(input, output, session) {
 
   observeEvent(input$clearButton, {
     proxy %>% selectRows(NULL)
+    for(i in 1:5) {
+      assign(paste0("values$selection.binding_data",i), NULL)
+    }
+    values$num_selected = 0
   })
 
   output$selection1 = renderDataTable(
     values$selection.display_table1,
-    extensions = c('Buttons'),
     rownames = F, options = list(
-      dom = 't',
-      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      dom = 'tp',
       initComplete = JS(
         "function(settings, json) {",
         "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
@@ -375,10 +361,8 @@ shinyServer(function(input, output, session) {
 
   output$selection2 = renderDataTable(
     values$selection.display_table2,
-    extensions = c('Buttons'),
     rownames = F, options = list(
-      dom = 't',
-      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      dom = 'tp',
       initComplete = JS(
         "function(settings, json) {",
         "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
@@ -388,10 +372,30 @@ shinyServer(function(input, output, session) {
 
   output$selection3 = renderDataTable(
     values$selection.display_table3,
-    extensions = c('Buttons'),
     rownames = F, options = list(
-      dom = 't',
-      buttons = c('copy', 'csv', 'excel', 'colvis'),
+      dom = 'tp',
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+        "}"),
+      autoWidth = TRUE)
+  )
+  
+  output$selection4 = renderDataTable(
+    values$selection.display_table4,
+    rownames = F, options = list(
+      dom = 'tp',
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
+        "}"),
+      autoWidth = TRUE)
+  )
+  
+  output$selection5 = renderDataTable(
+    values$selection.display_table5,
+    rownames = F, options = list(
+      dom = 'tp',
       initComplete = JS(
         "function(settings, json) {",
         "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff', 'width': '100px'});",
@@ -402,71 +406,31 @@ shinyServer(function(input, output, session) {
   output$sel1_drug = renderText({ values$selection.title1 })
   output$sel2_drug = renderText({ values$selection.title2 })
   output$sel3_drug = renderText({ values$selection.title3 })
+  output$sel4_drug = renderText({ values$selection.title4 })
+  output$sel5_drug = renderText({ values$selection.title5 })
 
-  # Brush/hover events
-  # output$hover <- renderPrint({
-  #   d <- event_data("plotly_hover")
-  #   if (is.null(d)) "Hover events appear here (unhover to clear)" else d
-  # })
-  # output$brush <- renderPrint({
-  #   d <- event_data("plotly_selected")
-  #   if (is.null(d)) "Click and drag events (i.e., select/lasso) appear here (double-click to clear)" else d
-  # })
-
-  # Click/zoom events
-  # output$click <- renderPrint({
-  #   d <- event_data("plotly_click")
-  #   if (is.null(d)) "Click events appear here (double-click to clear)" else d
-  # })
-  # output$zoom <- renderPrint({
-  #   d <- event_data("plotly_relayout")
-  #   if (is.null(d)) "Relayout (i.e., zoom) events appear here" else d
-  # })
-  #
-  #c.data_shared <- SharedData$new(values$c.data, ~rowname)
-  # highlight selected rows in the scatterplot
-  # output$p1 <- renderPlotly({
-  #   s <- input$data_table_rows_selected
-  #   if (!length(s)) {
-  #     p <- d %>%
-  #       plot_ly(x = ~mpg, y = ~disp, mode = "markers", color = I('black'), name = 'Unfiltered') %>%
-  #       layout(showlegend = T) %>%
-  #       highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = 'Filtered'))
-  #   } else if (length(s)) {
-  #     pp <- m %>%
-  #       plot_ly() %>%
-  #       add_trace(x = ~mpg, y = ~disp, mode = "markers", color = I('black'), name = 'Unfiltered') %>%
-  #       layout(showlegend = T)
-  #
-  #     # selected data
-  #     pp <- add_trace(pp, data = m[s, , drop = F], x = ~mpg, y = ~disp, mode = "markers",
-  #                     color = I('red'), name = 'Filtered')
-  #   }
-  # 
-  # })
-  #
-  # # highlight selected rows in the table
-  # output$data_table <- DT::renderDataTable({
-  #   m2 <- m[d$selection(),]
-  #   dt <- DT::datatable(m)
-  #   if (NROW(m2) == 0) {
-  #     dt
-  #   } else {
-  #     DT::formatStyle(dt, "rowname", target = "row",
-  #                     color = DT::styleEqual(m2$rowname, rep("white", length(m2$rowname))),
-  #                     backgroundColor = DT::styleEqual(m2$rowname, rep("black", length(m2$rowname))))
-  #   }
-  # })
-  #
-  # # download the filtered data
-  # output$x3 = downloadHandler('mtcars-filtered.csv', content = function(file) {
-  #   s <- input$x1_rows_selected
-  #   if (length(s)) {
-  #     write.csv(m[s, , drop = FALSE], file)
-  #   } else if (!length(s)) {
-  #     write.csv(m[d$selection(),], file)
-  #   }
-  # })
-
-
+  output$downloadBind <- downloadHandler(
+    filename = function() {
+      return(paste0("BindingData_", format(Sys.time(), "%Y%m%d_%I%M%S"), 
+                    ".zip", sep = ""))
+    },
+    content = function(filename) {
+      files_all = list(values$c.binding_data,
+                   values$selection.binding_data1,
+                   values$selection.binding_data2,
+                   values$selection.binding_data3,
+                   values$selection.binding_data4,
+                   values$selection.binding_data5)
+      # take only tables that exist
+      print(values$num_selected)
+      files = files_all[1:(values$num_selected + 1)]
+      drugs = input$query_compound
+      if(values$num_selected > 0) {
+        for(i in 1:5) {
+          drugs = c(drugs, values[[paste0("selection.drug", i)]])
+        }
+      }
+      zipped_csv(files, filename, paste0("BindingData_", drugs), format(Sys.time(), "%Y%m%d_%I%M%S") )
+    }, contentType = "application/zip"
+  )
 })
