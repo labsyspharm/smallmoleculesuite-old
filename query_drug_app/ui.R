@@ -4,6 +4,7 @@ library(shinyjs)
 library(DT)
 library(plotly)
 library(readr)
+library(markdown)
 
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
