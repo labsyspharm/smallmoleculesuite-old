@@ -79,7 +79,7 @@ shinyServer(function(input, output, session) {
     
     output$binding_drug = renderText(
       if(dim(values$c.binding_display)[1] > 0) {
-        paste0("Gene target binding data for ",input$query_compound, ":")
+        paste0(values$ref_hms_id, "; ", input$query_compound)
       } else {
         paste0("No gene target binding data available for ",input$query_compound)
       })
@@ -160,9 +160,8 @@ shinyServer(function(input, output, session) {
 
     d <- SharedData$new(values$c.data, ~name_2)
 
-    #c.title<-paste0(unique(c.binding_data$hms_id),";",unique(c.binding_data$name))
-    # title should be same as above, right?
-    # by default it will display 10 rows at a time
+    values$ref_hms_id = unique(values$c.binding_data$hms_id)
+
     values$c.binding_display = values$c.binding_data[,c(3,4,5)]
 
     output$mainplot1 <- renderPlotly({
@@ -319,7 +318,9 @@ shinyServer(function(input, output, session) {
       name_title = paste("selection.title", i, sep = "")
       name_file = paste0("selection.drug", i)
       drug = values$c.data$name_2[ row[i] ]
+      hms_id = values$c.data$hmsID_2[ row[i] ]
       values[[name_file]] = drug
+      values[[name_title]] = paste0(hms_id, "; ", drug)
       values$num_selected = length(row)
 
       values[[name_data]] = affinity_selectivity %>%
@@ -333,11 +334,6 @@ shinyServer(function(input, output, session) {
         mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`))
 
       values[[name_display]] = values[[name_data]][,c(3,4,5)]
-      if(length(values[[name_data]]$hms_id) == 0) {
-        values[[name_title]] = drug
-      } else {
-        values[[name_title]] = paste0(unique(values[[name_data]]$hms_id),"; ", drug)
-      }
       output_name = paste("selection", i, sep = "")
     }
   }, ignoreInit = T, ignoreNULL = F)
