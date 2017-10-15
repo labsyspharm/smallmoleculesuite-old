@@ -88,6 +88,10 @@ shinyServer(function(input, output, session) {
   observeEvent(input$query_compound, {
     if(length(input$query_compound) > 0) {
       values$drug_select = input$query_compound
+      output$ref_drug = renderText(
+        paste0("Compound similarities for ", input$query_compound, 
+               " from HMS LINCS small molecule library")
+      )
     }
   })
 

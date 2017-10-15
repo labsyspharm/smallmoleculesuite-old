@@ -1,11 +1,9 @@
 library(shiny)
-library(shinyBS)
 library(shiny.semantic)
 library(shinyjs)
 library(DT)
 library(plotly)
 library(readr)
-library(plotly)
 
 similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
@@ -137,7 +135,8 @@ shinyUI(
               div(class = "ui basic center aligned segment",
   h3(class="ui horizontal divider header", uiicon("bar chart"), "Compound similarity plots"),
   h5("Select an area of similarity you are interested in. ", intToUtf8(160),intToUtf8(160), " Hover over points for more information. ", intToUtf8(160),intToUtf8(160), " Double-click on plot to un-select region.",
-     style = "margin: 0px; padding: 0px")
+     style = "margin: 0px; padding: 0px"),
+  h3(class = "ui centered header", textOutput("ref_drug"))
             ))),
             hidden(div(class = "row", style = "height: 450px", id = "result_row2",
               div(class = "stackable five wide column",
@@ -237,9 +236,9 @@ sliderInput("n_pheno", "Number of phenotypic assays in common with reference com
               ))
             ),
             hidden(div(class = "row", id = "button_row",
-  div(class = "ui secondary button action-button shiny-download-link",
-     "Download Binding Data (.csv)", id = "downloadBind2"),
-  downloadButton("downloadBind", "DL"),
+  div(class = "ui secondary button",
+      downloadLink("downloadBind", "Download binding data (.csv)", style = "color: white;")
+      ),
   div(class = "ui secondary button action-button", "Clear selections", id = "clearButton")
             ))
           )
