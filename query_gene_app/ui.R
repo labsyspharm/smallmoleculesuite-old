@@ -134,7 +134,7 @@ shinyUI(
                                         "Show/hide filters", uiicon(type = "filter")), href = "#")
        )
     ),
-                hidden(div(id = "filters",
+                div(id = "filters",
     h5("Minimum/maximum affinity", style = "text-align: center; margin-top: 10px; margin-bottom: 10px;"),
     sliderInput("affinity", "", min = -3, max = 10, step = 1, value = c(-3,6)),
     h5("Maximum std. dev. of affinity", style = "text-align: center; margin-top: 10px; margin-bottom: 10px;"),
@@ -142,8 +142,8 @@ shinyUI(
     h5("Minimum number of measurements", style = "text-align: center; margin-top: 10px; margin-bottom: 10px;"),
     sliderInput("min_measurements", "", min = 1, max = 15, step = 1, value = 2)
                 )
-              )),
-                div(class = "stackable column", style = "width: calc(100% - 350px); min-width: 400px;",
+              ),
+                hidden(div(class = "stackable column", style = "width: calc(100% - 350px); min-width: 400px;", id = "plot_column",
     h3(class="ui horizontal divider header", uiicon("bar chart"),
        textOutput("plot_title", inline = T)),
                   div(class = "ui noshadow horizontal segments",
@@ -166,7 +166,7 @@ shinyUI(
     plotlyOutput("mainplot")
                   )
                 )
-              )
+              ))
             ),
             hidden(div(class = "row", id = "table_row",
               div(class = "column", style = "min-height: 200px;",

@@ -84,6 +84,7 @@ shinyServer(function(input, output, session) {
       showElement("plot_col")
       showElement("table_row")
       showElement("loader_table")
+      showElement("plot_column")
       
       values$c.binding_data = affinity_selectivity %>%
         filter(symbol == input$query_gene) %>%
