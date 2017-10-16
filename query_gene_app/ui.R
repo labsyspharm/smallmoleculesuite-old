@@ -2,10 +2,8 @@ library(shiny)
 library(shiny.semantic)
 library(shinyjs)
 library(DT)
-library(readr)
-library(ggvis)
+library(plotly)
 
-affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
 
 # logifySlider javascript function
 JS.logify <-
@@ -122,13 +120,8 @@ shinyUI(
                   )
                 ),
     br(),
-    #uiOutput("gene_search", style = "display: block; margin: auto; width: 200px;"),
-    selectizeInput(inputId = "query_gene", label = "", choices = sort(unique(affinity_selectivity$symbol)),
-                   options = list(
-                     placeholder = 'Search for a gene target',
-                     onInitialize = I('function() { this.setValue(""); }')
-                   )
-    ),
+    uiOutput("query_gene_output"),
+    checkboxInput("include_genes", "Include non-human genes", value = F),
     br(),
                 div(class = "ui noshadow horizontal segments",
                   div(class = "ui basic compact segment",
@@ -178,7 +171,7 @@ shinyUI(
     conditionalPanel(condition="$('html').hasClass('shiny-busy')",
       hidden(div(class = "ui active text loader", id = "loader1", "Loading Plot"))
     ),
-    ggvisOutput("mainplot")
+    plotlyOutput("mainplot")
                   )
                 )
               )
