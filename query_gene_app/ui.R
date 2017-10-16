@@ -3,6 +3,7 @@ library(shiny.semantic)
 library(shinyjs)
 library(DT)
 library(plotly)
+library(markdown)
 
 
 # logifySlider javascript function
@@ -72,17 +73,7 @@ shinyUI(
         div(class = "ui red basic circular cancel icon button", uiicon(type = "window close"))
       ),
       div(class = "ui center aligned basic segment",
-    p("Developed at Harvard Medical School (Sorger lab) by ", "Nienke Moret, ", a("Marc Hafner", href = "https://scholar.harvard.edu/hafner"), ", and ", a("Nicholas Clark", href = "https://github.com/NicholasClark/")),
-    h3("Application programming"),
-    p("Nienke Moret (R scripts)"),
-    p("Nicholas Clark (R/Shiny application)"),
-    br(),
-    p("[paper citation]"),
-    h3("Links"),
-    p(a(class = "item", "Sorger lab website", href = "http://sorger.med.harvard.edu")),
-    p(a(class = "item", "Project github repository", uiicon("github"), 
-        href = "https://github.com/sorgerlab/drug_browser")),
-    p(a(class = "item", "LINCS-DCIC website", href = "http://lincs-dcic.org"))
+          includeMarkdown("www/about.md")
       )
     ),
     div(class = "ui container",
@@ -92,7 +83,7 @@ shinyUI(
       href = "http://lincs-dcic.org"),
     a(class = "item", "Custom Library App", href = "http://shiny.ilincs.org/custom_library_app/"),
     a(class = "item", "Query Drug App", href = "http://shiny.ilincs.org/query_drug_app/"),
-    a(class = "item", "Query Gene App", href = "http://shiny.ilincs.org/query_gene_app/"),
+    a(class = "item active", "Query Gene App", href = "http://shiny.ilincs.org/query_gene_app/"),
     a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
       href = "http://sorger.med.harvard.edu" )
         )
@@ -153,7 +144,8 @@ shinyUI(
                 )
               )),
                 div(class = "stackable column", style = "width: calc(100% - 350px); min-width: 400px;",
-    h3(class="ui horizontal divider header", uiicon("bar chart"), "Main plot"),
+    h3(class="ui horizontal divider header", uiicon("bar chart"),
+       textOutput("plot_title", inline = T)),
                   div(class = "ui noshadow horizontal segments",
                       div(class = "ui basic compact segment",
                           style = "width: 60px; min-width: 60px; padding: 0px;",
@@ -178,7 +170,7 @@ shinyUI(
             ),
             hidden(div(class = "row", id = "table_row",
               div(class = "column", style = "min-height: 200px;",
-    h3(class="ui horizontal divider header", uiicon("table"), "Output table"),
+    h3(class="ui horizontal divider header", uiicon("table"), intToUtf8(160),textOutput("table_title", inline = T)),
     h4(class = "ui centered header", "Select rows below to see drug targets and binding affinities for a given drug."),
     conditionalPanel(condition="$('html').hasClass('shiny-busy')",
       hidden(div(class = "ui active text loader", id = "loader_table", "Loading Table"))
@@ -211,6 +203,9 @@ shinyUI(
                ))
     )),
     hidden(div(class = "row", id = "button_row",
+      div(class = "ui secondary button",
+        downloadLink("downloadBind", "Download binding data (.csv)", 
+                     style = "color: white;")),
       div(class = "ui secondary button action-button", "Clear selections", id = "clearButton")
     ))
           )

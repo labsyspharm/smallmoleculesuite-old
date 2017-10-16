@@ -5,8 +5,30 @@ library(DT)
 library(plotly)
 library(crosstalk)
 
-affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv") %>% mutate(`log10_mean_Kd_(nM)` = log10(`mean_Kd_(nM)`))
+affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv") %>% mutate(selectivity_plot = coalesce(selectivity, -0.5))
+
 selectivity_order = c("Most selective","Semi-selective","Poly-selective","Unknown","Other")
+
+zipped_csv <- function(df_list, zippedfile, filenames, stamp) {
+  dir = tempdir()
+  mkdir = paste0("mkdir ", dir, "/", stamp)
+  system(mkdir)
+  len = length(df_list)
+  for(i in 1:len) {
+    # filename in temp directory 
+    assign(paste0("temp",i), paste0(dir, "/", stamp, "/", filenames[i], ".csv"))
+    # write temp csv
+    write_csv(df_list[[i]], path=get(paste0("temp",i)))
+  }
+  # zip temp csv
+  print(dir)
+  print(filenames)
+  zip(zippedfile, paste0(dir,"/", stamp, "/", filenames, ".csv"), flags = "-j" )
+  # delete temp csv
+  for(i in 1:len) {
+    unlink( paste0("temp",i) )
+  }
+}
 
 about.modal.js = "$('.ui.mini.modal')
   .modal('show')
@@ -17,7 +39,8 @@ shinyServer(function(input, output, session) {
   session$onSessionEnded(stopApp)
   
   # reactive values
-  values = reactiveValues(c.binding_data = NULL, selection_table = NULL)
+  values = reactiveValues(c.binding_data = NULL, selection_table = NULL,
+                          num_selected = 0)
   # Load "about" modal
   observeEvent(input$about, {
     runjs(about.modal.js)
@@ -50,6 +73,11 @@ shinyServer(function(input, output, session) {
     )
   })
   
+  observeEvent(input$query_gene, {
+    output$plot_title = renderText(paste0("Affinity and selectivity for drugs targeting ", input$query_gene))
+    output$table_title = renderText(paste0("Data for drugs targeting ", input$query_gene))
+  })
+  
   observeEvent(c(input$query_gene, input$affinity, input$sd, input$min_measurements) , {
     if(input$query_gene != "") {
       showElement("loader1")
@@ -57,11 +85,11 @@ shinyServer(function(input, output, session) {
       showElement("table_row")
       showElement("loader_table")
       
-      values$c.binding_data = affinity_selectivity %>% 
+      values$c.binding_data = affinity_selectivity %>%
         filter(symbol == input$query_gene) %>%
-        filter(`mean_Kd_(nM)` >= 10^input$affinity[1]) %>%
-        filter(`mean_Kd_(nM)` <= 10^input$affinity[2]) %>%
-        filter(`SD_Kd_(nM)` <= 10^input$sd) %>%
+        filter(`mean_Kd_(nM)` >= 10^input$affinity[1] | is.na(`mean_Kd_(nM)`)) %>%
+        filter(`mean_Kd_(nM)` <= 10^input$affinity[2] | is.na(`mean_Kd_(nM)`)) %>%
+        filter(`SD_Kd_(nM)` <= 10^input$sd | is.na(`SD_Kd_(nM)`)) %>%
         filter(n_measurements >= input$min_measurements) %>%
         mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
         mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`, 3)) %>%
@@ -72,21 +100,15 @@ shinyServer(function(input, output, session) {
           filter(tax_id == 9606)
       }
       
-      ## show selection table -- user selects up to three compounds
       values$selection_table = values$c.binding_data
-      # values$selection_table = values$c.binding_data[ , c("name", "hms_id",
-      #   "symbol", "selectivity_class", "`mean_Kd_(nM)`", "selectivity", 
-      #   "ontarget_IC50_Q1","offtarget_IC50_Q1", "offtarget_IC50_N")]
-      
       d = SharedData$new(values$c.binding_data, ~name)
-      
-      ## plot data
-      ##! we should include a solution for NA points as well.
       
       # display results table
       output$output_table = DT::renderDataTable({
-        m2 <- values$c.binding_data[d$selection(), , drop = F]
-        dt <- values$c.binding_data
+        m2 = values$c.binding_data[d$selection(), 
+          -which(names(values$c.binding_data) %in% c("selectivity_plot")), drop = F]
+        dt <- values$c.binding_data[ , -which(names(values$c.binding_data) %in% 
+                                                c("selectivity_plot")), drop = F]
         if(NROW(m2) == 0) {
           dt
         } else {
@@ -96,6 +118,8 @@ shinyServer(function(input, output, session) {
       extensions = 'Buttons',
       rownames = F, 
       options = list(
+        columnDefs = list(list(visible=F, targets=match( c("investigation_bias", 
+          "wilcox_pval", "IC50_diff"), names(values$c.binding_data)) - 1 )),
         dom = 'lBfrtip',
         buttons = c('copy', 'csv', 'excel', 'colvis'),
         initComplete = JS(
@@ -108,27 +132,23 @@ shinyServer(function(input, output, session) {
       
       output$mainplot <- renderPlotly({
         p <- d %>%
-          plot_ly(x = ~selectivity, y = ~`log10_mean_Kd_(nM)`, mode = "markers", 
-                  color = I('black'), name = ~name, text = ~paste("Drug name: ", 
+          plot_ly(x = ~selectivity_plot, y = ~`mean_Kd_(nM)`, mode = "markers", 
+                  color = ~selectivity_class, text = ~paste("Drug name: ", 
                     name, "\nDrug HMS ID: ", hms_id, "\nGene symbol: ", symbol,"\nx: ", selectivity, "\ny: ", 
-                    `log10_mean_Kd_(nM)`, sep = ""), hoverinfo = "text") %>%
-          # layout(showlegend = F,
-          #        shapes = list(list(type='line', x0= -0.1, x1= -0.1, y0=-1.2, y1=1.2,
-          #                           line=list(dash='dot', width=2, color = "red")),
-          #                      list(type='line', x0= -0.15, x1= 1.15, y0=-1.1, y1=-1.1,
-          #                           line=list(dash='dot', width=2, color = "red"))),
-          #        xaxis = list(range = c(-0.15, 1.15),
-          #                     title = "Structural similarity",
-          #                     tickmode = "array",
-          #                     tickvals = c(-0.1, seq(0,1,.25)),
-          #                     ticktext = c("NA", as.character(seq(0,1,.25))) ),
-          #        yaxis = list(range = c(-1.2, 1.2),
-          #                     title = "PFP",
-          #                     tickmode = "array",
-          #                     tickvals = c(-1.1, seq(-1,1,.5)),
-          #                     ticktext = c("NA", as.character(seq(-1,1,.5))) )
-          # ) %>% 
-          highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2), hoverinfo = "text")
+                    `mean_Kd_(nM)`, sep = ""), hoverinfo = "text") %>%
+          layout(showlegend = T,
+                 shapes = list(list(type='line', x0= -0.5, x1= -0.5, y0= 10^(input$affinity[1]), y1= 10^(input$affinity[2]),
+                    line=list(dash='dot', width=2, color = "red"))),
+                 xaxis = list(range = c(-0.6, 1.3),
+                              title = "Selectivity",
+                              tickmode = "array",
+                              tickvals = c(-0.5, seq(-0.25, 1.25, .25)),
+                              ticktext = c("NA", as.character(seq(-0.25, 1.25, .25)))),
+                 yaxis = list(range = c(input$affinity[1], input$affinity[2]),
+                              title = "Mean Kd (nM)",
+                              type = "log")
+                 ) %>%
+          highlight("plotly_selected", color = I('red'), hoverinfo = "text")
       })
     }
   }, ignoreInit = T)
@@ -167,25 +187,24 @@ shinyServer(function(input, output, session) {
       name_data = paste("selection.binding_data", i, sep = "")
       name_display = paste("selection.display_table", i, sep = "")
       name_title = paste("selection.title", i, sep = "")
+      name_file = paste0("selection.drug", i)
       drug = values$selection_table$name[ row[i] ]
+      hms_id = values$selection_table$hms_id[ row[i] ]
+      values[[name_title]] = paste0(hms_id, "; ", drug)
+      values$num_selected = length(row)
+      values[[name_file]] = drug
       
       values[[name_data]] = affinity_selectivity %>%
         filter(name == drug) %>%
-        filter(`mean_Kd_(nM)` >= 10^input$affinity[1]) %>%
-        filter(`mean_Kd_(nM)` <= 10^input$affinity[2]) %>%
-        filter(`SD_Kd_(nM)` <= 10^input$sd) %>%
+        filter(`mean_Kd_(nM)` >= 10^input$affinity[1] | is.na(`mean_Kd_(nM)`)) %>%
+        filter(`mean_Kd_(nM)` <= 10^input$affinity[2] | is.na(`mean_Kd_(nM)`)) %>%
+        filter(`SD_Kd_(nM)` <= 10^input$sd | is.na(`SD_Kd_(nM)`)) %>%
         filter(n_measurements >= input$min_measurements) %>%
         mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
         arrange(selectivity_class, `mean_Kd_(nM)`) %>%
-        mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`))
+        mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`, 3))
       
-      values[[name_display]] = values[[name_data]][1:7,c(3,4,5)]
-      print(head(values[[name_display]]))
-      if(length(values[[name_data]]$hms_id) == 0) {
-        values[[name_title]] = drug
-      } else {
-        values[[name_title]] = paste0(unique(values[[name_data]]$hms_id),"; ", drug)
-      }
+      values[[name_display]] = values[[name_data]][,c(3,4,5)]
       output_name = paste("selection", i, sep = "")
     }
   }, ignoreInit = T, ignoreNULL = F)
@@ -194,13 +213,17 @@ shinyServer(function(input, output, session) {
   
   observeEvent(input$clearButton, {
     proxy %>% selectRows(NULL)
+    for(i in 1:3) {
+      assign(paste0("values$selection.binding_data",i), NULL)
+    }
+    values$num_selected = 0
   })
   
   output$selection1 = DT::renderDataTable(
     values$selection.display_table1,
     extensions = c('Buttons'),
     rownames = F, options = list(
-      dom = 't',
+      dom = 'tp',
       buttons = c('copy', 'csv', 'excel', 'colvis'),
       initComplete = JS(
         "function(settings, json) {",
@@ -213,7 +236,7 @@ shinyServer(function(input, output, session) {
     values$selection.display_table2,
     extensions = c('Buttons'),
     rownames = F, options = list(
-      dom = 't',
+      dom = 'tp',
       buttons = c('copy', 'csv', 'excel', 'colvis'),
       initComplete = JS(
         "function(settings, json) {",
@@ -226,7 +249,7 @@ shinyServer(function(input, output, session) {
     values$selection.display_table3,
     extensions = c('Buttons'),
     rownames = F, options = list(
-      dom = 't',
+      dom = 'tp',
       buttons = c('copy', 'csv', 'excel', 'colvis'),
       initComplete = JS(
         "function(settings, json) {",
@@ -238,4 +261,28 @@ shinyServer(function(input, output, session) {
   output$sel1_drug = renderText({ values$selection.title1 })
   output$sel2_drug = renderText({ values$selection.title2 })
   output$sel3_drug = renderText({ values$selection.title3 })
+  
+  output$downloadBind <- downloadHandler(
+    filename = function() {
+      return(paste0("BindingData_", format(Sys.time(), "%Y%m%d_%I%M%S"), 
+                    ".zip", sep = ""))
+    },
+    content = function(filename) {
+      files_all = list(values$selection.binding_data1,
+                       values$selection.binding_data2,
+                       values$selection.binding_data3)
+      # take only tables that exist
+      drugs = NULL
+      if(values$num_selected > 0) {
+        files = files_all[1:values$num_selected]
+        for(i in 1:3) {
+          drugs = c(drugs, values[[paste0("selection.drug", i)]])
+        }
+      } else {
+        files = NULL
+        drugs = NULL
+      }
+      zipped_csv(files, filename, paste0("BindingData_", drugs), format(Sys.time(), "%Y%m%d_%I%M%S") )
+    }, contentType = "application/zip"
+  )
 })

@@ -2,6 +2,7 @@ library(shiny)
 library(shiny.semantic)
 library(shinyjs)
 library(DT)
+library(markdown)
 
 # logifySlider javascript function
 JS.logify <-
@@ -68,17 +69,7 @@ shinyUI(
         )
       ),
       div(class = "ui center aligned basic segment",
-          p("Developed at Harvard Medical School (Sorger lab) by ", "Nienke Moret, ", a("Marc Hafner", href = "https://scholar.harvard.edu/hafner"), ", and ", a("Nicholas Clark", href = "https://github.com/NicholasClark/")),
-          h3("Application programming"),
-          p("Nienke Moret (R scripts)"),
-          p("Nicholas Clark (R/Shiny application)"),
-          br(),
-          p("[paper citation]"),
-          h3("Links"),
-          p(a(class = "item", "Sorger lab website", href = "http://sorger.med.harvard.edu")),
-          p(a(class = "item", "Project github repository", uiicon("github"), 
-            href = "https://github.com/sorgerlab/drug_browser")),
-          p(a(class = "item", "LINCS-DCIC website", href = "http://lincs-dcic.org"))
+          includeMarkdown("www/about.md")
       )
     ),
     div(class = "ui container",
@@ -86,7 +77,7 @@ shinyUI(
         div(class = "ui center aligned container",
             a(class = "item", img(class = "logo", src = "dcic.png"),
               href = "http://lincs-dcic.org"),
-            a(class = "item", "Custom Library App", href = "http://shiny.ilincs.org/custom_library_app/"),
+            a(class = "active item", "Custom Library App", href = "http://shiny.ilincs.org/custom_library_app/"),
             a(class = "item", "Query Drug App", href = "http://shiny.ilincs.org/query_drug_app/"),
             a(class = "item", "Query Gene App", href = "http://shiny.ilincs.org/query_gene_app/"),
             a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
