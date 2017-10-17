@@ -42,17 +42,18 @@ shinyUI(
     title = "Query Drug App",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
-    tags$head(tags$script(HTML(JS.logify))),
-    tags$head(tags$script(HTML(JS.onload))),
-    tags$head(
-      tags$link(rel = "stylesheet", type = "text/css", href = "drug_app.css")
-    ),
     # Fix for mobile viewing
     tags$meta(name="viewport", content="width=device-width, initial-scale=1.0"),
     # CSS for sizing of data table search boxes
     inlineCSS(".form-control {
   box-sizing: border-box;
-              }"),
+              }
+              @media only screen and (min-width:768px) and (max-width:991px){
+  .ui.segment{
+    border : 0;
+  }
+}
+              "),
     tags$style(type = "text/css", "
                .irs-bar {width: 100%; height: 5px; background: black; border-top: 0px solid black; border-bottom: 0px solid black;}
                .irs-bar-edge {background: black; border: 0px solid black; height: 5px; width: 10px; border-radius: 0px;}
@@ -83,7 +84,7 @@ shinyUI(
         includeMarkdown("www/about.md")
       )
     ),
-    div(class = "ui container", style = "width: 1125px; min-width: 1125x; margin: 0px;",
+    div(class = "ui container", style = "margin: 0px;",
       div(class = "ui top attached inverted five item stackable menu", style = "width: 100%;",
         div(class = "ui center aligned container",
             a(class = "item", img(class = "logo", src = "dcic.png"),
@@ -97,7 +98,7 @@ shinyUI(
       ),
       div(class = "ui main container attached segment", style = "margin: 0px; padding-right: 0px; padding-left: 0px;",
         div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
-          div(class = "ui grid",
+          div(class = "ui stackable grid",
             div(class = "row",
               div(class = "stackable column", style = "width: 300px; min-width: 300px;",
                 div(class = "ui basic center aligned segment",
@@ -139,7 +140,7 @@ shinyUI(
      style = "margin: 0px; padding: 0px"),
   h3(class = "ui centered header", textOutput("ref_drug"))
             ))),
-            hidden(div(class = "row", style = "height: 450px", id = "result_row2",
+            hidden(div(class = "row", id = "result_row2",
               div(class = "stackable five wide column",
   conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                  hidden(div(class = "ui active text loader", id = "loader1",
