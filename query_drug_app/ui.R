@@ -183,12 +183,7 @@ sliderInput("n_pheno", "Number of phenotypic assays in common with reference com
             ", min = 0, max = 8, step = 1, value = 0)
 )
                 )),
-  tags$style(type = "text/css", "#row3_col1 { width: calc((100% - 375px)/2); }"),
-  tags$style(type = "text/css", "#row3_col2 { width: calc((100% - 375px)/2); }"),
-  tags$style(type = "text/css", "#row3_col3 { width: 375px; min-width: 375px; }"),
-  tags$style(type = "text/css", "#row3_col4 { width: calc((100% - 375px)/2); }"),
-  tags$style(type = "text/css", "#row3_col5 { width: calc((100% - 375px)/2); }"),
-  tags$style(type = "text/css", "#row3_bind_data { width: 375px; min-width: 375px; }"),
+  tags$style(type = "text/css", "#row3_bind_data { min-width: 375px; }"),
             hidden(div(class = "row", id = "result_row4",
               div(class = "column", style = "min-height: 200px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Compound similarity data"),
@@ -207,36 +202,40 @@ sliderInput("n_pheno", "Number of phenotypic assays in common with reference com
    tags$style(type='text/css', "#sel_drug2 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
    tags$style(type='text/css', "#sel_drug3 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
    h4(class = "ui centered header", textOutput("binding_drug", inline = T)),
-                 DT::dataTableOutput("binding_data")
+                 DT::dataTableOutput("binding_data"),
+   br(), br()
              ),
               hidden(div(class = "padded stackable column", id = "row3_col1",
+                         style = "min-width: 375px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Selection 1"), 
   h4(class = "ui centered header", textOutput("sel1_drug")),
   DT::dataTableOutput("selection1")
               )),
               hidden(div(class = "stackable column", id = "row3_col2",
+                         style = "min-width: 375px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Selection 2"),
   h4(class = "ui centered header", textOutput("sel2_drug")),
   DT::dataTableOutput("selection2")
-              ))
               )),
-  div(class = "row", id = "result_row_next",
               hidden(div(class = "stackable column", id = "row3_col3",
+                         style = "min-width: 375px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Selection 3"),
   h4(class = "ui centered header", textOutput("sel3_drug")),
   DT::dataTableOutput("selection3")
               )),
               hidden(div(class = "stackable column",  id = "row3_col4",
+                         style = "min-width: 375px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Selection 4"),
   h4(class = "ui centered header", textOutput("sel4_drug")),
   DT::dataTableOutput("selection4")
               )),
               hidden(div(class = "stackable column", id = "row3_col5",
+                         style = "min-width: 375px;",
   h3(class="ui horizontal divider header", uiicon("table"), "Selection 5"),
   h4(class = "ui centered header", textOutput("sel5_drug")),
   DT::dataTableOutput("selection5")
               ))
-            ),
+            )),
             hidden(div(class = "row", id = "button_row",
   div(class = "ui secondary button",
       downloadLink("downloadBind", "Download binding data (.csv)", style = "color: white;")
