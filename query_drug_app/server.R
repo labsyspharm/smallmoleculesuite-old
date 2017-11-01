@@ -98,7 +98,8 @@ shinyServer(function(input, output, session) {
   # reactive values
   values = reactiveValues(c.data = NULL, c.data_display = NULL, c.data_title = NULL, 
                           c.binding_data = NULL, c.binding_display = NULL, 
-                          drug_select = NULL, num_selected = 0)
+                          drug_select = NULL, num_selected = 0,
+                          c.data_display_sub = NULL, c.data_sub = NULL)
   
   # show/hide intro
   observeEvent(input$intro_hide, {
@@ -238,7 +239,9 @@ shinyServer(function(input, output, session) {
     })
 
     output$data_table = renderDataTable( {
-      m2 <- values$c.data_display[d$selection(), , drop = F]
+      values$c.data_display_sub <- values$c.data_display[d$selection(), , drop = F]
+      values$c.data_sub = values$c.data[d$selection(), , drop = F]
+      m2 = values$c.data_display_sub
       dt <- values$c.data_display
       if(NROW(m2) == 0) {
         dt
@@ -317,8 +320,13 @@ shinyServer(function(input, output, session) {
       name_display = paste("selection.display_table", i, sep = "")
       name_title = paste("selection.title", i, sep = "")
       name_file = paste0("selection.drug", i)
-      drug = values$c.data$name_2[ row[i] ]
-      hms_id = values$c.data$hmsID_2[ row[i] ]
+      if(NROW(values$c.data_display_sub) > 0) {
+        dt1 = values$c.data_sub
+      } else {
+        dt1 = values$c.data
+      }
+      drug = dt1$name_2[ row[i] ]
+      hms_id = dt1$hmsID_2[ row[i] ]
       values[[name_file]] = drug
       values[[name_title]] = paste0(hms_id, "; ", drug)
       values$num_selected = length(row)
