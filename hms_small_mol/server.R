@@ -11,5 +11,5 @@ shinyServer(function(input, output, session) {
   observeEvent(input$about, {
     runjs(about.modal.js)
   })
-
+  session$allowReconnect(TRUE)
 })

@@ -204,4 +204,5 @@ shinyServer(function(input, output, session) {
       })
     }
   })
+  session$allowReconnect(TRUE)
 })
