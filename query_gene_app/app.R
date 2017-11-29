@@ -1,4 +1,5 @@
 library(shiny)
+library(shiny.semantic)
 library(dplyr)
 library(readr)
 library(DT)
@@ -6,6 +7,7 @@ library(plotly)
 library(crosstalk)
 library(shinyjs)
 library(magrittr)
+library(markdown)
 
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv") %>% mutate(selectivity_plot = coalesce(selectivity, -0.5))
 
@@ -410,14 +412,6 @@ server = function(input, output, session) {
 }
 
 #### UI
-
-library(shiny)
-library(shiny.semantic)
-library(shinyjs)
-library(DT)
-library(plotly)
-library(markdown)
-
 
 # logifySlider javascript function
 JS.logify <-
