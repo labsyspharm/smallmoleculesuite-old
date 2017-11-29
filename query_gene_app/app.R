@@ -5,9 +5,9 @@ library(DT)
 library(plotly)
 library(crosstalk)
 library(shinyjs)
+library(magrittr)
 
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv") %>% mutate(selectivity_plot = coalesce(selectivity, -0.5))
-genes = sort(unique(affinity_selectivity$symbol))
 
 selectivity_order = c("Most selective","Semi-selective","Poly-selective","Unknown","Other")
 
@@ -43,7 +43,6 @@ server = function(input, output, session) {
   onRestore(function(state) {
     print("restore")
     for(i in names(state$values)) {
-      #print(i)
       values[[i]] = state$values[[i]]
     }
     updateSelectizeInput(session, "query_gene", selected = state$input$query_gene)
@@ -51,82 +50,31 @@ server = function(input, output, session) {
   
   onRestored(function(state) {
     print("restored")
-    #print(names(state$input))
     values$rows_selected_save = state$input$output_table_rows_selected
-    print("selected")
-    print(values$rows_selected_save)
-    print("filtered")
-    values$rows_filtered_save = state$input$output_table_rows_current
-    print(values$rows_filtered_save)
-    #proxy <<- dataTableProxy('output_table')
-    #print(str(proxy))
-    #proxy %>% reloadData() %>% selectRows(state$input$output_table_rows_selected)
   })
   
-  
-  # Set up bookmarking
-  options(shiny.launch.browser=FALSE)
-  
-  observe({
-    # Trigger this observer every time an input changes
-    all_vars = reactiveValuesToList(input, all.names = T)
-    #print(all_vars)
-    #print(names(all_vars))
-    #print(unlist(all_vars, use.names = T))
-    #exclude_vars =  setdiff(names(all_vars), c("query_gene", "include_genes", "affinity", "min_measurements", "sd", "filter_button"))
-    #exclude_vars = grepl
-    # exclude_vars = c(exclude_vars, ".clientValue-default-plotlyCrosstalkOpts",
-    #                  ".clientValue-plotly_hover-A",".clientValue-SharedDatafc3f11f3-filterset")
-    #print(exclude_vars)
-    #setBookmarkExclude(names = exclude_vars)
-    #reactiveValuesToList(input)
-    session$doBookmark()
-  })
   onBookmark(function(state) {
     print("bookmark")
-    # if(exists("d")) {
-    #   print(d$groupName())
-    #   print(d$selection(ownerId = "mainplot"))
-    # }
-    # print("save values")
-    # for(i in names(values)) {
-    #   print(i)
-    #   state$values[[i]] = values[[i]]
-    # }
-    # print("1")
-    # print(input$output_table_cell_clicked)
-    # print("2")
-    # print(head(input$output_table_rows_current))
-    # print("3")
-    # print(input$output_table_rows_selected)
-    #print("4")
-    #print(head(input$output_table_rows_all))
-    #print("5")
-    #print(input$output_table_state)
-    # print("save inputs")
-    # for(i in names(input)) {
-    #   print(i)
-    # }
-    # #state$values$points_selected = state$input$`.clientValue-plotly_selected-Z`
     if(exists("d")) {
       state$values$points_selected = d$selection(ownerId = "mainplot")
       state$values$groupId = d$groupName()
     }
-    
-    # #extendShinyjs(text = "shinyjs.resetClick = function() { Shiny.onInputChange('.clientValue-plotly_click-A', 'null'); }"),
-    # #print(reactiveValuesToList(state$input))
   })
+  
   onBookmarked(function(url) {
-    print(url)
     updateQueryString(url)
   })
   
-  # observeEvent(input$bookmark1, {
-  #   session$doBookmark()
-  # })
-  # observeEvent(input$bookmark2, {
-  #   session$doBookmark()
-  # })
+  observeEvent(input$bookmark1, {
+    session$doBookmark()
+  })
+  
+  observe({
+    # Needed to call input to trigger bookmark
+    all_vars = reactiveValuesToList(input, all.names = T)
+    # Don't delete above line -- needed for point selection bookmarking
+    session$doBookmark()
+  })
   
   # reactive values
   values = reactiveValues(c.binding_data = NULL, selection_table = NULL,
@@ -142,27 +90,7 @@ server = function(input, output, session) {
     toggleElement(id = "filter_down")
     toggleElement(id = "filter_right")
   })
-  
-  # observeEvent(input$include_genes,{
-  #   if(input$include_genes) {
-  #     genes = sort(unique(affinity_selectivity$symbol))
-  #     # all genes
-  #   } else {
-  #     genes = affinity_selectivity %>%
-  #       filter(tax_id == 9606)
-  #     genes = sort(unique(genes$symbol))
-  #     # just human genes
-  #   }
-  #   output$query_gene_output = renderUI(
-  #     # selectizeInput(inputId = "query_gene", label = "", choices = genes,
-  #     #                options = list(
-  #     #                  placeholder = 'Search for a gene target',
-  #     #                  onInitialize = I('function() { this.setValue(""); }')
-  #     #                )
-  #     # )
-  #     selectizeInput(inputId = "query_gene", label = "", choices = genes, selected = NULL)
-  #   )
-  # })
+
   
   observeEvent(input$query_gene, {
     output$plot_title = renderText(paste0("Affinity and selectivity for drugs targeting ", input$query_gene))
@@ -170,9 +98,8 @@ server = function(input, output, session) {
   })
   
   observeEvent(c(input$query_gene, input$affinity, input$sd, input$min_measurements) , {
-  #observe({
     print("main")
-    if(input$query_gene != "") {
+    if(input$query_gene != "" && !is.null(input$query_gene) ) {
       showElement("loader1")
       showElement("plot_col")
       showElement("table_row")
@@ -264,13 +191,6 @@ server = function(input, output, session) {
                               type = "log")
           ) %>% highlight("plotly_selected", color = I('red'), hoverinfo = "text")
         # if restoring from a bookmark, select previously selected points
-        # if(sum(values$points_selected) > 0) {
-        #   print("default")
-        #   #values$points_selected = NULL
-        # } else {
-        #   p = p %>% highlight("plotly_selected", color = I('red'), hoverinfo = "text")
-        # }
-        p = plotly_build(p)
         p$x$highlight$defaultValues = values$c.binding_data$name[values$points_selected]
         p$x$highlight$color = "rgba(255,0,0,1)"
         p$x$highlight$off = "plotly_deselect"
@@ -285,15 +205,15 @@ server = function(input, output, session) {
   #})
   
   observeEvent(input$query_gene, {
-    if(!is.null(input$query_gene)) {
-      if(input$query_gene %in% genes) {
+    if(!is.null(input$query_gene) && input$query_gene != "") {
+      if(input$query_gene %in% values$genes) {
         output$query_gene_output = renderUI(
-          selectizeInput(inputId = "query_gene", label = "", choices = genes, selected = input$query_gene)
+          selectizeInput(inputId = "query_gene", label = "", choices = values$genes, selected = input$query_gene)
         )
       }
     } else {
       output$query_gene_output = renderUI(
-        selectizeInput(inputId = "query_gene", label = "", choices = genes,
+        selectizeInput(inputId = "query_gene", label = "", choices = values$genes,
                        options = list(
                          placeholder = 'Search for a gene target',
                          onInitialize = I('function() { this.setValue(""); }')
@@ -304,17 +224,18 @@ server = function(input, output, session) {
   }, ignoreNULL = F)
 
   
-  # observeEvent(input$include_genes, {
-  #   if(input$include_genes) {
-  #     genes = sort(unique(affinity_selectivity$symbol))
-  #     # all genes
-  #   } else {
-  #     genes = affinity_selectivity %>%
-  #       filter(tax_id == 9606)
-  #     genes = sort(unique(genes$symbol))
-  #     # just human genes
-  #   }
-  # })
+  observeEvent(input$include_genes, {
+    if(input$include_genes) {
+      values$genes = c("", sort(unique(affinity_selectivity$symbol)))
+      # all genes
+    } else {
+      values$genes = affinity_selectivity %>%
+        filter(tax_id == 9606) %>% extract2("symbol") %>% unique() %>% sort() %>% c("", .)
+      # just human genes
+    }
+    # updateSelectizeInput(session, inputId = "query_gene", label = "", choices = genes,
+    #                      selected = input$query_gene)
+  })
   # 
   # observeEvent(input$query_gene, {
   #   print(input$query_gene)
