@@ -43,7 +43,7 @@ server = function(input, output, session) {
   onRestore(function(state) {
     print("restore")
     for(i in names(state$values)) {
-      print(i)
+      #print(i)
       values[[i]] = state$values[[i]]
     }
     updateSelectizeInput(session, "query_gene", selected = state$input$query_gene)
@@ -53,7 +53,11 @@ server = function(input, output, session) {
     print("restored")
     #print(names(state$input))
     values$rows_selected_save = state$input$output_table_rows_selected
+    print("selected")
     print(values$rows_selected_save)
+    print("filtered")
+    values$rows_filtered_save = state$input$output_table_rows_current
+    print(values$rows_filtered_save)
     #proxy <<- dataTableProxy('output_table')
     #print(str(proxy))
     #proxy %>% reloadData() %>% selectRows(state$input$output_table_rows_selected)
@@ -79,19 +83,36 @@ server = function(input, output, session) {
     session$doBookmark()
   })
   onBookmark(function(state) {
-    # print("bookmark")
+    print("bookmark")
     # if(exists("d")) {
     #   print(d$groupName())
     #   print(d$selection(ownerId = "mainplot"))
     # }
-    print("save")
-    for(i in names(state$values)) {
-      print(i)
-      values[[i]] = state$values[[i]]
+    # print("save values")
+    # for(i in names(values)) {
+    #   print(i)
+    #   state$values[[i]] = values[[i]]
+    # }
+    # print("1")
+    # print(input$output_table_cell_clicked)
+    # print("2")
+    # print(head(input$output_table_rows_current))
+    # print("3")
+    # print(input$output_table_rows_selected)
+    #print("4")
+    #print(head(input$output_table_rows_all))
+    #print("5")
+    #print(input$output_table_state)
+    # print("save inputs")
+    # for(i in names(input)) {
+    #   print(i)
+    # }
+    # #state$values$points_selected = state$input$`.clientValue-plotly_selected-Z`
+    if(exists("d")) {
+      state$values$points_selected = d$selection(ownerId = "mainplot")
+      state$values$groupId = d$groupName()
     }
-    # #state$values$selected = state$input$`.clientValue-plotly_selected-Z`
-    # state$values$selected = d$selection(ownerId = "mainplot")
-    # state$values$groupId = d$groupName()
+    
     # #extendShinyjs(text = "shinyjs.resetClick = function() { Shiny.onInputChange('.clientValue-plotly_click-A', 'null'); }"),
     # #print(reactiveValuesToList(state$input))
   })
@@ -176,11 +197,11 @@ server = function(input, output, session) {
       values$selection_table = values$c.binding_data
       
       
-      if(length(values$selected) > 0) {
+      if(length(values$points_selected) > 0) {
         print("groupId")
-        print(values$selected)
+        #print(values$c.binding_data[ values$points_selected, ])
         d <<- SharedData$new(values$c.binding_data, ~name, group = values$groupId)
-        d$selection(values$selected, ownerId = "mainplot")
+        #d$selection(values$points_selected, ownerId = "mainplot")
         print(d$selection())
       } else {
         print("noGroupId")
@@ -190,8 +211,10 @@ server = function(input, output, session) {
       # display results table
       output$output_table = DT::renderDataTable({
         print("output_table")
-        m2 = values$c.binding_data[d$selection(), 
+        
+        values$c.binding_data_sub = values$c.binding_data[d$selection(), 
                                    -which(names(values$c.binding_data) %in% c("selectivity_plot")), drop = F]
+        m2 = values$c.binding_data_sub
         dt <- values$c.binding_data[ , -which(names(values$c.binding_data) %in% 
                                                 c("selectivity_plot")), drop = F]
         if(NROW(m2) == 0) {
@@ -239,9 +262,24 @@ server = function(input, output, session) {
                  yaxis = list(range = c(input$affinity[1], input$affinity[2]),
                               title = "Mean Kd (nM)",
                               type = "log")
-          ) %>%
-          highlight("plotly_selected", color = I('red'), hoverinfo = "text")
+          ) %>% highlight("plotly_selected", color = I('red'), hoverinfo = "text")
+        # if restoring from a bookmark, select previously selected points
+        # if(sum(values$points_selected) > 0) {
+        #   print("default")
+        #   #values$points_selected = NULL
+        # } else {
+        #   p = p %>% highlight("plotly_selected", color = I('red'), hoverinfo = "text")
+        # }
+        p = plotly_build(p)
+        p$x$highlight$defaultValues = values$c.binding_data$name[values$points_selected]
+        p$x$highlight$color = "rgba(255,0,0,1)"
+        p$x$highlight$off = "plotly_deselect"
+        test <<- p
+        p %>% layout(dragmode = "select")
       })
+      if(sum(values$points_selected) > 0) {
+        d$selection(values$points_selected, ownerId = "mainplot")
+      }
     }
   }, ignoreInit = T)
   #})
@@ -303,10 +341,10 @@ server = function(input, output, session) {
   # Make other tables on row selection
   
   observeEvent(input$output_table_rows_selected, {
-    
     print("table selection")
     showElement("result_row3")
     row = input$output_table_rows_selected
+    # If restoring bookmarked session, select same rows as before
     if(length(values$rows_selected_save) > 0) {
       print("restore selections")
       row = values$rows_selected_save
@@ -319,8 +357,6 @@ server = function(input, output, session) {
       hideElement("row3_col3")
       hideElement("button_row")
     } else{
-    print("row")
-    print(row)
     # show/hide the selection tables
     if(length(row) == 1) {
       showElement("row3_col1")
@@ -340,20 +376,20 @@ server = function(input, output, session) {
     }
     for(i in 1:length(row)) {
       if(length(row) > 3) { break }
-
-      print(i)
-      print(row[i])
       name_data = paste("selection.binding_data", i, sep = "")
       name_display = paste("selection.display_table", i, sep = "")
       name_title = paste("selection.title", i, sep = "")
       name_file = paste0("selection.drug", i)
-      print("selection_table")
-      drug = values$selection_table$name[ row[i] ]
-      hms_id = values$selection_table$hms_id[ row[i] ]
+      if(NROW(values$c.binding_data_sub) > 0) {
+        dt1 = values$c.binding_data_sub
+      } else {
+        dt1 = values$selection_table
+      }
+      drug = dt1$name[ row[i] ]
+      hms_id = dt1$hms_id[ row[i] ]
       values[[name_title]] = paste0(hms_id, "; ", drug)
       values$num_selected = length(row)
       values[[name_file]] = drug
-      print(drug)
 
       values[[name_data]] = affinity_selectivity %>%
         filter(name == drug) %>%
@@ -380,7 +416,7 @@ server = function(input, output, session) {
   })
 
   observe({
-    print(values$main)
+    print("render selection tables")
   output$selection1 = DT::renderDataTable(
     values$selection.display_table1,
     extensions = c('Buttons'),
