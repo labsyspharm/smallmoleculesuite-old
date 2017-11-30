@@ -42,17 +42,24 @@ server = function(input, output, session) {
   # Make app stop when you close the webpage
   #session$onSessionEnded(stopApp)
   
+  # Set locale so that sorting works correctly
+  Sys.setlocale("LC_COLLATE","en_US.UTF-8")
+  
   onRestore(function(state) {
     print("restore")
     for(i in names(state$values)) {
       values[[i]] = state$values[[i]]
     }
-    updateSelectizeInput(session, "query_gene", selected = state$input$query_gene)
+    # updateSelectizeInput(session, "query_gene", selected = state$input$query_gene,
+    #                      choices = state$values$genes)
   })
   
   onRestored(function(state) {
     print("restored")
+    updateSelectizeInput(session, "query_gene", selected = state$input$query_gene,
+                         choices = state$values$genes)
     values$rows_selected_save = state$input$output_table_rows_selected
+    
   })
   
   onBookmark(function(state) {
@@ -206,61 +213,34 @@ server = function(input, output, session) {
   }, ignoreInit = T)
   #})
   
-  observeEvent(input$query_gene, {
-    if(!is.null(input$query_gene) && input$query_gene != "") {
-      if(input$query_gene %in% values$genes) {
-        output$query_gene_output = renderUI(
-          selectizeInput(inputId = "query_gene", label = "", choices = values$genes, selected = input$query_gene)
-        )
-      }
-    } else {
-      output$query_gene_output = renderUI(
-        selectizeInput(inputId = "query_gene", label = "", choices = values$genes,
-                       options = list(
-                         placeholder = 'Search for a gene target',
-                         onInitialize = I('function() { this.setValue(""); }')
-                       )
-        )
-      )
-    }
-  }, ignoreNULL = F)
-
-  
   observeEvent(input$include_genes, {
     if(input$include_genes) {
+      print("genes1")
       values$genes = c("", sort(unique(affinity_selectivity$symbol)))
       # all genes
     } else {
+      print("genes2")
       values$genes = affinity_selectivity %>%
         filter(tax_id == 9606) %>% extract2("symbol") %>% unique() %>% sort() %>% c("", .)
       # just human genes
     }
-    # updateSelectizeInput(session, inputId = "query_gene", label = "", choices = genes,
-    #                      selected = input$query_gene)
+    print(input$query_gene)
+    if(length(input$query_gene) > 0 && input$query_gene != "") {
+      if(input$query_gene %in% values$genes) {
+        print("selectize1")
+        updateSelectizeInput(session, inputId = "query_gene", label = "", choices = values$genes, selected = input$query_gene)
+      }
+    } else {
+      print("selectize2")
+      updateSelectizeInput(session, inputId = "query_gene", label = "", choices = values$genes,
+                     options = list(
+                       placeholder = 'Search for a gene target',
+                       onInitialize = I('function() { this.setValue(""); }')
+                     )
+      )
+    }
   })
-  # 
-  # observeEvent(input$query_gene, {
-  #   print(input$query_gene)
-  #   if(exists("state")) {print(state$input$query_gene)}
-  #   if(input$query_gene == "" || is.null(input$query_gene)) {
-  #     print("if")
-  #     output$query_gene_output = renderUI(
-  #       selectizeInput(inputId = "query_gene", label = "", choices = genes,
-  #                      options = list(
-  #                        placeholder = 'Search for a gene target',
-  #                        onInitialize = I('function() { this.setValue(""); }')
-  #                      )
-  #       )
-  #     )
-  #   } else {
-  #     print("else")
-  #     output$query_gene_output = renderUI(
-  #       selectizeInput(inputId = "query_gene", label = "", choices = genes)
-  #     )
-  #     
-  #   }
-  #   
-  # }, once = T)
+  
   # Make other tables on row selection
   
   observeEvent(input$output_table_rows_selected, {
@@ -408,7 +388,7 @@ server = function(input, output, session) {
       zipped_csv(files, filename, paste0("BindingData_", drugs), format(Sys.time(), "%Y%m%d_%I%M%S") )
     }, contentType = "application/zip"
   )
-  session$allowReconnect("force")
+  session$allowReconnect(TRUE)
 }
 
 #### UI
@@ -524,8 +504,12 @@ ui <- function(request) {
                                 )
                             ),
                             br(),
-                            uiOutput("query_gene_output"),
-                            #selectizeInput(inputId = "query_gene", label = "", choices = genes),
+                            selectizeInput(inputId = "query_gene", label = "", choices = NULL,
+                                           options = list(
+                                             placeholder = 'Search for a gene target',
+                                             onInitialize = I('function() { this.setValue(""); }')
+                                           )
+                                           ),
                             checkboxInput("include_genes", "Include non-human genes", value = F),
                             br(),
                             div(class = "ui noshadow horizontal segments",

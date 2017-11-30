@@ -16,15 +16,15 @@ RUN apt-get update -qq && \
 
 RUN export ADD=shiny && bash /etc/cont-init.d/add
 
-RUN R -e "install.packages('readr', repos = 'https://mran.microsoft.com/snapshot/2017-11-01')"
-RUN R -e "install.packages('shiny', repos = 'https://mran.microsoft.com/snapshot/2017-11-01')"
-RUN R -e "install.packages('shiny.semantic', repos = 'https://mran.microsoft.com/snapshot/2017-11-01')"
-RUN R -e "install.packages('shinyjs', repos = 'https://mran.microsoft.com/snapshot/2017-11-01')"
-RUN R -e "install.packages('DT', repos = 'https://mran.microsoft.com/snapshot/2017-11-01')"
-RUN R -e "install.packages('dplyr', repos = 'https://mran.microsoft.com/snapshot/2017-11-01')"
-RUN R -e "install.packages('crosstalk', repos = 'https://mran.microsoft.com/snapshot/2017-11-01')"
-RUN R -e "install.packages('plotly', repos = 'https://mran.microsoft.com/snapshot/2017-11-01')"
-RUN R -e "install.packages('markdown', repos = 'https://mran.microsoft.com/snapshot/2017-11-01')"
+RUN R -e "install.packages('readr', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('shiny', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('shiny.semantic', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('shinyjs', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('DT', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('dplyr', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('crosstalk', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('plotly', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('markdown', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
 
 RUN git clone https://github.com/sorgerlab/drug_browser.git
 
