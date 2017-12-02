@@ -8,6 +8,8 @@ library(crosstalk)
 library(shinyjs)
 library(magrittr)
 library(markdown)
+library(clipr)
+library(rclipboard)
 
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv") %>% mutate(selectivity_plot = coalesce(selectivity, -0.5))
 
@@ -59,8 +61,6 @@ server = function(input, output, session) {
     for(i in names(state$values)) {
       values[[i]] = state$values[[i]]
     }
-    # updateSelectizeInput(session, "query_gene", selected = state$input$query_gene,
-    #                      choices = state$values$genes)
   })
   
   onRestored(function(state) {
@@ -81,35 +81,26 @@ server = function(input, output, session) {
   
   onBookmarked(function(url) {
     print("bookmarked")
-    print(url)
-    #shinyjs::html("bookmark_text", message, add = T)
-    #updateTextInput(session, inputId = "bookmark_text", value = url)
-    #message = list(label = "Sharing URL: ", value = url)
     session$sendCustomMessage("bookmark_url", message = url)
+    values$url = url
   })
   observeEvent(input$bookmark1, {
     runjs(bookmark.modal.js)
   })
   
-  # onBookmarked(function(url) {
-  #   # Taken from showBookmarkUrlModal function
-  #   store <- getShinyOption("bookmarkStore", default = "")
-  #   if (store == "url") {
-  #     subtitle <- "This link stores the current state of this application."
-  #   }
-  #   else if (store == "server") {
-  #     subtitle <- "The current state of this application has been stored on the server."
-  #   }
-  #   else {
-  #     subtitle <- NULL
-  #   }
-  #   showModal(urlModal(url, subtitle = subtitle))
-  # })
-  
   observeEvent(input$bookmark1, {
     session$doBookmark()
   })
   
+  # Add clipboard buttons
+    output$clip <- renderUI({
+      rclipButton("clipbtn", "Copy", values$url, icon("clipboard"))
+    })
+  
+  # Workaround for execution within RStudio
+  #observeEvent(input$clipbtn, clipr::write_clip(values$url))
+  
+  ##### For updating URL query string
   # observe({
   #   # Needed to call input to trigger bookmark
   #   all_vars = reactiveValuesToList(input, all.names = T)
@@ -465,6 +456,7 @@ ui <- function(request) {
                               }
         );'))
       ),
+      tags$head(rclipboardSetup()),
       # Fix for mobile viewing
       tags$meta(name="viewport", content="width=device-width, initial-scale=1.0"),
       # CSS for sizing of data table search boxes
@@ -513,11 +505,13 @@ ui <- function(request) {
         #     div(class = "ui red basic circular cancel icon button", uiicon(type = "window close"))
         # ),
         div(class = "ui center aligned basic segment",
-          div(class = "ui form",
-            div(class = "field",
-              tags$label("Sharing URL:"),
-              tags$input(type = "text", id = "bookmark_text")
-            )
+            div(class = "ui form",
+                div(class = "field",
+                tags$label("Sharing URL:"),
+                tags$input(type = "text", id = "bookmark_text")
+                ),
+            # UI ouputs for the copy-to-clipboard buttons
+                uiOutput("clip", inline = T)
           )
         )
     ),
@@ -615,7 +609,7 @@ ui <- function(request) {
                                               ),
                                               plotlyOutput("mainplot"),
                                               br(),
-                                   div(class = "ui primary button action-button shiny-bound-input", style = "padding: 20px;", id = "bookmark1", "Bookmark...", uiicon("linkify")
+                                   div(class = "ui red primary button action-button shiny-bound-input", style = "padding: 20px;", id = "bookmark1", "Bookmark...", uiicon("linkify")
                                        )
                                     )
                                    )
