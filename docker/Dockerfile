@@ -12,6 +12,7 @@ RUN apt-get update -qq && \
     libpng-dev \
     sudo \
     wget \
+    xclip \
     git
 
 RUN export ADD=shiny && bash /etc/cont-init.d/add
@@ -25,6 +26,9 @@ RUN R -e "install.packages('dplyr', repos = 'https://mran.microsoft.com/snapshot
 RUN R -e "install.packages('crosstalk', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
 RUN R -e "install.packages('plotly', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
 RUN R -e "install.packages('markdown', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('clipr', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('rclipboard', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+
 
 RUN git clone https://github.com/sorgerlab/drug_browser.git
 
