@@ -35,7 +35,16 @@ zipped_csv <- function(df_list, zippedfile, filenames, stamp) {
 }
 
 about.modal.js = "$('.ui.mini.modal')
-.modal('show')
+.modal({
+    blurring: true
+})
+$('#about_modal').modal('show')
+;"
+bookmark.modal.js = "$('.ui.mini.modal')
+.modal({
+    blurring: true
+})
+$('#bookmark_modal').modal('show')
 ;"
 
 server = function(input, output, session) {
@@ -71,19 +80,42 @@ server = function(input, output, session) {
   })
   
   onBookmarked(function(url) {
-    updateQueryString(url)
+    print("bookmarked")
+    print(url)
+    #shinyjs::html("bookmark_text", message, add = T)
+    #updateTextInput(session, inputId = "bookmark_text", value = url)
+    #message = list(label = "Sharing URL: ", value = url)
+    session$sendCustomMessage("bookmark_url", message = url)
   })
+  observeEvent(input$bookmark1, {
+    runjs(bookmark.modal.js)
+  })
+  
+  # onBookmarked(function(url) {
+  #   # Taken from showBookmarkUrlModal function
+  #   store <- getShinyOption("bookmarkStore", default = "")
+  #   if (store == "url") {
+  #     subtitle <- "This link stores the current state of this application."
+  #   }
+  #   else if (store == "server") {
+  #     subtitle <- "The current state of this application has been stored on the server."
+  #   }
+  #   else {
+  #     subtitle <- NULL
+  #   }
+  #   showModal(urlModal(url, subtitle = subtitle))
+  # })
   
   observeEvent(input$bookmark1, {
     session$doBookmark()
   })
   
-  observe({
-    # Needed to call input to trigger bookmark
-    all_vars = reactiveValuesToList(input, all.names = T)
-    # Don't delete above line -- needed for point selection bookmarking
-    session$doBookmark()
-  })
+  # observe({
+  #   # Needed to call input to trigger bookmark
+  #   all_vars = reactiveValuesToList(input, all.names = T)
+  #   # Don't delete above line -- needed for point selection bookmarking
+  #   session$doBookmark()
+  # })
   
   # reactive values
   values = reactiveValues(c.binding_data = NULL, selection_table = NULL,
@@ -426,6 +458,13 @@ ui <- function(request) {
       suppressDependencies("bootstrap"),
       tags$head(tags$script(HTML(JS.logify))),
       tags$head(tags$script(HTML(JS.onload))),
+      singleton(
+        tags$head(tags$script('Shiny.addCustomMessageHandler("bookmark_url",
+                              function(message) {
+                              document.getElementById("bookmark_text").value = message;
+                              }
+        );'))
+      ),
       # Fix for mobile viewing
       tags$meta(name="viewport", content="width=device-width, initial-scale=1.0"),
       # CSS for sizing of data table search boxes
@@ -461,12 +500,25 @@ ui <- function(request) {
                padding: 0px;
                }"
     ),
-    div(class = "ui mini modal",
+    div(class = "ui mini modal", id = "about_modal",
         div(class = "actions",
             div(class = "ui red basic circular cancel icon button", uiicon(type = "window close"))
         ),
         div(class = "ui center aligned basic segment",
             includeMarkdown("www/about.md")
+        )
+    ),
+    div(class = "ui mini modal", id = "bookmark_modal", style = "width: 450px; hposition: absolute; left: 50%; margin-left: -225px;",
+        # div(class = "actions",
+        #     div(class = "ui red basic circular cancel icon button", uiicon(type = "window close"))
+        # ),
+        div(class = "ui center aligned basic segment",
+          div(class = "ui form",
+            div(class = "field",
+              tags$label("Sharing URL:"),
+              tags$input(type = "text", id = "bookmark_text")
+            )
+          )
         )
     ),
     div(class = "ui container",
@@ -557,12 +609,15 @@ ui <- function(request) {
                                            p("Select a rectangle of the plot with your drug(s) of interest", style = "font-size: medium;")
                                        )
                                    ),
-                                   hidden(div(id = "plot_col",
+                                   hidden(div(id = "plot_col", class = "ui basic segment",
                                               conditionalPanel(condition="$('html').hasClass('shiny-busy')",
                                                                hidden(div(class = "ui active text loader", id = "loader1", "Loading Plot"))
                                               ),
-                                              plotlyOutput("mainplot")
-                                   )
+                                              plotlyOutput("mainplot"),
+                                              br(),
+                                   div(class = "ui primary button action-button shiny-bound-input", style = "padding: 20px;", id = "bookmark1", "Bookmark...", uiicon("linkify")
+                                       )
+                                    )
                                    )
                         ))
                     ),
