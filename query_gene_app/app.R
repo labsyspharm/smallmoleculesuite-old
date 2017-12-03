@@ -205,6 +205,8 @@ server = function(input, output, session) {
         proxy %>% selectRows(values$rows_selected_save)
       }
       
+      points = values$points_selected
+      
       output$mainplot <- renderPlotly({
         p <- d %>%
           plot_ly(x = ~selectivity_plot, y = ~`mean_Kd_(nM)`, mode = "markers", 
@@ -225,14 +227,16 @@ server = function(input, output, session) {
                               type = "log")
           ) %>% highlight("plotly_selected", color = I('red'), hoverinfo = "text")
         # if restoring from a bookmark, select previously selected points
-        p$x$highlight$defaultValues = values$c.binding_data$name[values$points_selected]
+        p$x$highlight$defaultValues = values$c.binding_data$name[points]
         p$x$highlight$color = "rgba(255,0,0,1)"
         p$x$highlight$off = "plotly_deselect"
         p %>% layout(dragmode = "select")
       })
       if(sum(values$points_selected) > 0) {
-        d$selection(values$points_selected, ownerId = "mainplot")
+        d$selection(points, ownerId = "mainplot")
+        values$points_selected = F
       }
+      
     }
   }, ignoreInit = T)
   #})

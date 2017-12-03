@@ -235,11 +235,15 @@ server = function(input, output, session) {
         mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`, 3)) %>%
         arrange(selectivity_class, `mean_Kd_(nM)`)
       
-      d <- SharedData$new(values$c.data, ~name_2)
+      d <<- SharedData$new(values$c.data, ~name_2)
       
       values$ref_hms_id = unique(values$c.binding_data$hms_id)
       
       values$c.binding_display = values$c.binding_data[,c(3,4,5)]
+      
+      points1 = values$points_selected1
+      points2 = values$points_selected2
+      points3 = values$points_selected3
       
       output$mainplot1 <- renderPlotly({
         p <- d %>%
@@ -265,13 +269,14 @@ server = function(input, output, session) {
           ) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2), hoverinfo = "text")
         # if restoring from a bookmark, select previously selected points
-        p$x$highlight$defaultValues = values$c.data$name_2[values$points_selected1]
+        p$x$highlight$defaultValues = values$c.data$name_2[points1]
         p$x$highlight$color = "rgba(255,0,0,1)"
         p$x$highlight$off = "plotly_deselect"
         p %>% layout(dragmode = "select")
       })
       if(sum(values$points_selected1) > 0) {
-        d$selection(values$points_selected1, ownerId = "mainplot")
+        d$selection(points1, ownerId = "mainplot1")
+        values$points_selected1 = F
       }
       
       output$mainplot2 <- renderPlotly({
@@ -296,7 +301,16 @@ server = function(input, output, session) {
                               tickvals = c(-0.15, seq(0,1,.2)),
                               ticktext = c("NA", as.character(seq(0,1,.2))) )) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
+        # if restoring from a bookmark, select previously selected points
+        p$x$highlight$defaultValues = values$c.data$name_2[points2]
+        p$x$highlight$color = "rgba(255,0,0,1)"
+        p$x$highlight$off = "plotly_deselect"
+        p %>% layout(dragmode = "select")
       })
+      if(sum(values$points_selected2) > 0) {
+        d$selection(points2, ownerId = "mainplot2")
+        values$points_selected2 = F
+      }
       
       output$mainplot3 <- renderPlotly({
         p <- d %>%
@@ -320,7 +334,17 @@ server = function(input, output, session) {
                               tickvals = c(-1.2, seq(-1,1,.5)),
                               ticktext = c("NA", as.character(seq(-1,1,.5))))) %>% 
           highlight("plotly_selected", color = I('red'), selected = attrs_selected(name = ~name_2))
+        # if restoring from a bookmark, select previously selected points
+        p$x$highlight$defaultValues = values$c.data$name_2[points3]
+        p$x$highlight$color = "rgba(255,0,0,1)"
+        p$x$highlight$off = "plotly_deselect"
+        p %>% layout(dragmode = "select")
       })
+      
+      if(sum(values$points_selected3) > 0) {
+        d$selection(points3, ownerId = "mainplot3")
+        values$points_selected3 = F
+      }
       
       output$output_table = renderDataTable( {
         values$c.data_display_sub <- values$c.data_display[d$selection(), , drop = F]
