@@ -87,6 +87,7 @@ server = function(input, output, session) {
     updateSelectizeInput(session, "query_compound", selected = state$input$query_compound,
                          choices = state$values$genes)
     values$rows_selected_save = state$input$output_table_rows_selected
+    updateQueryString("?")
   })
   
   onBookmark(function(state) {
