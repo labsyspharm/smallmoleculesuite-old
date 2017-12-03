@@ -132,7 +132,7 @@ server = function(input, output, session) {
   })
   
   # Workaround for execution within RStudio
-  observeEvent(input$clipbtn, clipr::write_clip(values$url))
+  #observeEvent(input$clipbtn, clipr::write_clip(values$url))
   
   
   observeEvent(values$c.binding_display, {
