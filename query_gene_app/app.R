@@ -84,12 +84,18 @@ server = function(input, output, session) {
     session$sendCustomMessage("bookmark_url", message = url)
     values$url = url
   })
-  observeEvent(input$bookmark1, {
-    runjs(bookmark.modal.js)
-  })
   
   observeEvent(input$bookmark1, {
     session$doBookmark()
+  })
+  
+  # Load "bookmark" modal
+  observeEvent(input$bookmark1, {
+    runjs(bookmark.modal.js)
+  })
+  # Load "about" modal
+  observeEvent(input$about, {
+    runjs(about.modal.js)
   })
   
   # Add clipboard buttons
@@ -111,10 +117,6 @@ server = function(input, output, session) {
   # reactive values
   values = reactiveValues(c.binding_data = NULL, selection_table = NULL,
                           num_selected = 0)
-  # Load "about" modal
-  observeEvent(input$about, {
-    runjs(about.modal.js)
-  })
   
   # show/hide filters
   observeEvent(input$filter_button, {
@@ -130,8 +132,8 @@ server = function(input, output, session) {
   })
   
   observeEvent(c(input$query_gene, input$affinity, input$sd, input$min_measurements) , {
-    print("main")
     if(input$query_gene != "" && !is.null(input$query_gene) ) {
+      print("main")
       showElement("loader1")
       showElement("plot_col")
       showElement("table_row")
@@ -226,7 +228,6 @@ server = function(input, output, session) {
         p$x$highlight$defaultValues = values$c.binding_data$name[values$points_selected]
         p$x$highlight$color = "rgba(255,0,0,1)"
         p$x$highlight$off = "plotly_deselect"
-        test <<- p
         p %>% layout(dragmode = "select")
       })
       if(sum(values$points_selected) > 0) {
@@ -609,7 +610,7 @@ ui <- function(request) {
                                               ),
                                               plotlyOutput("mainplot"),
                                               br(),
-                                   div(class = "ui red primary button action-button shiny-bound-input", style = "padding: 20px;", id = "bookmark1", "Bookmark...", uiicon("linkify")
+                                   div(class = "ui grey button action-button shiny-bound-input", id = "bookmark1", "Bookmark...", uiicon("linkify")
                                        )
                                     )
                                    )
