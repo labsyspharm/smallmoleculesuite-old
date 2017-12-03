@@ -480,12 +480,6 @@ ui <- function(request) {
                .irs-single {font-family: 'arial'; color:black; background:white;}
                .irs-slider {width: 20px; height: 20px; top: 17px;}
                "),
-    tags$script('
-  Shiny.addCustomMessageHandler("myCallbackHandler",
-        function(color) {
-          document.getElementById("mydiv").style.backgroundColor = color;
-        });
-'),
     # CSS for hiding border on horizontal segments
     tags$style(type = "text/css", "
                .ui.noshadow.segments {
