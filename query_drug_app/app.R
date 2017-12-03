@@ -570,7 +570,7 @@ server = function(input, output, session) {
       zipped_csv(files, filename, paste0("BindingData_", drugs), format(Sys.time(), "%Y%m%d_%I%M%S") )
     }, contentType = "application/zip"
   )
-  session$allowReconnect("force")
+  session$allowReconnect(TRUE)
 }
 
 
