@@ -11,7 +11,9 @@ library(markdown)
 library(clipr)
 library(rclipboard)
 
-affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv") %>% mutate(selectivity_plot = coalesce(selectivity, -0.5))
+affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv") %>% 
+  mutate_at(vars(c(`mean_Kd_(nM)`, `SD_Kd_(nM)`:offtarget_IC50_N)),
+            function(x) signif(x, 2))
 
 selectivity_order = c("Most selective","Semi-selective","Poly-selective","Unknown","Other")
 
@@ -147,8 +149,8 @@ server = function(input, output, session) {
         filter(`SD_Kd_(nM)` <= 10^input$sd | is.na(`SD_Kd_(nM)`)) %>%
         filter(n_measurements >= input$min_measurements) %>%
         mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
-        mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`, 3)) %>%
-        arrange(selectivity_class, `mean_Kd_(nM)`)
+        arrange(selectivity_class, `mean_Kd_(nM)`) %>%
+        mutate(selectivity_plot = coalesce(selectivity, -0.5))
       
       if(!input$include_genes) {
         values$c.binding_data = values$c.binding_data %>%
