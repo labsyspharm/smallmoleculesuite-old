@@ -34,14 +34,13 @@ zipped_csv <- function(df_list, zippedfile, filenames, stamp) {
 }
 
 # load data
-similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
-affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
+similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv") %>%
+  mutate_at(c("PFP","TAS","structural_similarity"),
+            function(x) round(x, 2))
+affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv") %>%
+  mutate_at(vars(c(`mean_Kd_(nM)`, `SD_Kd_(nM)`:offtarget_IC50_N)),
+            function(x) signif(x, 2))
 selectivity_order = c("Most selective","Semi-selective","Poly-selective","Unknown","Other")
-
-similarity_table$PFP_text = as.character(round(similarity_table$PFP, 3))
-similarity_table$TAS_text = as.character(round(similarity_table$TAS, 3))
-similarity_table$SS_text = as.character(round(similarity_table$structural_similarity, 3))
-
 
 # Function for toolip values
 all_values <- function(x) {
@@ -212,17 +211,12 @@ server = function(input, output, session) {
         filter(name_1 == input$query_compound) %>%
         filter(n_biol_assays_common_active >= 2^input$n_common | is.na(n_biol_assays_common_active)) %>%
         filter(n_pheno_assays_active_common >= 2^input$n_pheno | is.na(n_pheno_assays_active_common)) %>%
-        mutate(PFP = round(PFP, 3), TAS = round(TAS, 3), structural_similarity = round(structural_similarity, 3)) %>%
         mutate_at(vars(PFP), funs(ifelse(is.na(PFP), -1.1, PFP))) %>%
         mutate_at(vars(TAS), funs(ifelse(is.na(TAS), -0.1, TAS))) %>%
         mutate_at(vars(structural_similarity), funs(ifelse(is.na(structural_similarity), -0.1, structural_similarity)))
       
-      # Get rid of extra columns for display table
       values$c.data_display = values$c.data
-      values$c.data_display$SS_text = NULL
-      values$c.data_display$PFP_text = NULL
-      values$c.data_display$TAS_text = NULL
-      
+
       values$c.data_title = paste0(unique(values$c.data$hmsID_1),";",unique(values$c.data$name_1))
       
       ## show affinity data of reference compound+ selected compounds
@@ -233,7 +227,6 @@ server = function(input, output, session) {
         #filter(`SD_Kd_(nM)` <= 10^input$sd) %>%
         #filter(n_measurements >= input$min_measurements) %>%
         mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
-        mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`, 3)) %>%
         arrange(selectivity_class, `mean_Kd_(nM)`)
       
       d <<- SharedData$new(values$c.data, ~name_2)
@@ -250,8 +243,8 @@ server = function(input, output, session) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~PFP, mode = "markers", 
                   color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
-                                                                    name_1, "\nDrug 2: ", name_2, "\nx: ", SS_text, "\ny: ", 
-                                                                    PFP_text, sep = ""), hoverinfo = "text") %>%
+                                                                    name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, "\ny: ", 
+                                                                    PFP, sep = ""), hoverinfo = "text") %>%
           layout(showlegend = F,
                  shapes = list(list(type='line', x0= -0.1, x1= -0.1, y0=-1.2, y1=1.2,
                                     line=list(dash='dot', width=2, color = "red")),
@@ -284,8 +277,8 @@ server = function(input, output, session) {
         p <- d %>%
           plot_ly(x = ~structural_similarity, y = ~TAS, mode = "markers", 
                   color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
-                                                                    name_1, "\nDrug 2: ", name_2, "\nx: ", SS_text, 
-                                                                    "\ny: ", TAS_text, sep = ""), hoverinfo = "text") %>%
+                                                                    name_1, "\nDrug 2: ", name_2, "\nx: ", structural_similarity, 
+                                                                    "\ny: ", TAS, sep = ""), hoverinfo = "text") %>%
           layout(showlegend = F,
                  shapes = list(list(type='line', x0= -0.1, x1= -0.1, y0= -0.15, y1= 1.15,
                                     line=list(dash='dot', width=2, color = "red")),
@@ -317,7 +310,7 @@ server = function(input, output, session) {
         p <- d %>%
           plot_ly(x = ~TAS, y = ~PFP, mode = "markers", 
                   color = I('black'), name = ~name_2, text = ~paste("Drug 1: ", 
-                                                                    name_1, "\nDrug 2: ", name_2, "\nx: ", TAS_text, "\ny: ", PFP_text, sep = ""),
+                                                                    name_1, "\nDrug 2: ", name_2, "\nx: ", TAS, "\ny: ", PFP, sep = ""),
                   hoverinfo = "text") %>%
           layout(showlegend = F,
                  shapes = list(list(type='line', x0= -0.1, x1= -0.1, y0=-1.2, y1=1.2,
@@ -456,8 +449,7 @@ server = function(input, output, session) {
         #filter(`SD_Kd_(nM)` <= 10^input$sd) %>%
         #filter(n_measurements >= input$min_measurements) %>%
         mutate(selectivity_class = factor(selectivity_class,levels=selectivity_order)) %>%
-        arrange(selectivity_class, `mean_Kd_(nM)`) %>%
-        mutate(`mean_Kd_(nM)` = round(`mean_Kd_(nM)`))
+        arrange(selectivity_class, `mean_Kd_(nM)`)
       
       values[[name_display]] = values[[name_data]][,c(3,4,5)]
       output_name = paste("selection", i, sep = "")

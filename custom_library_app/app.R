@@ -9,11 +9,16 @@ library(clipr)
 library(rclipboard)
 
 # load tables
-selection_table_selectivity = read_csv("selection_table_selectivity_edited.csv")
-selection_table_clindev = read_csv("selection_table_clinical_development.csv")
+selection_table_selectivity = read_csv("selection_table_selectivity_edited.csv") %>%
+  mutate_at(vars(mean_Kd),
+            function(x) signif(x, 2))
+selection_table_clindev = read_csv("selection_table_clinical_development.csv") %>%
+  mutate_at(vars(c(`mean_Kd`, `SD_aff`)),
+            function(x) signif(x, 2))
 merge_cmpd_info = read_csv("cmpd_info_library_designer.csv")
 merge_table_geneinfo = read_csv("gene_info_library_designer.csv")
 
+# add SD_aff column
 selection_table_selectivity$SD_aff = NA
 
 # table for kinase example
