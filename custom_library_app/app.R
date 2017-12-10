@@ -9,7 +9,7 @@ library(clipr)
 library(rclipboard)
 
 # load tables
-selection_table_selectivity = read_csv("selection_table_selectivity_edited.csv") %>%
+selection_table_selectivity = read_csv("selection_table_selectivity_edited_121017.csv") %>%
   mutate_at(vars(mean_Kd),
             function(x) signif(x, 2))
 selection_table_clindev = read_csv("selection_table_clinical_development.csv") %>%
@@ -28,10 +28,10 @@ kinase_example = read_tsv("kinhub_kinases.tsv")
 all_genes = union(unique(selection_table_clindev$symbol), unique(selection_table_selectivity$symbol))
 
 # Names of classes in the selectivity table
-best = c("bestclass_I", "bestclass_II")
-second = c("secondclass_I", "secondclass_II")
-non = c("non_selective")
-un = c("unknown_selectivity_I", "unknown_selectivity_II")
+best = c("Most selective") # Most selective
+second = c("Semi-selective") # Semi selective
+non = c("Poly-selective") # Poly-selective
+un = c("Unknown") # Unknown
 none = NULL
 # Names of phases in the clinical development table
 approved = "approved"
@@ -469,9 +469,9 @@ ui = function(request) {
                                         ),
                                         div(class = "ui basic segment", id = "col2",
                                             a(class = "ui red label", "Probes"),
-                                            selectizeInput("probes", "", choices = list(`Best class` = "best", 
-                                                                                        `Second Class` = "second", `Non-specific` = "non", 
-                                                                                        `Unknown Selectivity` = "un"), selected = "best", multiple = T, options = list(
+                                            selectizeInput("probes", "", choices = list(`Most selective` = "best", 
+                                                                                        `Semi-selective` = "second", `Poly-selective` = "non", 
+                                                                                        `Unknown` = "un"), selected = "best", multiple = T, options = list(
                                                                                           'plugins' = list('remove_button')))
                                         )
                                         )
