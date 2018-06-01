@@ -9,20 +9,31 @@ library(clipr)
 library(rclipboard)
 
 # load tables
-selection_table_selectivity = read_csv("selection_table_selectivity_edited_121017.csv") %>%
+selection_table_selectivity = read_csv("input/selection_table_selectivity_edited_121017.csv") %>%
   mutate_at(vars(mean_Kd),
             function(x) signif(x, 2))
-selection_table_clindev = read_csv("selection_table_clinical_development.csv") %>%
+selection_table_clindev = read_csv("input/selection_table_clinical_development.csv") %>%
   mutate_at(vars(c(`mean_Kd`, `SD_aff`)),
             function(x) signif(x, 2))
-merge_cmpd_info = read_csv("cmpd_info_library_designer.csv")
-merge_table_geneinfo = read_csv("gene_info_library_designer.csv")
+merge_cmpd_info = read_csv("input/cmpd_info_library_designer.csv")
+merge_table_geneinfo = read_csv("input/gene_info_library_designer.csv")
 
 # add SD_aff column
 selection_table_selectivity$SD_aff = NA
 
 # table for kinase example
-kinase_example = read_tsv("kinhub_kinases.tsv")
+ex1 = read_tsv("gene_lists/Dark GPCRs.txt", col_names = FALSE)
+ex2 = read_tsv("gene_lists/Dark Ion Channels.txt", col_names = FALSE)
+ex3 = read_tsv("gene_lists/Dark_Kinome_20180320.txt", col_names = FALSE)
+ex4 = read_tsv("gene_lists/Full_LigandedGenome_20171217.txt", col_names = FALSE)
+ex5 = read_tsv("gene_lists/GPCRs.txt", col_names = FALSE)
+ex6 = read_tsv("gene_lists/Ion Channels.txt", col_names = FALSE)
+ex7 = read_tsv("gene_lists/Kinome.txt", col_names = FALSE)
+ex8 = read_tsv("gene_lists/Nuclear Hormone Receptors.txt", col_names = FALSE)
+ex9 = read_tsv("gene_lists/Transporters.txt", col_names = FALSE)
+
+gene_lists = mget(paste0("ex", 1:9))
+names(gene_lists) = c("Dark GPCRs", "Dark Ion Channels", "Dark_Kinome", "Full Liganded Genome", "GPCRs", "Ion Channels", "Kinome", "Nuclear Hormone Receptors", "Transporters")
 
 # Define genes found in our data
 all_genes = union(unique(selection_table_clindev$symbol), unique(selection_table_selectivity$symbol))
@@ -48,6 +59,12 @@ about.modal.js = "$('.ui.mini.modal')
 blurring: true
 })
 $('#about_modal').modal('show')
+;"
+genelist.modal.js = "$('.ui.mini.modal')
+.modal({
+blurring: false
+})
+$('#genelist_modal').modal('show')
 ;"
 bookmark.modal.js = "$('.ui.mini.modal')
 .modal({
@@ -102,6 +119,13 @@ server = function(input, output, session) {
     runjs(about.modal.js)
   })
   
+  # Show gene lists in modal
+  observeEvent(input$choose_gene_list, {
+    temp_table = gene_lists[[input$choose_gene_list]]
+    updateTextAreaInput(session, inputId = "gene_list", value = paste0(temp_table$X1, collapse = "\n"))
+    runjs("$('#genelist_modal').modal('hide')")
+  }, ignoreInit = TRUE)
+  
   # Add clipboard buttons
   output$clip <- renderUI({
     rclipButton("clipbtn", "Copy", values$url, icon("clipboard"))
@@ -133,8 +157,8 @@ server = function(input, output, session) {
   
   # Load example gene set of kinases
   observeEvent(eventExpr = c(input$load_example_kinases, input$load_example_kinases2), handlerExpr = {
-    updateTextAreaInput(session, inputId = "gene_list", value = paste0(kinase_example$`HGNC Name`, collapse = "\n"))
-  }, ignoreInit = T, ignoreNULL = T)
+    runjs(genelist.modal.js)
+    }, ignoreInit = T, ignoreNULL = T)
   
   # Jump to results tab when "Submit" is clicked
   observeEvent(input$submitButton, {
@@ -362,6 +386,15 @@ ui = function(request) {
         ),
         div(class = "ui center aligned basic segment",
             includeMarkdown("www/about.md")
+        )
+    ),
+    div(class = "ui mini modal", id = "genelist_modal", style = "width: 450px; hposition: absolute; left: 50%; margin-left: -225px;",
+        div(class = "actions",
+            div(class = "ui red basic circular cancel icon button", uiicon(type = "window close"))
+        ),
+        div(class = "ui center aligned basic segment",
+            h3("Choose a gene list from the drop-down menu:"),
+            dropdown(name = "choose_gene_list", choices = names(gene_lists), default_text = "Choose gene list")
         )
     ),
     div(class = "ui mini modal", id = "bookmark_modal", style = "width: 450px; hposition: absolute; left: 50%; margin-left: -225px;",
