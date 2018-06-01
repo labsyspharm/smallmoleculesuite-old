@@ -38,9 +38,9 @@ shinyUI(
         div(class = "ui center aligned container",
   a(class = "item", img(class = "logo", src = "dcic.png"),
     href = "http://lincs-dcic.org"),
-  a(class = "item", "Custom Library App", href = "http://shiny.ilincs.org/custom_library_app/"),
-  a(class = "item", "Query Drug App", href = "http://shiny.ilincs.org/query_drug_app/"),
-  a(class = "item", "Query Gene App", href = "http://shiny.ilincs.org/query_gene_app/"),
+  a(class = "item", "SelectivitySelectR", href = "http://shiny.ilincs.org/query_gene_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+  a(class = "item", "SimilaritySelectR", href = "http://shiny.ilincs.org/query_drug_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+  a(class = "item", "LibraryR", href = "http://shiny.ilincs.org/custom_library_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
   a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
     href = "http://sorger.med.harvard.edu" )
         )

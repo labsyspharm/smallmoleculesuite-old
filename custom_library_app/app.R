@@ -158,9 +158,9 @@ server = function(input, output, session) {
     values$gene_list = unlist(strsplit(input$gene_list, "\n"))
     values$genes_not_found = values$gene_list[!values$gene_list %in% all_genes]
     values$genes_not_found_paste = paste(values$genes_not_found, collapse = ", ")
-    output$search_genes = renderText({ paste(length(values$genes_not_found), "gene(s) not found:", values$genes_not_found_paste) })
+    output$search_genes = renderText({ paste("The following targets do not have a known qualifying ligand, please check HUGO name:", values$genes_not_found_paste) })
     values$gene_list_found = values$gene_list[values$gene_list %in% all_genes]
-    output$gene_total = renderText({ paste(length(values$gene_list_found), "gene(s) entered.") })
+    output$gene_total = renderText({ paste(length(values$gene_list_found), "target(s) with at least one ligand") })
   })
   
   observeEvent(input$submitButton, {
@@ -384,9 +384,9 @@ ui = function(request) {
             div(class = "ui center aligned container",
                 a(class = "item", img(class = "logo", src = "dcic.png"),
                   href = "http://lincs-dcic.org"),
-                a(class = "active item", "Custom Library App", href = "http://shiny.ilincs.org/custom_library_app/"),
-                a(class = "item", "Query Drug App", href = "http://shiny.ilincs.org/query_drug_app/"),
-                a(class = "item", "Query Gene App", href = "http://shiny.ilincs.org/query_gene_app/"),
+                a(class = "item", "SelectivitySelectR", href = "http://shiny.ilincs.org/query_gene_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SimilaritySelectR", href = "http://shiny.ilincs.org/query_drug_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "LibraryR", href = "http://shiny.ilincs.org/custom_library_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
                 a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
                   href = "http://sorger.med.harvard.edu" )
             )
@@ -402,12 +402,13 @@ ui = function(request) {
                         h4(class="ui header", "Type/paste gene symbols below", uiicon("paste")),
                         a(class = "ui red ribbon label", "Genes (drug targets)"),
                         div(class = "ui form",
-                            textAreaInput(inputId = "gene_list", label = "", value = "", placeholder = "MTOR\r\nRPS6KB1\r\nAKT\r\n...\r\netc.")
+                            textAreaInput(inputId = "gene_list", label = "", value = "", placeholder = "MTOR\r\nRPS6KB1\r\nAKT1\r\n...\r\netc.")
                         ),
                         br(),
                         div(class = "ui button red action-button", "Submit", id = "submitButton"),
-                        br(),
+                        br(), br(),
                         textOutput("gene_total"),
+                        br(),
                         textOutput("search_genes"),
                         h4(class="ui horizontal divider header",
                            div(class = "item action-button shiny-bound-input", id = "load_example_kinases",
@@ -420,7 +421,7 @@ ui = function(request) {
                             h3(class="ui horizontal divider header", uiicon("info circle"), "Instructions"),
                             div(class = "ui container segment basic", id = "instructions",
                                 p("Type/paste a list of gene symbols into the text box (or load ",
-                                  a(class = "action-button", "our example gene list", href = "#", id = "load_example_kinases2"), ") and click 'Submit'."),
+                                  a(class = "action-button", "one of the example gene-lists", href = "#", id = "load_example_kinases2"), ") and click 'Submit'."),
                                 p("Only gene symbols from ", a("HUGO Gene Nomenclature Committee (HGNC)", href = "http://www.genenames.org/"),
                                   " are accepted. Non-HGNC gene symbols and genes for which we lack drug information will be ignored."),
                                 p("After submitting your gene list, a downloadable table of drugs targeting those genes will be generated. You may further filter these drugs by selectivity level, FDA approval/clinical phase, and other parameters.")

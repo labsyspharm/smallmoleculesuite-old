@@ -256,7 +256,7 @@ server = function(input, output, session) {
                               tickvals = c(-0.1, seq(0,1,.25)),
                               ticktext = c("NA", as.character(seq(0,1,.25))) ),
                  yaxis = list(range = c(-1.2, 1.2),
-                              title = "PFP",
+                              title = "Phenotypic Correlation",
                               tickmode = "array",
                               tickvals = c(-1.1, seq(-1,1,.5)),
                               ticktext = c("NA", as.character(seq(-1,1,.5))) )
@@ -290,7 +290,7 @@ server = function(input, output, session) {
                               tickvals = c(-0.15, seq(0,1,.25)),
                               ticktext = c("NA", as.character(seq(0,1,.25))) ),
                  yaxis = list(range = c(-0.15, 1.15),
-                              title = "TAS",
+                              title = "Target Similarity",
                               tickmode = "array",
                               tickvals = c(-0.15, seq(0,1,.2)),
                               ticktext = c("NA", as.character(seq(0,1,.2))) )) %>% 
@@ -318,12 +318,12 @@ server = function(input, output, session) {
                                list(type='line', x0= -0.15, x1= 1.15, y0=-1.1, y1=-1.1,
                                     line=list(dash='dot', width=2, color = "red"))),
                  xaxis = list(range = c(-0.15, 1.15),
-                              title = "TAS",
+                              title = "Target Similarity",
                               tickmode = "array",
                               tickvals = c(-0.15, seq(0,1,.25)),
                               ticktext = c("NA", as.character(seq(0,1,.25))) ),
                  yaxis = list(range = c(-1.2, 1.2),
-                              title = "PFP",
+                              title = "Phenotypic Correlation",
                               tickmode = "array",
                               tickvals = c(-1.2, seq(-1,1,.5)),
                               ticktext = c("NA", as.character(seq(-1,1,.5))))) %>% 
@@ -676,9 +676,9 @@ ui <- function(request) {
             div(class = "ui center aligned container",
                 a(class = "item", img(class = "logo", src = "dcic.png"),
                   href = "http://lincs-dcic.org"),
-                a(class = "item", "Custom Library App", href = "http://shiny.ilincs.org/custom_library_app/"),
-                a(class = "active item", "Query Drug App", href = "http://shiny.ilincs.org/query_drug_app/"),
-                a(class = "item", "Query Gene App", href = "http://shiny.ilincs.org/query_gene_app/"),
+                a(class = "item", "SelectivitySelectR", href = "http://shiny.ilincs.org/query_gene_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SimilaritySelectR", href = "http://shiny.ilincs.org/query_drug_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "LibraryR", href = "http://shiny.ilincs.org/custom_library_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
                 a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
                   href = "http://sorger.med.harvard.edu" )
             )
