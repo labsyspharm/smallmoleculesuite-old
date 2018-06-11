@@ -5,7 +5,7 @@
 <div class = "row" style = "padding: 0px">
 <div class = "stackable column">
 <div class = "ui basic center aligned segment" style = "font-size: large; font-weight: bold; padding: 0px; margin: 0px;">
-<a href = "https://shiny.ilincs.org/apps/SensitivitySelectR/" style = "color:#EC4353;">
+<a href = "https://shiny.ilincs.org/apps/SelectivitySelectR/" style = "color:#EC4353;">
 <img src = "gene.png" height = "100"><br><br>
 </a>
 </div>

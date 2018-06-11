@@ -1,4 +1,4 @@
-# <img src="SensitivitySelectR/www/dcic.png" height = "50" width= "85" alt="LINCS DCIC"> HMS LINCS Small Molecule Library apps <img src="SensitivitySelectR/www/logo_harvard_150.png" height = "50" width = "42" alt = "HMS LINCS Center">
+# <img src="SelectivitySelectR/www/dcic.png" height = "50" width= "85" alt="LINCS DCIC"> HMS LINCS Small Molecule Library apps <img src="SelectivitySelectR/www/logo_harvard_150.png" height = "50" width = "42" alt = "HMS LINCS Center">
 
 This repository contains three related web applications that are currently in development as part of the [NIH LINCS Consortium](http://www.lincsproject.org/) in a collaboration between Harvard Medical School's [Sorger Lab](http://sorger.med.harvard.edu/) and [Laboratory of Systems Pharmacology (LSP)](http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/about/) and the University of Cincinnati's [Laboratory for Statistical Genomics and Systems Biology](http://eh3.uc.edu/). The former (HMS) is one of the [LINCS Data and Signature Generation Centers (DSGCs)](http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers) and the latter (Cincinnati) is part of the [BD2K-LINCS Data Coordination and Integration Center (DCIC)](http://lincs-dcic.org/). 
 
@@ -10,16 +10,16 @@ The applications are in active development (as of June 3rd 2018) and are likely 
 
 ### SelectivitySelectR
 
-<p><b><a href = "https://shiny.ilincs.org/apps/SensitivitySelectR/">SelectivitySelectR</a></b> shows the affinity and selectivity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> for a gene of interest. To use SelectivitySelectR, first select your target of interest and binding criteria. Subsequently, select a region in the main plot with compounds of your interest. You can then select three compounds in the bottom table and view their known binding affinities in detail.</p>
+<p><b><a href = "https://shiny.ilincs.org/apps/SelectivitySelectR/">SelectivitySelectR</a></b> shows the affinity and selectivity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> for a gene of interest. To use SelectivitySelectR, first select your target of interest and binding criteria. Subsequently, select a region in the main plot with compounds of your interest. You can then select three compounds in the bottom table and view their known binding affinities in detail.</p>
 
 Visit on the web:
 
-https://shiny.ilincs.org/apps/SensitivitySelectR/
+https://shiny.ilincs.org/apps/SelectivitySelectR/
 
 Or run locally in R:
 
 ```r
-shiny::runGitHub("sorgerlab/drug_browser", subdir = "SensitivitySelectR")
+shiny::runGitHub("sorgerlab/drug_browser", subdir = "SelectivitySelectR")
 ```
 
 ### SimilaritySelectR
@@ -62,7 +62,7 @@ Shiny/R web application development by [Nicholas Clark](https://github.com/Nicho
 
 Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS)
 
-### BD2K-LINCS Project <img src="SensitivitySelectR/www/dcic.png" height = "50" width= "85" alt="BD2K-LINCS">
+### BD2K-LINCS Project <img src="SelectivitySelectR/www/dcic.png" height = "50" width= "85" alt="BD2K-LINCS">
 
 **HMS-LINCS Small Molecule Library**<br>http://lincs.hms.harvard.edu/db/sm/
 
@@ -74,7 +74,7 @@ Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger
 
 **BD2K-LINCS Data Coordination and Integration Center (DCIC)**<br>http://lincs-dcic.org/
 
-### Harvard Medical School <img src="SensitivitySelectR/www/logo_harvard_150.png" height = "50" width = "42" alt = "Harvard Medical School">
+### Harvard Medical School <img src="SelectivitySelectR/www/logo_harvard_150.png" height = "50" width = "42" alt = "Harvard Medical School">
 **Laboratory of Systems Pharmacology (LSP)**<br>http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/
 
 **Sorger Lab**<br>http://sorger.med.harvard.edu/

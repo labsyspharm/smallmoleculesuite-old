@@ -417,7 +417,7 @@ ui = function(request) {
             div(class = "ui center aligned container",
                 a(class = "item", img(class = "logo", src = "dcic.png"),
                   href = "https://shiny.ilincs.org/apps/hms_small_mol/"),
-                a(class = "item", "SelectivitySelectR", href = "http://shiny.ilincs.org/apps/SensitivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SelectivitySelectR", href = "http://shiny.ilincs.org/apps/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
                 a(class = "item", "SimilaritySelectR", href = "http://shiny.ilincs.org/apps/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
                 a(class = "item", "LibraryR", href = "http://shiny.ilincs.org/apps/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
                 a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
