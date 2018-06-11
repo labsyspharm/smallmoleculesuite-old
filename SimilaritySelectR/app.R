@@ -675,10 +675,10 @@ ui <- function(request) {
         div(class = "ui top attached inverted five item stackable menu", style = "width: 100%;",
             div(class = "ui center aligned container",
                 a(class = "item", img(class = "logo", src = "dcic.png"),
-                  href = "http://lincs-dcic.org"),
-                a(class = "item", "SelectivitySelectR", href = "http://shiny.ilincs.org/query_gene_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-                a(class = "item", "SimilaritySelectR", href = "http://shiny.ilincs.org/query_drug_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-                a(class = "item", "LibraryR", href = "http://shiny.ilincs.org/custom_library_app/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                  href = "https://shiny.ilincs.org/apps/hms_small_mol/"),
+                a(class = "item", "SelectivitySelectR", href = "http://shiny.ilincs.org/apps/SensitivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SimilaritySelectR", href = "http://shiny.ilincs.org/apps/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "LibraryR", href = "http://shiny.ilincs.org/apps/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
                 a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
                   href = "http://sorger.med.harvard.edu" )
             )

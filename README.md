@@ -10,11 +10,11 @@ The applications are in active development (as of June 3rd 2018) and are likely 
 
 ### SelectivitySelectR
 
-<p><b><a href = "https://shiny.ilincs.org/query_gene_app/" style = "color:#EC4353;">&emsp;&emsp;SelectivitySelectR</a></b> shows the affinity and selectivity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> for a gene of interest. To use SelectivitySelectR, first select your target of interest and binding criteria. Subsequently, select a region in the main plot with compounds of your interest. You can then select three compounds in the bottom table and view their known binding affinities in detail.</p>
+<p><b><a href = "https://shiny.ilincs.org/apps/SensitivitySelectR/">SelectivitySelectR</a></b> shows the affinity and selectivity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> for a gene of interest. To use SelectivitySelectR, first select your target of interest and binding criteria. Subsequently, select a region in the main plot with compounds of your interest. You can then select three compounds in the bottom table and view their known binding affinities in detail.</p>
 
 Visit on the web:
 
-https://shiny.ilincs.org/query_gene_app/
+https://shiny.ilincs.org/apps/SensitivitySelectR/
 
 Or run locally in R:
 
@@ -24,11 +24,11 @@ shiny::runGitHub("sorgerlab/drug_browser", subdir = "query_gene_app")
 
 ### SimilaritySelectR
 
-<p><b><a href = "https://shiny.ilincs.org/query_drug_app/" style = "color: #00AC9F;">&emsp;&emsp;SimilaritySelectR</a></b> shows the similarity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> to a reference compound. Similarity is regarded in threefold: structural similarity (Tanimoto similarity of Morgan2 fingerprints), target affinity spectrum similarity (TAS) and phenotypic fingerprint similarity (PFP). To use SimilaritySelectR, select a reference compound and adjust filters as desired. From the main plots, select a region with compounds of interest. Then, select up to three compounds in the bottom table and view their known binding affinities in detail.</p>
+<p><b><a href = "https://shiny.ilincs.org/apps/SimilaritySelectR/">SimilaritySelectR</a></b> shows the similarity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> to a reference compound. Similarity is regarded in threefold: structural similarity (Tanimoto similarity of Morgan2 fingerprints), target affinity spectrum similarity (TAS) and phenotypic fingerprint similarity (PFP). To use SimilaritySelectR, select a reference compound and adjust filters as desired. From the main plots, select a region with compounds of interest. Then, select up to three compounds in the bottom table and view their known binding affinities in detail.</p>
 
 Visit on the web:
 
-https://shiny.ilincs.org/query_drug_app/
+https://shiny.ilincs.org/apps/SimilaritySelectR/
 
 Or run locally in R:
 
@@ -38,12 +38,12 @@ shiny::runGitHub("sorgerlab/drug_browser", subdir = "query_drug_app")
 
 ### LibraryR
 
-<p><b><a href = "https://shiny.ilincs.org/custom_library_app/" style = "color: orange">&emsp;&emsp;LibraryR</a></b> composes custom chemical genetics libraries for gene-sets of interest. Compounds in the library are selected based on affinity, selectivity, structural similarity and clinical development phase. Additionally we source several expert opinion "best-in-class" lists. To use LibraryR, simply submit a list of genes for which the library should be designed, or load one of the example gene-sets, click 'Submit' and adjust the inclusion criteria to fit your research purpose. The library will be adjusted based on the input genes and inclusion criteria.
+<p><b><a href = "https://shiny.ilincs.org/apps/LibraryR/">LibraryR</a></b> composes custom chemical genetics libraries for gene-sets of interest. Compounds in the library are selected based on affinity, selectivity, structural similarity and clinical development phase. Additionally we source several expert opinion "best-in-class" lists. To use LibraryR, simply submit a list of genes for which the library should be designed, or load one of the example gene-sets, click 'Submit' and adjust the inclusion criteria to fit your research purpose. The library will be adjusted based on the input genes and inclusion criteria.
 </p>
 
 Visit on the web:
 
-https://shiny.ilincs.org/custom_library_app/
+https://shiny.ilincs.org/apps/LibraryR/
 
 Or run locally in R:
 
