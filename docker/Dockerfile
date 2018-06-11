@@ -32,7 +32,7 @@ RUN R -e "install.packages('rclipboard', repos = 'https://mran.microsoft.com/sna
 
 RUN git clone https://github.com/sorgerlab/smallmoleculesuite.git
 
-RUN mv drug_browser/hms_small_mol /srv/shiny-server
-RUN mv drug_browser/SelectivitySelectR /srv/shiny-server
-RUN mv drug_browser/SimilaritySelectR /srv/shiny-server
-RUN mv drug_browser/LibraryR /srv/shiny-server
+RUN mv smallmoleculesuite/hms_small_mol /srv/shiny-server
+RUN mv smallmoleculesuite/SelectivitySelectR /srv/shiny-server
+RUN mv smallmoleculesuite/SimilaritySelectR /srv/shiny-server
+RUN mv smallmoleculesuite/LibraryR /srv/shiny-server
