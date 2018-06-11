@@ -341,7 +341,7 @@ logifySlider('affinity')
 
 ui = function(request) {
   semanticPage(
-    title = "Custom Library App",
+    title = "HMS-LINCS Small Molecule Suite - LibraryR",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
     tags$head(tags$script(HTML(JS.logify))),

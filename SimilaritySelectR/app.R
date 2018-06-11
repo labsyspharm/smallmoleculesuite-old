@@ -601,7 +601,7 @@ logifySlider('n_common')
 
 ui <- function(request) {
   semanticPage(
-    title = "Query Drug App",
+    title = "HMS-LINCS Small Molecule Suite - SimilaritySelectR",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
     tags$head(tags$script(HTML(JS.logify))),

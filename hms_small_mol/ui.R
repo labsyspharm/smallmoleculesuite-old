@@ -5,7 +5,7 @@ library(markdown)
 
 shinyUI(
   semanticPage(
-    title = "HMS LINCS Small Molecule Apps",
+    title = "HMS-LINCS Small Molecule Suite Applications",
     shinyjs::useShinyjs(),
     suppressDependencies("bootstrap"),
     # Fix for mobile viewing

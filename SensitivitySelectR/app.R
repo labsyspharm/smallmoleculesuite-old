@@ -451,7 +451,7 @@ logifySlider('affinity')
 
 ui <- function(request) {
     semanticPage(
-      title = "Query Gene App",
+      title = "HMS-LINCS Small Molecule Suite - SelectivitySelectR",
       shinyjs::useShinyjs(),
       suppressDependencies("bootstrap"),
       tags$head(tags$script(HTML(JS.logify))),
