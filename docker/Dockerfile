@@ -30,7 +30,7 @@ RUN R -e "install.packages('clipr', repos = 'https://mran.microsoft.com/snapshot
 RUN R -e "install.packages('rclipboard', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
 
 
-RUN git clone https://github.com/sorgerlab/drug_browser.git
+RUN git clone https://github.com/sorgerlab/smallmoleculesuite.git
 
 RUN mv drug_browser/hms_small_mol /srv/shiny-server
 RUN mv drug_browser/SelectivitySelectR /srv/shiny-server

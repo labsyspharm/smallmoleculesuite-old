@@ -683,7 +683,7 @@ ui <- function(request) {
                   href = "http://sorger.med.harvard.edu" )
             )
         ),
-        div(class = "ui main container attached segment", style = "margin: 0px; padding-right: 0px; padding-left: 0px;",
+        div(class = "ui main container attached segment", style = "margin: 0px; padding-left: 0px;",
             div(class="ui bottom active tab basic segment", `data-tab`="tab1", id = "tab1_bottom",
                 div(class = "ui stackable grid",
                     div(class = "row",
@@ -782,45 +782,47 @@ ui <- function(request) {
                                )
                     )),
                     hidden(div(class = "row", id = "result_row3",
-                               div(class = "stackable center aligned column", id = "row3_bind_data", style = "font-size: medium;",
+                               div(class = "stackable center aligned column", id = "row3_bind_data", style = "font-size: medium; min-width: 400px;",
                                    h3(class="ui horizontal divider header", uiicon("table"), "Reference compound"),
-                                   tags$style(type='text/css', "#binding_data { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+                                   tags$style(type='text/css', "#binding_data { white-space: nowrap; text-overflow: ellipsis; overflow: scroll; min-width: 400px;}"),
+                                   tags$style(type = "text/css", "#row3_col1 { width: calc((100% - 400px)/2); min-width: 350px; }"),
+                                   tags$style(type = "text/css", "#row3_col2 { width: calc((100% - 400px)/2); min-width: 350px; }"),
+                                   tags$style(type = "text/css", "#row3_col3 { width: calc(100%/3); min-width: 350px; }"),
+                                   tags$style(type = "text/css", "#row3_col4 { width: calc(100%/3); min-width: 350px; }"),
+                                   tags$style(type = "text/css", "#row3_col5 { calc(100%/3); min-width: 350px; }"),
                                    tags$style(type='text/css', "#sel_drug1 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
                                    tags$style(type='text/css', "#sel_drug2 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
                                    tags$style(type='text/css', "#sel_drug3 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+                                   tags$style(type='text/css', "#sel_drug4 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
+                                   tags$style(type='text/css', "#sel_drug5 { white-space: nowrap; text-overflow: ellipsis; overflow: scroll;"),
                                    h4(class = "ui centered header", textOutput("binding_drug", inline = T)),
                                    DT::dataTableOutput("binding_data"),
                                    br(), br()
                                ),
                                hidden(div(class = "padded stackable column", id = "row3_col1",
-                                          style = "min-width: 375px;",
                                           h3(class="ui horizontal divider header", uiicon("table"), "Selection 1"), 
                                           h4(class = "ui centered header", textOutput("sel1_drug")),
-                                          DT::dataTableOutput("selection1")
+                                          DT::dataTableOutput("selection1", width = "250px")
                                )),
                                hidden(div(class = "stackable column", id = "row3_col2",
-                                          style = "min-width: 375px;",
                                           h3(class="ui horizontal divider header", uiicon("table"), "Selection 2"),
                                           h4(class = "ui centered header", textOutput("sel2_drug")),
-                                          DT::dataTableOutput("selection2")
+                                          DT::dataTableOutput("selection2", width = "250px")
                                )),
                                hidden(div(class = "stackable column", id = "row3_col3",
-                                          style = "min-width: 375px;",
                                           h3(class="ui horizontal divider header", uiicon("table"), "Selection 3"),
                                           h4(class = "ui centered header", textOutput("sel3_drug")),
-                                          DT::dataTableOutput("selection3")
+                                          DT::dataTableOutput("selection3", width = "250px")
                                )),
                                hidden(div(class = "stackable column",  id = "row3_col4",
-                                          style = "min-width: 375px;",
                                           h3(class="ui horizontal divider header", uiicon("table"), "Selection 4"),
                                           h4(class = "ui centered header", textOutput("sel4_drug")),
-                                          DT::dataTableOutput("selection4")
+                                          DT::dataTableOutput("selection4", width = "250px")
                                )),
                                hidden(div(class = "stackable column", id = "row3_col5",
-                                          style = "min-width: 375px;",
                                           h3(class="ui horizontal divider header", uiicon("table"), "Selection 5"),
                                           h4(class = "ui centered header", textOutput("sel5_drug")),
-                                          DT::dataTableOutput("selection5")
+                                          DT::dataTableOutput("selection5", width = "250px")
                                ))
                     )),
                     hidden(div(class = "row", id = "button_row",
@@ -839,7 +841,7 @@ ui <- function(request) {
             div(class = "ui horizontal inverted large divided link list",
                 a(class = "item", div(class = "action-button", "About", id = "about") ),
                 a(class = "item", "Contact Us"),
-                a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/drug_browser")
+                a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/smallmoleculesuite")
             )
         )
     )

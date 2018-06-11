@@ -14,7 +14,7 @@ Shiny/R web application development by [Nicholas Clark](https://github.com/Nicho
 
 Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS)
 
-<a href = "https://github.com/sorgerlab/drug_browser">Project github repository <img src = "GitHub-Mark-32px.png"></a>
+<a href = "https://github.com/sorgerlab/smallmoleculesuite">Project github repository <img src = "GitHub-Mark-32px.png"></a>
 
 ### BD2K-LINCS Project <img src="dcic.png" height = "50" width= "85" alt="BD2K-LINCS">
 

@@ -19,7 +19,7 @@ https://shiny.ilincs.org/apps/SelectivitySelectR/
 Or run locally in R:
 
 ```r
-shiny::runGitHub("sorgerlab/drug_browser", subdir = "SelectivitySelectR")
+shiny::runGitHub("sorgerlab/smallmoleculesuite", subdir = "SelectivitySelectR")
 ```
 
 ### SimilaritySelectR
@@ -33,7 +33,7 @@ https://shiny.ilincs.org/apps/SimilaritySelectR/
 Or run locally in R:
 
 ```r
-shiny::runGitHub("sorgerlab/drug_browser", subdir = "SimilaritySelectR")
+shiny::runGitHub("sorgerlab/smallmoleculesuite", subdir = "SimilaritySelectR")
 ```
 
 ### LibraryR
@@ -48,7 +48,7 @@ https://shiny.ilincs.org/apps/LibraryR/
 Or run locally in R:
 
 ```r
-shiny::runGitHub("sorgerlab/drug_browser", subdir = "LibraryR")
+shiny::runGitHub("sorgerlab/smallmoleculesuite", subdir = "LibraryR")
 ```
 <br>
 

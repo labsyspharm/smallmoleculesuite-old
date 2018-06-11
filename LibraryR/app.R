@@ -601,7 +601,7 @@ ui = function(request) {
             div(class = "ui horizontal inverted large divided link list",
                 a(class = "item", div(class = "action-button", "About", id = "about") ),
                 a(class = "item", "Contact Us"),
-                a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/drug_browser")
+                a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/smallmoleculesuite")
             )
         )
     )
