@@ -1,4 +1,4 @@
-# HMS LINCS Small Molecule Library applications
+# HMS-LINCS Small Molecule Suite Applications
 
 <br><br>
 <div class = "ui equal width stackable grid">

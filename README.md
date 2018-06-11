@@ -1,4 +1,4 @@
-# <img src="query_gene_app/www/dcic.png" height = "50" width= "85" alt="LINCS DCIC"> HMS LINCS Small Molecule Library apps <img src="query_gene_app/www/logo_harvard_150.png" height = "50" width = "42" alt = "HMS LINCS Center">
+# <img src="SensitivitySelectR/www/dcic.png" height = "50" width= "85" alt="LINCS DCIC"> HMS LINCS Small Molecule Library apps <img src="SensitivitySelectR/www/logo_harvard_150.png" height = "50" width = "42" alt = "HMS LINCS Center">
 
 This repository contains three related web applications that are currently in development as part of the [NIH LINCS Consortium](http://www.lincsproject.org/) in a collaboration between Harvard Medical School's [Sorger Lab](http://sorger.med.harvard.edu/) and [Laboratory of Systems Pharmacology (LSP)](http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/about/) and the University of Cincinnati's [Laboratory for Statistical Genomics and Systems Biology](http://eh3.uc.edu/). The former (HMS) is one of the [LINCS Data and Signature Generation Centers (DSGCs)](http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers) and the latter (Cincinnati) is part of the [BD2K-LINCS Data Coordination and Integration Center (DCIC)](http://lincs-dcic.org/). 
 
@@ -19,7 +19,7 @@ https://shiny.ilincs.org/apps/SensitivitySelectR/
 Or run locally in R:
 
 ```r
-shiny::runGitHub("sorgerlab/drug_browser", subdir = "query_gene_app")
+shiny::runGitHub("sorgerlab/drug_browser", subdir = "SensitivitySelectR")
 ```
 
 ### SimilaritySelectR
@@ -33,7 +33,7 @@ https://shiny.ilincs.org/apps/SimilaritySelectR/
 Or run locally in R:
 
 ```r
-shiny::runGitHub("sorgerlab/drug_browser", subdir = "query_drug_app")
+shiny::runGitHub("sorgerlab/drug_browser", subdir = "SimilaritySelectR")
 ```
 
 ### LibraryR
@@ -48,7 +48,7 @@ https://shiny.ilincs.org/apps/LibraryR/
 Or run locally in R:
 
 ```r
-shiny::runGitHub("sorgerlab/drug_browser", subdir = "custom_library_app")
+shiny::runGitHub("sorgerlab/drug_browser", subdir = "LibraryR")
 ```
 <br>
 
@@ -62,7 +62,9 @@ Shiny/R web application development by [Nicholas Clark](https://github.com/Nicho
 
 Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS)
 
-### BD2K-LINCS Project <img src="query_gene_app/www/dcic.png" height = "50" width= "85" alt="BD2K-LINCS">
+### BD2K-LINCS Project <img src="SensitivitySelectR/www/dcic.png" height = "50" width= "85" alt="BD2K-LINCS">
+
+**HMS-LINCS Small Molecule Library**<br>http://lincs.hms.harvard.edu/db/sm/
 
 **NIH LINCS Consortium**<br>http://www.lincsproject.org/
 
@@ -72,7 +74,7 @@ Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger
 
 **BD2K-LINCS Data Coordination and Integration Center (DCIC)**<br>http://lincs-dcic.org/
 
-### Harvard Medical School <img src="query_gene_app/www/logo_harvard_150.png" height = "50" width = "42" alt = "Harvard Medical School">
+### Harvard Medical School <img src="SensitivitySelectR/www/logo_harvard_150.png" height = "50" width = "42" alt = "Harvard Medical School">
 **Laboratory of Systems Pharmacology (LSP)**<br>http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/
 
 **Sorger Lab**<br>http://sorger.med.harvard.edu/

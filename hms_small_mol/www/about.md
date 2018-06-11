@@ -18,6 +18,8 @@ Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger
 
 ### BD2K-LINCS Project <img src="dcic.png" height = "50" width= "85" alt="BD2K-LINCS">
 
+**HMS-LINCS Small Molecule Library**<br>http://lincs.hms.harvard.edu/db/sm/
+
 **NIH LINCS Consortium**<br>http://www.lincsproject.org/
 
 **HMS LINCS Center**<br>http://lincs.hms.harvard.edu/

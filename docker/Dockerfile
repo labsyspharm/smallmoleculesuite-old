@@ -33,6 +33,6 @@ RUN R -e "install.packages('rclipboard', repos = 'https://mran.microsoft.com/sna
 RUN git clone https://github.com/sorgerlab/drug_browser.git
 
 RUN mv drug_browser/hms_small_mol /srv/shiny-server
-RUN mv drug_browser/query_gene_app /srv/shiny-server
-RUN mv drug_browser/query_drug_app /srv/shiny-server
-RUN mv drug_browser/custom_library_app /srv/shiny-server
+RUN mv drug_browser/SensitivitySelectR /srv/shiny-server
+RUN mv drug_browser/SimilaritySelectR /srv/shiny-server
+RUN mv drug_browser/LibraryR /srv/shiny-server
