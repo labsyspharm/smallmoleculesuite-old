@@ -30,7 +30,7 @@ Icon design and development by [Vasileios Stathias](http://ccs.miami.edu/team_me
 
 <a href = "https://github.com/sorgerlab/smallmoleculesuite">Project github repository <img src = "GitHub-Mark-32px.png"></a>
 
-<a href = "https://hub.docker.com/r/ucbd2k/smallmoleculesuite/"> Project docker image <img src = "../../shared/moby.png" height = "40px"></a>
+<a href = "https://hub.docker.com/r/ucbd2k/smallmoleculesuite/"> Project docker image <img src = "../../hms_small_mol/www/moby.png" height = "40px"></a>
 
 ### BD2K-LINCS Project <img src="dcic.png" height = "50" width= "85" alt="BD2K-LINCS">
 
