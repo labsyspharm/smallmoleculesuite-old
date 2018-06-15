@@ -53,10 +53,12 @@
 
 # Development and links
 
-Design/idea by [Nienke Moret](https://github.com/nmoret/) and [Marc Hafner](https://scholar.harvard.edu/hafner) (HMS)
+Design/idea by [Nienke Moret](https://scholar.harvard.edu/nienkemoret) and [Marc Hafner](https://scholar.harvard.edu/hafner) (HMS - LINCS data and signature generation center)
 
-R code by [Nienke Moret](https://github.com/nmoret/) (HMS)
+R code by [Nienke Moret](https://scholar.harvard.edu/nienkemoret) (HMS - LINCS data and signature generation center)
 
-Shiny/R web application development by [Nicholas Clark](https://github.com/NicholasClark) (U of Cincinnati)
+Shiny/R web application development by [Nicholas Clark](https://github.com/NicholasClark) (U of Cincinnati - LINCS data coordination and integration center)
 
-Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS)
+Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS - LINCS data and signature generation center)
+
+Icon design and development by [Vasileios Stathias](http://ccs.miami.edu/team_member/vasileios-vas-stathias/) (U of Miami - LINCS data coordination and integration center)

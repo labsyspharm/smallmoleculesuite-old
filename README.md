@@ -1,12 +1,31 @@
-# <img src="SelectivitySelectR/www/dcic.png" height = "50" width= "85" alt="LINCS DCIC"> HMS LINCS Small Molecule Library apps <img src="SelectivitySelectR/www/logo_harvard_150.png" height = "50" width = "42" alt = "HMS LINCS Center">
+# <img src="SelectivitySelectR/www/dcic.png" height = "50" width= "85" alt="LINCS DCIC"> HMS-LINCS Small Molecule Suite Applications <img src="SelectivitySelectR/www/logo_harvard_150.png" height = "50" width = "42" alt = "HMS LINCS Center">
 
-This repository contains three related web applications that are currently in development as part of the [NIH LINCS Consortium](http://www.lincsproject.org/) in a collaboration between Harvard Medical School's [Sorger Lab](http://sorger.med.harvard.edu/) and [Laboratory of Systems Pharmacology (LSP)](http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/about/) and the University of Cincinnati's [Laboratory for Statistical Genomics and Systems Biology](http://eh3.uc.edu/). The former (HMS) is one of the [LINCS Data and Signature Generation Centers (DSGCs)](http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers) and the latter (Cincinnati) is part of the [BD2K-LINCS Data Coordination and Integration Center (DCIC)](http://lincs-dcic.org/). 
+This repository contains three related web applications that were developed as part of the [NIH LINCS Consortium](http://www.lincsproject.org/) in a collaboration between Harvard Medical School's [Sorger Lab](http://sorger.med.harvard.edu/) and [Laboratory of Systems Pharmacology (LSP)](http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/about/) and the University of Cincinnati's [Laboratory for Statistical Genomics and Systems Biology](http://eh3.uc.edu/). The former (HMS) is one of the [LINCS Data and Signature Generation Centers (DSGCs)](http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers) and the latter (Cincinnati) is part of the [BD2K-LINCS Data Coordination and Integration Center (DCIC)](http://lincs-dcic.org/). 
 
 All of the web applications are implemented in [R](https://www.r-project.org/), using the [Shiny](https://shiny.rstudio.com/) framework for interactive applications.
 
-The applications are in active development (as of June 3rd 2018) and are likely to change in name, features, and hosting location in the near future. The apps may be visited on the web at the links below (these are temporary/development links and subject to change) or run offline in a local R installation.
+The apps may be visited on the web at [www.smallmoleculesuite.org](http://www.smallmoleculesuite.org/) or run offline in a local R installation (see details below) or via [Docker](https://www.docker.com/). A docker image containing the application, as well as version-controlled instances of all of its dependencies, is [available on DockerHub](https://hub.docker.com/r/ucbd2k/smallmoleculesuite/). Details on how to install and run Docker on Linux, macOS, and Windows can be found [here](https://docs.docker.com/get-started/#docker-concepts).
 
-[link to publication]
+Publication:
+
+Nienke Moret, Marc Hafner, Nicholas A. Clark, Yuan Wang, Eugen Lounkine, Mario Medvedovic, Nathanael Gray, Jeremy Jenkins, Peter K. Sorger. *Cheminformatics tools for analyzing and designing optimized small molecule libraries*. Manuscript submitted for publication.
+
+### Necessary R packages for offline installation:
+
+```r
+### Install R packages using Microsoft MRAN repository to ensure correct version
+install.packages('readr', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('shiny', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('shiny.semantic', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('shinyjs', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('DT', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('dplyr', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('crosstalk', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('plotly', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('markdown', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('clipr', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+install.packages('rclipboard', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')
+```
 
 ### SelectivitySelectR
 
@@ -54,13 +73,24 @@ shiny::runGitHub("sorgerlab/smallmoleculesuite", subdir = "LibraryR")
 
 # Development and links
 
-Design/idea by [Nienke Moret](https://github.com/nmoret/) and [Marc Hafner](https://scholar.harvard.edu/hafner) (HMS)
+Design/idea by [Nienke Moret](https://scholar.harvard.edu/nienkemoret) and [Marc Hafner](https://scholar.harvard.edu/hafner) (HMS - LINCS data and signature generation center)
 
-R code by [Nienke Moret](https://github.com/nmoret/) (HMS)
+R code by [Nienke Moret](https://scholar.harvard.edu/nienkemoret) (HMS - LINCS data and signature generation center)
 
-Shiny/R web application development by [Nicholas Clark](https://github.com/NicholasClark) (U of Cincinnati)
+Shiny/R web application development by [Nicholas Clark](https://github.com/NicholasClark) (U of Cincinnati - LINCS data coordination and integration center)
 
-Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS)
+Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS - LINCS data and signature generation center)
+
+Icon design and development by [Vasileios Stathias](http://ccs.miami.edu/team_member/vasileios-vas-stathias/) (U of Miami - LINCS data coordination and integration center)
+
+### Related web-tools
+
+**LINCS data portal** - A unified resource for accessing all LINCS dataset packages and entities.
+<br>http://lincsportal.ccs.miami.edu/dcic-portal/
+
+**iLINCS** - A data analysis platform aimed at developing statistical methods and computational tools for integrative analysis of the data produced by the LINCS program.
+<br>http://www.ilincs.org/
+
 
 ### BD2K-LINCS Project <img src="SelectivitySelectR/www/dcic.png" height = "50" width= "85" alt="BD2K-LINCS">
 

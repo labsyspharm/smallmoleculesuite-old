@@ -37,7 +37,7 @@ shinyUI(
       div(class = "ui top attached inverted five item stackable menu",
         div(class = "ui center aligned container",
   a(class = "item", img(class = "logo", src = "dcic.png"),
-    href = "/apps/hms_small_mol/"),
+    href = "http://lincs-dcic.org/"),
   a(class = "item", "SelectivitySelectR", href = "/apps/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
   a(class = "item", "SimilaritySelectR", href = "/apps/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
   a(class = "item", "LibraryR", href = "/apps/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
