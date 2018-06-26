@@ -1,0 +1,823 @@
+"molregno","standard_relation","standard_type","standard_value","standard_units","tid","assay_type","assay_test_type","assay_category","description","assay_tax_id","assay_strain","assay_tissue","assay_cell_type","assay_subcellular_fraction","relationship_type","assay_id"
+18694,"=","IC50",1000,"nM",126,"B",NA,NA,"In vitro potency against human Prostaglandin G/H synthase 2 in the human whole blood assay.",NA,NA,NA,NA,NA,"H",43840
+18694,"=","IC50",21,"nM",15,"B",NA,NA,"Inhibitory activity against human carbonic anhydrase II was determined",NA,NA,NA,NA,NA,"H",44892
+18694,"=","IC50",290,"nM",11035,"B",NA,NA,"Inhibitory activity against bovine carbonic anhydrase IV was determined",NA,NA,NA,NA,NA,"H",45257
+18694,"=","IC50",16,"nM",12952,"B",NA,NA,"Inhibitory activity against human carbonic anhydrase IX was determined",NA,NA,NA,NA,NA,"H",45437
+18694,"=","IC50",50000,"nM",10193,"B",NA,NA,"Inhibitory activity against human carbonic anhydrase I was determined",NA,NA,NA,NA,NA,"H",47489
+23466,"=","IC50",2,"nM",13000,"B",NA,NA,"Inhibition of human recombinant interstitial collagenase MMP-1 at 100 uM",9606,NA,NA,NA,NA,"D",49503
+23466,"=","Ki",2,"nM",13000,"B",NA,NA,"Evaluated for inhibitory activity against Human fibroblast collagenase (HFC)",NA,NA,NA,NA,NA,"H",49511
+18694,"=","IC50",50,"nM",96,"B",NA,NA,"In vitro inhibitory potency against U-937 microsomal COX-1",NA,NA,NA,NA,NA,"H",51682
+18694,"=","IC50",6300,"nM",96,"B",NA,NA,"In vitro inhibitory potency against human COX-1 (HWB COX-2) by whole blood assay",NA,NA,NA,NA,NA,"H",51684
+18694,"=","IC50",50,"nM",96,"B",NA,NA,"Inhibition of COX-1 in U-937 (human lymphoma) cell microsomes.",NA,NA,NA,NA,"Microsomes","H",51691
+18694,"=","IC50",1000,"nM",126,"B",NA,NA,"In vitro inhibitory potency against human COX-2 (HWB COX-2) by whole blood assay",NA,NA,NA,NA,NA,"H",51705
+18694,"=","IC50",1000,"nM",126,"B",NA,NA,"Inhibitory potency against PGE-2 production in the human whole blood (HWB COX-2) assay",NA,NA,"Blood",NA,NA,"H",51857
+87221,"=","IC50",100,"nM",9,"B",NA,NA,"In vitro inhibition of HER1 autophosphorylation.",NA,NA,NA,NA,NA,"H",63608
+87221,"=","IC50",13500,"nM",188,"B",NA,NA,"In vitro inhibition of ERBB2 receptor kinase autophosphorylation.",NA,NA,NA,NA,NA,"H",65257
+87221,"=","IC50",13500,"nM",188,"B",NA,NA,"Inhibition of ERBB2 receptor autophosphorylation",NA,NA,NA,NA,NA,"H",65265
+87221,"=","IC50",501.19,"nM",9,"B",NA,NA,"Inhibitory activity against epidermal growth factor receptor (EGFR)",NA,NA,NA,NA,NA,"H",66876
+87221,"=","IC50",100,"nM",9,"B",NA,NA,"Inhibition of Epidermal growth factor receptor autophosphorylation",NA,NA,NA,NA,NA,"H",67055
+442943,"=","IC50",5000,"nM",12179,"B",NA,NA,"Inhibition of GST-Grb2 Tyrosine kinase SH2 domain binding to [3H]labeled-phosphopeptide (Ac-SpYVNK-NH-C(O)-CH2CH2H3)",NA,NA,NA,NA,NA,"H",70494
+23466,"=","IC50",0.2,"nM",12592,"B",NA,NA,"Inhibition of human recombinant 92 kDa gelatinase MMP-9 at 100 uM",9606,NA,NA,NA,NA,"D",71646
+442943,"=","IC50",5000,"nM",10110,"B",NA,NA,"In vitro binding assay of Shc-derived phosphopeptide to Growth factor receptor bound protein 2 SH2 in B104-1-1 cells was determined",NA,NA,NA,NA,NA,"H",72352
+17224,"=","IC50",530,"nM",191,"B",NA,NA,"Compound was tested for inhibitory activity against HIV-1 protease",NA,NA,NA,NA,NA,"H",79805
+87221,"=","IC50",79432823472428.2,"nM",10849,"B",NA,NA,"In vitro inhibition of Janus kinase 3.",NA,NA,NA,NA,NA,"H",91954
+23466,"=","Ki",2,"nM",13000,"B",NA,NA,"Inhibition of human fibroblast collagenase, matrix metalloprotease-1",9606,NA,NA,NA,NA,"D",101763
+23466,"=","Ki",46,"nM",11109,"B",NA,NA,"Inhibition of human fibroblast stromelysin, matrix metalloprotease-3",9606,NA,NA,NA,NA,"D",102092
+23466,"=","IC50",0.4,"nM",13001,"B",NA,NA,"Inhibition of Matrix metalloprotease-2",9606,NA,NA,NA,NA,"D",104364
+23466,"=","IC50",0.104,"nM",13001,"B",NA,NA,"Inhibition of human matrix metalloprotease-2",9606,NA,NA,NA,NA,"D",104382
+23466,"=","Ki",0.57,"nM",13001,"B",NA,NA,"Inhibition of Matrix metalloprotease-2",9606,NA,NA,NA,NA,"D",104398
+23466,"=","Ki",0.39,"nM",13001,"B",NA,NA,"Binding affinity towards 72 kDa gelatinase (Matrix metalloprotease-2)",NA,NA,NA,NA,NA,"H",104542
+113416,"=","Ki",1800,"nM",13001,"B",NA,NA,"Binding affinity towards 72 kDa gelatinase (Matrix metalloprotease-2)",NA,NA,NA,NA,NA,"H",104542
+112889,"=","Ki",300,"nM",13001,"B",NA,NA,"Binding affinity towards 72 kDa gelatinase (Matrix metalloprotease-2)",NA,NA,NA,NA,NA,"H",104542
+23466,"=","IC50",7,"nM",13001,"B",NA,NA,"Inhibition of matrix metalloprotease-2 (MMP-2)",NA,NA,NA,NA,NA,"H",104556
+23466,"=","IC50",17,"nM",10226,"B",NA,NA,"Inhibition of matrix metalloprotease-26 (MMP-26)",NA,NA,NA,NA,NA,"H",104566
+23466,"=","IC50",1.9,"nM",11109,"B",NA,NA,"Activity against Matrix metalloprotease-3 (MMP-3).",NA,NA,NA,NA,NA,"H",104576
+23466,"=","IC50",0.191,"nM",11109,"B",NA,NA,"Inhibition of human matrix metalloprotease-3",9606,NA,NA,NA,NA,"D",104721
+23466,"=","Ki",26,"nM",11109,"B",NA,NA,"Inhibition of Matrix metalloprotease-3",9606,NA,NA,NA,NA,"D",104739
+23466,"<","Ki",1,"nM",11110,"B",NA,NA,"Inhibition of human Matrix metalloprotease-8",9606,NA,NA,NA,NA,"D",105200
+113416,"=","Ki",390,"nM",11110,"B",NA,NA,"The compound was tested for its binding affinity towards neutrophil collagenase (Matrix metalloprotease-8)",NA,NA,NA,NA,NA,"H",105205
+112889,"=","Ki",54,"nM",11110,"B",NA,NA,"The compound was tested for its binding affinity towards neutrophil collagenase (Matrix metalloprotease-8)",NA,NA,NA,NA,NA,"H",105205
+23466,"=","Ki",0.18,"nM",11110,"B",NA,NA,"The compound was tested for its binding affinity towards neutrophil collagenase (Matrix metalloprotease-8)",NA,NA,NA,NA,NA,"H",105205
+23466,"=","IC50",0.5,"nM",12592,"B",NA,NA,"Activity against Matrix metalloprotease-9 (MMP-9).",NA,NA,NA,NA,NA,"H",105225
+23466,"=","Ki",0.69,"nM",12592,"B",NA,NA,"Inhibition of human Matrix metalloprotease-9",9606,NA,NA,NA,NA,"D",105391
+113416,"=","Ki",4500,"nM",12592,"B",NA,NA,"The compound was tested for its binding affinity towards 92 kDa gelatinase (Matrix metalloprotease-9)",NA,NA,NA,NA,NA,"H",105401
+112889,"=","Ki",270,"nM",12592,"B",NA,NA,"The compound was tested for its binding affinity towards 92 kDa gelatinase (Matrix metalloprotease-9)",NA,NA,NA,NA,NA,"H",105401
+23466,"=","Ki",0.57,"nM",12592,"B",NA,NA,"The compound was tested for its binding affinity towards 92 kDa gelatinase (Matrix metalloprotease-9)",NA,NA,NA,NA,NA,"H",105401
+23466,"=","IC50",15,"nM",12592,"B",NA,NA,"Inhibition of matrix metalloprotease-9 (MMP-9)",NA,NA,NA,NA,NA,"H",105527
+23466,"=","IC50",1.5,"nM",13000,"B",NA,NA,"Activity against Matrix metalloprotease-1 (MMP-1).",NA,NA,NA,NA,NA,"H",105950
+23466,"=","IC50",3,"nM",13000,"B",NA,NA,"Inhibition of matrix metalloprotease-1",9606,NA,NA,NA,NA,"D",105956
+23466,"=","IC50",6,"nM",13000,"B",NA,NA,"Inhibition of matrix metalloprotease-1 (MMP-1)",NA,NA,NA,NA,NA,"H",106301
+23466,"=","IC50",13,"nM",11871,"B",NA,NA,"Inhibition of matrix metalloprotease-12 (MMP-12)",NA,NA,NA,NA,NA,"H",106462
+23466,"=","IC50",23,"nM",11154,"B",NA,NA,"Inhibition of matrix metalloprotease-14 (MMP-14)",NA,NA,NA,NA,NA,"H",106791
+23466,"=","IC50",6,"nM",11043,"B",NA,NA,"Inhibition of matrix metalloprotease-15 (MMP-15)",NA,NA,NA,NA,NA,"H",106795
+23466,"=","IC50",8,"nM",11044,"B",NA,NA,"Inhibition of matrix metalloprotease-16 (MMP-16)",NA,NA,NA,NA,NA,"H",106799
+23466,"=","IC50",1.1,"nM",13001,"B",NA,NA,"Activity against Matrix metalloprotease-2 (MMP-2).",NA,NA,NA,NA,NA,"H",106804
+32530,"=","IC50",15625,"nM",105018,"B",NA,NA,"Inhibition of phosphorylase kinase (PhK)",NA,NA,NA,NA,NA,"H",156517
+17224,"=","Ki",0.01,"nM",191,"B",NA,NA,"Inhibition of HIV protease",11676,NA,NA,NA,NA,"D",157559
+18694,"=","IC50",39.81,"nM",126,"B",NA,NA,"Inhibition of human Prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",157693
+17224,"=","Ki",0.54,"nM",191,"B",NA,NA,"Inhibition constant against HIV-1 Protease",11676,NA,NA,NA,NA,"D",157714
+17224,"=","Ki",0.23,"nM",191,"B",NA,NA,"Inhibitory concentration against HIV-1 protease",11676,NA,NA,NA,NA,"D",157740
+18694,"=","IC50",0.7,"nM",10575,"B",NA,NA,"Tested for inhibition against Prostaglandin G/H synthase 2 from mouse resident macrophages",NA,NA,NA,NA,NA,"H",157820
+18694,"=","IC50",39.81,"nM",11112,"B",NA,NA,"Inhibitory activity against prostaglandin G/H synthase 2 (COX-2)",NA,NA,NA,NA,NA,"H",157854
+18694,"=","IC50",1100,"nM",13031,"B",NA,NA,"In vitro inhibitory concentration against rat Prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",157858
+18694,"=","IC50",56.7,"nM",17100,"B",NA,NA,"In vitro inhibition against ovine Prostaglandin G/H synthase 2",9940,NA,NA,NA,NA,"D",157989
+18694,"=","IC50",57,"nM",11111,"B",NA,NA,"In vitro inhibitory activity against prostaglandin G/H synthase 2 (COX-2)",NA,NA,NA,NA,NA,"H",157990
+18694,"=","IC50",57,"nM",17100,"B",NA,NA,"In vitro inhibitory activity against prostaglandin G/H synthase 2 from ovine",9940,NA,NA,NA,NA,"D",157991
+18694,"=","IC50",1200,"nM",126,"B",NA,NA,"Compound was tested for the inhibition of human Prostaglandin G/H synthase 2 (COX-2) in human whole blood",NA,NA,NA,NA,NA,"H",157999
+18694,"=","IC50",50.7,"nM",126,"B",NA,NA,"Inhibitory concentration against Prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",158001
+18694,"=","IC50",5570,"nM",11343,"B",NA,NA,"In vitro inhibitory activity against canine prostaglandin G/H synthase 1.",NA,NA,NA,NA,NA,"H",158583
+18694,"=","IC50",9730,"nM",96,"B",NA,NA,"Biochemical index for Prostaglandin G/H synthase 1 measured as, thromboxane 2 (TXB2) levels following blood coagulation",NA,NA,NA,NA,NA,"H",158586
+18694,"=","IC50",14000,"nM",96,"B",NA,NA,"Compound was evaluated for inhibition concentration of prostaglandin G/H synthase 1 in human blood",NA,NA,NA,NA,NA,"H",158590
+18694,"=","IC50",15000,"nM",96,"B",NA,NA,"Inhibition of human Prostaglandin G/H synthase 1",9606,NA,NA,NA,NA,"D",158592
+18694,"=","IC50",6300,"nM",96,"B",NA,NA,"In vitro potency against human Prostaglandin G/H synthase 1 (hCOX-1) in the human whole blood assay.",9606,NA,NA,NA,NA,"D",158595
+18694,"=","IC50",50,"nM",96,"B",NA,NA,"In vitro potency against human Prostaglandin G/H synthase 1 in U937 microsomes. ",NA,NA,NA,NA,"Microsomes","H",158596
+18694,"=","IC50",15000,"nM",96,"B",NA,NA,"In Vitro activity of compound against human recombinant Prostaglandin G/H synthase 1",NA,NA,NA,NA,NA,"H",158734
+18694,"=","IC50",15000,"nM",96,"B",NA,NA,"In Vitro activity of compound against human recombinant Prostaglandin G/H synthase 1",NA,NA,NA,NA,NA,"H",158734
+18694,"=","IC50",6300,"nM",96,"B",NA,NA,"In vitro inhibitory activity against human whole blood Prostaglandin G/H synthase 1",NA,NA,NA,NA,NA,"H",158743
+18694,"=","IC50",10700,"nM",96,"B",NA,NA,"In vitro inhibitory activity against recombinant human Prostaglandin G/H synthase 1",NA,NA,NA,NA,NA,"H",158746
+18694,"=","IC50",22900,"nM",96,"B",NA,NA,"In vitro inhibitory concentration of compound required to inhibit Prostaglandin G/H synthase 1 enzyme was determined",NA,NA,NA,NA,NA,"H",158750
+18694,"=","IC50",15000,"nM",96,"B",NA,NA,"In vitro inhibitory concentration required to block recombinant human prostaglandin G/H synthase 1 (COX-1)",NA,NA,NA,NA,NA,"H",158753
+18694,"=","IC50",22900,"nM",96,"B",NA,NA,"Inhibition of human Prostaglandin G/H synthase 1",NA,NA,NA,NA,NA,"H",158763
+17224,"=","Ki",0.17,"nM",191,"B",NA,NA,"Inhibition of HIV-1 Protease activity",11676,NA,NA,NA,NA,"D",158784
+18694,"=","IC50",14200,"nM",96,"B",NA,NA,"Inhibitory activity against prostaglandin G/H synthase 1",NA,NA,NA,NA,NA,"H",158914
+18694,"=","IC50",6300,"nM",96,"B",NA,NA,"Inhibitory activity against Prostaglandin G/H synthase 1 in human whole blood",NA,NA,NA,NA,NA,"H",158916
+18694,"=","IC50",27000,"nM",96,"B",NA,NA,"Inhibition of human Prostaglandin G/H synthase 1",9606,NA,NA,NA,NA,"D",158920
+18694,"=","IC50",6300,"nM",96,"B",NA,NA,"Inhibitory concentration was measured against Prostaglandin G/H synthase 1 in human whole blood",NA,NA,NA,NA,NA,"H",158928
+18694,"=","IC50",50,"nM",96,"B",NA,NA,"Inhibitory concentration was measured against Prostaglandin G/H synthase 1 in the sensitive U937 microsome assay",NA,NA,NA,NA,NA,"H",158929
+17224,"=","Ki",2,"nM",191,"B",NA,NA,"Binding affinity against HIV-protease inhibitor.",12721,NA,NA,NA,NA,"H",159134
+18694,"<","IC50",1e+05,"nM",96,"B",NA,NA,"Compound was tested for the inhibition of recombinant human Prostaglandin G/H synthase 1 (COX-1)",NA,NA,NA,NA,NA,"H",159255
+18694,"=","IC50",9.3,"nM",11112,"B",NA,NA,"Tested for inhibition against Prostaglandin G/H synthase 1 from mouse resident macrophages",NA,NA,NA,NA,NA,"H",159265
+18694,"=","IC50",14200,"nM",12478,"B",NA,NA,"In vitro inhibitory concentration against rat prostaglandin G/H synthase 1",NA,NA,NA,NA,NA,"H",159271
+18694,"=","IC50",22900,"nM",17047,"B",NA,NA,"In vitro inhibition against ovine Prostaglandin G/H synthase 1",9940,NA,NA,NA,NA,"D",159277
+18694,"=","IC50",22900,"nM",17047,"B",NA,NA,"In vitro inhibitory activity against Prostaglandin G/H synthase 1 (COX-1)",9940,NA,NA,NA,NA,"D",159278
+18694,"=","IC50",10700,"nM",17047,"B",NA,NA,"In vitro inhibitory activity against prostaglandin G/H synthase 1 from the microsomal fraction of ram seminal vesicles",9940,NA,NA,NA,NA,"D",159280
+18694,"=","IC50",23000,"nM",17047,"B",NA,NA,"In vitro inhibitory activity against prostaglandin G/H synthase 1 from ovine",9940,NA,NA,NA,NA,"D",159282
+18694,"=","IC50",10700,"nM",17047,"B",NA,NA,"Inhibitory activity against prostaglandin G/H synthase 1 from ram seminal vesicles",9940,NA,NA,NA,NA,"D",159406
+18694,"=","IC50",15135.61,"nM",17047,"B",NA,NA,"Inhibitory activity against prostaglandin G/H synthase 1 (COX-1)",9940,NA,NA,NA,NA,"D",159436
+18694,"=","IC50",15330,"nM",17047,"B",NA,NA,"In vitro inhibition against Prostaglandin G/H synthase 1 from ram seminal vesicles",9940,NA,NA,NA,NA,"D",159437
+18694,"=","IC50",14000,"nM",96,"B",NA,NA,"Compound was tested for the inhibition of human Prostaglandin G/H synthase 1 (COX-1) in human whole blood",NA,NA,NA,NA,NA,"H",159568
+18694,"=","IC50",22900,"nM",96,"B",NA,NA,"Inhibitory concentration against Prostaglandin G/H synthase 1",NA,NA,NA,NA,NA,"H",159572
+18694,"=","IC50",900,"nM",11346,"B",NA,NA,"In vitro inhibitory activity against canine prostaglandin G/H synthase 2.",NA,NA,NA,NA,NA,"H",159595
+18694,"=","IC50",530,"nM",126,"B",NA,NA,"Biochemical index for Prostaglandin G/H synthase 2 measured as, PGE-2 levels in lipopolysaccharide (LPS)-challenged human whole blood",NA,NA,NA,NA,NA,"H",159599
+18694,"=","IC50",1200,"nM",126,"B",NA,NA,"Compound was evaluated for inhibition concentration of prostaglandin G/H synthase 2 in human blood",NA,NA,NA,NA,NA,"H",159601
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"In vitro inhibitory activity against human Prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",159604
+18694,"=","IC50",54,"nM",126,"B",NA,NA,"Compound was tested for the inhibition of recombinant human Prostaglandin G/H synthase 2 (COX-2)",NA,NA,NA,NA,NA,"H",159733
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"In Vitro activity of compound against human recombinant Prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",159743
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"In Vitro activity of compound against human recombinant Prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",159743
+18694,"=","IC50",70,"nM",126,"B",NA,NA,"In vitro inhibition against human Prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",159745
+18694,"=","IC50",79,"nM",126,"B",NA,NA,"In vitro inhibitory activity against human Prostaglandin G/H synthase 2 (COX-2) in 143982 cells",NA,NA,NA,NA,NA,"H",159750
+18694,"=","IC50",36,"nM",126,"B","In vitro",NA,"In vitro inhibitory activity against human recombinant prostaglandin G/H synthase 2 expressed in sf-9 cells infected with baculovirus",NA,NA,NA,NA,NA,"H",159754
+18694,"=","IC50",1000,"nM",126,"B",NA,NA,"In vitro inhibitory activity against human whole blood Prostaglandin G/H synthase 2",9606,NA,NA,NA,NA,"D",159755
+18694,"=","IC50",36,"nM",126,"B",NA,NA,"In vitro inhibitory activity against recombinant human Prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",159759
+18694,"=","IC50",56.7,"nM",126,"B",NA,NA,"In vitro inhibitory concentration of compound required to inhibit Prostaglandin G/H synthase 2 enzyme was determined",NA,NA,NA,NA,NA,"H",159764
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"In vitro inhibitory concentration required to block human recombinant prostaglandin G/H synthase 2 (COX-2)",NA,NA,NA,NA,NA,"H",159768
+87221,"=","IC50",2000,"nM",9,"B",NA,NA,"Inhibition of polyGAT phosphorylation",9606,NA,NA,NA,NA,"D",159832
+18694,"=","IC50",600,"nM",126,"B",NA,NA,"In vitro percent inhibition of Prostaglandin G/H synthase 2 (COX-2) in human whole blood was determined",NA,NA,NA,NA,NA,"H",159893
+18694,"=","IC50",80,"nM",126,"B",NA,NA,"Inhibition of Prostaglandin G/H synthase 2 in 143.98.2 from human osteosarcoma cells",NA,NA,NA,NA,NA,"H",159899
+18694,"=","IC50",1100,"nM",126,"B",NA,NA,"Inhibitory activity against prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",159907
+18694,"=","IC50",1000,"nM",126,"B",NA,NA,"Inhibition of Prostaglandin G/H synthase 2 in human whole blood",9606,NA,NA,NA,NA,"D",159909
+18694,"=","IC50",230,"nM",126,"B",NA,NA,"Inhibition of human Prostaglandin G/H synthase 2",9606,NA,NA,NA,NA,"D",159914
+18694,"=","IC50",36,"nM",126,"B","In vitro",NA,"Inhibitory activity against human Prostaglandin G/H synthase 2 expressed in sf-9 cells infected with baculovirus",NA,NA,NA,NA,NA,"H",159915
+18694,"=","IC50",56.7,"nM",126,"B",NA,NA,"Inhibitory concentration against Prostaglandin G/H synthase 2",NA,NA,NA,NA,NA,"H",159919
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibitory concentration against human prostaglandin G/H synthase 2 at 25 degrees.",NA,NA,NA,NA,NA,"H",159922
+17224,"=","Kd",1.64,"nM",191,"B",NA,NA,"Equilibrium constant for the interaction between inhibitor and HIV-1 Protease",11676,NA,NA,NA,NA,"D",159969
+32530,"=","IC50",8.8,"nM",12454,"B",NA,NA,"Inhibition of Protein kinase C alpha",10116,NA,NA,NA,NA,"D",160140
+32530,"=","IC50",30.5,"nM",12133,"B",NA,NA,"Inhibition of Protein kinase C beta",10116,NA,NA,NA,NA,"D",160451
+32530,"=","IC50",28,"nM",12133,"B",NA,NA,"Inhibition of Protein kinase C beta 1",10116,NA,NA,NA,NA,"D",160470
+32530,"=","IC50",105,"nM",10879,"B",NA,NA,"Inhibition of Protein kinase C epsilon",10116,NA,NA,NA,NA,"D",160964
+32530,"=","IC50",36.5,"nM",12635,"B",NA,NA,"Inhibition of Protein kinase C gamma (PKC)",10116,NA,NA,NA,NA,"D",161278
+87221,"=","IC50",13489.63,"nM",188,"B",NA,NA,"Inhibitory activity tested against protein kinase HER-2",NA,NA,NA,NA,NA,"H",161600
+32530,"=","IC50",223375,"nM",104720,"B",NA,NA,"Inhibition of cyclic AMP dependent protein kinase A (PKA)",NA,NA,NA,NA,NA,"H",161910
+32530,"=","IC50",21,"nM",104731,"B",NA,NA,"Inhibition of protein kinase C from rat brain (PKC)",10116,NA,NA,NA,NA,"D",162368
+32530,"=","IC50",17.2,"nM",104683,"B",NA,NA,"Inhibition of protein kinase C (PKC)",NA,NA,NA,NA,NA,"H",162404
+23466,"=","Ki",26,"nM",22226,"B",NA,NA,"The compound was tested for its binding affinity towards stromelysin.",NA,NA,NA,NA,NA,"U",205492
+112889,">","Ki",1000,"nM",22226,"B",NA,NA,"The compound was tested for its binding affinity towards stromelysin.",NA,NA,NA,NA,NA,"U",205492
+113416,">","Ki",1000,"nM",22226,"B",NA,NA,"The compound was tested for its binding affinity towards stromelysin.",NA,NA,NA,NA,NA,"U",205492
+23466,"=","IC50",28,"nM",11109,"B",NA,NA,"Inhibition of human recombinant matrix metalloprotease-3 (Stromelysin) at 100 uM",9606,NA,NA,NA,NA,"D",205495
+17224,"=","Ki",0.14,"nM",191,"B",NA,NA,"Dissociation constant obtained by inhibition of Wild-type protease",NA,NA,NA,NA,NA,"H",216596
+23466,"=","IC50",13.4,"nM",11154,"B",NA,NA,"Activity against deletion mutant of MT1-MMP lacking the transmembrane domain (deltaMT1)",NA,NA,NA,NA,NA,"H",217867
+17224,"=","Ki",16,"nM",191,"B",NA,NA,"Dissociation constant obtained by inhibition of mutant HIV-protease (A-44)",NA,NA,NA,NA,NA,"H",222916
+17224,"=","Ki",33,"nM",191,"B",NA,NA,"Dissociation constant obtained by inhibition of mutant HIV-protease (K-60)",NA,NA,NA,NA,NA,"H",222917
+17224,"=","Ki",27,"nM",191,"B",NA,NA,"Dissociation constant obtained by inhibition of mutant HIV-protease (V-18)",NA,NA,NA,NA,NA,"H",222918
+18694,"=","IC50",1000,"nM",126,"B",NA,NA,"Inhibitory concentration was measured against Cyclooxygenase-2 in human whole blood",NA,NA,"Blood",NA,NA,"H",223551
+17224,"=","Kd",1.64,"nM",191,"B",NA,NA,"Binding affinity for human immunodeficiency virus type 1 protease",11676,NA,NA,NA,NA,"D",302137
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibitory activity against human carbonic anhydrase I (hCAI)",9606,NA,NA,NA,NA,"D",302630
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibitory activity against human carbonic anhydrase II (hCAII)",9606,NA,NA,NA,NA,"D",302668
+18694,"=","Ki",880,"nM",12896,"B",NA,NA,"Inhibitory activity against human carbonic anhydrase IV (hCAIV)",9606,NA,NA,NA,NA,"D",302669
+18694,"=","Ki",290,"nM",11035,"B",NA,NA,"Inhibitory activity against bovine carbonic anhydrase IV (bCAIV)",9913,NA,NA,NA,NA,"D",302691
+17224,"=","Ki",0.54,"nM",191,"B",NA,NA,"Inhibition constant for human immunodeficiency virus type 1 protease",11676,NA,NA,NA,NA,"D",302776
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibitory activity against human carbonic anhydrase I at 0.09 uM",9606,NA,NA,NA,NA,"D",303051
+18694,"=","Ki",21000,"nM",15,"B",NA,NA,"Inhibitory activity against human carbonic anhydrase II at 0.01 uM",9606,NA,NA,NA,NA,"D",303080
+18694,"=","Ki",16000,"nM",12952,"B",NA,NA,"Inhibitory activity against human carbonic anhydrase IX at 0.09 uM",9606,NA,NA,NA,NA,"D",303081
+18694,"=","Ki",1010,"nM",20099,"B",NA,NA,"Inhibitory activity against alpha carbonic anhydrase (Co-Cam) from Methanosarcina thermophila",2210,NA,NA,NA,NA,"D",303239
+18694,"=","Ki",140,"nM",20099,"B",NA,NA,"Inhibitory activity against alpha carbonic anhydrase (Zn-Cam) from Methanosarcina thermophila",2210,NA,NA,NA,NA,"D",303240
+18694,"=","Ki",38500,"nM",20009,"B",NA,NA,"Inhibitory activity against beta carbonic anhydrase (Cab) from Methanobacterium thermoautotrophicum",187420,NA,NA,NA,NA,"D",303344
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"Inhibition of ovine Prostaglandin G/H synthase 1",9940,NA,NA,NA,NA,"D",305177
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibition of ovine Prostaglandin G/H synthase 2",9940,NA,NA,NA,NA,"D",305178
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"In vitro inhibitory concentration against ovine Cyclooxygenase-1",9940,NA,NA,NA,NA,"D",305220
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"In vitro inhibitory concentration against ovine Cyclooxygenase-1",9940,NA,NA,NA,NA,"D",305220
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"In vitro inhibitory concentration against ovine Cyclooxygenase-2",9940,NA,NA,NA,NA,"D",305221
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"In vitro inhibitory concentration against ovine Cyclooxygenase-2",9940,NA,NA,NA,NA,"D",305221
+18694,"=","IC50",1689,"nM",96,"B","In vitro",NA,"Inhibition of human cyclooxygenase-1 expressed in COS cells",9606,NA,NA,NA,NA,"D",305401
+18694,"=","IC50",68,"nM",126,"B","In vitro",NA,"Inhibition of human cyclooxygenase-2 expressed in COS cells",9606,NA,NA,NA,NA,"D",305402
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"In vitro inhibition of ovine prostaglandin G/H synthase 1",9940,NA,NA,NA,NA,"D",305476
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"In vitro inhibition of ovine prostaglandin G/H synthase 2",9940,NA,NA,NA,NA,"D",305477
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"In vitro inhibitory concentration against ovine Prostaglandin G/H synthase 1",9940,NA,NA,NA,NA,"D",305582
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"In vitro inhibitory concentration against ovine Prostaglandin G/H synthase 2",9940,NA,NA,NA,NA,"D",305583
+18694,"=","IC50",14000,"nM",96,"B",NA,NA,"In vitro inhibition of Prostaglandin G/H synthase 1 in human whole blood",9606,NA,NA,NA,NA,"D",305702
+18694,"=","IC50",1200,"nM",126,"B",NA,NA,"In vitro inhibition of Prostaglandin G/H synthase 2 in human whole blood",9606,NA,NA,NA,NA,"D",305703
+23466,"=","IC50",1,"nM",11989,"B",NA,NA,"In vitro inhibition of A disintegrin and metalloprotease domain 9 (ADAM9)",NA,NA,NA,NA,NA,"H",305750
+23466,"=","IC50",8.1,"nM",100155,"B",NA,NA,"In vitro inhibition of A disintegrin and metalloprotease domain 10 (ADAM10)",NA,NA,NA,NA,NA,"H",305773
+23466,"=","IC50",7.5,"nM",11473,"B",NA,NA,"In vitro inhibition of A disintegrin and metalloprotease domain 17 (ADAM17, TACE)",NA,NA,NA,NA,NA,"H",305977
+18694,"=","IC50",810,"nM",10188,"B",NA,NA,"Inhibitory concentration against p38 alpha MAP kinase calculated by CoMFA model; FlexX score=-12.4 kcal/mol",9606,NA,NA,NA,NA,"D",306018
+23466,"=","IC50",5.93,"nM",100154,"B",NA,NA,"Inhibition of A disintegrin and metalloprotease domain 12 (ADAM12) binding in cell based assay",NA,NA,NA,NA,NA,"H",306185
+18694,"=","IC50",14000,"nM",96,"B",NA,NA,"In vitro inhibitory concentration against Prostaglandin G/H synthase 1 (COX-1) in human whole blood",9606,NA,NA,NA,NA,"D",306226
+18694,"=","IC50",1200,"nM",126,"B",NA,NA,"In vitro inhibitory concentration against Prostaglandin G/H synthase 2 (COX-2) in human whole blood",9606,NA,NA,NA,NA,"D",306227
+18694,"=","IC50",2050,"nM",17100,"B",NA,NA,"Inhibitory concentration against Prostaglandin G/H synthase 2 from sheep placenta at 100 uM",9940,NA,NA,NA,NA,"D",306318
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of cloned human carbonic anhydrase II",9606,NA,NA,NA,NA,"D",320722
+18694,"=","Ki",16,"nM",12952,"B",NA,NA,"Inhibition of catalytic domain of human recombinant carbonic anhydrase IX",9606,NA,NA,NA,NA,"D",320723
+18694,">","IC50",10000,"nM",10193,"B",NA,NA,"Inhibitory concentration against carbonic anhydrase I",9606,NA,NA,NA,NA,"D",321163
+18694,"=","IC50",21,"nM",15,"B",NA,NA,"Inhibitory concentration against carbonic anhydrase II",9606,NA,NA,NA,NA,"D",321175
+18694,"=","IC50",16,"nM",12952,"B",NA,NA,"Inhibitory concentration against carbonic anhydrase IX",9606,NA,NA,NA,NA,"D",321176
+18694,"=","IC50",6.8,"nM",126,"B",NA,NA,"Inhibitory concentration against COX-2; (valus obtained by Kato et al.)",9606,NA,NA,NA,NA,"D",321274
+18694,"=","IC50",6,"nM",126,"B",NA,NA,"Inhibitory concentration against COX-2 upon incubation for 15 minutes at 37 degree C",9606,NA,NA,NA,NA,"D",321358
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibitory activity against cloned human CA1",9606,NA,NA,NA,NA,"D",329207
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibitory activity against cloned human CA2",9606,NA,NA,NA,NA,"D",329208
+18694,"=","Ki",290,"nM",11035,"B",NA,NA,"Inhibitory activity against CA4 isolated from bovine lung microsomes",9913,NA,NA,NA,NA,"D",329209
+18694,"=","Ki",16,"nM",12952,"B",NA,NA,"Inhibitory activity against cloned human CA9",9606,NA,NA,NA,NA,"D",329210
+18694,"=","Ki",18,"nM",12209,"B",NA,NA,"Inhibitory activity against cloned human CA12",9606,NA,NA,NA,NA,"D",329211
+23466,"=","IC50",6,"nM",13000,"B",NA,NA,"Inhibitory activity against MMP1",9606,NA,NA,NA,NA,"D",330166
+23466,"=","IC50",7,"nM",13001,"B",NA,NA,"Inhibitory activity against MMP2",9606,NA,NA,NA,NA,"D",330167
+23466,"=","IC50",15,"nM",12592,"B",NA,NA,"Inhibitory activity against MMP9",9606,NA,NA,NA,NA,"D",330169
+23466,"=","IC50",13,"nM",11871,"B",NA,NA,"Inhibitory activity against MMP12",9606,NA,NA,NA,NA,"D",330170
+23466,"=","IC50",23,"nM",11154,"B",NA,NA,"Inhibitory activity against MMP14",9606,NA,NA,NA,NA,"D",330171
+23466,"=","IC50",6,"nM",11043,"B",NA,NA,"Inhibitory activity against MMP15",9606,NA,NA,NA,NA,"D",330172
+23466,"=","IC50",8,"nM",11044,"B",NA,NA,"Inhibitory activity against MMP16",9606,NA,NA,NA,NA,"D",330173
+23466,"=","IC50",17,"nM",10226,"B",NA,NA,"Inhibitory activity against MMP26",9606,NA,NA,NA,NA,"D",330174
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"Inhibitory activity against ovine COX1",9940,NA,NA,NA,NA,"D",336945
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibitory activity against ovine COX2",9940,NA,NA,NA,NA,"D",336946
+442943,"=","IC50",35000,"nM",100250,"B",NA,NA,"Ability to displace ethidium bromide from DNA",NA,NA,NA,NA,NA,"M",378543
+18694,"=","IC50",3.7,"nM",17047,"B",NA,NA,"Inhibition of COX1",9606,NA,NA,NA,NA,"D",391093
+18694,"=","IC50",2.2,"nM",126,"B",NA,NA,"Inhibition of COX2",9606,NA,NA,NA,NA,"D",391094
+18694,"=","IC50",26610,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1",9940,NA,NA,NA,NA,"D",403701
+18694,"=","IC50",440,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2",9940,NA,NA,NA,NA,"D",403702
+18694,"=","IC50",1300,"nM",126,"B",NA,NA,"Activity of COX2 in human heparinized blood assessed as inhibition of LPS-induced PGE2 production after 24 hrs",9606,NA,NA,NA,NA,"D",428860
+18694,"=","IC50",14000,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as TxB2 production after 1 hr",9606,NA,"Blood",NA,NA,"D",428861
+17224,"=","Ki",0.28,"nM",22226,"B",NA,NA,"Inhibition of HIV1 protease",11676,NA,NA,NA,NA,"U",430369
+18694,"=","IC50",2600,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as inhibition of calcium ionophore A-23187-stimulated platelet aggregation by measuring TXB2 production",9606,NA,"Blood",NA,NA,"D",430457
+18694,"=","IC50",350,"nM",126,"B",NA,NA,"Inhibition of COX2 in human whole blood assessed as inhibition of LPS-stimulated PGE2 production",9606,NA,"Blood",NA,NA,"D",430458
+18694,"=","IC50",19030,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by measuring PGE2",9940,NA,NA,NA,NA,"D",437304
+18694,"=","IC50",35,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by measuring PGE2",9606,NA,NA,NA,NA,"D",437305
+18694,">","IC50",25000,"nM",11112,"B",NA,NA,"Inhibition of mouse COX2",10090,NA,NA,NA,NA,"D",441961
+18694,"=","IC50",210,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1",9940,NA,NA,NA,NA,"D",441962
+23466,"=","IC50",1.5,"nM",13000,"B",NA,NA,"Inhibition of MMP1",NA,NA,NA,NA,NA,"H",447904
+23466,"=","IC50",1.1,"nM",13001,"B",NA,NA,"Inhibition of MMP2",NA,NA,NA,NA,NA,"H",447905
+23466,"=","IC50",1.9,"nM",11109,"B",NA,NA,"Inhibition of MMP3",NA,NA,NA,NA,NA,"H",447906
+23466,"=","IC50",0.5,"nM",12592,"B",NA,NA,"Inhibition of MMP9",NA,NA,NA,NA,NA,"H",447907
+23466,"=","IC50",13.4,"nM",11154,"B",NA,NA,"Inhibition of MMP14",NA,NA,NA,NA,NA,"H",447908
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",449249
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",449250
+18694,"=","Ki",154000,"nM",10139,"B",NA,NA,"Inhibition of human recombinant CA 3 assessed as CO2 hydration by stopped flow kinetic assay",9606,NA,NA,NA,NA,"D",449604
+18694,"=","IC50",540,"nM",126,"B",NA,NA,"Inhibition of COX2 in LPS-induced monocyte assessed as PGE2 production in human whole blood",9606,NA,"Blood",NA,NA,"D",450443
+18694,"=","IC50",12500,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as TXB2 production",9606,NA,"Blood",NA,NA,"D",450444
+18694,"=","IC50",14000,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as effect on A23187-induced thromboxane B2 production",9606,NA,"Blood",NA,NA,"D",452249
+18694,"=","IC50",1200,"nM",126,"B",NA,NA,"Inhibition of COX2 in human whole blood assessed as effect on LPS-induced thromboxane B2 production",9606,NA,"Blood",NA,NA,"D",452250
+18694,"=","IC50",24300,"nM",96,"B",NA,NA,"Inhibition of COX1",NA,NA,NA,NA,NA,"H",457475
+18694,"=","IC50",60,"nM",126,"B",NA,NA,"Inhibition of COX2",NA,NA,NA,NA,NA,"H",457476
+18694,"=","IC50",13000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1",9940,NA,NA,NA,NA,"D",461361
+18694,"=","IC50",40,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2",9940,NA,NA,NA,NA,"D",461363
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by chemiluminescent assay",9940,NA,NA,NA,NA,"D",462287
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by chemiluminescent assay",9940,NA,NA,NA,NA,"D",462288
+18694,"=","IC50",23470,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as effect on A-23187-stimulated TxB2 production",9606,NA,"Blood",NA,NA,"D",464017
+18694,"=","IC50",300,"nM",126,"B",NA,NA,"Inhibition of COX2 in human whole blood assessed as effect on LPS-stimulated PGE2 production",9606,NA,"Blood",NA,NA,"D",464018
+17224,"=","Ki",0.931,"nM",22226,"B",NA,NA,"Inhibition of HIV1 protease",11676,NA,NA,NA,NA,"U",469686
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immunoassay",9940,NA,NA,NA,NA,"D",469921
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme immunoassay",9940,NA,NA,NA,NA,"D",469922
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",471742
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",471743
+430152,">","IC50",1e+05,"nM",22226,"B",NA,NA,"Inhibition of PKA",NA,NA,NA,NA,NA,"U",473566
+430152,"=","IC50",700,"nM",10368,"B",NA,NA,"Inhibition of CK1delta",NA,NA,NA,NA,NA,"H",473620
+430152,"=","IC50",600,"nM",10967,"B",NA,NA,"Inhibition of CK1epsilon",NA,NA,NA,NA,NA,"H",473621
+430152,"=","IC50",11000,"nM",11720,"B",NA,NA,"Inhibition of CK1a1",NA,NA,NA,NA,NA,"H",473622
+430152,">","IC50",1e+05,"nM",12071,"B",NA,NA,"Inhibition of p34cdc2",NA,NA,NA,NA,NA,"H",473623
+430152,">","IC50",1e+05,"nM",11755,"B",NA,NA,"Inhibition of p55fyn",NA,NA,NA,NA,NA,"H",473624
+87221,"=","IC50",100,"nM",9,"B",NA,NA,"Inhibition of EGFR autophosphorylation",NA,NA,NA,NA,NA,"H",473816
+18694,">","IC50",1e+05,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",478522
+18694,"=","IC50",1710,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",478523
+17224,"=","Ki",0.07,"nM",22226,"B",NA,NA,"Inhibition of wild-type HIV1 BH10 protease expressed in Escherichia coli by spectrophotometric assay",11676,"BH10",NA,NA,NA,"U",491043
+17224,"=","Ki",18,"nM",22226,"B",NA,NA,"Inhibition of HIV1 recombinant protease D30N/N88D mutant expressed in Escherichia coli by spectrophotometric assay",11676,NA,NA,NA,NA,"U",491044
+17224,"=","Ki",3.8,"nM",22226,"B",NA,NA,"Inhibition of HIV1 recombinant protease M46I/A71V/V82T/I84V mutant expressed in Escherichia coli by spectrophotometric assay",11676,NA,NA,NA,NA,"U",491045
+17224,"=","Ki",3.2,"nM",22226,"B",NA,NA,"Inhibition of HIV1 recombinant protease A71V/V82T/I84V mutant expressed in Escherichia coli by spectrophotometric assay",11676,NA,NA,NA,NA,"U",491046
+17224,"=","Ki",10,"nM",22226,"B",NA,NA,"Inhibition of HIV1 recombinant protease V32I/I47A mutant expressed in Escherichia coli by spectrophotometric assay",11676,NA,NA,NA,NA,"U",491047
+17224,"=","Ki",2.1,"nM",22226,"B",NA,NA,"Inhibition of HIV1 recombinant protease L10I/I15V/E35D/N37S/R41K/I62V/L63P/A71V/G73S/L90M mutant expressed in Escherichia coli by spectrophotometric assay",11676,NA,NA,NA,NA,"U",491048
+17224,"=","Ki",130,"nM",22226,"B",NA,NA,"Inhibition of HIV1 recombinant protease L10I/L24I/L33F/M46L/154V/L63P/A71V/V82A/I84V mutant expressed in Escherichia coli by spectrophotometric assay",11676,NA,NA,NA,NA,"U",491049
+17224,"=","Ki",32,"nM",22226,"B",NA,NA,"Inhibition of HIV1 recombinant protease L10F/L19I/K20R/L33F/E35D/M36I/R41K/F53L/I54V/L63P/H69K/A71V/T74P/I84V/L89M/L90M/I93L mutant expressed in Escherichia coli by spectrophotometric assay",11676,NA,NA,NA,NA,"U",491050
+17224,"=","Ki",260,"nM",22226,"B",NA,NA,"Ratio of Ki for HIV1 recombinant protease D30N/N88D mutant to Ki for wild-type HIV1 BH10 protease",11676,NA,NA,NA,NA,"U",491051
+17224,"=","Ki",54,"nM",22226,"B",NA,NA,"Ratio of Ki for HIV1 recombinant protease M46I/A71V/V82T/I84V mutant to Ki for wild-type HIV1 BH10 protease",11676,NA,NA,NA,NA,"U",491052
+17224,"=","Ki",46,"nM",22226,"B",NA,NA,"Ratio of Ki for HIV1 recombinant protease A71V/V82T/I84V mutant to Ki for wild-type HIV1 BH10 protease",11676,NA,NA,NA,NA,"U",491053
+17224,"=","Ki",140,"nM",22226,"B",NA,NA,"Ratio of Ki for HIV1 recombinant protease V32I/I47A mutant to Ki for wild-type HIV1 BH10 protease",11676,NA,NA,NA,NA,"U",491054
+17224,"=","Ki",30,"nM",22226,"B",NA,NA,"Ratio of Ki for HIV1 recombinant protease L10I/I15V/E35D/N37S/R41K/I62V/L63P/A71V/G73S/L90M mutant to Ki for wild-type HIV1 BH10 protease",11676,NA,NA,NA,NA,"U",491055
+17224,"=","Ki",1800,"nM",22226,"B",NA,NA,"Ratio of Ki for HIV1 recombinant protease L10I/L24I/L33F/M46L/154V/L63P/A71V/V82A/I84V mutant to Ki for wild-type HIV1 BH10 protease expressed in Escherichia coli",11676,NA,NA,NA,NA,"U",491056
+17224,"=","Ki",450,"nM",22226,"B",NA,NA,"Ratio of Ki for HIV1 recombinant protease L10F/L19I/K20R/L33F/E35D/M36I/R41K/F53L/I54V/L63P/H69K/A71V/T74P/I84V/L89M/L90M/I93L mutant to Ki for wild-type HIV1 BH10 protease",11676,NA,NA,NA,NA,"U",491057
+18694,"=","IC50",7700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",492902
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",492903
+18694,"=","IC50",8000,"nM",17019,"B",NA,NA,"Inhibition of COX1 in bovine platelets assessed as formation of 12-hydroxyheptadecatrienoic acid by HPLC",9913,NA,NA,NA,NA,"D",495250
+18694,"=","IC50",800,"nM",126,"B",NA,NA,"Inhibition of COX2 in LPS-stimulated human blood",9606,NA,NA,NA,NA,"D",495251
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",497634
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",497635
+18694,"=","Ki",10350,"nM",101488,"B",NA,NA,"Inhibition of Mycobacterium tuberculosis recombinant carbonic anhydrase 1 encoded by Rv1284 by stopped flow CO2 hydration assay",1773,NA,NA,NA,NA,"D",497636
+18694,"=","Ki",7760,"nM",22226,"B",NA,NA,"Inhibition of full length Mycobacterium tuberculosis H37Rv recombinant carbonic anhydrase 3 expressed in Escherichia coli BL21 by stopped flow CO2 hydration assay",83332,NA,NA,NA,NA,"U",497637
+23466,"=","IC50",5.2,"nM",11024,"B",NA,NA,"Inhibition of human recombinant MMP13 catalytic domain",9606,NA,NA,NA,NA,"D",507870
+23466,"=","IC50",3.3,"nM",13000,"B",NA,NA,"Inhibition of MMP1",NA,NA,NA,NA,NA,"H",507871
+23466,"=","IC50",10,"nM",13001,"B",NA,NA,"Inhibition of MMP2",NA,NA,NA,NA,NA,"H",507872
+23466,"=","IC50",7,"nM",11109,"B",NA,NA,"Inhibition of MMP3 catalytic domain",NA,NA,NA,NA,NA,"H",507873
+23466,"=","IC50",33,"nM",12738,"B",NA,NA,"Inhibition of MMP7",NA,NA,NA,NA,NA,"H",507874
+23466,"=","IC50",9.7,"nM",11110,"B",NA,NA,"Inhibition of MMP8 catalytic domain",NA,NA,NA,NA,NA,"H",507875
+23466,"=","IC50",6.7,"nM",12592,"B",NA,NA,"Inhibition of MMP9",NA,NA,NA,NA,NA,"H",507876
+23466,"=","IC50",4.7,"nM",11154,"B",NA,NA,"Inhibition of MMP14 catalytic domain",NA,NA,NA,NA,NA,"H",507877
+23466,"=","IC50",5.1,"nM",11871,"B",NA,NA,"Inhibition of MMP12 catalytic domain",NA,NA,NA,NA,NA,"H",507878
+23466,"=","IC50",3.4,"nM",17147,"B",NA,NA,"Inhibition of MMP17 catalytic domain",NA,NA,NA,NA,NA,"H",507879
+18694,"=","IC50",0.52,"nM",126,"B",NA,NA,"Inhibition of COX2",NA,NA,NA,NA,NA,"H",510899
+18694,"=","IC50",0.52,"nM",126,"B",NA,NA,"Inhibition of COX2",NA,NA,NA,NA,NA,"H",510899
+18694,"=","IC50",16000,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as inhibition of LPS-stimulated PGE2 production by radioimmunoassay",9606,NA,"Blood",NA,NA,"D",511542
+18694,"=","IC50",540,"nM",126,"B",NA,NA,"Inhibition of COX2 in human whole blood assessed as inhibition of TXB2 production by radioimmunoassay",9606,NA,"Blood",NA,NA,"D",511543
+18694,"=","IC50",1000,"nM",126,"B",NA,NA,"Inhibition of human COX2",9606,NA,NA,NA,NA,"D",511831
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant CA1 by stopped-flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",515849
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant CA2 by stopped-flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",515850
+18694,"=","Ki",108,"nM",101385,"B",NA,NA,"Inhibition of Saccharomyces cerevisiae recombinant CA expressed in Escherichia coli by stopped-flow CO2 hydrase assay",4932,NA,NA,NA,NA,"D",515851
+18694,"=","IC50",7700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",516254
+18694,"=","IC50",120,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by enzyme immuno assay",9606,NA,NA,NA,NA,"D",516255
+18694,"=","IC50",7700,"nM",96,"B",NA,NA,"Inhibition of COX1 by enzyme immunoassay",NA,NA,NA,NA,NA,"H",517117
+18694,"=","IC50",70,"nM",126,"B",NA,NA,"Inhibition of COX2 by enzyme immunoassay",NA,NA,NA,NA,NA,"H",517118
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 by stopped flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",517300
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 by stopped flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",517301
+18694,"=","Ki",94,"nM",10186,"B",NA,NA,"Inhibition of human full length recombinant carbonic anhydrase 6 by stopped flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",517302
+18694,"=","Ki",16,"nM",12952,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 9 catalytic domain by stopped flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",517303
+18694,"=","Ki",45,"nM",101402,"B",NA,NA,"Inhibition of mouse recombinant carbonic anhydrase 15 by stopped flow CO2 hydrase assay",10090,NA,NA,NA,NA,"D",517304
+17224,"=","Ki",0.306,"nM",22226,"B",NA,NA,"Inhibition of HIV1 protease",11676,NA,NA,NA,NA,"U",522620
+18694,"=","IC50",0.51,"nM",11112,"B",NA,NA,"Inhibition of LPS-induced COX2 activity in C57BL/6J mouse peritoneal macrophages by RIA",10090,"C57BL/6J",NA,NA,NA,"D",527254
+18694,"<","IC50",300,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2",9606,NA,NA,NA,NA,"D",530842
+18694,">","IC50",1e+05,"nM",96,"B",NA,NA,"Inhibition of human platelet COX1",9606,NA,NA,NA,NA,"D",530843
+568326,"=","IC50",2570,"nM",10368,"B",NA,NA,"Inhibition of CK1delta",NA,NA,NA,NA,NA,"H",535967
+568326,">","IC50",40000,"nM",10262,"B",NA,NA,"Inhibition of CK1gamma1",NA,NA,NA,NA,NA,"H",535968
+568326,"=","IC50",1240,"nM",11720,"B",NA,NA,"Inhibition of CK1alpha",NA,NA,NA,NA,NA,"H",535969
+568326,"=","IC50",1000,"nM",22226,"B",NA,NA,"Inhibition of CK1",NA,NA,NA,NA,NA,"U",536051
+18694,"=","IC50",1200,"nM",126,"B",NA,NA,"Inhibition of COX2",NA,NA,NA,NA,NA,"H",540069
+18694,"=","IC50",14000,"nM",96,"B",NA,NA,"Inhibition of COX1",NA,NA,NA,NA,NA,"H",540070
+18694,"=","IC50",7700,"nM",17019,"B",NA,NA,"Inhibition of bovine COX1 by enzyme immunoassay",9913,NA,NA,NA,NA,"D",541847
+18694,"=","IC50",120,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by enzyme immunoassay",9606,NA,NA,NA,NA,"D",541848
+87221,">","IC50",10000,"nM",10938,"B",NA,NA,"Inhibition of JAK2",NA,NA,NA,NA,NA,"H",542084
+87221,"=","IC50",3380,"nM",10919,"B",NA,NA,"Inhibition of JAK1",NA,NA,NA,NA,NA,"H",542085
+87221,">","IC50",10000,"nM",22226,"B","In vitro",NA,"Inhibition of human recombinant GST-tagged JH1 domain (785 to1125) of JAK3 expressed in insect Sf9 cells by ELISA",9606,NA,NA,NA,NA,"U",542093
+18694,">","IC50",1e+05,"nM",96,"B","In vitro",NA,"Inhibition of human COX1 expressed in sf9 cells",9606,NA,NA,NA,NA,"D",551732
+18694,"=","IC50",80,"nM",126,"B","In vitro",NA,"Inhibition of human COX2 expressed in sf9 cells",9606,NA,NA,NA,NA,"D",551733
+23466,"=","IC50",1,"nM",11871,"B",NA,NA,"Inhibition of MMP12",NA,NA,NA,NA,NA,"H",556874
+23466,"=","IC50",0.4,"nM",13000,"B",NA,NA,"Inhibition of human recombinant pro-MMP1 by spectrofluorimeter",9606,NA,NA,NA,NA,"D",557952
+23466,"=","IC50",0.4,"nM",13001,"B",NA,NA,"Inhibition of human recombinant pro-MMP2 by spectrofluorimeter",9606,NA,NA,NA,NA,"D",557953
+23466,"=","IC50",0.6,"nM",12592,"B",NA,NA,"Inhibition of human recombinant pro-MMP9 by spectrofluorimeter",9606,NA,NA,NA,NA,"D",557954
+23466,"=","IC50",5.2,"nM",11154,"B",NA,NA,"Inhibition of human recombinant MMP14 catalytic domain by spectrofluorimeter",9606,NA,NA,NA,NA,"D",557956
+23466,"=","IC50",26,"nM",11109,"B",NA,NA,"Inhibition of human recombinant MMP3 catalytic domain by spectrofluorimeter",9606,NA,NA,NA,NA,"D",557957
+18694,"=","IC50",7700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",558062
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",558063
+18694,">","IC50",10000,"nM",22226,"B",NA,NA,"Inhibition of potato LOX5 by enzyme immuno assay",4113,NA,NA,NA,NA,"U",558064
+18694,"=","IC50",2900,"nM",126,"B",NA,NA,"Inhibition of PGHS2 in human whole blood assessed as inhibition of TXB2 production by radioimmunoassay",9606,NA,"Blood",NA,NA,"D",560031
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 by stopped flow CO2 hydration method",9606,NA,NA,NA,NA,"D",562984
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 by stopped flow CO2 hydration method",9606,NA,NA,NA,NA,"D",562985
+18694,"=","Ki",10350,"nM",22226,"B",NA,NA,"Inhibition of Mycobacterium tuberculosis H37Rv recombinant beta-carbonic anhydrase 1 expressed in Escherichia coli BL21 by stopped flow CO2 hydration method",83332,NA,NA,NA,NA,"U",562990
+17224,"=","IC50",19900,"nM",11398,"B","In vitro",NA,"Inhibition of human MDR1-dependent accumulation of calcein-AM expressed in MDCK2 cells",9606,NA,NA,NA,NA,"D",564893
+18694,"=","Ki",1017,"nM",100954,"B",NA,NA,"Inhibition of Candida albicans recombinant Nce103 by stopped-flow CO2 hydration assay",5476,NA,NA,NA,NA,"D",578466
+18694,"=","Ki",3056,"nM",22226,"B",NA,NA,"Inhibition of Cryptococcus neoformans recombinant Can2 by stopped-flow CO2 hydration assay",5207,NA,NA,NA,NA,"U",578467
+18694,"=","Ki",21,"nM",100954,"B",NA,NA,"Inhibition of Helicobacter pylori beta-carbonic anhydrase by stopped-flow CO2 hydration assay",210,NA,NA,NA,NA,"H",578468
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 by stopped-flow CO2 hydrase method",9606,NA,NA,NA,NA,"D",578469
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by chemiluminescence assay",9940,NA,NA,NA,NA,"D",578488
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by chemiluminescence assay",9940,NA,NA,NA,NA,"D",578489
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme-immuno assay",9940,NA,NA,NA,NA,"D",583548
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme-immuno assay",9940,NA,NA,NA,NA,"D",583549
+18694,"=","IC50",68,"nM",126,"B","In vitro",NA,"Inhibition of human COX2 expressed in african green monkey COS cells assessed as inhibition of arachidonic acid-stimulated PGE2 production treated 1 hr before arachidonic acid challenge by enzyme immunoassay",9606,NA,NA,NA,NA,"D",583889
+18694,"=","IC50",1689,"nM",96,"B","In vitro",NA,"Inhibition of human COX1 expressed in african green monkey COS cells assessed as inhibition of arachidonic acid-stimulated PGE2 treated 1 hr before arachidonic acid challenge by enzyme immunoassay",9606,NA,NA,NA,NA,"D",583890
+18694,"=","IC50",63,"nM",126,"B","In vitro",NA,"Inhibition of human COX2 expressed in baculovirus-infected SF9 cells assessed as inhibition of arachidonic acid-stimulated PGE2 production treated 1 hr before arachidonic acid challenge by enzyme immunoassay",9606,NA,NA,NA,NA,"D",583892
+18694,">","IC50",1000,"nM",96,"B","In vitro",NA,"Inhibition of human COX1 expressed in baculovirus-infected SF9 cells assessed as inhibition of arachidonic acid-stimulated PGE2 production treated 1 hr before arachidonic acid challenge by enzyme immunoassay",9606,NA,NA,NA,NA,"D",583893
+18694,"=","IC50",336,"nM",126,"B",NA,NA,"Inhibition of COX2 in human whole blood assessed as inhibition of lipopolysaccharide-stimulated PGE2 production after 24 hrs by enzyme immunoassay",9606,NA,"Blood",NA,NA,"D",583895
+18694,"=","IC50",10194,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as inhibition of lipopolysaccharide-induced TxB2 production after 30 min by enzyme immunoassay",9606,NA,"Blood",NA,NA,"D",583896
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant CA1 by stopped-flow CO2 assay",9606,NA,NA,NA,NA,"D",587741
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant CA2 by stopped-flow CO2 assay",9606,NA,NA,NA,NA,"D",587742
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant CA2 by stopped-flow hydration assay",9606,NA,NA,NA,NA,"D",588927
+18694,"=","Ki",713,"nM",102876,"B",NA,NA,"Inhibition of full length Mycobacterium tuberculosis H37Rv recombinant carbonic anhydrase 2 encoded by RV3588c by stopped flow CO2 hydration assay",1773,NA,NA,NA,NA,"D",588928
+18694,"=","IC50",8320,"nM",17047,"B",NA,NA,"Inhibition of ovine COX-1 assessed as inhibition of transformation of AA to PGH2 by EIA",9940,NA,NA,NA,NA,"D",594667
+18694,"=","IC50",113,"nM",17100,"B",NA,NA,"Inhibition of ovine COX-2 assessed as inhibition of transformation of AA to PGH2 by EIA",9940,NA,NA,NA,NA,"D",594668
+18694,"=","IC50",73400,"nM",22226,"B",NA,NA,"Inhibition of potato LOX-5 assessed as inhibition of hydroperoxide production after 5 mins by EIA",4113,NA,NA,NA,NA,"U",594669
+18694,"=","IC50",7700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immunoassay",9940,NA,NA,NA,NA,"D",598706
+18694,"=","IC50",120,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by enzyme immunoassay",9606,NA,NA,NA,NA,"D",598707
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by chemiluminescent enzyme assay",9940,NA,NA,NA,NA,"D",599255
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by chemiluminescent enzyme assay",9940,NA,NA,NA,NA,"D",599256
+23466,"=","IC50",56.3,"nM",11989,"B",NA,NA,"Inhibition of ADAM9",NA,NA,NA,NA,NA,"H",599356
+23466,"=","IC50",263,"nM",100155,"B",NA,NA,"Inhibition of ADAM10",NA,NA,NA,NA,NA,"H",599357
+23466,"=","IC50",13.1,"nM",11473,"B",NA,NA,"Inhibition of TACE",NA,NA,NA,NA,NA,"H",599358
+568326,"=","IC50",1000,"nM",10368,"B",NA,NA,"Inhibition of human CK1delta",9606,NA,NA,NA,NA,"D",599895
+18694,"=","IC50",12500,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as thromboxane B2 production by RIA",9606,NA,"Blood",NA,NA,"D",607538
+18694,"=","IC50",540,"nM",126,"B",NA,NA,"Inhibition of COX2 in human whole blood assessed as inhibition of LPS-induced PGE2 production by RIA",9606,NA,"Blood",NA,NA,"D",607539
+18694,"=","IC50",7700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immunoassay",9940,NA,NA,NA,NA,"D",608986
+18694,"=","IC50",120,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by enzyme immunoassay",9606,NA,NA,NA,NA,"D",608987
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme chemiluminescent enzyme assay",9940,NA,NA,NA,NA,"D",609605
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme chemiluminescent enzyme assay",9940,NA,NA,NA,NA,"D",609606
+17224,"=","IC50",1.9,"nM",22226,"B",NA,NA,"Inhibition of recombinant wild type HIV1 protease assessed as hydrolysis of fluorogenic substrate",11676,NA,NA,NA,NA,"U",609663
+18694,"=","IC50",10000,"nM",22226,"B",NA,NA,"Inhibition of potato tuber 5LOX by polarographic method",4113,NA,NA,NA,NA,"U",612154
+32530,"=","IC50",20,"nM",10197,"B",NA,NA,"Inhibition of human recombinant GSK3-beta assessed as [gamma33]ATP transfer to biotinylated CREB-peptide substrate after 1 hr by scintillation counting",9606,NA,NA,NA,NA,"D",616120
+32530,"=","IC50",22,"nM",11635,"B",NA,NA,"Inhibition of PKCalpha",NA,NA,NA,NA,NA,"H",616121
+442943,"=","EC50",4300,"nM",22222,"B",NA,NA,"Binding affinity to calf thymus DNA assessed as decrease in ethidium bromide fluorescence by FID assay",9913,NA,NA,NA,NA,"M",616829
+18694,"=","IC50",2600,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as TXB2 production by enzyme immunoassay",9606,NA,"Blood",NA,NA,"D",621979
+18694,"=","IC50",350,"nM",126,"B",NA,NA,"Inhibition of COX2 in LPS-stimulated human whole blood assessed as PGE2 production by enzyme immunoassay",9606,NA,"Blood",NA,NA,"D",621980
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 assessed as inhibition of PGF2a formation after 20 mins by Ellman's method",9940,NA,NA,NA,NA,"D",630411
+18694,"=","IC50",33100,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 assessed as inhibition of PGF2a formation after 20 mins by Ellman's method",9940,NA,NA,NA,NA,"D",630412
+18694,"=","IC50",126000,"nM",10452,"B",NA,NA,"Inhibition of Trypanosoma cruzi cruzaine preincubated for 5 mins before substrate addition by fluorescence assay in absence of Triton X-100",5693,NA,NA,NA,NA,"D",635149
+17224,"=","IC50",144000,"nM",10452,"B",NA,NA,"Inhibition of Trypanosoma cruzi cruzaine preincubated for 5 mins before substrate addition by fluorescence assay in absence of Triton X-100",5693,NA,NA,NA,NA,"D",635149
+17224,">","IC50",3e+05,"nM",10452,"B",NA,NA,"Inhibition of Trypanosoma cruzi cruzaine preincubated for 5 mins before substrate addition by fluorescence assay in presence of 0.01% Triton X-100",5693,NA,NA,NA,NA,"D",635150
+18694,">","IC50",4e+05,"nM",10452,"B",NA,NA,"Inhibition of Trypanosoma cruzi cruzaine preincubated for 5 mins before substrate addition by fluorescence assay in presence of 0.01% Triton X-100",5693,NA,NA,NA,NA,"D",635150
+18694,"=","IC50",13100,"nM",96,"B",NA,NA,"Inhibition of COX1 in human whole blood assessed as inhibition of 12-hydroxyheptadecatrienoic acid production by HPLC method",9606,NA,"Blood",NA,NA,"D",638984
+18694,"=","IC50",800,"nM",126,"B",NA,NA,"Inhibition of COX2 in human whole blood assessed as inhibition of 12-hydroxyheptadecatrienoic acid production by HPLC method",9606,NA,"Blood",NA,NA,"D",638986
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643923
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643924
+18694,"=","Ki",70000,"nM",10139,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 3 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643925
+18694,"=","Ki",880,"nM",12896,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 4 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643926
+18694,"=","Ki",794,"nM",11042,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 5a after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643927
+18694,"=","Ki",93,"nM",11016,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 5b after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643928
+18694,"=","Ki",94,"nM",10186,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 6 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643929
+18694,"=","Ki",2170,"nM",11060,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 7 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643930
+18694,"=","Ki",16,"nM",12952,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 9 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643931
+18694,"=","Ki",18,"nM",12209,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 12 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643932
+18694,"=","Ki",98,"nM",12923,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 13 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643933
+18694,"=","Ki",689,"nM",11063,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 14 after 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",643934
+18694,"=","Ki",45,"nM",101402,"B",NA,NA,"Inhibition of mouse recombinant carbonic anhydrase 15 after 15 mins by stopped-flow CO2 hydration assay",10090,NA,NA,NA,NA,"D",643935
+18694,"=","IC50",115900,"nM",17047,"B",NA,NA,"Inhibition of sheep COX1 by enzyme immunoassay",9940,NA,NA,NA,NA,"D",644674
+18694,"=","IC50",65,"nM",126,"B",NA,NA,"Inhibition of human COX2 by enzyme immunoassay",9606,NA,NA,NA,NA,"D",644675
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of wild type human recombinant carbonic anhydrase 1 expressed in Escherichia coli BL21 (DE3) after 15 mins by CO2 hydration method",9606,NA,NA,NA,NA,"D",647167
+18694,"=","Ki",52300,"nM",22226,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 Phe91Asn mutant expressed in Escherichia coli BL21 (DE3) after 15 mins by CO2 hydration method",9606,NA,NA,NA,NA,"U",647168
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 after 15 mins by CO2 hydration method",9606,NA,NA,NA,NA,"D",647169
+18694,"=","IC50",115900,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by EIA",9940,NA,NA,NA,NA,"D",651418
+18694,"=","IC50",65,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by EIA",9606,NA,NA,NA,NA,"D",651419
+18694,"=","IC50",6860,"nM",17047,"B",NA,NA,"Inhibition of sheep COX1 by spectrophotometry",9940,NA,NA,NA,NA,"D",658293
+18694,"=","IC50",100,"nM",17100,"B",NA,NA,"Inhibition of sheep COX2 by spectrophotometry",9940,NA,NA,NA,NA,"D",658294
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by chemiluminescence assay",9940,NA,NA,NA,NA,"D",659985
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by chemiluminescence assay",9940,NA,NA,NA,NA,"D",659986
+18694,"=","IC50",24300,"nM",101416,"B",NA,NA,"Inhibition of sheep COX1",9940,NA,NA,NA,NA,"D",662814
+18694,"=","IC50",60,"nM",103518,"B",NA,NA,"Inhibition of sheep COX2",9940,NA,NA,NA,NA,"D",662815
+442943,"=","Potency",31622.8,"nM",103687,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Identification of Novel General Anesthetics. In this assay, a GABAergic mimetic model system, apoferritin and a profluorescent 1-aminoanthracene ligand (1-AMA), was used to construct a competitive binding assay for identification of novel general anesthetics (Class of assay: confirmatory) [Related pubchem assays: 2385 (Probe Development Summary for Identification of Novel General Anesthetics), 2323 (Validation apoferritin assay run on SigmaAldrich LOPAC1280 collection)]",9796,NA,NA,NA,NA,"D",688170
+641194,"=","Potency",3162.3,"nM",103687,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Identification of Novel General Anesthetics. In this assay, a GABAergic mimetic model system, apoferritin and a profluorescent 1-aminoanthracene ligand (1-AMA), was used to construct a competitive binding assay for identification of novel general anesthetics (Class of assay: confirmatory) [Related pubchem assays: 2385 (Probe Development Summary for Identification of Novel General Anesthetics), 2323 (Validation apoferritin assay run on SigmaAldrich LOPAC1280 collection)]",9796,NA,NA,NA,NA,"D",688170
+87221,"=","IC50",7700,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: A biochemical assay using the ADP-Hunter methodology, purified TAg, and ATP to identify compounds that inhibit the ATPase activity of Tag - Counter Screen. (Class of assay: confirmatory) [Related pubchem assays: 1903, 1909, 2102 ]",NA,NA,NA,NA,NA,"U",688523
+87221,"=","Potency",35481.3,"nM",103069,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Inhibitors of Tyrosyl-DNA Phosphodiesterase (TDP1). (Class of assay: confirmatory) ",9606,NA,NA,NA,NA,"D",688724
+491436,"=","Potency",25118.9,"nM",103069,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Inhibitors of Tyrosyl-DNA Phosphodiesterase (TDP1). (Class of assay: confirmatory) ",9606,NA,NA,NA,NA,"D",688724
+87221,"=","Potency",8912.5,"nM",103069,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Inhibitors of Tyrosyl-DNA Phosphodiesterase (TDP1). (Class of assay: confirmatory) ",9606,NA,NA,NA,NA,"D",688724
+87221,"=","Potency",35481.3,"nM",103069,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Inhibitors of Tyrosyl-DNA Phosphodiesterase (TDP1). (Class of assay: confirmatory) ",9606,NA,NA,NA,NA,"D",688724
+23721,"=","Potency",22387.2,"nM",103657,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for Inhibitors of Tau Fibril Formation, Thioflavin T Binding. (Class of assay: confirmatory) [Related pubchem assays: 596 ]",9606,NA,NA,NA,NA,"D",688739
+87221,"=","Potency",10000,"nM",103657,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for Inhibitors of Tau Fibril Formation, Thioflavin T Binding. (Class of assay: confirmatory) [Related pubchem assays: 596 ]",9606,NA,NA,NA,NA,"D",688739
+442943,"=","Potency",25118.9,"nM",103657,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for Inhibitors of Tau Fibril Formation, Thioflavin T Binding. (Class of assay: confirmatory) [Related pubchem assays: 596 ]",9606,NA,NA,NA,NA,"D",688739
+87221,"=","Potency",15848.9,"nM",103657,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for Inhibitors of Tau Fibril Formation, Thioflavin T Binding. (Class of assay: confirmatory) [Related pubchem assays: 596 ]",9606,NA,NA,NA,NA,"D",688739
+491436,"=","Potency",14125.4,"nM",103657,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for Inhibitors of Tau Fibril Formation, Thioflavin T Binding. (Class of assay: confirmatory) [Related pubchem assays: 596 ]",9606,NA,NA,NA,NA,"D",688739
+87221,"=","Potency",15848.9,"nM",103657,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for Inhibitors of Tau Fibril Formation, Thioflavin T Binding. (Class of assay: confirmatory) [Related pubchem assays: 596 ]",9606,NA,NA,NA,NA,"D",688739
+87221,"=","Potency",14125.4,"nM",103657,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for Inhibitors of Tau Fibril Formation, Thioflavin T Binding. (Class of assay: confirmatory) [Related pubchem assays: 596 ]",9606,NA,NA,NA,NA,"D",688739
+18694,"<","IC50",300,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 after 45 mins",9606,NA,NA,NA,NA,"D",696154
+18694,">","IC50",1e+05,"nM",96,"B",NA,NA,"Inhibition of human platelets COX1 after 2 mins",9606,NA,NA,NA,NA,"D",696155
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant CA1 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",700655
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant CA2 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",700656
+18694,"=","Ki",34.2,"nM",102979,"B",NA,NA,"Inhibition of Stylophora pistillata carbonic anhydrase by stopped-flow CO2 hydration assay",50429,NA,NA,NA,NA,"D",700658
+18694,"=","Ki",690,"nM",103851,"B",NA,NA,"Inhibition of Stylophora pistillata carbonic anhydrase 2 by stopped-flow CO2 hydration assay",50429,NA,NA,NA,NA,"D",700659
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibition of human COX2",9606,NA,NA,NA,NA,"D",717095
+18694,"=","IC50",15000,"nM",96,"B",NA,NA,"Inhibition of human COX1",9606,NA,NA,NA,NA,"D",717096
+18694,">","IC50",4000,"nM",17047,"B",NA,NA,"Inhibition of ovine purified COX1 after 20 mins",9940,NA,NA,NA,NA,"D",718976
+18694,"=","IC50",30,"nM",11112,"B",NA,NA,"Inhibition of mouse purified COX2 after 20 mins",10090,NA,NA,NA,NA,"D",718977
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human carbonic anhydrase I by spectrophotometry at pH 7.5",9606,NA,NA,NA,NA,"D",726066
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human carbonic anhydrase II by spectrophotometry at pH 7.5",9606,NA,NA,NA,NA,"D",726067
+18694,"=","Ki",128,"nM",22226,"B",NA,NA,"Inhibition of Brucella suis carbonic anhydrase II by spectrophotometry at pH 8.3",29461,NA,NA,NA,NA,"U",726070
+18694,"=","Ki",18,"nM",22226,"B",NA,NA,"Inhibition of Brucella suis carbonic anhydrase I by spectrophotometry at pH 8.3",29461,NA,NA,NA,NA,"U",726071
+18694,"=","IC50",8100,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 assessed as PGF2alpha level by EIA",9940,NA,NA,NA,NA,"D",727035
+18694,"=","IC50",50,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 assessed as PGF2alpha level by EIA",9940,NA,NA,NA,NA,"D",727036
+18694,">","IC50",10000,"nM",22226,"B",NA,NA,"Inhibition of potato 5-LOX assessed as hydroperoxides production by EIA",4113,NA,NA,NA,NA,"U",727037
+18694,"=","IC50",9400,"nM",17047,"B",NA,NA,"Inhibition of ovine COX-1 by fluorescence assay",9940,NA,NA,NA,NA,"D",728013
+18694,"=","IC50",30,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 by fluorescence assay",9606,NA,NA,NA,NA,"D",728014
+18694,"=","IC50",150,"nM",126,"B",NA,NA,"Inhibition of COX2",NA,NA,NA,NA,NA,"H",728883
+87221,NA,"Potency",11220.2,"nM",104678,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Compounds Blocking the Interaction Between CBF-beta and RUNX1 for the Treatment of Acute Myeloid Leukemia. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID1484, AID504370, AID504374, AID504375]",9606,NA,NA,NA,NA,"D",737065
+87221,NA,"Potency",14125.4,"nM",104678,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Compounds Blocking the Interaction Between CBF-beta and RUNX1 for the Treatment of Acute Myeloid Leukemia. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID1484, AID504370, AID504374, AID504375]",9606,NA,NA,NA,NA,"D",737065
+87221,NA,"Potency",25118.9,"nM",104678,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Compounds Blocking the Interaction Between CBF-beta and RUNX1 for the Treatment of Acute Myeloid Leukemia. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID1484, AID504370, AID504374, AID504375]",9606,NA,NA,NA,NA,"D",737065
+160475,NA,"Potency",25118.9,"nM",104678,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS Assay for Compounds Blocking the Interaction Between CBF-beta and RUNX1 for the Treatment of Acute Myeloid Leukemia. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID1484, AID504370, AID504374, AID504375]",9606,NA,NA,NA,NA,"D",737065
+18694,"=","IC50",10,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 after 2 mins by fluorescence assay",9606,NA,NA,NA,NA,"D",742953
+18694,">","IC50",1000,"nM",11727,"B",NA,NA,"Inhibition of human recombinant soluble epoxide hydrolase after 10 mins by fluorescent-based assay",9606,NA,NA,NA,NA,"D",742954
+18694,">","IC50",1e+05,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 after 5 mins by enzyme immunoassay",9940,NA,NA,NA,NA,"D",744565
+18694,"=","IC50",300,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 after 5 mins by enzyme immunoassay",9940,NA,NA,NA,NA,"D",744566
+18694,">","IC50",50000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 assessed as PGF2alpha production from PGH2 after 5 mins by enzyme immunoassay",9940,NA,NA,NA,NA,"D",748671
+18694,"=","IC50",300,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 assessed as PGF2alpha production from PGH2 after 5 mins by enzyme immunoassay",9940,NA,NA,NA,NA,"D",748672
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by chemiluminescent assay",9940,NA,NA,NA,NA,"D",750656
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by chemiluminescent assay",9940,NA,NA,NA,NA,"D",750657
+485738,NA,"Potency",1000,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+87221,NA,"Potency",17782.8,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+491436,NA,"Potency",6510.4,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+491436,NA,"Potency",6510.4,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+485738,NA,"Potency",20587.8,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+485738,NA,"Potency",1000,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+485738,NA,"Potency",20587.8,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+491436,NA,"Potency",891.3,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+485738,NA,"Potency",1000,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+485738,NA,"Potency",20587.8,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+491436,NA,"Potency",6510.4,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+491436,NA,"Potency",6510.4,"nM",22226,"B",NA,"confirmatory","PUBCHEM_BIOASSAY: qHTS for inhibitors of binding or entry into cells for Marburg Virus. (Class of assay: confirmatory) [Related pubchem assays (depositor defined):AID463114, AID540249, AID540278]",NA,NA,NA,NA,NA,"U",752359
+442943,"=","IC50",250720,"nM",102878,"B",NA,NA,"Inhibition of Mycobacterium tuberculosis pantothenate synthetase by high throughput screening method",1773,NA,NA,NA,NA,"D",753217
+18694,"=","IC50",7700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",753438
+18694,"=","IC50",70,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by enzyme immuno assay",9606,NA,NA,NA,NA,"D",753439
+18694,"=","IC50",7000,"nM",96,"B",NA,NA,"Inhibition of human whole blood COX-1 assessed as production of TXB2 after 24 hrs by EIA",9606,NA,NA,NA,NA,"D",762068
+18694,"=","IC50",190,"nM",126,"B",NA,NA,"Inhibition of human whole blood COX-2 assessed as production of PGE2 after 24 hrs by EIA",9606,NA,NA,NA,NA,"D",762069
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 at pH 7.5 by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",762736
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 at pH 7.5 by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",762737
+18694,"=","Ki",5830,"nM",22226,"B",NA,NA,"Inhibition of Salmonella Typhimurium recombinant carbonic anhydrase 1 at pH 8.3 by stopped flow CO2 hydration assay",90371,NA,NA,NA,NA,"U",762742
+18694,"=","Ki",6110,"nM",22226,"B",NA,NA,"Inhibition of Salmonella Typhimurium recombinant carbonic anhydrase 2 at pH 8.3 by stopped flow CO2 hydration assay",90371,NA,NA,NA,NA,"U",762743
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human carbonic anhydrase 1-catalyzed CO2 hydration activity by stopped flow assay",9606,NA,NA,NA,NA,"D",770696
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human carbonic anhydrase 2-catalyzed CO2 hydration activity by stopped flow assay",9606,NA,NA,NA,NA,"D",770697
+18694,"=","Ki",16,"nM",12952,"B",NA,NA,"Inhibition of human carbonic anhydrase 9-catalyzed CO2 hydration activity by stopped flow assay",9606,NA,NA,NA,NA,"D",770698
+18694,"=","Ki",18,"nM",12209,"B",NA,NA,"Inhibition of human carbonic anhydrase 12-catalyzed CO2 hydration activity by stopped flow assay",9606,NA,NA,NA,NA,"D",770699
+18694,"=","IC50",7700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",772485
+18694,"=","IC50",70,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",772567
+17224,"=","IC50",13797,"nM",20075,"B","In vitro",NA,"DRUGMATRIX: Lipoxygenase 15-LO enzyme inhibition (substrate: Linoleic acid)",9986,NA,"Reticulocytes",NA,NA,"D",774644
+17224,"=","IC50",44500,"nM",104322,"B","In vitro",NA,"DRUGMATRIX: Progesterone radioligand binding (ligand: [3H] R-5020)",9913,NA,"Uterus",NA,NA,"D",774670
+17224,"=","Ki",5804,"nM",104322,"B","In vitro",NA,"DRUGMATRIX: Progesterone radioligand binding (ligand: [3H] R-5020)",9913,NA,"Uterus",NA,NA,"D",774670
+18694,"=","Ki",2362,"nM",104322,"B","In vitro",NA,"DRUGMATRIX: Progesterone radioligand binding (ligand: [3H] R-5020)",9913,NA,"Uterus",NA,NA,"D",774670
+18694,"=","IC50",18109,"nM",104322,"B","In vitro",NA,"DRUGMATRIX: Progesterone radioligand binding (ligand: [3H] R-5020)",9913,NA,"Uterus",NA,NA,"D",774670
+17224,"=","IC50",22503,"nM",11639,"B","In vitro",NA,"DRUGMATRIX: Protein Serine/Threonine Kinase, ERK1 enzyme inhibition (substrate: Myelin Basic Protein)",562,NA,NA,NA,NA,"D",774678
+17224,"=","IC50",18224,"nM",10188,"B","In vitro",NA,"DRUGMATRIX: Protein Serine/Threonine Kinase, p38alpha enzyme inhibition (substrate: Myelin Basic Protein)",562,NA,NA,NA,NA,"D",774680
+17224,"=","IC50",14590,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Calcium Channel Type L, Benzothiazepine radioligand binding (ligand: [3H] Diltiazem)",10116,"Wistar","Brain",NA,"membranes","U",774713
+17224,"=","Ki",12969,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Calcium Channel Type L, Benzothiazepine radioligand binding (ligand: [3H] Diltiazem)",10116,"Wistar","Brain",NA,"membranes","U",774713
+17224,"=","Ki",6324,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Calcium Channel Type L, Dihydropyridine radioligand binding (ligand: [3H] Nitrendipine)",10116,"Wistar","Cerebral cortex",NA,"membranes","U",774714
+17224,"=","IC50",9840,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Calcium Channel Type L, Dihydropyridine radioligand binding (ligand: [3H] Nitrendipine)",10116,"Wistar","Cerebral cortex",NA,"membranes","U",774714
+18694,"=","Ki",15815,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Calcium Channel Type L, Dihydropyridine radioligand binding (ligand: [3H] Nitrendipine)",10116,"Wistar","Cerebral cortex",NA,"membranes","U",774714
+18694,"=","IC50",24601,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Calcium Channel Type L, Dihydropyridine radioligand binding (ligand: [3H] Nitrendipine)",10116,"Wistar","Cerebral cortex",NA,"membranes","U",774714
+17224,"=","Ki",1686,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Sodium Channel, Site 2 radioligand binding (ligand: [3H] Batrachotoxin)",10116,"Wistar","Brain (except cerebellum)",NA,"membranes","U",774723
+17224,"=","IC50",1881,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Sodium Channel, Site 2 radioligand binding (ligand: [3H] Batrachotoxin)",10116,"Wistar","Brain (except cerebellum)",NA,"membranes","U",774723
+18694,"=","IC50",16854,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Sodium Channel, Site 2 radioligand binding (ligand: [3H] Batrachotoxin)",10116,"Wistar","Brain (except cerebellum)",NA,"membranes","U",774723
+18694,"=","Ki",15111,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Sodium Channel, Site 2 radioligand binding (ligand: [3H] Batrachotoxin)",10116,"Wistar","Brain (except cerebellum)",NA,"membranes","U",774723
+17224,"=","IC50",36389,"nM",12832,"B","In vitro",NA,"DRUGMATRIX: Androgen (Testosterone) AR radioligand binding (ligand: [3H] Mibolerone)",562,NA,NA,NA,"membranes","D",774726
+17224,"=","Ki",24259,"nM",12832,"B","In vitro",NA,"DRUGMATRIX: Androgen (Testosterone) AR radioligand binding (ligand: [3H] Mibolerone)",562,NA,NA,NA,"membranes","D",774726
+17224,"=","IC50",21110,"nM",248,"B","In vitro",NA,"DRUGMATRIX: Thromboxane Synthetase enzyme inhibition (substrate: PGH2)",9606,NA,"Platelets",NA,NA,"D",774727
+17224,"=","IC50",18380,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Calcium Channel Type L, Phenylalkylamine radioligand binding (ligand: [3H] (-)-Desmethoxyverapamil (D-888))",10116,"Wistar","Brain",NA,"membranes","U",774732
+17224,"=","Ki",17862,"nM",22226,"B","In vitro",NA,"DRUGMATRIX: Calcium Channel Type L, Phenylalkylamine radioligand binding (ligand: [3H] (-)-Desmethoxyverapamil (D-888))",10116,"Wistar","Brain",NA,"membranes","U",774732
+18694,"=","IC50",181,"nM",15,"B","In vitro",NA,"DRUGMATRIX: Carbonic Anhydrase II enzyme inhibition (substrate: 4-Nitrophenyl acetate (4-NPA))",9606,NA,"Erythrocytes",NA,NA,"D",774734
+18694,"=","IC50",723,"nM",96,"B","In vitro",NA,"DRUGMATRIX: Cyclooxygenase COX-1 enzyme inhibition (substrate: Arachidonic acid)",9606,NA,"Platelets",NA,NA,"D",774741
+23466,"=","IC50",0.41,"nM",11154,"B",NA,NA,"Inhibition of MMP14",NA,NA,NA,NA,NA,"H",785744
+23466,"=","IC50",0.05,"nM",12592,"B",NA,NA,"Inhibition of MMP9",NA,NA,NA,NA,NA,"H",785746
+23466,"=","IC50",7.62,"nM",11109,"B",NA,NA,"Inhibition of MMP3",NA,NA,NA,NA,NA,"H",785747
+23466,"=","IC50",0.2,"nM",13000,"B",NA,NA,"Inhibition of MMP1",NA,NA,NA,NA,NA,"H",785748
+18694,"=","IC50",120,"nM",126,"B",NA,NA,"Inhibition of COX2 by chemiluminescent enzyme assay",NA,NA,NA,NA,NA,"H",787160
+18694,"=","IC50",27500,"nM",96,"B",NA,NA,"Inhibition of COX1 by chemiluminescent enzyme assay",NA,NA,NA,NA,NA,"H",787161
+18694,"=","IC50",100,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 assessed as PGF2alpha production by enzyme immunoassay",9606,NA,NA,NA,NA,"D",791243
+18694,"=","IC50",34500,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 assessed as PGF2alpha production by enzyme immunoassay",9940,NA,NA,NA,NA,"D",791244
+18694,"=","IC50",200,"nM",126,"B",NA,NA,"Inhibition of COX2 assessed as inhibition of PGE2 production using arachidonic acid as substrate after 10 mins by ELISA",NA,NA,NA,NA,NA,"H",797428
+18694,"=","IC50",12470,"nM",96,"B",NA,NA,"Inhibition of platelet COX1-mediated TXB2 production in LPS-induced human whole blood after 60 mins by radioimmunoassay",9606,NA,"Blood",NA,NA,"D",799226
+18694,"=","IC50",540,"nM",126,"B",NA,NA,"Inhibition of COX2-mediated PGE2 production in LPS-induced human whole blood after 60 mins by radioimmunoassay",9606,NA,"Blood",NA,NA,"D",799227
+18694,"=","Ki",732,"nM",104449,"B",NA,NA,"Inhibition of GST-tagged astrosclera willeyana Astrosclerin-3 expressed in Escherichia coli after 15 mins preincubation by stopped flow CO2 hydration assay",85810,NA,NA,NA,NA,"D",801827
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 after 15 mins by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",801828
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 after 15 mins by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",801829
+18694,"=","IC50",48000,"nM",10612,"B",NA,NA,"Inhibition of recombinant PDK1 using RPRAATF as substrate by scintillation counting",NA,NA,NA,NA,NA,"H",803090
+18694,"=","IC50",21610,"nM",17019,"B",NA,NA,"Inhibition of bovine COX1 assessed as PGE2 formation preincubated for 10 mins by ELISA",9913,NA,NA,NA,NA,"D",804539
+18694,"=","IC50",360,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 assessed as PGE2 formation preincubated for 10 mins by ELISA",9940,NA,NA,NA,NA,"D",804540
+18694,"=","Ki",421,"nM",22226,"B",NA,NA,"Inhibition of human wild type carbonic anhydrase 2 Asn67Ile mutant expressed in Escherichia coli after 15 mins preincubation by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"U",805627
+18694,"=","Ki",76.8,"nM",22226,"B",NA,NA,"Inhibition of human wild type carbonic anhydrase 2 Gln92Val mutant expressed in Escherichia coli after 15 mins preincubation by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"U",805628
+18694,"=","Ki",369,"nM",22226,"B",NA,NA,"Inhibition of human wild type carbonic anhydrase 2 Leu204Ser mutant expressed in Escherichia coli after 15 mins preincubation by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"U",805629
+18694,"=","IC50",15000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by fluorescence assay",9940,NA,NA,NA,NA,"D",805634
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by fluorescence assay",9606,NA,NA,NA,NA,"D",805635
+18694,"=","IC50",10000,"nM",17047,"B",NA,NA,"Competitive inhibition of ovine COX1 by enzyme immunoassay",9940,NA,NA,NA,NA,"D",806009
+18694,"=","IC50",60,"nM",126,"B",NA,NA,"Competitive inhibition of human recombinant COX2 by enzyme immunoassay",9606,NA,NA,NA,NA,"D",806010
+18694,"=","IC50",7700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX-1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",806717
+18694,"=","IC50",70,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 by enzyme immuno assay",9606,NA,NA,NA,NA,"D",806718
+17224,"=","IC50",9,"nM",22226,"B",NA,NA,"Inhibition of wild type HIV-1 protease assessed as hydrolysis of fluorogenic substrate Abz-Thr-Ile-Nle-Phe(NO2)-Gln-Arg after 10 mins by fluorescence assay",11676,NA,NA,NA,NA,"U",813281
+18694,">","IC50",50000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",815719
+18694,"=","IC50",280,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by enzyme immuno assay",9940,NA,NA,NA,NA,"D",815720
+18694,"=","IC50",30,"nM",126,"B",NA,NA,"Inhibition of COX2 by fluorescence assay",NA,NA,NA,NA,NA,"H",817254
+18694,"=","IC50",115000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by enzymatic fluorescence assay",9940,NA,NA,NA,NA,"D",822272
+18694,"=","IC50",60,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by enzymatic fluorescence assay",9606,NA,NA,NA,NA,"D",822273
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human carbonic anhydrase 2 preincubated for 15 mins measured for 10 to 100 sec by stopped-flow method",9606,NA,NA,NA,NA,"D",826238
+18694,"=","Ki",3056,"nM",22226,"B",NA,NA,"Inhibition of Cryptococcus neoformans Can2 preincubated for 15 mins measured for 10 to 100 sec by stopped-flow method",5207,NA,NA,NA,NA,"U",826239
+18694,"=","Ki",1017,"nM",22226,"B",NA,NA,"Inhibition of Candida albicans CaNce103 preincubated for 15 mins measured for 10 to 100 sec by stopped-flow method",5476,NA,NA,NA,NA,"U",826240
+18694,"=","Ki",34800,"nM",22226,"B","In vitro",NA,"Inhibition of GST-tagged Malassezia globosa ATCC 96807/CBS 7966 MG-CA expressed in Escherichia coli BL21(DE3) cells preincubated for 15 mins measured for 10 to 100 sec by stopped-flow method",425265,NA,NA,NA,NA,"U",826242
+18694,">","IC50",40000,"nM",101071,"B",NA,NA,"Inhibition of norA-mediated EtBr efflux in Staphylococcus aureus SA1199B overexpressing norA and expressing A116E GrlA mutation by fluorometry",1280,"SA1199B",NA,NA,NA,"D",826866
+17224,"=","Kd",3.4,"nM",22226,"B",NA,NA,"Binding affinity to Human immunodeficiency virus 1 protease by SPR biosensor interaction analysis at pH 7.4",11676,NA,NA,NA,NA,"U",830319
+17224,"=","Kd",2.99,"nM",22226,"B",NA,NA,"Binding affinity to Human immunodeficiency virus 1 protease by SPR biosensor interaction analysis at pH 5.1",11676,NA,NA,NA,NA,"U",830320
+17224,"=","Kd",37.6,"nM",22226,"B",NA,NA,"Binding affinity to Human immunodeficiency virus 1 protease by SPR biosensor interaction analysis at pH 4.1",11676,NA,NA,NA,NA,"U",830321
+18694,"=","IC50",140,"nM",126,"B",NA,NA,"Inhibition of COX2 in human whole blood assessed as inhibition of LPS-induced PGE2 synthesis up to 24 hrs by radioimmunoassay",9606,NA,"Blood",NA,NA,"D",830633
+18694,"=","IC50",15000,"nM",96,"B",NA,NA,"Inhibition of COX1",9606,NA,NA,NA,NA,"D",832832
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibition of COX2",9606,NA,NA,NA,NA,"D",832833
+18694,"=","IC50",54,"nM",126,"B",NA,NA,"Inhibition of COX-2 in human HNSCC 1483 cells using [14C] arachidonic acid as substrate preincubated for 30 mins before substrate addition measured after 30 mins",9606,NA,NA,NA,NA,"D",832841
+568326,"=","IC50",1000,"nM",11720,"B",NA,NA,"Inhibition of CK1 using KRRRALS(p)VASLPGL as substrate after 40 mins by scintillation counter",NA,NA,NA,NA,NA,"H",842102
+18694,"=","IC50",100,"nM",126,"B",NA,NA,"Inhibition of COX-2 by chemiluminescent assay",NA,NA,NA,NA,NA,"H",854964
+18694,"=","IC50",10000,"nM",96,"B",NA,NA,"Inhibition of COX-1 by chemiluminescent assay",NA,NA,NA,NA,NA,"H",854967
+18694,"=","IC50",15000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 using arachidonic acid as substrate incubated for 1 min prior to substrate addition measured for 25 secs by TMPD-based chromogenic assay",9940,NA,NA,NA,NA,"D",855887
+18694,"=","IC50",42,"nM",126,"B","In vitro",NA,"Inhibition of human recombinant COX2 expressed in insect cells using arachidonic acid as substrate incubated for 1 min prior to substrate addition measured for 25 secs by TMPD-based chromogenic assay",9606,NA,NA,NA,NA,"D",855888
+442943,"=","IC50",270000,"nM",22226,"B",NA,NA,"Inhibition of HIV-1 reverse transcriptase using Poly(rA).p(dT) (12 to 18) as substrate after 30 mins by single point PCR assay",11676,NA,NA,NA,NA,"U",856669
+87221,">","IC50",333000,"nM",103069,"B",NA,NA,"Inhibition of human recombinant Tdp1 assessed as conversion of 14-mer 5'-32P-labeled 3'-phosphotyrosyl DNA substrate N14Y to 14-mer 5'-32P-labeled 3'-phosphate DNA product N14P after 15 mins by PAGE analysis",9606,NA,NA,NA,NA,"D",864727
+18694,"=","Ki",7760,"nM",101546,"B",NA,NA,"Inhibition of Mycobacterium tuberculosis recombinant carbonic anhydrase Rv3273 pre-incubated for 15 mins by stopped-flow CO2 hydration method",1773,NA,NA,NA,NA,"D",878775
+18694,"=","Ki",713,"nM",102876,"B",NA,NA,"Inhibition of Mycobacterium tuberculosis recombinant carbonic anhydrase Rv3588c pre-incubated for 15 mins by stopped-flow CO2 hydration method",1773,NA,NA,NA,NA,"D",878776
+18694,"=","Ki",10350,"nM",101488,"B",NA,NA,"Inhibition of Mycobacterium tuberculosis recombinant carbonic anhydrase Rv1284 pre-incubated for 15 mins by stopped-flow CO2 hydration method",1773,NA,NA,NA,NA,"D",878777
+18694,"=","Ki",689,"nM",11063,"B",NA,NA,"Inhibition of human recombinant CA14 catalytic domain pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878778
+18694,"=","Ki",98,"nM",12923,"B",NA,NA,"Inhibition of human recombinant CA13 catalytic domain pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878779
+18694,"=","Ki",16,"nM",12952,"B",NA,NA,"Inhibition of human recombinant CA9 catalytic domain pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878780
+18694,"=","Ki",18,"nM",12209,"B",NA,NA,"Inhibition of human recombinant CA12 catalytic domain pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878781
+18694,"=","Ki",2170,"nM",11060,"B",NA,NA,"Inhibition of human recombinant full length CA7 pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878782
+18694,"=","Ki",94,"nM",10186,"B",NA,NA,"Inhibition of human recombinant full length CA6 pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878783
+18694,"=","Ki",93,"nM",11016,"B",NA,NA,"Inhibition of human recombinant full length CA5B pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878784
+18694,"=","Ki",794,"nM",11042,"B",NA,NA,"Inhibition of human recombinant full length CA5A pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878785
+18694,"=","Ki",880,"nM",12896,"B",NA,NA,"Inhibition of human recombinant full length CA4 pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878786
+18694,"=","Ki",7400,"nM",10139,"B",NA,NA,"Inhibition of human recombinant full length CA3 pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878787
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant full length CA2 pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878788
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant full length CA1 pre-incubated for 15 mins by stopped-flow CO2 hydration method",9606,NA,NA,NA,NA,"D",878789
+18694,">","Ki",1000,"nM",22226,"B",NA,NA,"Inhibition of recombinant Vibrio cholerae carbonic anhydrase expressed in Escherichia coli (DE3) preincubated for 15 mins by stopped-flow CO2 hydrase assay",666,NA,NA,NA,NA,"U",878955
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 preincubated for 15 mins by stopped-flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",878956
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 preincubated for 15 mins by stopped-flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",878957
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of Ovis aries (sheep) COX1 using arachidonic acid as substrate using cyclic naphthalene hydrazide by chemiluminescence assay",9940,NA,NA,NA,NA,"D",900682
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of Ovis aries (sheep) COX2 using arachidonic acid as substrate using cyclic naphthalene hydrazide by chemiluminescence assay",9940,NA,NA,NA,NA,"D",900683
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of Ovis aries (sheep) COX2 using arachidonic acid as substrate using cyclic naphthalene hydrazide by chemiluminescence assay",9940,NA,NA,NA,NA,"D",900685
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of Ovis aries (sheep) COX1 using arachidonic acid as substrate using cyclic naphthalene hydrazide by chemiluminescence assay",9940,NA,NA,NA,NA,"D",900686
+18694,"=","IC50",60,"nM",11111,"B",NA,NA,"Inhibition of Bos taurus (bovine) COX-2 by Chemoiluminescence assay",9913,NA,NA,NA,NA,"D",909236
+18694,"=","IC50",24300,"nM",17019,"B",NA,NA,"Inhibition of Bos taurus (bovine) COX-1 by Chemoiluminescence assay",9913,NA,NA,NA,NA,"D",909237
+18694,"=","IC50",57,"nM",126,"B",NA,NA,"Inhibition of COX2 (unknown origin)",9606,NA,NA,NA,NA,"D",923079
+18694,"=","IC50",57,"nM",17100,"B",NA,NA,"Inhibition of Ovis aries (sheep) COX-2 assessed as decrease in PGF2a production from PGH2 upon reduction with stannous chloride using arachidonic acid as substrate pre-incubated with enzyme for 5 min prior to substrate addition by enzyme immunoassay",9940,NA,NA,NA,NA,"D",923213
+18694,"=","IC50",23000,"nM",17047,"B",NA,NA,"Inhibition of Ovis aries (sheep) COX-1 assessed as decrease in PGF2a production from PGH2 upon reduction with stannous chloride using arachidonic acid as substrate pre-incubated with enzyme for 5 min prior to substrate addition by enzyme immunoassay",9940,NA,NA,NA,NA,"D",923216
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of Ovis aries (sheep) cyclooxygenase-2 using arachidonic acid as substrate by chemiluminescent assay",9940,NA,NA,NA,NA,"D",931185
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of Ovis aries (sheep) cyclooxygenase-1 using arachidonic acid as substrate by chemiluminescent assay",9940,NA,NA,NA,NA,"D",931186
+18694,"=","IC50",7700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1",9940,NA,NA,NA,NA,"D",937009
+18694,"=","IC50",70,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2",9606,NA,NA,NA,NA,"D",937010
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",938521
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",938522
+18694,"=","Ki",91.1,"nM",22226,"B",NA,NA,"Inhibition of Trypanosoma cruzi CL Brener recombinant alpha-carbonic anhydrase expressed in insect Sf9 cell Baculovirus system by stopped flow CO2 hydration assay",5693,"CL Brener",NA,NA,NA,"U",938798
+18694,"=","IC50",120,"nM",11112,"B",NA,NA,"Inhibition of COX-2 in mouse RAW264.7 cells assessed as decrease in LPS-induced PGE2 production",10090,NA,NA,NA,NA,"D",947089
+18694,"=","IC50",100,"nM",126,"B",NA,NA,"Inhibition of COX-2 (unknown origin) by chemiluminescence assay",9606,NA,NA,NA,NA,"D",947090
+18694,"=","IC50",27500,"nM",96,"B",NA,NA,"Inhibition of COX-1 (unknown origin) by chemiluminescence assay",9606,NA,NA,NA,NA,"D",947093
+23466,"=","IC50",4.7,"nM",11154,"B",NA,NA,"Inhibition of human recombinant MMP14 catalytic domain using Mca-Lys-Pro- Leu-Gly-Leu-Dap(Dnp)-Ala-Arg-NH2 as substrate incubated for 2 hrs prior to substrate addition measured every 15 secs for 15 mins by fluorometric analysis",9606,NA,NA,NA,NA,"D",948651
+23466,"=","IC50",5.2,"nM",11024,"B",NA,NA,"Inhibition of human recombinant MMP13 using Mca-Lys-Pro- Leu-Gly-Leu-Dap(Dnp)-Ala-Arg-NH2 as substrate incubated for 2 hrs prior to substrate addition measured every 15 secs for 15 mins by fluorometric analysis",9606,NA,NA,NA,NA,"D",948652
+23466,"=","IC50",10,"nM",13001,"B",NA,NA,"Inhibition of human recombinant MMP2 using Mca-Lys-Pro- Leu-Gly-Leu-Dap(Dnp)-Ala-Arg-NH2 as substrate incubated for 2 hrs prior to substrate addition measured every 15 secs for 15 mins by fluorometric analysis",9606,NA,NA,NA,NA,"D",948653
+23466,"=","IC50",3.3,"nM",13000,"B",NA,NA,"Inhibition of human recombinant MMP1 using Mca-Lys-Pro- Leu-Gly-Leu-Dap(Dnp)-Ala-Arg-NH2 as substrate incubated for 2 hrs prior to substrate addition measured every 15 secs for 15 mins by fluorometric analysis",9606,NA,NA,NA,NA,"D",948654
+18694,"=","IC50",870,"nM",126,"B",NA,NA,"Inhibition of COX2 in human blood assessed as TxB2 level after 1 hr by enzyme immunoassay",9606,NA,NA,NA,NA,"D",951243
+18694,"=","IC50",6650,"nM",96,"B",NA,NA,"Inhibition of COX1 in human blood assessed as PGE2 level incubated for 15 mins prior to LPS-challenge measured after 24 hrs by enzyme immunoassay",9606,NA,NA,NA,NA,"D",951244
+18694,"=","Ki",116,"nM",22226,"B",NA,NA,"Inhibition of recombinant full length Candida glabrata NCE103 expressed in Escherichia coli BL21 preincubated for 15 mins by stopped-flow CO2 hydrase assay",5478,NA,NA,NA,NA,"U",955917
+18694,"=","Ki",6.9,"nM",22226,"B",NA,NA,"Inhibition of Sulfurihydrogenibium yellowstonense YO3AOP1 recombinant carbonic anhydrase preincubated for 15 mins by CO2 hydration stopped-flow assay",304736,"YO3AOP1",NA,NA,NA,"U",956001
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 preincubated for 15 mins by CO2 hydration stopped-flow assay",9606,NA,NA,NA,NA,"D",956003
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 preincubated for 15 mins by CO2 hydration stopped-flow assay",9606,NA,NA,NA,NA,"D",956004
+18694,"=","IC50",260,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2-mediated prostaglandin alpha production by enzyme immuno assay",9940,NA,NA,NA,NA,"D",956924
+18694,">","IC50",1e+05,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1-mediated prostaglandin alpha production by enzyme immuno assay",9940,NA,NA,NA,NA,"D",956925
+18694,"=","IC50",6000,"nM",22226,"B",NA,NA,"Inhibition of hyaluronan-induced CD44 antigen variant exon 6 activity in mouse APC10.1 cells expressing Has2 assessed as decrease in cell survival after 18 hrs by MTS assay",10090,NA,NA,NA,NA,"U",959012
+18694,"=","IC50",17500,"nM",22226,"B",NA,NA,"Inhibition of hyaluronan-induced CD44 antigen variant exon 6 activity in human HCA-7 cells expressing Has2 assessed as decrease in cell survival after 18 hrs by MTS assay",9606,NA,NA,NA,NA,"U",959013
+18694,"=","IC50",18300,"nM",22226,"B",NA,NA,"Inhibition of hyaluronan-induced CD44 antigen variant exon 6 activity in human HT-29 cells expressing Has2 assessed as decrease in cell survival after 18 hrs by MTS assay",9606,NA,NA,NA,NA,"U",959014
+18694,"=","IC50",12530000,"nM",96,"B",NA,NA,"Inhibition of platelet COX1 in human whole blood assessed as inhibition of serum TXB2 production after 1 hr by radioimmunoassay",9606,NA,"Blood",NA,NA,"D",963754
+18694,"=","IC50",390000,"nM",126,"B",NA,NA,"Inhibition of monocyte COX2 in human whole blood assessed as inhibition of LPS-induced plasma PGE2 production after 24 hrs by radioimmunoassay",9606,NA,"Blood",NA,NA,"D",963755
+18694,"=","IC50",61,"nM",11112,"B",NA,NA,"Inhibition of COX2 in mouse J774 cells assessed as inhibition of LPS-induced PGE2 production by radioimmunoassay",10090,NA,NA,NA,NA,"D",963764
+18694,"=","IC50",3840,"nM",10575,"B",NA,NA,"Inhibition of COX1 in mouse J774 cells using arachidonic acid as substrate assessed as inhibition of PGE2 production incubated for 15 mins prior to substrate addition measured after 30 mins by radioimmunoassay",10090,NA,NA,NA,NA,"D",963765
+18694,">","IC50",1000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 by fluorescence assay",9940,NA,NA,NA,NA,"D",967831
+18694,"=","IC50",20,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by fluorescence assay",9606,NA,NA,NA,NA,"D",967832
+18694,"=","IC50",48000,"nM",10612,"B",NA,NA,"Inhibition of PDK1-mediated Akt activation in human PC3 cells after 2 hrs by Western blotting analysis",9606,NA,NA,NA,NA,"D",971018
+18694,"=","IC50",150,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 using arachidonic acid as substrate assessed as production of PGF2alpha preincubated for 10 mins followed by substrate addition measured after 2 mins by EIA in presence of stannous chloride",9940,NA,NA,NA,NA,"D",975623
+18694,">","IC50",30000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 using arachidonic acid as substrate assessed as production of PGF2alpha preincubated for 10 mins followed by substrate addition measured after 2 mins by EIA in presence of stannous chloride",9940,NA,NA,NA,NA,"D",975624
+18694,"=","Ki",2170,"nM",11060,"B",NA,NA,"Inhibition of human cytosolic carbonic anhydrase 7 preincubated for 15 mins by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",976157
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human cytosolic carbonic anhydrase 2 preincubated for 15 mins by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",976158
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human cytosolic carbonic anhydrase 1 preincubated for 15 mins by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",976159
+18694,"=","Ki",18,"nM",12209,"B",NA,NA,"Inhibition of human membrane bound carbonic anhydrase 12 preincubated for 15 mins at room temperature followed by 72 hrs at 4 degC by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",982792
+18694,"=","Ki",16,"nM",12952,"B",NA,NA,"Inhibition of human membrane bound carbonic anhydrase 9 preincubated for 15 mins at room temperature followed by 72 hrs at 4 degC by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",982793
+18694,"=","Ki",2170,"nM",11060,"B",NA,NA,"Inhibition of human cytosolic carbonic anhydrase 7 preincubated for 15 mins at room temperature followed by 72 hrs at 4 degC by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",982794
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human cytosolic carbonic anhydrase 2 preincubated for 15 mins at room temperature followed by 72 hrs at 4 degC by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",982795
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human cytosolic carbonic anhydrase 1 preincubated for 15 mins at room temperature followed by 72 hrs at 4 degC by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",982796
+442943,"=","IC50",250720,"nM",102878,"B",NA,NA,"Inhibition of Mycobacterium tuberculosis pantothenate synthetase",1773,NA,NA,NA,NA,"D",988132
+18694,"=","Ki",705,"nM",22226,"B","In vitro",NA,"Inhibition of recombinant Leishmania donovani chagasi beta-carbonic anhydrase expressed in baculovirus infected insect Sf9 cells incubated for 15 mins prior to testing by stopped flow CO2 hydrase assay",44271,NA,NA,NA,NA,"U",991722
+18694,"=","IC50",320,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 expressed in insect cell expression system using TMPD and arachidonic acid as substrate incubated for 1 min prior to substrate addition by spectrophotometry",9606,NA,NA,NA,NA,"D",1275064
+18694,"=","IC50",25740,"nM",96,"B",NA,NA,"Inhibition of COX1 (unknown origin)",9606,NA,NA,NA,NA,"D",1275065
+18694,"=","Ki",2170,"nM",11060,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 7 preincubated for 15 mins by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1281628
+18694,"=","IC50",15000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 using arachidonic acid as substrate incubated for 10 mins prior to substrate addition measured after 2 mins by spectrophotometry",9940,NA,NA,NA,NA,"D",1281694
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 using arachidonic acid as substrate incubated for 10 mins prior to substrate addition measured after 2 mins by spectrophotometry",9606,NA,NA,NA,NA,"D",1281695
+18694,"=","IC50",57,"nM",126,"B",NA,NA,"Inhibition of COX-2 (unknown origin) by ELISA",9606,NA,NA,NA,NA,"D",1282187
+18694,"=","IC50",22900,"nM",17047,"B",NA,NA,"Inhibition of ram seminal vesicle COX-1 assessed as conversion of arachidonic acid to PGH2",9940,NA,NA,NA,NA,"D",1282188
+18694,"=","Ki",265,"nM",107983,"B",NA,NA,"Inhibition of Thalassiosira weissflogii delta carbonic anhydrase preincubated for 15 mins by stopped flow CO2 hydration assay",67004,NA,NA,NA,NA,"D",1282543
+18694,"=","Ki",169,"nM",22226,"B",NA,NA,"Inhibition of Porphyromonas gingivalis recombinant gamma-carbonic anhydrase preincubated for 15 mins by stopped flow CO2 hydration assay",837,NA,NA,NA,NA,"U",1282544
+18694,"=","Ki",705,"nM",22226,"B",NA,NA,"Inhibition of Leishmania donovani chagasi recombinant beta-carbonic anhydrase preincubated for 15 mins by stopped flow CO2 hydration assay",44271,NA,NA,NA,NA,"U",1282545
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 preincubated for 15 mins by stopped flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1282546
+18694,"=","Ki",140,"nM",22226,"B",NA,NA,"Inhibition of recombinant Methanosarcina thermophila gamma-CA CAM by stopped flow CO2 hydration assay",44271,NA,NA,NA,NA,"U",1282847
+18694,"=","Ki",169,"nM",22226,"B",NA,NA,"Inhibition of Porphyromonas gingivalis gamma-carbonic anhydrase expressed in Escherichia coli preincubated for 15 mins by stopped flow CO2 hydration assay",837,NA,NA,NA,NA,"U",1282848
+18694,"=","IC50",540,"nM",126,"B",NA,NA,"Inhibition of COX-2 in human whole blood assessed as prostaglandin E2 production by RIA",9606,NA,"Blood",NA,NA,"D",1284702
+18694,"=","IC50",12470,"nM",96,"B",NA,NA,"Inhibition of COX-1 in human whole blood assessed as thromboxane B2 production by RIA",9606,NA,"Blood",NA,NA,"D",1284704
+18694,"=","IC50",24300,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 using arachidonic acid as substrate by chemiluminescence assay",9940,NA,NA,NA,NA,"D",1286092
+18694,"=","IC50",60,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 using arachidonic acid as substrate by chemiluminescence assay",9940,NA,NA,NA,NA,"D",1286093
+485738,"=","EC50",15000,"nM",22226,"B",NA,NA,"Inhibition of influenza A virus RNA-dependent RNA polymerase expressed in HEK293 cells after 24 hrs by dual luciferase reporter gene assay",11320,NA,NA,NA,NA,"U",1286948
+18694,"=","IC50",280,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 by peroxidase activity-based colorimetric assay",9940,NA,NA,NA,NA,"D",1288419
+18694,"=","IC50",350,"nM",126,"B",NA,NA,"Inhibition of COX-2 in human whole blood assessed as PGE2 level in plasma after 5 mins by enzyme immunoassay",9606,NA,"Blood",NA,NA,"D",1289924
+18694,"=","IC50",2600,"nM",96,"B",NA,NA,"Inhibition of COX-1 in human whole blood assessed as thromboxane B2 level in serum after 5 mins by enzyme immunoassay",9606,NA,"Blood",NA,NA,"D",1289925
+18694,"=","Ki",18,"nM",12209,"B",NA,NA,"Inhibition of human transmembrane carbonic anhydrase 12 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1291174
+18694,"=","Ki",16,"nM",12952,"B",NA,NA,"Inhibition of human transmembrane carbonic anhydrase 9 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1291175
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human cytosolic carbonic anhydrase 2 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1291176
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human cytosolic carbonic anhydrase 1 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1291177
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibition of human COX2 using arachidonic acid as substrate assessed as PGE2 formation incubated for 10 mins prior to substrate addition measured after 10 mins by ELISA",9606,NA,NA,NA,NA,"D",1294266
+18694,"=","IC50",15000,"nM",96,"B",NA,NA,"Inhibition of human COX1 using arachidonic acid as substrate assessed as PGE2 formation incubated for 10 mins prior to substrate addition measured after 10 mins by ELISA",9606,NA,NA,NA,NA,"D",1294267
+18694,"=","IC50",280,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 using arachidonic acid as substrate incubated for 10 mins prior to substrate addition measured after 2 mins by enzyme immunoassay",9606,NA,NA,NA,NA,"D",1294581
+18694,">","IC50",50000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 using arachidonic acid as substrate incubated for 10 mins prior to substrate addition measured after 2 mins by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1294582
+23466,"=","Ki",0.52,"nM",11871,"B",NA,NA,"Time dependent inhibition of human recombinant MMP12 by SPR assay",9606,NA,NA,NA,NA,"D",1298985
+23466,"=","Ki",3.8,"nM",11871,"B",NA,NA,"Inhibition of human recombinant MMP12 using Mca-Pro-Leu-Gly-Leu-Dpa-Ala-Arg-NH2 as substrate incubated for 10 mins prior to substrate addition by spectrophotometry",9606,NA,NA,NA,NA,"D",1298987
+485738,NA,"Potency",35481.3,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Lassa Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301608
+23466,NA,"Potency",35481.3,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Lassa Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301608
+442943,NA,"Potency",3548.1,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Lassa Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301608
+23721,NA,"Potency",17782.8,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Lassa Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301608
+23466,NA,"Potency",35481.3,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Lassa Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301608
+160475,NA,"Potency",35481.3,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Lassa Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301608
+442943,NA,"Potency",1995.3,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Lassa Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301608
+87221,NA,"Potency",25118.9,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Lassa Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301608
+442943,NA,"Potency",1258.9,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Marburg Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301866
+23721,NA,"Potency",8912.5,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Marburg Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301866
+87221,NA,"Potency",14125.4,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Marburg Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301866
+3049,NA,"Potency",2511.9,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Marburg Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301866
+160475,NA,"Potency",10000,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Marburg Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301866
+485738,NA,"Potency",11220.2,"nM",22226,"B",NA,"confirmatory","PubChem BioAssay. qHTS for Inhibitors of binding or entry into cells for Marburg Virus.   (Class of assay: confirmatory) ",NA,NA,NA,NA,NA,"U",1301866
+17224,"=","Ki",0.732,"nM",22226,"B",NA,NA,"Inhibition of HIV1 protease using fluorogenic hexapeptide substrate (2-aminobenzoyl)Thr-Ile-Nle-(p-nitro)Phe-Gln-Arg by fluorimeter",11676,NA,NA,NA,NA,"U",1328821
+485738,"=","IC50",65880,"nM",62,"B",NA,NA,"Inhibition of human topoisomerase 1 activity assessed as DNA triplex formation and presence of supercoiled DNA by microplate assay",9606,NA,NA,NA,NA,"D",1330828
+568326,"=","IC50",1000,"nM",10368,"B",NA,NA,"Inhibition of human recombinant CK-1delta using casein as substrate after 60 mins by Kinase-Glo assay",9606,NA,NA,NA,NA,"D",1334961
+18694,"=","IC50",2660,"nM",126,"B",NA,NA,"Inhibition of COX2 (unknown origin) by colorimetric method",9606,NA,NA,NA,NA,"D",1335154
+18694,"=","IC50",117000,"nM",17047,"B",NA,NA,"Inhibition of purified ovine COX-1 by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1337743
+18694,"=","IC50",70,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 by enzyme immunoassay",9606,NA,NA,NA,NA,"D",1337744
+18694,">","IC50",30000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 using arachidonic acid as substrate assessed as conversion of PGH2 to PGF2alpha after 10 mins by EIA",9940,NA,NA,NA,NA,"D",1338899
+18694,"=","IC50",220,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 using arachidonic acid as substrate assessed as conversion of PGH2 to PGF2alpha after 10 mins by EIA",9940,NA,NA,NA,NA,"D",1338900
+18694,"=","IC50",8.7,"nM",11112,"B",NA,NA,"Inhibition of COX-2 in mouse RAW264.7 cells assessed as decrease in LPS-induced PGE2 production treated prior to LPS challenge by enzyme immunoassay",10090,NA,NA,NA,NA,"D",1338950
+18694,">","IC50",1000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX-1 assessed as decrease in PGH2 production using arachidonic acid as substrate treated with enzyme for 10 mins prior to substrate challenge for 2 mins by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1338951
+18694,"=","IC50",72,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 assessed as decrease in PGH2 production using arachidonic acid as substrate treated with enzyme for 10 mins prior to substrate challenge for 2 mins by enzyme immunoassay",9606,NA,NA,NA,NA,"D",1338952
+18694,"=","IC50",20400,"nM",96,"B",NA,NA,"Inhibition of COX-1 (unknown origin)",9606,NA,NA,NA,NA,"D",1347549
+18694,"=","IC50",270,"nM",126,"B",NA,NA,"Inhibition of COX-2 (unknown origin)",9606,NA,NA,NA,NA,"D",1347550
+18694,">","IC50",1e+05,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 after 2 mins by EIA",9940,NA,NA,NA,NA,"D",1348630
+18694,"=","IC50",280,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 after 2 mins by EIA",9606,NA,NA,NA,NA,"D",1348631
+18694,"=","IC50",15000,"nM",12478,"B",NA,NA,"Inhibition of rat seminal vesicle COX-1 using arachidonic acid as substrate assessed as reduction of PGG2 to PGH2 incubated for 1 min prior to substrate addition measured after 25 secs by chromogenic assay",10116,NA,NA,NA,NA,"D",1349359
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 expressed in insect cell system using arachidonic acid as substrate assessed as reduction of PGG2 to PGH2 incubated for 1 min prior to substrate addition measured after 25 secs by chromogenic assay",9606,NA,NA,NA,NA,"D",1349360
+18694,">","IC50",30000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 using arachidonic acid as substrate preincubated for 10 mins before substrate addition measured after 5 mins by EIA",9940,NA,NA,NA,NA,"D",1349453
+18694,"=","IC50",150,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 using arachidonic acid as substrate preincubated for 10 mins before substrate addition measured after 5 mins by EIA",9940,NA,NA,NA,NA,"D",1349454
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human carbonic anhydrase-1 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1349989
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human carbonic anhydrase-2 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1349990
+18694,"=","Ki",990,"nM",22226,"B",NA,NA,"Inhibition of Legionella pneumophilia subsp. Pneumophila strain Philadelphia-1 carbonic anhydrase-1 assessed as CO2 hydrase activity by stopped-flow assay",272624,NA,NA,NA,NA,"U",1349992
+18694,"=","Ki",421,"nM",22226,"B",NA,NA,"Inhibition of Legionella pneumophilia subsp. Pneumophila strain Philadelphia-1 carbonic anhydrase-2 assessed as CO2 hydrase activity by stopped-flow assay",272624,NA,NA,NA,NA,"U",1349993
+18694,"=","IC50",40,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 peroxidase activity assessed as reduction of PGG2 to PGH2 by measuring oxidized TMPD level by colorimetric assay",9940,NA,NA,NA,NA,"D",1350482
+18694,"=","IC50",14000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 peroxidase activity assessed as reduction of PGG2 to PGH2 by measuring oxidized TMPD level by colorimetric assay",9940,NA,NA,NA,NA,"D",1350483
+485738,"=","EC50",24900,"nM",22226,"B",NA,NA,"Inhibition of Influenza A virus RdRP infected in human HEK293T cells after 24 hrs by dual luciferase reporter gene assay",11320,NA,NA,NA,NA,"U",1362816
+18694,"=","IC50",27250,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 using arachidonic acid as substrate",9940,NA,NA,NA,NA,"D",1362991
+18694,"=","IC50",290,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 using arachidonic acid as substrate",9606,NA,NA,NA,NA,"D",1362992
+18694,"=","IC50",150,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 assessed as reduction in PGF2alpha formation incubated for 18 hrs by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1433904
+18694,"=","IC50",30000,"nM",17047,"B",NA,NA,"Inhibition of purified ovine COX1 pre-treated for 1 hr before 10-acetyl-3,7-dihydroxyphenoxazin substrate addition in absence of porcine liver esterase by fluorescence assay",9940,NA,NA,NA,NA,"D",1436065
+18694,"=","IC50",50,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 pre-treated for 1 hr before 10-acetyl-3,7-dihydroxyphenoxazin substrate addition in absence of porcine liver esterase by fluorescence assay",9606,NA,NA,NA,NA,"D",1436067
+18694,"=","IC50",32000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1",9940,NA,NA,NA,NA,"D",1436536
+18694,"=","IC50",300,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2",9940,NA,NA,NA,NA,"D",1436537
+17224,">","Ki",20000,"nM",22226,"B",NA,NA,"Inhibition of HTLV-1 protease",11908,NA,NA,NA,NA,"U",1446822
+18694,"=","IC50",15000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX-1 assessed as decrease in prostaglandin production using arachidonic acid as substrate incubated with enzyme for 10 mins prior to substrate challenge by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1447353
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 assessed as decrease in prostaglandin production using arachidonic acid as substrate incubated with enzyme for 10 mins prior to substrate challenge by enzyme immunoassay",9606,NA,NA,NA,NA,"D",1447358
+18694,">","IC50",50000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 assessed as reduction in PGH2 production using arachidonic acid substrate by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1452419
+18694,"=","IC50",280,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 assessed as reduction in PGH2 production using arachidonic acid substrate by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1452420
+18694,"=","IC50",15030,"nM",96,"B",NA,NA,"Inhibition of COX1 (unknown origin) by solid phase ELISA method",9606,NA,NA,NA,NA,"D",1455369
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibition of COX2 (unknown origin) by solid phase ELISA method",9606,NA,NA,NA,NA,"D",1455370
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant Carbonic anhydrase 1 compound preincubated for 15 mins by stopped flow CO2 hydrase assay method",9606,NA,NA,NA,NA,"D",1456832
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant Carbonic anhydrase 2 compound preincubated for 15 mins by stopped flow CO2 hydrase assay method",9606,NA,NA,NA,NA,"D",1456833
+18694,"=","Ki",4150,"nM",22226,"B",NA,NA,"Inhibition of Porphyromonas gingivalis Beta-carbonic anhydrase compound preincubated for 15 mins by stopped flow CO2 hydrase assay method",837,NA,NA,NA,NA,"U",1456835
+18694,"=","Ki",169,"nM",22226,"B",NA,NA,"Inhibition of Porphyromonas gingivalis Gamma-carbonic anhydrase compound preincubated for 15 mins by stopped flow CO2 hydrase assay method",837,NA,NA,NA,NA,"U",1456836
+18694,">","IC50",50000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 assessed as reduction in PGH2-dervied PGF2alpha production using arachidonic acid substrate by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1458891
+18694,"=","IC50",280,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 assessed as reduction in PGH2-dervied PGF2alpha production using arachidonic acid substrate by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1458892
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1461812
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1461813
+18694,"=","Ki",217,"nM",22226,"B",NA,NA,"Inhibition of Plasmodium falciparum Eta-carbonic anhydrase pre-incubated for 15 mins before CO2 substrate addition by stopped-flow CO2 hydration assay",5833,NA,NA,NA,NA,"U",1461814
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant CA-1 after 15 mins by stopped-flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",1465099
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant CA-2 after 15 mins by stopped-flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",1465100
+18694,"=","Ki",2170,"nM",11060,"B",NA,NA,"Inhibition of human recombinant CA-7 after 15 mins by stopped-flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",1465101
+18694,"=","Ki",16,"nM",12952,"B",NA,NA,"Inhibition of human recombinant CA-9 after 15 mins by stopped-flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",1465102
+18694,"=","Ki",18,"nM",12209,"B",NA,NA,"Inhibition of human recombinant CA-12 after 15 mins by stopped-flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",1465103
+18694,"=","IC50",78400,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 using fluorometric substrate after 15 mins",9940,NA,NA,NA,NA,"D",1465326
+18694,"=","IC50",19,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 using fluorometric substrate after 15 mins",9606,NA,NA,NA,NA,"D",1465327
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 1 by stopped flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",1465408
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase 2 by stopped flow CO2 hydrase assay",9606,NA,NA,NA,NA,"D",1465409
+18694,"=","Ki",140,"nM",22226,"B",NA,NA,"Inhibition of recombinant Methanosarcina thermophila gamma-carbonic anhydrase by stopped flow CO2 hydrase assay",2210,NA,NA,NA,NA,"U",1465410
+18694,"=","Ki",169,"nM",22226,"B",NA,NA,"Inhibition of recombinant Porphyromonas gingivalis gamma-carbonic anhydrase by stopped flow CO2 hydrase assay",837,NA,NA,NA,NA,"U",1465411
+18694,"=","Ki",87.6,"nM",22226,"B",NA,NA,"Inhibition of recombinant Nostoc commune gamma-carbonic anhydrase preincubated for 15 mins by stopped flow CO2 hydrase assay",1178,NA,NA,NA,NA,"U",1465412
+18694,"=","Ki",50000,"nM",10193,"B",NA,NA,"Inhibition of human carbonic anhydrase 1 pre-incubated for 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1466705
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human carbonic anhydrase 2 pre-incubated for 15 mins by stopped-flow CO2 hydration assay",9606,NA,NA,NA,NA,"D",1466706
+18694,"=","Ki",173,"nM",109570,"B",NA,NA,"Inhibition of Anopheles gambiae carbonic anhydrase pre-incubated for 15 mins by stopped-flow CO2 hydration assay",7165,NA,NA,NA,NA,"D",1466707
+18694,">","IC50",1e+05,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 assessed as inhibition of PGF2alpha production from PGH2 preincubated for 5 mins before arachidonic acid addition measured after 2 mins by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1467707
+18694,"=","IC50",260,"nM",17100,"B",NA,NA,"Inhibition of ovine COX2 assessed as inhibition of PGF2alpha production from PGH2 preincubated for 5 mins before arachidonic acid addition measured after 2 mins by enzyme immunoassay",9940,NA,NA,NA,NA,"D",1467708
+18694,"=","IC50",32600,"nM",96,"B",NA,NA,"Inhibition of human recombinant COX1 by ELISA",9606,NA,NA,NA,NA,"D",1468556
+18694,"=","IC50",52,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 by ELISA",9606,NA,NA,NA,NA,"D",1468557
+442943,"=","IC50",9000,"nM",101079,"B",NA,NA,"Inhibition of human DDR2 expressed in HEK293 cells assessed as reduction in collagen-1-induced DDR2 tyrosine phosphorylation pre-incubated for 30 mins by immunoblotting method",9606,NA,NA,NA,NA,"D",1474744
+18694,"=","Ki",2425,"nM",22226,"B",NA,NA,"Inhibition of recombinant Streptococcus mutans UA159 beta-carbonic anhydrase expressed in Escherichia coli Arctic cells preincubated for 15 mins by stopped flow CO2 hydrase assay",210007,NA,NA,NA,NA,"U",1475817
+18694,"=","IC50",81700,"nM",17047,"B",NA,NA,"Inhibition of ovine COX1 pre-incubated for 15 mins followed by addition of heme and fluorometric substrate and further incubated for 15 mins in presence of arachidonic acid by fluorescence based assay",9940,NA,NA,NA,NA,"D",1477170
+18694,"=","IC50",16,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX2 pre-incubated for 15 mins followed by addition of heme and fluorometric substrate and further incubated for 15 mins in presence of arachidonic acid by fluorescence based assay",9606,NA,NA,NA,NA,"D",1477171
+18694,"=","IC50",15000,"nM",17047,"B",NA,NA,"Inhibition of ovine COX-1 assessed as PGF2alpha formation using arachidonic acid as substrate pretreated with compound for 20 mins prior to substrate addition by spectrophotometric analysis",9940,NA,NA,NA,NA,"D",1495498
+18694,"=","IC50",40,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 assessed as PGF2 alpha formation using arachidonic acid as substrate pretreated with compound for 20 mins prior to substrate addition by spectrophotometric analysis",9606,NA,NA,NA,NA,"D",1495499
+485738,"=","EC50",18000,"nM",22226,"B",NA,NA,"Inhibition of Influenza A virus (A/PR/8/34) RNA-dependent-RNA polymerase transfected in HEK293T cells after 24 hrs by renilla luciferase activity/minireplicon assay",211044,NA,NA,NA,NA,"U",1496010
+18694,">","IC50",1e+05,"nM",17047,"B",NA,NA,"Inhibition of ovine COX-1 assessed as reduction of prostaglandin-G2 to prostaglandin-H2 and oxidation of 10-acetyl-3,7-dihydroxyphenoxazine to resorufin after 5 mins by fluorescence based assay",9940,NA,NA,NA,NA,"D",1508747
+18694,"=","IC50",130,"nM",126,"B",NA,NA,"Inhibition of recombinant human COX-2 assessed as reduction of prostaglandin-G2 to prostaglandin-H2 and oxidation of 10-acetyl-3,7-dihydroxyphenoxazine to resorufin after 5 mins by fluorescence based assay",9606,NA,NA,NA,NA,"D",1508748
+18694,"=","Ki",87.6,"nM",22226,"B",NA,NA,"Inhibition of Nostoc commune gamma carbonic anhydrase by CO2 hydration assay",1178,NA,NA,NA,NA,"U",1511552
+18694,"=","Ki",761,"nM",22226,"B",NA,NA,"Inhibition of Pseudoalteromonas haloplanktis gamma carbonic anhydrase by CO2 hydration assay",228,NA,NA,NA,NA,"U",1511553
+18694,"=","Ki",140,"nM",22226,"B",NA,NA,"Inhibition of Methanosarcina thermophila recombinant gamma carbonic anhydrase by stopped flow CO2 hydrase assay method",2210,NA,NA,NA,NA,"U",1511554
+18694,"=","Ki",21,"nM",15,"B",NA,NA,"Inhibition of human recombinant carbonic anhydrase-2 by stopped flow CO2 hydrase assay method",9606,NA,NA,NA,NA,"D",1511555
+18694,"=","IC50",78400,"nM",17047,"B",NA,NA,"Inhibition of ovine COX-1 using arachidonic acid after 15 mins by fluorescence based assay",9940,NA,NA,NA,NA,"D",1521283
+18694,"=","IC50",19,"nM",126,"B",NA,NA,"Inhibition of human recombinant COX-2 using arachidonic acid after 15 mins by fluorescence based assay",9606,NA,NA,NA,NA,"D",1521284
+18694,">","IC50",1e+05,"nM",17047,"B",NA,NA,"Inhibition of ovine COX-1 using arachidonic acid after 5 mins by colorimetric method",9940,NA,NA,NA,NA,"D",1522568
+18694,"=","IC50",560,"nM",17100,"B",NA,NA,"Inhibition of ovine COX-2 using arachidonic acid after 5 mins by colorimetric method",9940,NA,NA,NA,NA,"D",1522569
+18694,"=","IC50",48000,"nM",10612,"B","In vitro",NA,"BindingDB_Patents: In Vitro Kinase Assay. PDK-1 kinase activity This in vitro assay was performed using a PDK-1 kinase assay kit (Upstate, Lake Placid, N.Y.) according to the vendor's instructions. This cell-free assay is based on the ability of recombinant PDK-1, in the presence of DMSO vehicle or the test agent, to activate its downstream kinase serum- and glucocorticoid-regulated kinase (SGK.) which, in turn, phosphorylates the Akt/SGK-specific peptide substrate RPRAATF with [¿-32]-ATP. The [32P]-phosphorylated peptide substrate was then separated from the residual [¿-32P]-ATP using PS1 phosphocellulose paper and quantitated by a scintillation counter after three washes with 0.75% phosphoric acid.",9606,NA,NA,NA,NA,"D",1527616
+1295448,">","Ki",10000,"nM",100411,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: TOPK",NA,NA,NA,NA,NA,"H",809114
+1295448,">","Ki",7943.28,"nM",101464,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MAP4K4",NA,NA,NA,NA,NA,"H",809115
+1295448,">","Ki",10000,"nM",100845,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CDC42BPA",NA,NA,NA,NA,NA,"H",809116
+1295448,">","Ki",10000,"nM",101269,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: KIAA1811",NA,NA,NA,NA,NA,"H",809119
+1295448,">","Ki",6309.57,"nM",12090,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: DYRK1A",NA,NA,NA,NA,NA,"H",809121
+1295448,"=","Ki",1000,"nM",100410,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: AXL",NA,NA,NA,NA,NA,"H",809128
+1295448,">","Ki",7943.28,"nM",10277,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: STK3",NA,NA,NA,NA,NA,"H",809133
+1295448,">","Ki",7943.28,"nM",11629,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CSNK1G2",NA,NA,NA,NA,NA,"H",809134
+1295448,">","Ki",7943.28,"nM",12724,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: RPS6KA3",NA,NA,NA,NA,NA,"H",809138
+1295448,">","Ki",7943.28,"nM",30014,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CLK2",NA,NA,NA,NA,NA,"H",809139
+1295448,">","Ki",7943.28,"nM",10216,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PRKCZ",NA,NA,NA,NA,NA,"H",809142
+1295448,"=","Ki",630.96,"nM",100412,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PLK3",NA,NA,NA,NA,NA,"H",809145
+1295448,">","Ki",10000,"nM",10696,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: AKT3",NA,NA,NA,NA,NA,"H",809147
+1295448,"=","Ki",1258.93,"nM",11364,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PRKAA1",NA,NA,NA,NA,NA,"H",809149
+1295448,">","Ki",7943.28,"nM",12247,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PRKCD",NA,NA,NA,NA,NA,"H",809151
+1295448,"=","Ki",630.96,"nM",30003,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PLK4",NA,NA,NA,NA,NA,"H",809153
+1295448,"=","Ki",6309.57,"nM",100415,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PRKD2",NA,NA,NA,NA,NA,"H",809155
+1295448,">","Ki",6309.57,"nM",12944,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: RPS6KB1",NA,NA,NA,NA,NA,"H",809156
+1295448,">","Ki",6309.57,"nM",30002,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CAMK2G",NA,NA,NA,NA,NA,"H",809158
+1295448,"=","Ki",1995.26,"nM",20015,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: EEF2K",NA,NA,NA,NA,NA,"H",809159
+1295448,">","Ki",10000,"nM",10885,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PRKCN",NA,NA,NA,NA,NA,"H",809163
+1295448,">","Ki",7943.28,"nM",11149,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: ROCK2",NA,NA,NA,NA,NA,"H",809170
+1295448,">","Ki",7943.28,"nM",11678,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CDK2",NA,NA,NA,NA,NA,"H",809171
+1295448,"=","Ki",7943.28,"nM",10839,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PIM1",NA,NA,NA,NA,NA,"H",809174
+1295448,"=","Ki",5011.87,"nM",11082,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MAPKAPK2",NA,NA,NA,NA,NA,"H",809177
+1295448,">","Ki",6309.57,"nM",10044,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CSNK2A1",NA,NA,NA,NA,NA,"H",809183
+1295448,">","Ki",10000,"nM",30025,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PAK1",NA,NA,NA,NA,NA,"H",809185
+1295448,">","Ki",6309.57,"nM",11622,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CAMK2D",NA,NA,NA,NA,NA,"H",809186
+1295448,">","Ki",7943.28,"nM",10695,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: AKT2",NA,NA,NA,NA,NA,"H",809187
+1295448,">","Ki",6309.57,"nM",11720,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CSNK1A1",NA,NA,NA,NA,NA,"H",809189
+1295448,">","Ki",7943.28,"nM",10842,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PKN2",NA,NA,NA,NA,NA,"H",809196
+1295448,">","Ki",10000,"nM",30018,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: LIMK1",NA,NA,NA,NA,NA,"H",809197
+1295448,"=","Ki",3981.07,"nM",101131,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: TAO1",NA,NA,NA,NA,NA,"H",809198
+1295448,">","Ki",6309.57,"nM",100140,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MARK3",NA,NA,NA,NA,NA,"H",809204
+1295448,">","Ki",7943.28,"nM",11081,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MAPK13",NA,NA,NA,NA,NA,"H",809209
+1295448,"=","Ki",3162.28,"nM",20007,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: ZAK",NA,NA,NA,NA,NA,"H",809211
+1295448,">","Ki",7943.28,"nM",100855,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PIM3",NA,NA,NA,NA,NA,"H",809212
+1295448,">","Ki",7943.28,"nM",10880,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PRKCG",NA,NA,NA,NA,NA,"H",809215
+1295448,"=","Ki",2511.89,"nM",11017,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: GSK3A",NA,NA,NA,NA,NA,"H",809219
+1295448,"=","Ki",1995.26,"nM",100947,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MAP4K2",NA,NA,NA,NA,NA,"H",809220
+1295448,">","Ki",6309.57,"nM",100851,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: DYRK3",NA,NA,NA,NA,NA,"H",809221
+1295448,">","Ki",10000,"nM",100834,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MAPKAPK3",NA,NA,NA,NA,NA,"H",809229
+1295448,">","Ki",7943.28,"nM",12967,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CHEK1",NA,NA,NA,NA,NA,"H",809230
+1295448,">","Ki",7943.28,"nM",10368,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CSNK1D",NA,NA,NA,NA,NA,"H",809231
+1295448,"=","Ki",3162.28,"nM",30037,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MKNK2",NA,NA,NA,NA,NA,"H",809234
+1295448,">","Ki",7943.28,"nM",10396,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CAMK2B",NA,NA,NA,NA,NA,"H",809235
+1295448,">","Ki",7943.28,"nM",10980,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: KDR",NA,NA,NA,NA,NA,"H",809236
+1295448,">","Ki",10000,"nM",12947,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CDK5",NA,NA,NA,NA,NA,"H",809238
+1295448,">","Ki",10000,"nM",101557,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: SGK",NA,NA,NA,NA,NA,"H",809241
+1295448,"=","Ki",3162.28,"nM",101220,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MINK",NA,NA,NA,NA,NA,"H",809243
+1295448,">","Ki",7943.28,"nM",103042,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: DYRK4",NA,NA,NA,NA,NA,"H",809245
+1295448,"=","Ki",3162.28,"nM",19623,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: IRAK1",NA,NA,NA,NA,NA,"H",809250
+1295448,"=","Ki",630.96,"nM",10781,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: STK12",NA,NA,NA,NA,NA,"H",809255
+1295448,">","Ki",10000,"nM",19639,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: IRAK4",NA,NA,NA,NA,NA,"H",809256
+1295448,">","Ki",7943.28,"nM",12666,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: AKT1",NA,NA,NA,NA,NA,"H",809257
+1295448,"=","Ki",1995.26,"nM",30049,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MAP4K5",NA,NA,NA,NA,NA,"H",809258
+1295448,">","Ki",6309.57,"nM",11752,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: FLT4",NA,NA,NA,NA,NA,"H",809260
+1295448,">","Ki",10000,"nM",10811,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: ROCK1",NA,NA,NA,NA,NA,"H",809262
+1295448,">","Ki",6309.57,"nM",10970,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CAMK1",NA,NA,NA,NA,NA,"H",809264
+1295448,"=","Ki",2511.89,"nM",103106,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: HIPK4",NA,NA,NA,NA,NA,"H",809266
+1295448,">","Ki",7943.28,"nM",12071,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CDC2",NA,NA,NA,NA,NA,"H",809267
+1295448,">","Ki",10000,"nM",101281,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: DCAMKL1",NA,NA,NA,NA,NA,"H",809270
+1295448,">","Ki",10000,"nM",30017,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: NEK2",NA,NA,NA,NA,NA,"H",809271
+1295448,"=","Ki",3981.07,"nM",30035,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: SLK",NA,NA,NA,NA,NA,"H",809275
+1295448,"=","Ki",3162.28,"nM",10907,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PLK1",NA,NA,NA,NA,NA,"H",809277
+1295448,"=","Ki",1258.93,"nM",10197,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: GSK3B",NA,NA,NA,NA,NA,"H",809278
+1295448,"=","Ki",1258.93,"nM",30001,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MARK2",NA,NA,NA,NA,NA,"H",809282
+1295448,">","Ki",7943.28,"nM",11969,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: PRKACA",NA,NA,NA,NA,NA,"H",809283
+1295448,">","Ki",6309.57,"nM",12983,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: MAPK12",NA,NA,NA,NA,NA,"H",809284
+1295448,">","Ki",6309.57,"nM",30036,"F",NA,"other","PUBCHEM_BIOASSAY: Navigating the Kinome. (Class of assay: other) Panel member name: CLK4",NA,NA,NA,NA,NA,"H",809285
