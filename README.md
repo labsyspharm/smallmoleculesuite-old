@@ -79,7 +79,7 @@ Shiny/R web application development by [Nicholas Clark](https://github.com/Nicho
 Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS - LINCS data and signature generation center)<br>
 Icon design and development by [Vasileios Stathias](http://ccs.miami.edu/team_member/vasileios-vas-stathias/) (U of Miami - LINCS data coordination and integration center)
 
-This work was supported by NIH grants **U54HL127365**, **U24-DK116204** and **U54H-127624**.
+This work was supported by NIH grants **U54-HL127365**, **U24-DK116204** and **U54-HL127624**.
 
 ### Related web-tools
 
