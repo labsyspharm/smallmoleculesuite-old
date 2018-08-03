@@ -11,7 +11,7 @@ R code by [Nienke Moret](https://scholar.harvard.edu/nienkemoret) (HMS - LINCS d
 Shiny/R web application development by [Nicholas Clark](https://github.com/NicholasClark) (U of Cincinnati - LINCS data coordination and integration center)<br>
 Supervision by [Peter Sorger](https://sorger.med.harvard.edu/people/peter-sorger-phd/) (HMS - LINCS data and signature generation center)<br>
 Icon design and development by [Vasileios Stathias](http://ccs.miami.edu/team_member/vasileios-vas-stathias/) (U of Miami - LINCS data coordination and integration center)<br>
-Project <a href = "https://github.com/sorgerlab/smallmoleculesuite">github repository <img src = "GitHub-Mark-32px.png"></a> and <a href = "https://hub.docker.com/r/ucbd2k/smallmoleculesuite/">docker image <img src = "../../hms_small_mol/www/moby.png" height = "40px"></a><br>
+Project <a href = "https://github.com/sorgerlab/smallmoleculesuite">github repository <img src = "GitHub-Mark-32px.png"></a> and <a href = "https://hub.docker.com/r/ucbd2k/smallmoleculesuite/">docker image <img src = "moby.png" height = "40px"></a><br>
 This work was supported by NIH grants **U54-HL127365**, **U24-DK116204** and **U54-HL127624**.
 
 ## Related web-tools

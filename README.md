@@ -107,6 +107,6 @@ This work was supported by NIH grants **U54-HL127365**, **U24-DK116204** and **U
 
 **Sorger Lab**<br>http://sorger.med.harvard.edu/
 
-### University of Cincinnati <img src="shared/uc_logo_crop.png" height = "50" width ="64"  alt = "University of Cincinnati">
+### University of Cincinnati <img src="hms_small_mol/www/uc_logo_crop.png" height = "50" width ="64"  alt = "University of Cincinnati">
 
 **Laboratory for Statistical Genomics and Systems Biology**<br>http://eh3.uc.edu/
