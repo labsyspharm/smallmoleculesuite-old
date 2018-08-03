@@ -28,3 +28,4 @@ RUN R -e "install.packages('plotly', repos = 'https://mran.microsoft.com/snapsho
 RUN R -e "install.packages('markdown', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
 RUN R -e "install.packages('clipr', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
 RUN R -e "install.packages('rclipboard', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('rsconnect', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
