@@ -417,9 +417,9 @@ ui = function(request) {
             div(class = "ui center aligned container",
                 a(class = "item", img(class = "logo", src = "dcic.png"),
                   href = "http://lincs-dcic.org/"),
-                a(class = "item", "SelectivitySelectR", href = "/apps/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-                a(class = "item", "SimilaritySelectR", href = "/apps/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-                a(class = "item", "LibraryR", href = "/apps/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SelectivitySelectR", href = "/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SimilaritySelectR", href = "/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "LibraryR", href = "/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
                 a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
                   href = "http://sorger.med.harvard.edu" )
             )
