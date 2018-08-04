@@ -2,7 +2,7 @@
 
 This website consists of three related applications that were developed as part of the [NIH LINCS Consortium](http://www.lincsproject.org/) in a collaboration between Harvard Medical School's [Sorger Lab](http://sorger.med.harvard.edu/) and [Laboratory of Systems Pharmacology (LSP)](http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/about/) and the University of Cincinnati's [Laboratory for Statistical Genomics and Systems Biology](http://eh3.uc.edu/). The former (HMS) is one of the [LINCS Data and Signature Generation Centers (DSGCs)](http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers) and the latter (Cincinnati) is part of the [BD2K-LINCS Data Coordination and Integration Center (DCIC)](http://lincs-dcic.org/). All of the web applications are implemented in [R](https://www.r-project.org/), using the [Shiny](https://shiny.rstudio.com/) framework for interactive applications.
 
-Nienke Moret, Marc Hafner, Nicholas A. Clark, Yuan Wang, Eugen Lounkine, Mario Medvedovic, Nathanael Gray, Jeremy Jenkins, Peter K. Sorger. *Cheminformatics tools for analyzing and designing optimized small molecule libraries*. Manuscript submitted for publication.
+Nienke Moret, Marc Hafner, Nicholas A. Clark, Yuan Wang, Eugen Lounkine, Mario Medvedovic, Nathanael Gray, Jeremy Jenkins, Peter K. Sorger. <a href = "https://www.biorxiv.org/content/early/2018/06/29/358978" target="_blank">*Cheminformatics tools for analyzing and designing optimized small molecule libraries*</a>. Manuscript submitted for publication.
 
 ## Development and links
 
