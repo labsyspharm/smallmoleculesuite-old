@@ -1,3 +1,5 @@
+source("restore_context.R")
+
 library(shiny)
 library(dplyr)
 library(readr)
@@ -11,6 +13,10 @@ library(shinyjs)
 library(markdown)
 library(rclipboard)
 library(clipr)
+library(aws.s3)
+
+app_name = "SimilaritySelectR"
+source(".awspass")
 
 zipped_csv <- function(df_list, zippedfile, filenames, stamp) {
   dir = tempdir()
@@ -74,38 +80,59 @@ server = function(input, output, session) {
     runjs(about.modal.js)
   })
   
+  new_input = NULL
+  new_values = NULL
+  
   onRestore(function(state) {
     print("restore")
-    for(i in names(state$values)) {
-      values[[i]] = state$values[[i]]
+    query_id = getQueryString()$`_state_id_`
+    print(query_id)
+    input_name = paste("SimilaritySelectR", "shiny_bookmarks", query_id, "input.rds", sep = "/")
+    values_name = paste("SimilaritySelectR", "shiny_bookmarks", query_id, "values.rds", sep = "/")
+    new_input <<- s3readRDS(object = input_name, bucket = aws_bucket)
+    new_values <<- s3readRDS(object = values_name, bucket = aws_bucket)
+    for(x in names(new_values)) {
+      values[[x]] = new_values[[x]]
+      print(x)
     }
   })
   
   onRestored(function(state) {
     print("restored")
-    updateSelectizeInput(session, "query_compound", selected = state$input$query_compound,
-                         choices = state$values$genes)
-    values$rows_selected_save = state$input$output_table_rows_selected
+    updateSelectizeInput(session, "query_compound", selected = new_input$query_compound,
+                         choices = new_values$genes)
+    values$rows_selected_save = new_input$output_table_rows_selected
     updateQueryString("?")
   })
   
   onBookmark(function(state) {
     print("bookmark")
     if(exists("d")) {
-      state$values$points_selected1 = d$selection(ownerId = "mainplot1")
-      state$values$points_selected2 = d$selection(ownerId = "mainplot2")
-      state$values$points_selected3 = d$selection(ownerId = "mainplot3")
-      state$values$groupId = d$groupName()
-      print(state$values$points_selected1)
-      print(state$values$points_selected2)
-      print(state$values$points_selected3)
+      values$points_selected1 = d$selection(ownerId = "mainplot1")
+      values$points_selected2 = d$selection(ownerId = "mainplot2")
+      values$points_selected3 = d$selection(ownerId = "mainplot3")
+      values$groupId = d$groupName()
     }
+    print("hash")
+    print(state$values$hash)
   })
   
   onBookmarked(function(url) {
     print("bookmarked")
+    date_time = format(Sys.time(), "%Y%m%d-%H%M%S")
+    id = gsub("^.*_state_id_=", "", url)
+    new_id = paste0(app_name, "-", date_time, "-", substr(id, 1, 4))
+    new_url = gsub(id, new_id, url)
+    url = new_url
     session$sendCustomMessage("bookmark_url", message = url)
     values$url = url
+    folder = paste0("sms_bookmarks/", new_id)
+    input_list = reactiveValuesToList(input, all.names = T)
+    values_list = reactiveValuesToList(values, all.names = T)
+
+    s3saveRDS(input_list, bucket = aws_bucket, object = paste0(folder, "/", "input.rds"))
+    s3saveRDS(values_list, bucket = aws_bucket, object = paste0(folder, "/", "values.rds"))
+    
     #updateQueryString(url)
   })
   

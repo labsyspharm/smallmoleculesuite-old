@@ -29,3 +29,6 @@ RUN R -e "install.packages('markdown', repos = 'https://mran.microsoft.com/snaps
 RUN R -e "install.packages('clipr', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
 RUN R -e "install.packages('rclipboard', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
 RUN R -e "install.packages('rsconnect', repos = 'https://mran.microsoft.com/snapshot/2017-11-28')"
+RUN R -e "install.packages('remotes', repos = 'https://mran.microsoft.com/snapshot/2018-08-09')"
+
+RUN R -e "remotes::install_github('aws.s3')"
