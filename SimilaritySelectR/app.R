@@ -1,5 +1,3 @@
-source("restore_context.R")
-
 library(shiny)
 library(dplyr)
 library(readr)
