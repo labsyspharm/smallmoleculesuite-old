@@ -85,8 +85,9 @@ server = function(input, output, session) {
     print("restore")
     query_id = getQueryString()$`_state_id_`
     print(query_id)
-    input_name = paste("SimilaritySelectR", "shiny_bookmarks", query_id, "input.rds", sep = "/")
-    values_name = paste("SimilaritySelectR", "shiny_bookmarks", query_id, "values.rds", sep = "/")
+    input_name = paste0("sms_bookmarks/", query_id, "/input.rds")
+    values_name = paste0("sms_bookmarks/", query_id, "/values.rds")
+    print(input_name)
     new_input <<- s3readRDS(object = input_name, bucket = aws_bucket)
     new_values <<- s3readRDS(object = values_name, bucket = aws_bucket)
     for(x in names(new_values)) {
