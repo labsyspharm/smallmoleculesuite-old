@@ -7,6 +7,10 @@ library(shinyjs)
 library(markdown)
 library(clipr)
 library(rclipboard)
+library(aws.s3)
+
+app_name = "LibraryR"
+source(".awspass")
 
 # load tables
 selection_table_selectivity = read_csv("input/selection_table_selectivity_edited_121017.csv") %>%
@@ -84,16 +88,44 @@ server = function(input, output, session) {
   Sys.setlocale("LC_COLLATE","en_US.UTF-8")
   
   onRestore(function(state) {
-    print("restore")
-    for(i in names(state$values)) {
-      values[[i]] = state$values[[i]]
-    }
+    print("onRestore start")
+    query_id = getQueryString()$bookmark
+    input_name = paste0("sms_bookmarks/", query_id, "/input.rds")
+    #values_name = paste0("sms_bookmarks/", query_id, "/values.rds")
+    if( object_exists(object = input_name, bucket = aws_bucket) ) {
+      new_input <<- s3readRDS(object = input_name, bucket = aws_bucket)
+      #new_values <<- s3readRDS(object = values_name, bucket = aws_bucket)
+    } #else {
+     # showElement(id = "bookmark_not_found")
+    #}
+    print("onRestore end")
   })
   
   onRestored(function(state) {
-    print("restored")
+    print("onRestored start")
+    ### restore the state if the bookmark is found
+    if(!is.null(new_input)) {
+      ## restore gene list
+      updateTextAreaInput(session, inputId = "gene_list", value = paste0(new_input$gene_list, collapse = "\n"))
+      updateSelectizeInput(session, inputId = "probes", selected = new_input$probes)
+      updateSelectizeInput(session, inputId = "clinical", selected = new_input$clinical)
+      updateSelectizeInput(session, inputId = "legacy", selected = new_input$legacy)
+      updateSliderInput(session, inputId = "affinity", value = new_input$affinity)
+      updateSliderInput(session, inputId = "meas", value = new_input$meas)
+      updateSliderInput(session, inputId = "sd", value = new_input$sd)
+      
+      runjs(submit.js)
+      ## show/hide elements
+      if(floor(new_input$filter_button/2) != new_input$filter_button/2) { shinyjs::click("filter_button") }
+      ## restore other values
+      # print(names(new_values))
+      # for(x in names(new_values)) {
+      #   values[[x]] = new_values[[x]]
+      # }
+      # values$bookmark_restart = T
+    }
     updateQueryString("?")
-    runjs(submit.js)
+    print("onRestored end")
   })
   
   onBookmark(function(state) {
@@ -102,8 +134,22 @@ server = function(input, output, session) {
   
   onBookmarked(function(url) {
     print("bookmarked")
-    session$sendCustomMessage("bookmark_url", message = url)
-    values$url = url
+    date_time = format(Sys.time(), "%Y%m%d-%H%M%S")
+    id = substr(as.character(runif(1)), 3, 6)
+    new_id = paste0(app_name, "-", date_time, "-", id)
+    new_url = gsub("\\?_inputs_.*", paste0("?bookmark=",new_id), url)
+    session$sendCustomMessage("bookmark_url", message = new_url)
+    values$url = new_url
+    input_list = reactiveValuesToList(input, all.names = T)
+    print("input_list")
+    print(names(input_list))
+    input_list_save = input_list[c("gene_list", "filter_button",
+                                   "probes", "clinical", "legacy",
+                                   "affinity", "meas", "sd")]
+    #values_list = reactiveValuesToList(values, all.names = T)
+    s3saveRDS(input_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "input.rds"))
+    #s3saveRDS(values_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "values.rds"))
+    updateQueryString(new_url)
   })
   
   observeEvent(input$bookmark1, {
@@ -609,4 +655,4 @@ ui = function(request) {
     )
 }
 
-shinyApp(ui, server, enableBookmarking = "server")
+shinyApp(ui, server, enableBookmarking = "url")
