@@ -84,6 +84,9 @@ $("#submitButton").click()
 server = function(input, output, session) {
   runjs(tab.js)
   
+  # Run js to hide warning messages on click
+  runjs(message.hide.js)
+  
   # Set locale so that sorting works correctly
   Sys.setlocale("LC_COLLATE","en_US.UTF-8")
   
@@ -91,13 +94,11 @@ server = function(input, output, session) {
     print("onRestore start")
     query_id = getQueryString()$bookmark
     input_name = paste0("sms_bookmarks/", query_id, "/input.rds")
-    #values_name = paste0("sms_bookmarks/", query_id, "/values.rds")
     if( object_exists(object = input_name, bucket = aws_bucket) ) {
       new_input <<- s3readRDS(object = input_name, bucket = aws_bucket)
-      #new_values <<- s3readRDS(object = values_name, bucket = aws_bucket)
-    } #else {
-     # showElement(id = "bookmark_not_found")
-    #}
+    } else {
+      showElement(id = "bookmark_not_found")
+    }
     print("onRestore end")
   })
   
@@ -106,25 +107,26 @@ server = function(input, output, session) {
     ### restore the state if the bookmark is found
     if(!is.null(new_input)) {
       ## restore gene list
-      updateTextAreaInput(session, inputId = "gene_list", value = paste0(new_input$gene_list, collapse = "\n"))
+      if("gene_list" %in% names(new_input)) {
+        updateTextAreaInput(session, inputId = "gene_list", value = paste0(new_input$gene_list, collapse = "\n"))
+      } else if("choose_gene_list" %in% names(new_input)) {
+        updateSelectizeInput(session, inputId = "choose_gene_list", selected = new_input$choose_gene_list)
+      }
+      ## restore selections and slider values
       updateSelectizeInput(session, inputId = "probes", selected = new_input$probes)
       updateSelectizeInput(session, inputId = "clinical", selected = new_input$clinical)
       updateSelectizeInput(session, inputId = "legacy", selected = new_input$legacy)
       updateSliderInput(session, inputId = "affinity", value = new_input$affinity)
       updateSliderInput(session, inputId = "meas", value = new_input$meas)
       updateSliderInput(session, inputId = "sd", value = new_input$sd)
-      
+      ## re-submit genes
       runjs(submit.js)
       ## show/hide elements
       if(floor(new_input$filter_button/2) != new_input$filter_button/2) { shinyjs::click("filter_button") }
-      ## restore other values
-      # print(names(new_values))
-      # for(x in names(new_values)) {
-      #   values[[x]] = new_values[[x]]
-      # }
-      # values$bookmark_restart = T
     }
-    updateQueryString("?")
+    ## reset saved input placeholder object
+    new_input <<- NULL
+    #updateQueryString("?")
     print("onRestored end")
   })
   
@@ -143,12 +145,21 @@ server = function(input, output, session) {
     input_list = reactiveValuesToList(input, all.names = T)
     print("input_list")
     print(names(input_list))
-    input_list_save = input_list[c("gene_list", "filter_button",
+    input_list_save = input_list[c("filter_button",
                                    "probes", "clinical", "legacy",
-                                   "affinity", "meas", "sd")]
-    #values_list = reactiveValuesToList(values, all.names = T)
+                                   "affinity", "meas", "sd"
+    )]
+    ## if gene list is selected, save the name instead of the genes
+    if(values$gene_example_submitted != "") {
+      if(sum(values$gene_list_submitted != gene_lists[[values$gene_example_submitted]]) == 0) {
+        input_list_save$choose_gene_list = values$gene_example_submitted
+        print("Gene example saved")
+        print(input_list_save$choose_gene_list)
+      }
+    } else {
+      input_list_save$gene_list = input_list$gene_list
+    }
     s3saveRDS(input_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "input.rds"))
-    #s3saveRDS(values_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "values.rds"))
     updateQueryString(new_url)
   })
   
@@ -235,6 +246,8 @@ server = function(input, output, session) {
   
   observeEvent(input$submitButton, {
     values$submitted = T
+    values$gene_list_submitted = unlist(strsplit(input$gene_list, "\n"))
+    values$gene_example_submitted = input$choose_gene_list
     # Get probe class selections
     observeEvent(input$probes, {
       print(input$probes)
@@ -358,6 +371,15 @@ server = function(input, output, session) {
 
 
 #### UI
+
+message.hide.js = "$('.message .close')
+.on('click', function() {
+  $(this)
+  .closest('.message')
+  .transition('fade')
+  ;
+})
+;"
 
 # logifySlider javascript function
 JS.logify <-
@@ -503,7 +525,14 @@ ui = function(request) {
                                   a(class = "action-button", "one of the example gene-lists", href = "#", id = "load_example_kinases2"), ") and click 'Submit'."),
                                 p("Only gene symbols from ", a("HUGO Gene Nomenclature Committee (HGNC)", href = "http://www.genenames.org/"),
                                   " are accepted. Non-HGNC gene symbols and genes for which we lack drug information will be ignored."),
-                                p("After submitting your gene list, a downloadable table of drugs targeting those genes will be generated. You may further filter these drugs by selectivity level, FDA approval/clinical phase, and other parameters.")
+                                p("After submitting your gene list, a downloadable table of drugs targeting those genes will be generated. You may further filter these drugs by selectivity level, FDA approval/clinical phase, and other parameters."),
+                                hidden(div(class = "ui negative message", id = "bookmark_not_found",
+                                           tags$i(class = "close icon"),
+                                           div(class = "header",
+                                               "This bookmark was not found!"
+                                           ),
+                                           "Check that the URL was entered correctly. If the bookmark is old, it may not work with our current database."
+                                ))
                             )
                         )
                     )
