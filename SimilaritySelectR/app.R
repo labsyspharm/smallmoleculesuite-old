@@ -78,61 +78,84 @@ server = function(input, output, session) {
     runjs(about.modal.js)
   })
   
+  # Run js to hide warning messages on click
+  runjs(message.hide.js)
+  
   new_input = NULL
   new_values = NULL
   
   onRestore(function(state) {
-    print("restore")
-    query_id = getQueryString()$`_state_id_`
-    print(query_id)
+    print("onRestore start")
+    query_id = getQueryString()$bookmark
     input_name = paste0("sms_bookmarks/", query_id, "/input.rds")
     values_name = paste0("sms_bookmarks/", query_id, "/values.rds")
-    print(input_name)
-    new_input <<- s3readRDS(object = input_name, bucket = aws_bucket)
-    new_values <<- s3readRDS(object = values_name, bucket = aws_bucket)
-    for(x in names(new_values)) {
-      values[[x]] = new_values[[x]]
-      print(x)
+    if( object_exists(object = input_name, bucket = aws_bucket) ) {
+      new_input <<- s3readRDS(object = input_name, bucket = aws_bucket)
+      new_values <<- s3readRDS(object = values_name, bucket = aws_bucket)
+    } else {
+      showElement(id = "bookmark_not_found")
     }
+    print("onRestore end")
   })
   
   onRestored(function(state) {
-    print("restored")
-    updateSelectizeInput(session, "query_compound", selected = new_input$query_compound,
-                         choices = new_values$genes)
-    values$rows_selected_save = new_input$output_table_rows_selected
-    updateQueryString("?")
+    print("onRestored start")
+    ### restore the state if the bookmark is found
+    if(!is.null(new_input)) {
+      ## select the compound
+      updateSelectizeInput(session, "query_compound", selected = new_input$query_compound)
+      ## show/hide elements
+      if(floor(new_input$filter_button/2) != new_input$filter_button/2) { shinyjs::click("filter_button") }
+      if(floor(new_input$intro_hide/2) != new_input$intro_hide/2) { shinyjs::click("intro_hide") }
+      ## restore other values
+      print(names(new_values))
+      for(x in names(new_values)) {
+        values[[x]] = new_values[[x]]
+      }
+      values$bookmark_restart = T
+    }
+    #updateQueryString("?")
+    ## reset "new_input" and "new_values" objects
+    new_input <<- NULL
+    new_values <<- NULL
+    print("onRestored end")
   })
   
   onBookmark(function(state) {
     print("bookmark")
     if(exists("d")) {
-      values$points_selected1 = d$selection(ownerId = "mainplot1")
-      values$points_selected2 = d$selection(ownerId = "mainplot2")
-      values$points_selected3 = d$selection(ownerId = "mainplot3")
-      values$groupId = d$groupName()
+      if(length(d$selection(ownerId = "mainplot1")) > 0) {
+        values$points_selected1 = d$selection(ownerId = "mainplot1") %>% which()
+        values$points_selected2 = d$selection(ownerId = "mainplot2") %>% which()
+        values$points_selected3 = d$selection(ownerId = "mainplot3") %>% which()
+        values$groupId = d$groupName()
+      }
     }
-    print("hash")
-    print(state$values$hash)
   })
   
   onBookmarked(function(url) {
     print("bookmarked")
     date_time = format(Sys.time(), "%Y%m%d-%H%M%S")
-    id = gsub("^.*_state_id_=", "", url)
-    new_id = paste0(app_name, "-", date_time, "-", substr(id, 1, 4))
-    new_url = gsub(id, new_id, url)
-    url = new_url
-    session$sendCustomMessage("bookmark_url", message = url)
-    values$url = url
-    folder = paste0("sms_bookmarks/", new_id)
+    id = substr(as.character(runif(1)), 3, 6)
+    new_id = paste0(app_name, "-", date_time, "-", id)
+    new_url = gsub("\\?_inputs_.*", paste0("?bookmark=",new_id), url)
+    session$sendCustomMessage("bookmark_url", message = new_url)
+    values$url = new_url
     input_list = reactiveValuesToList(input, all.names = T)
+    print("input_list")
+    print(names(input_list))
+    row_sel = grep("_rows_selected$", names(input_list), value = T)
+    input_list_save = input_list[c("query_compound", "filter_button", "n_pheno", "intro_hide", "n_common")]
     values_list = reactiveValuesToList(values, all.names = T)
-
-    s3saveRDS(input_list, bucket = aws_bucket, object = paste0(folder, "/", "input.rds"))
-    s3saveRDS(values_list, bucket = aws_bucket, object = paste0(folder, "/", "values.rds"))
-    
-    #updateQueryString(url)
+    for(x in row_sel) { values_list[[x]] = input_list[[x]] }
+    points_selected_names = grep("^points_selected[1-3]", names(values_list), value = T)
+    #selected_drug_names = grep("^selection.drug[1-5]", names(values_list), value = T)
+    values_names = c(points_selected_names, row_sel)
+    values_names = values_names[values_names %in% names(values_list)]
+    values_list = values_list[values_names]
+    s3saveRDS(input_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "input.rds"))
+    s3saveRDS(values_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "values.rds"))
+    updateQueryString(new_url)
   })
   
   ##### For updating URL query string
@@ -380,6 +403,7 @@ server = function(input, output, session) {
       extensions = 'Buttons',
       rownames = F, options = list(
         dom = 'lBfrtip',
+        stateSave = TRUE,
         buttons = c('copy', 'csv', 'excel', 'colvis'),
         initComplete = JS(
           "function(settings, json) {",
@@ -391,20 +415,68 @@ server = function(input, output, session) {
     }
   }, ignoreInit = T, ignoreNULL = T)
   
+  ## On bookmark restart: load row selections in output table and binding table
+  # observeEvent(values$bookmark_restart, {
+  #   print("start select rows")
+  #   if(values$bookmark_restart) {
+  #     if(length(values$output_table_rows_selected) > 0) {
+  #       print("select rows: output table")
+  #       rows = values$output_table_rows_selected
+  #       proxy %>% selectRows(rows)
+  #     }
+  #     if(length(values$binding_data_rows_selected) > 0) {
+  #       print("select rows: output table")
+  #       rows = values$binding_data_rows_selected
+  #       proxy_bind %>% selectRows(rows)
+  #     }
+  #     values$bookmark_restart2 = T
+  #   }
+  #   
+  # }, ignoreNULL = T, ignoreInit = T, autoDestroy = T)
+  
+  ## On bookmark restart: load row selections in selection tables
+  # observeEvent(values$bookmark_restart2, {
+  #   if(values$bookmark_restart2) {
+  #     for(i in 1:5) {
+  #       var_name = paste0("selection", i, "_rows_selected")
+  #       if(length(values[[var_name]]) > 0) {
+  #         print(paste0("select rows: ", "selection", i))
+  #         rows = values[[var_name]]
+  #         get(paste0("proxy", i)) %>% selectRows(rows)
+  #       }
+  #     }
+  #   }
+  # }, ignoreInit = T, ignoreNULL = T, autoDestroy = T)
+  
   # Make other tables on row selection
   observeEvent(input$output_table_rows_selected, {
     print("rows selected")
     showElement("result_row3")
     showElement("row3_bind_data")
     row = input$output_table_rows_selected
-    # If restoring bookmarked session, select same rows as before
-    if(length(values$rows_selected_save) > 0) {
-      print("restore selections")
-      row = values$rows_selected_save
-      proxy %>%  selectRows(row)
-      values$rows_selected_save = NULL
-    }
     
+    print("start select rows")
+    if(values$bookmark_restart) {
+      if(length(values$output_table_rows_selected) > 0) {
+        print("select rows: output table")
+        rows = values$output_table_rows_selected
+        proxy %>% selectRows(rows)
+      }
+      if(length(values$binding_data_rows_selected) > 0) {
+        print("select rows: output table")
+        rows = values$binding_data_rows_selected
+        proxy_bind %>% selectRows(rows)
+      }
+      values$bookmark_restart2 = T
+    }
+    # If restoring bookmarked session, select same rows as before
+    # if(length(values$output_table_rows_selected) > 0) {
+    #   print("restore selections")
+    #   row = values$output_table_rows_selected
+    #   proxy %>% selectRows(row)
+    #   values$output_table_rows_selected = NULL
+    # }
+
     # show/hide the selection tables
     if(length(row) == 1) {
       showElement("row3_col1")
@@ -480,16 +552,48 @@ server = function(input, output, session) {
       values[[name_display]] = values[[name_data]][,c(3,4,5)]
       output_name = paste("selection", i, sep = "")
     }
+    if(values$bookmark_restart2) {
+      for(i in 1:5) {
+        var_name = paste0("selection", i, "_rows_selected")
+        if(length(values[[var_name]]) > 0) {
+          print(paste0("select rows: ", "selection", i))
+          rows = values[[var_name]]
+          get(paste0("proxy", i), .GlobalEnv) %>% selectRows(rows)
+        }
+      }
+      rows = values$selection1_rows_selected
+      proxy1 %>% selectRows(rows)
+    }
   }, ignoreInit = T, ignoreNULL = F)
   
   proxy <<- dataTableProxy('output_table')
+  proxy1 <<- dataTableProxy('selection1')
+  proxy2 <<- dataTableProxy('selection2')
+  proxy3 <<- dataTableProxy('selection3')
+  proxy4 <<- dataTableProxy('selection4')
+  proxy5 <<- dataTableProxy('selection5')
+  proxy_bind <<- dataTableProxy('binding_data')
   
-  observe({
-    if(length(values$rows_selected_save > 0)) {
-      print("select rows")
-      proxy %>% selectRows(values$rows_selected_save)
-    }
-  })
+  
+  # observe({
+  #   print("start select rows")
+  #   print(values$output_table_rows_selected)
+  #   if(length(values$output_table_rows_selected) > 0) {
+  #     print("select rows: output table")
+  #     proxy %>% selectRows(values$output_table_rows_selected)
+  #   }
+  #   for(i in 1:5) {
+  #     var_name = paste0("selection", i, "_rows_selected")
+  #     if(length(values[[var_name]]) > 0) {
+  #       print(paste0("select rows: ", "selection", i))
+  #       get(paste0("proxy", i)) %>% selectRows(values[[var_name]])
+  #     }
+  #   }
+  #   if(length(values$binding_data_rows_selected) > 0) {
+  #     print("select rows: output table")
+  #     proxy_bind %>% selectRows(values$binding_data_rows_selected)
+  #   }
+  # })
   
   observeEvent(input$clearButton, {
     proxy %>% selectRows(NULL)
@@ -596,6 +700,15 @@ server = function(input, output, session) {
 
 #similarity_table = read_csv("input/similarity_table_ChemblV22_1_20170804.csv")
 #affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv")
+
+message.hide.js = "$('.message .close')
+.on('click', function() {
+  $(this)
+  .closest('.message')
+  .transition('fade')
+  ;
+})
+;"
 
 # logifySlider javascript function
 JS.logify <-
@@ -721,7 +834,14 @@ ui <- function(request) {
                                                  placeholder = 'Search for a compound',
                                                  onInitialize = I('function() { this.setValue(""); }')
                                                )
-                                )
+                                ),
+                                hidden(div(class = "ui negative message", id = "bookmark_not_found",
+                                    tags$i(class = "close icon"),
+                                    div(class = "header",
+                                        "This bookmark was not found!"
+                                        ),
+                                    "Check that the URL was entered correctly. If the bookmark is old, it may not work with our current database."
+                                    ))
                                 #uiOutput("drug_search")
                             )
                         ),
@@ -875,4 +995,4 @@ ui <- function(request) {
     )
 }
 
-shinyApp(ui, server, enableBookmarking = "server")
+shinyApp(ui, server, enableBookmarking = "url")

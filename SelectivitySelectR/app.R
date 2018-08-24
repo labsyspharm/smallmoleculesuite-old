@@ -10,6 +10,10 @@ library(magrittr)
 library(markdown)
 library(clipr)
 library(rclipboard)
+library(aws.s3)
+
+app_name = "SelectivitySelectR"
+source(".awspass")
 
 affinity_selectivity = read_csv("input/affinity_selectivity_table_ChemblV22_1_20170804.csv") %>% 
   mutate_at(vars(c(`mean_Kd_(nM)`, `SD_Kd_(nM)`:offtarget_IC50_N)),
@@ -59,32 +63,63 @@ server = function(input, output, session) {
   Sys.setlocale("LC_COLLATE","en_US.UTF-8")
   
   onRestore(function(state) {
-    print("restore")
-    for(i in names(state$values)) {
-      values[[i]] = state$values[[i]]
+    print("onRestore start")
+    query_id = getQueryString()$bookmark
+    input_name = paste0("sms_bookmarks/", query_id, "/input.rds")
+    if( object_exists(object = input_name, bucket = aws_bucket) ) {
+      new_input <<- s3readRDS(object = input_name, bucket = aws_bucket)
+    } else {
+      showElement(id = "bookmark_not_found")
     }
+    print("onRestore end")
   })
   
   onRestored(function(state) {
-    print("restored")
-    updateSelectizeInput(session, "query_gene", selected = state$input$query_gene,
-                         choices = state$values$genes)
-    values$rows_selected_save = state$input$output_table_rows_selected
-    updateQueryString("?")
+    print("onRestored start")
+    ### restore the state if the bookmark is found
+    if(!is.null(new_input)) {
+      updateSelectizeInput(session, "query_gene", selected = new_input$query_gene)
+      
+      updateSliderInput(session, inputId = "affinity", value = new_input$affinity)
+      updateSliderInput(session, inputId = "sd", value = new_input$sd)
+      updateSliderInput(session, inputId = "min_measurements", value = new_input$min_measurements)
+      if(floor(new_input$filter_button/2) != new_input$filter_button/2) { shinyjs::click("filter_button") }
+      updateCheckboxInput(session, inputId = "include_genes", value = new_input$include_genes)
+      values$points_selected = new_input$points_selected
+      values$rows_selected_save = new_input$output_table_rows_selected
+      
+      #updateQueryString("?") 
+    }
+    ## reset saved input placeholder object
+    new_input <<- NULL
+    print("onRestored end")
   })
   
   onBookmark(function(state) {
     print("bookmark")
     if(exists("d")) {
-      state$values$points_selected = d$selection(ownerId = "mainplot")
-      state$values$groupId = d$groupName()
+      values$points_selected = d$selection(ownerId = "mainplot")
+      #values$groupId = d$groupName()
     }
   })
   
   onBookmarked(function(url) {
     print("bookmarked")
-    session$sendCustomMessage("bookmark_url", message = url)
-    values$url = url
+    date_time = format(Sys.time(), "%Y%m%d-%H%M%S")
+    id = substr(as.character(runif(1)), 3, 6)
+    new_id = paste0(app_name, "-", date_time, "-", id)
+    new_url = gsub("\\?_inputs_.*", paste0("?bookmark=",new_id), url)
+    session$sendCustomMessage("bookmark_url", message = new_url)
+    values$url = new_url
+    input_list = reactiveValuesToList(input, all.names = T)
+    print("input_list")
+    print(names(input_list))
+    input_list_save = input_list[c("query_gene", "include_genes", "filter_button",
+                                   "affinity", "sd", "min_measurements",
+                                   "output_table_rows_selected")]
+    input_list_save$points_selected = values$points_selected
+    s3saveRDS(input_list_save, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "input.rds"))
+    updateQueryString(new_url)
   })
   
   observeEvent(input$bookmark1, {
@@ -118,7 +153,7 @@ server = function(input, output, session) {
   
   # reactive values
   values = reactiveValues(c.binding_data = NULL, selection_table = NULL,
-                          num_selected = 0)
+                          num_selected = 0, query_gene = NULL)
   
   # show/hide filters
   observeEvent(input$filter_button, {
@@ -127,14 +162,17 @@ server = function(input, output, session) {
     toggleElement(id = "filter_right")
   })
 
-  
   observeEvent(input$query_gene, {
-    output$plot_title = renderText(paste0("Affinity and selectivity for drugs targeting ", input$query_gene))
-    output$table_title = renderText(paste0("Data for drugs targeting ", input$query_gene))
+    values$query_gene = input$query_gene
   })
   
-  observeEvent(c(input$query_gene, input$affinity, input$sd, input$min_measurements) , {
-    if(input$query_gene != "" && !is.null(input$query_gene) ) {
+  observeEvent(values$query_gene, {
+    output$plot_title = renderText(paste0("Affinity and selectivity for drugs targeting ", values$query_gene))
+    output$table_title = renderText(paste0("Data for drugs targeting ", values$query_gene))
+  })
+  
+  observeEvent(c(values$query_gene, input$affinity, input$sd, input$min_measurements) , {
+    if(values$query_gene != "" && !is.null(values$query_gene) ) {
       print("main")
       showElement("loader1")
       showElement("plot_col")
@@ -143,7 +181,7 @@ server = function(input, output, session) {
       showElement("plot_column")
       
       values$c.binding_data = affinity_selectivity %>%
-        filter(symbol == input$query_gene) %>%
+        filter(symbol == values$query_gene) %>%
         filter(`mean_Kd_(nM)` >= 10^input$affinity[1] | is.na(`mean_Kd_(nM)`)) %>%
         filter(`mean_Kd_(nM)` <= 10^input$affinity[2] | is.na(`mean_Kd_(nM)`)) %>%
         filter(`SD_Kd_(nM)` <= 10^input$sd | is.na(`SD_Kd_(nM)`)) %>%
@@ -163,7 +201,9 @@ server = function(input, output, session) {
       if(length(values$points_selected) > 0) {
         print("groupId")
         #print(values$c.binding_data[ values$points_selected, ])
-        d <<- SharedData$new(values$c.binding_data, ~name, group = values$groupId)
+        #d <<- SharedData$new(values$c.binding_data, ~name, group = values$groupId)
+        d <<- SharedData$new(values$c.binding_data, ~name)
+        
         #d$selection(values$points_selected, ownerId = "mainplot")
         print(d$selection())
       } else {
@@ -171,12 +211,45 @@ server = function(input, output, session) {
         d <<- SharedData$new(values$c.binding_data, ~name)
       }
       
+      points = values$points_selected
+      
+      output$mainplot <- renderPlotly({
+        p <- d %>%
+          plot_ly(x = ~selectivity_plot, y = ~`mean_Kd_(nM)`, mode = "markers", 
+                  source = "Z",
+                  color = ~selectivity_class, text = ~paste("Drug name: ", 
+                                                            name, "\nDrug HMS ID: ", hms_id, "\nGene symbol: ", symbol,"\nx: ", selectivity, "\ny: ", 
+                                                            `mean_Kd_(nM)`, sep = ""), hoverinfo = "text") %>%
+          layout(showlegend = T,
+                 shapes = list(list(type='line', x0= -0.5, x1= -0.5, y0= 10^(input$affinity[1]), y1= 10^(input$affinity[2]),
+                                    line=list(dash='dot', width=2, color = "red"))),
+                 xaxis = list(range = c(-0.6, 1.3),
+                              title = "Selectivity",
+                              tickmode = "array",
+                              tickvals = c(-0.5, seq(-0.25, 1.25, .25)),
+                              ticktext = c("NA", as.character(seq(-0.25, 1.25, .25)))),
+                 yaxis = list(range = c(input$affinity[1], input$affinity[2]),
+                              title = "Mean Kd (nM)",
+                              type = "log")
+          ) %>% highlight("plotly_selected", color = I('red'), hoverinfo = "text")
+        # if restoring from a bookmark, select previously selected points
+        p$x$highlight$defaultValues = values$c.binding_data$name[points]
+        p$x$highlight$color = "rgba(255,0,0,1)"
+        p$x$highlight$off = "plotly_deselect"
+        p %>% layout(dragmode = "select")
+      })
+      
+      if(sum(values$points_selected) > 0) {
+        d$selection(points, ownerId = "mainplot")
+        values$points_selected = F
+      }
+      
       # display results table
       output$output_table = DT::renderDataTable({
         print("output_table")
         
         values$c.binding_data_sub = values$c.binding_data[d$selection(), 
-                                   -which(names(values$c.binding_data) %in% c("selectivity_plot")), drop = F]
+                                                          -which(names(values$c.binding_data) %in% c("selectivity_plot")), drop = F]
         m2 = values$c.binding_data_sub
         dt <- values$c.binding_data[ , -which(names(values$c.binding_data) %in% 
                                                 c("selectivity_plot")), drop = F]
@@ -207,37 +280,6 @@ server = function(input, output, session) {
         proxy %>% selectRows(values$rows_selected_save)
       }
       
-      points = values$points_selected
-      
-      output$mainplot <- renderPlotly({
-        p <- d %>%
-          plot_ly(x = ~selectivity_plot, y = ~`mean_Kd_(nM)`, mode = "markers", 
-                  source = "Z",
-                  color = ~selectivity_class, text = ~paste("Drug name: ", 
-                                                            name, "\nDrug HMS ID: ", hms_id, "\nGene symbol: ", symbol,"\nx: ", selectivity, "\ny: ", 
-                                                            `mean_Kd_(nM)`, sep = ""), hoverinfo = "text") %>%
-          layout(showlegend = T,
-                 shapes = list(list(type='line', x0= -0.5, x1= -0.5, y0= 10^(input$affinity[1]), y1= 10^(input$affinity[2]),
-                                    line=list(dash='dot', width=2, color = "red"))),
-                 xaxis = list(range = c(-0.6, 1.3),
-                              title = "Selectivity",
-                              tickmode = "array",
-                              tickvals = c(-0.5, seq(-0.25, 1.25, .25)),
-                              ticktext = c("NA", as.character(seq(-0.25, 1.25, .25)))),
-                 yaxis = list(range = c(input$affinity[1], input$affinity[2]),
-                              title = "Mean Kd (nM)",
-                              type = "log")
-          ) %>% highlight("plotly_selected", color = I('red'), hoverinfo = "text")
-        # if restoring from a bookmark, select previously selected points
-        p$x$highlight$defaultValues = values$c.binding_data$name[points]
-        p$x$highlight$color = "rgba(255,0,0,1)"
-        p$x$highlight$off = "plotly_deselect"
-        p %>% layout(dragmode = "select")
-      })
-      if(sum(values$points_selected) > 0) {
-        d$selection(points, ownerId = "mainplot")
-        values$points_selected = F
-      }
       
     }
   }, ignoreInit = T)
@@ -254,11 +296,11 @@ server = function(input, output, session) {
         filter(tax_id == 9606) %>% extract2("symbol") %>% unique() %>% sort() %>% c("", .)
       # just human genes
     }
-    print(input$query_gene)
-    if(length(input$query_gene) > 0 && input$query_gene != "") {
-      if(input$query_gene %in% values$genes) {
+    print(values$query_gene)
+    if(length(values$query_gene) > 0 && values$query_gene != "") {
+      if(values$query_gene %in% values$genes) {
         print("selectize1")
-        updateSelectizeInput(session, inputId = "query_gene", label = "", choices = values$genes, selected = input$query_gene)
+        updateSelectizeInput(session, inputId = "query_gene", label = "", choices = values$genes, selected = values$query_gene)
       }
     } else {
       print("selectize2")
@@ -672,4 +714,4 @@ ui <- function(request) {
     )
 }
 
-shinyApp(ui, server, enableBookmarking = "server")
+shinyApp(ui, server, enableBookmarking = "url")
