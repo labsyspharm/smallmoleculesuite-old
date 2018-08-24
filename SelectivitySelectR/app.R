@@ -62,6 +62,12 @@ server = function(input, output, session) {
   # Set locale so that sorting works correctly
   Sys.setlocale("LC_COLLATE","en_US.UTF-8")
   
+  # Run js to hide warning messages on click
+  runjs(message.hide.js)
+  
+  ## initialize variable for restoring input from bookmark
+  new_input = NULL
+  
   onRestore(function(state) {
     print("onRestore start")
     query_id = getQueryString()$bookmark
@@ -87,11 +93,10 @@ server = function(input, output, session) {
       updateCheckboxInput(session, inputId = "include_genes", value = new_input$include_genes)
       values$points_selected = new_input$points_selected
       values$rows_selected_save = new_input$output_table_rows_selected
-      
+      ## reset saved input placeholder object
+      new_input <<- NULL
       #updateQueryString("?") 
     }
-    ## reset saved input placeholder object
-    new_input <<- NULL
     print("onRestored end")
   })
   
@@ -275,11 +280,10 @@ server = function(input, output, session) {
       )
       proxy <<- dataTableProxy('output_table')
       
-      if(length(values$rows_selected_save > 0)) {
-        print("select rows")
-        proxy %>% selectRows(values$rows_selected_save)
-      }
-      
+      # if(length(values$rows_selected_save > 0)) {
+      #   print("select rows")
+      #   proxy %>% selectRows(values$rows_selected_save)
+      # }
       
     }
   }, ignoreInit = T)
@@ -465,6 +469,15 @@ server = function(input, output, session) {
 
 #### UI
 
+message.hide.js = "$('.message .close')
+.on('click', function() {
+  $(this)
+  .closest('.message')
+  .transition('fade')
+  ;
+})
+;"
+
 # logifySlider javascript function
 JS.logify <-
   "
@@ -599,8 +612,16 @@ ui <- function(request) {
                                              onInitialize = I('function() { this.setValue(""); }')
                                            )
                                            ),
-                            checkboxInput("include_genes", "Include non-human genes", value = F),
-                            br(),
+                            div(checkboxInput("include_genes", "Include non-human genes", value = F),
+                                style = "padding-bottom: 10px;"),
+                            hidden(div(class = "ui negative message", id = "bookmark_not_found",
+                                       style = "margin-top: 0px;",
+                                       tags$i(class = "close icon"),
+                                       div(class = "header",
+                                           "This bookmark was not found!"
+                                       ),
+                                       "Check that the URL was entered correctly. If the bookmark is old, it may not work with our current database."
+                            )),
                             div(class = "ui noshadow horizontal segments",
                                 div(class = "ui basic compact segment",
                                     style = "width: 60px; min-width: 60px; padding: 0px;",

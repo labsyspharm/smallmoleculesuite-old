@@ -82,16 +82,13 @@ server = function(input, output, session) {
   runjs(message.hide.js)
   
   new_input = NULL
-  new_values = NULL
-  
+
   onRestore(function(state) {
     print("onRestore start")
     query_id = getQueryString()$bookmark
     input_name = paste0("sms_bookmarks/", query_id, "/input.rds")
-    values_name = paste0("sms_bookmarks/", query_id, "/values.rds")
     if( object_exists(object = input_name, bucket = aws_bucket) ) {
       new_input <<- s3readRDS(object = input_name, bucket = aws_bucket)
-      new_values <<- s3readRDS(object = values_name, bucket = aws_bucket)
     } else {
       showElement(id = "bookmark_not_found")
     }
@@ -104,20 +101,22 @@ server = function(input, output, session) {
     if(!is.null(new_input)) {
       ## select the compound
       updateSelectizeInput(session, "query_compound", selected = new_input$query_compound)
+      ## update sliders
+      updateSliderInput(session, inputId = "n_common", value = new_input$n_common)
+      updateSliderInput(session, inputId = "n_pheno", value = new_input$n_pheno)
       ## show/hide elements
       if(floor(new_input$filter_button/2) != new_input$filter_button/2) { shinyjs::click("filter_button") }
       if(floor(new_input$intro_hide/2) != new_input$intro_hide/2) { shinyjs::click("intro_hide") }
       ## restore other values
-      print(names(new_values))
-      for(x in names(new_values)) {
-        values[[x]] = new_values[[x]]
-      }
-      values$bookmark_restart = T
+      values$points_selected1 = new_input$points_selected1
+      values$points_selected2 = new_input$points_selected2
+      values$points_selected3 = new_input$points_selected3
+      values$rows_selected_save = new_input$output_table_rows_selected
+      ## reset saved input placeholder object
+      new_input <<- NULL
+      #values$bookmark_restart = T
     }
     #updateQueryString("?")
-    ## reset "new_input" and "new_values" objects
-    new_input <<- NULL
-    new_values <<- NULL
     print("onRestored end")
   })
   
@@ -128,7 +127,7 @@ server = function(input, output, session) {
         values$points_selected1 = d$selection(ownerId = "mainplot1") %>% which()
         values$points_selected2 = d$selection(ownerId = "mainplot2") %>% which()
         values$points_selected3 = d$selection(ownerId = "mainplot3") %>% which()
-        values$groupId = d$groupName()
+        #values$groupId = d$groupName()
       }
     }
   })
@@ -144,17 +143,17 @@ server = function(input, output, session) {
     input_list = reactiveValuesToList(input, all.names = T)
     print("input_list")
     print(names(input_list))
-    row_sel = grep("_rows_selected$", names(input_list), value = T)
-    input_list_save = input_list[c("query_compound", "filter_button", "n_pheno", "intro_hide", "n_common")]
-    values_list = reactiveValuesToList(values, all.names = T)
-    for(x in row_sel) { values_list[[x]] = input_list[[x]] }
-    points_selected_names = grep("^points_selected[1-3]", names(values_list), value = T)
+    #row_sel = grep("_rows_selected$", names(input_list), value = T)
+    input_list_save = input_list[c("query_compound", "filter_button", "n_pheno", "intro_hide", "n_common",
+                                   "output_table_rows_selected")]
+    #values_list = reactiveValuesToList(values, all.names = T)
+    #for(x in row_sel) { values_list[[x]] = input_list[[x]] }
+    #points_selected_names = grep("^points_selected[1-3]", names(values_list), value = T)
     #selected_drug_names = grep("^selection.drug[1-5]", names(values_list), value = T)
-    values_names = c(points_selected_names, row_sel)
-    values_names = values_names[values_names %in% names(values_list)]
-    values_list = values_list[values_names]
-    s3saveRDS(input_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "input.rds"))
-    s3saveRDS(values_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "values.rds"))
+    input_list_save$points_selected1 = values$points_selected1
+    input_list_save$points_selected2 = values$points_selected2
+    input_list_save$points_selected3 = values$points_selected3
+    s3saveRDS(input_list_save, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "input.rds"))
     updateQueryString(new_url)
   })
   
@@ -456,26 +455,13 @@ server = function(input, output, session) {
     row = input$output_table_rows_selected
     
     print("start select rows")
-    if(values$bookmark_restart) {
-      if(length(values$output_table_rows_selected) > 0) {
-        print("select rows: output table")
-        rows = values$output_table_rows_selected
-        proxy %>% selectRows(rows)
-      }
-      if(length(values$binding_data_rows_selected) > 0) {
-        print("select rows: output table")
-        rows = values$binding_data_rows_selected
-        proxy_bind %>% selectRows(rows)
-      }
-      values$bookmark_restart2 = T
-    }
     # If restoring bookmarked session, select same rows as before
-    # if(length(values$output_table_rows_selected) > 0) {
-    #   print("restore selections")
-    #   row = values$output_table_rows_selected
-    #   proxy %>% selectRows(row)
-    #   values$output_table_rows_selected = NULL
-    # }
+    if(length(values$rows_selected_save) > 0) {
+      print("restore selections")
+      row = values$rows_selected_save
+      proxy %>%  selectRows(row)
+      values$rows_selected_save = NULL
+    }
 
     # show/hide the selection tables
     if(length(row) == 1) {
@@ -552,18 +538,18 @@ server = function(input, output, session) {
       values[[name_display]] = values[[name_data]][,c(3,4,5)]
       output_name = paste("selection", i, sep = "")
     }
-    if(values$bookmark_restart2) {
-      for(i in 1:5) {
-        var_name = paste0("selection", i, "_rows_selected")
-        if(length(values[[var_name]]) > 0) {
-          print(paste0("select rows: ", "selection", i))
-          rows = values[[var_name]]
-          get(paste0("proxy", i), .GlobalEnv) %>% selectRows(rows)
-        }
-      }
-      rows = values$selection1_rows_selected
-      proxy1 %>% selectRows(rows)
-    }
+    # if(values$bookmark_restart2) {
+    #   for(i in 1:5) {
+    #     var_name = paste0("selection", i, "_rows_selected")
+    #     if(length(values[[var_name]]) > 0) {
+    #       print(paste0("select rows: ", "selection", i))
+    #       rows = values[[var_name]]
+    #       get(paste0("proxy", i), .GlobalEnv) %>% selectRows(rows)
+    #     }
+    #   }
+    #   rows = values$selection1_rows_selected
+    #   proxy1 %>% selectRows(rows)
+    # }
   }, ignoreInit = T, ignoreNULL = F)
   
   proxy <<- dataTableProxy('output_table')
