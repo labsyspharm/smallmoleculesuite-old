@@ -17,7 +17,7 @@ SelectivitySelectR
 
 <div class = "stackable column">
 <div class = "ui basic center aligned segment" style = "font-size: large; font-weight: bold; padding: 0px; margin: 0px;">
-<a href = "/apps/apps/SimilaritySelectR/" style = "color: #00AC9F;">
+<a href = "/apps/SimilaritySelectR/" style = "color: #00AC9F;">
 <img src = "small_molecule.png" height = "100"><br>
 <font size="+2">
 SimilaritySelectR
@@ -51,7 +51,7 @@ LibraryR
 
 <div class = "stackable column">
 <div class = "ui basic left aligned segment" style = "font-size: medium; padding: 0px;">
-<p>&emsp;&emsp;<b><a href = "/apps/apps/SimilaritySelectR/" style = "color: #00AC9F;">SimilaritySelectR</a></b> shows the similarity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> to a reference compound. Similarity is regarded in threefold: structural similarity (Tanimoto similarity of Morgan2 fingerprints), target affinity spectrum similarity (TAS) and phenotypic fingerprint similarity (PFP). To use SimilaritySelectR, select a reference compound and adjust filters as desired. From the main plots, select a region with compounds of interest. Then, select up to three compounds in the bottom table and view their known binding affinities in detail.</p>
+<p>&emsp;&emsp;<b><a href = "/apps/SimilaritySelectR/" style = "color: #00AC9F;">SimilaritySelectR</a></b> shows the similarity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> to a reference compound. Similarity is regarded in threefold: structural similarity (Tanimoto similarity of Morgan2 fingerprints), target affinity spectrum similarity (TAS) and phenotypic fingerprint similarity (PFP). To use SimilaritySelectR, select a reference compound and adjust filters as desired. From the main plots, select a region with compounds of interest. Then, select up to three compounds in the bottom table and view their known binding affinities in detail.</p>
 </div>
 </div>
 
