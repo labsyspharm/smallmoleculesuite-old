@@ -23,7 +23,7 @@ shinyUI(
                margin-bottom: 0px;
                }"
     ),
-    div(class = "ui mini modal",
+    div(class = "ui small modal", id = "about_modal",
       div(class = "actions",
         div(class = "ui red basic circular cancel icon button", 
             uiicon(type = "window close")
@@ -33,14 +33,27 @@ shinyUI(
         includeMarkdown("www/about.md")
       )
     ),
+    div(class = "ui mini modal", id = "contact_modal",
+        div(class = "header",
+            div(class = "actions",
+                "Contact us",
+                div(class = "ui red basic circular cancel icon button", style = "float: right;",
+                    uiicon(type = "window close")
+                )
+            )
+        ),
+        div(class = "ui center aligned basic segment",
+            includeMarkdown("www/contact.md")
+        )
+    ),
     div(class = "ui container",
       div(class = "ui top attached inverted five item stackable menu",
         div(class = "ui center aligned container",
   a(class = "item", img(class = "logo", src = "dcic.png"),
     href = "http://lincs-dcic.org/"),
-  a(class = "item", "SelectivitySelectR", href = "/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-  a(class = "item", "SimilaritySelectR", href = "/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-  a(class = "item", "LibraryR", href = "/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+  a(class = "item", "SelectivitySelectR", href = "https://labsyspharm.shinyapps.io/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+  a(class = "item", "SimilaritySelectR", href = "https://labsyspharm.shinyapps.io/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+  a(class = "item", "LibraryR", href = "https://labsyspharm.shinyapps.io/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
   a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
     href = "http://sorger.med.harvard.edu" )
         )
@@ -52,8 +65,8 @@ shinyUI(
         div(class = "ui center aligned container",
           div(class = "ui horizontal inverted large divided link list",
   a(class = "item", div(class = "action-button", "About", id = "about") ),
-  a(class = "item", "Contact Us"),
-  a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/smallmoleculesuite")
+  a(class = "item", div(class = "action-button", "Contact Us", id = "contact") ),
+  a(class = "item", "Github", uiicon("github"), href = "https://github.com/labsyspharm/smallmoleculesuite")
           )
         )
       )

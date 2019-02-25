@@ -8,6 +8,7 @@ library(markdown)
 library(clipr)
 library(rclipboard)
 library(aws.s3)
+library(magrittr)
 
 app_name = "LibraryR"
 source(".awspass")
@@ -19,7 +20,8 @@ selection_table_selectivity = read_csv("input/selection_table_selectivity_edited
 selection_table_clindev = read_csv("input/selection_table_clinical_development.csv") %>%
   mutate_at(vars(c(`mean_Kd`, `SD_aff`)),
             function(x) signif(x, 2))
-merge_cmpd_info = read_csv("input/cmpd_info_library_designer.csv")
+merge_cmpd_info = read_csv("input/cmpd_info_library_designer_v2.csv")
+selection_table_chemprobesdotorg = read_csv("input/selection_table_ChemProbesOrg_v1.csv")
 merge_table_geneinfo = read_csv("input/gene_info_library_designer.csv")
 
 # add SD_aff column
@@ -57,10 +59,12 @@ one = c("max_phase_1")
 tab.js = "$('.menu .item')
 .tab()
 ;"
-
-about.modal.js = "$('.ui.mini.modal')
+contact.modal.js = "$('.ui.mini.modal')
+$('#contact_modal').modal('show')
+;"
+about.modal.js = "$('.ui.small.modal')
 .modal({
-blurring: true
+blurring: false
 })
 $('#about_modal').modal('show')
 ;"
@@ -83,7 +87,9 @@ $("#submitButton").click()
 
 server = function(input, output, session) {
   runjs(tab.js)
-  
+  observeEvent(input$contact, {
+    runjs(contact.modal.js)
+  })
   # Run js to hide warning messages on click
   runjs(message.hide.js)
   
@@ -296,10 +302,17 @@ server = function(input, output, session) {
                                                          merge(merge_cmpd_info[c("molregno","chembl_id","pref_name","max_phase")],
                                                                by="molregno") %>%
                                                          merge(merge_table_geneinfo,by="gene_id"))
+                     if("chem_probe" %in% input$legacy) {
+                       print("chemprobes.org")
+                       values$display_per_entry %<>% mutate(gene_id_molregno = paste(gene_id, molregno))
+                       selection_table_chemprobesdotorg %<>% mutate(gene_id_molregno = paste(gene_id, molregno))
+                       values$display_per_entry %<>% filter(gene_id_molregno %in% selection_table_chemprobesdotorg$gene_id_molregno)
+                     }
                      
                      values$display_per_entry = values$display_per_entry[c("symbol","chembl_id",
                                                                            "pref_name","source","max_phase","mean_Kd", "SD_aff","n_measurement",
                                                                            "gene_id","tax_id")]
+                     
                      values$display_per_entry = values$display_per_entry %>% mutate(
                        symbol = factor(symbol), chembl_id = factor(chembl_id), pref_name = factor(pref_name),
                        source = factor(source), gene_id = factor(gene_id), tax_id = factor(tax_id),
@@ -312,12 +325,20 @@ server = function(input, output, session) {
                      values$display_per_cmpd = unique(output_table %>%
                                                         merge(merge_cmpd_info[c("molregno","chembl_id","pref_name",
                                                                                 "max_phase","alt_names","inchi")], by="molregno") %>%
-                                                        merge(merge_table_geneinfo,by="gene_id")) %>%
+                                                        merge(merge_table_geneinfo,by="gene_id"))
+                     if("chem_probe" %in% input$legacy) {
+                       print("chemprobes.org")
+                       values$display_per_cmpd %<>% mutate(gene_id_molregno = paste(gene_id, molregno))
+                       selection_table_chemprobesdotorg %<>% mutate(gene_id_molregno = paste(gene_id, molregno))
+                       values$display_per_cmpd %<>% filter(gene_id_molregno %in% selection_table_chemprobesdotorg$gene_id_molregno) %>% select(-gene_id_molregno)
+                     }
+                     values$display_per_cmpd %<>%
                        group_by(molregno,chembl_id,pref_name,alt_names,inchi,max_phase) %>%
                        summarise(sources=toString(paste0(symbol,";",source))) %>% as.data.frame %>% mutate(
                          molregno = factor(molregno), chembl_id = factor(chembl_id), pref_name = factor(pref_name),
                          max_phase = as.integer(max_phase)
                        ) %>% rename(reason_included = sources)
+
                    }, ignoreNULL = F)
   })
   
@@ -448,12 +469,25 @@ ui = function(request) {
                margin-bottom: 0px;
                }"
     ),
-    div(class = "ui mini modal", id = "about_modal",
+    div(class = "ui small modal", id = "about_modal",
         div(class = "actions",
             div(class = "ui red basic circular cancel icon button", uiicon(type = "window close"))
         ),
         div(class = "ui center aligned basic segment",
             includeMarkdown("www/about.md")
+        )
+    ),
+    div(class = "ui mini modal", id = "contact_modal",
+        div(class = "header",
+            div(class = "actions",
+                "Contact us",
+                div(class = "ui red basic circular cancel icon button", style = "float: right;",
+                    uiicon(type = "window close")
+                )
+            )
+        ),
+        div(class = "ui center aligned basic segment",
+            includeMarkdown("www/contact.md")
         )
     ),
     div(class = "ui mini modal", id = "genelist_modal", style = "width: 450px; hposition: absolute; left: 50%; margin-left: -225px;",
@@ -485,9 +519,9 @@ ui = function(request) {
             div(class = "ui center aligned container",
                 a(class = "item", img(class = "logo", src = "dcic.png"),
                   href = "http://lincs-dcic.org/"),
-                a(class = "item", "SelectivitySelectR", href = "/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-                a(class = "item", "SimilaritySelectR", href = "/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-                a(class = "item", "LibraryR", href = "/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SelectivitySelectR", href = "https://labsyspharm.shinyapps.io/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SimilaritySelectR", href = "https://labsyspharm.shinyapps.io/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "LibraryR", href = "https://labsyspharm.shinyapps.io/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
                 a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
                   href = "http://sorger.med.harvard.edu" )
             )
@@ -618,9 +652,9 @@ ui = function(request) {
                                         ),
                                         div(class = "ui basic segment", id = "col2",
                                             a(class = "ui red label", "Expert opinion compounds"),
-                                            selectizeInput("legacy", "", choices = c(`Gray best inhibitor list` = "gray",
-                                                                                     `chemicalprobes.org 4.0 star rating` = "chem_probe"), multiple = T, options = list(
-                                                                                       'plugins' = list('remove_button')))
+                                            selectizeInput("legacy", "", 
+  choices = c(`chemicalprobes.org 4.0 star rating` = "chem_probe"), multiple = T, options = list('plugins' = list('remove_button'))
+                                                           )
                                         )
                                     )
                                 )
@@ -674,9 +708,10 @@ ui = function(request) {
     div(class = "ui bottom attached inverted footer segment", style = "margin: 0px;",
         div(class = "ui center aligned container",
             div(class = "ui horizontal inverted large divided link list",
+                a(class = "item", "Home", href = "https://labsyspharm.shinyapps.io/smallmoleculesuite/"),
                 a(class = "item", div(class = "action-button", "About", id = "about") ),
-                a(class = "item", "Contact Us"),
-                a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/smallmoleculesuite")
+                a(class = "item", div(class = "action-button", "Contact Us", id = "contact") ),
+                a(class = "item", "Github", uiicon("github"), href = "https://github.com/labsyspharm/smallmoleculesuite")
             )
         )
     )

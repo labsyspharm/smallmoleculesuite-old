@@ -42,15 +42,18 @@ zipped_csv <- function(df_list, zippedfile, filenames, stamp) {
   }
 }
 
-about.modal.js = "$('.ui.mini.modal')
+contact.modal.js = "$('.ui.mini.modal')
+$('#contact_modal').modal('show')
+;"
+about.modal.js = "$('.ui.small.modal')
 .modal({
-    blurring: true
+blurring: false
 })
 $('#about_modal').modal('show')
 ;"
 bookmark.modal.js = "$('.ui.mini.modal')
 .modal({
-    blurring: true
+    blurring: false
 })
 $('#bookmark_modal').modal('show')
 ;"
@@ -58,7 +61,9 @@ $('#bookmark_modal').modal('show')
 server = function(input, output, session) {
   # Make app stop when you close the webpage
   #session$onSessionEnded(stopApp)
-  
+  observeEvent(input$contact, {
+    runjs(contact.modal.js)
+  })
   # Set locale so that sorting works correctly
   Sys.setlocale("LC_COLLATE","en_US.UTF-8")
   
@@ -548,7 +553,20 @@ ui <- function(request) {
                padding: 0px;
                }"
     ),
-    div(class = "ui mini modal", id = "about_modal",
+    div(class = "ui mini modal", id = "contact_modal",
+        div(class = "header",
+            div(class = "actions",
+                "Contact us",
+                div(class = "ui red basic circular cancel icon button", style = "float: right;",
+                    uiicon(type = "window close")
+                )
+            )
+        ),
+        div(class = "ui center aligned basic segment",
+            includeMarkdown("www/contact.md")
+        )
+    ),
+    div(class = "ui small modal", id = "about_modal",
         div(class = "actions",
             div(class = "ui red basic circular cancel icon button", uiicon(type = "window close"))
         ),
@@ -576,9 +594,9 @@ ui <- function(request) {
             div(class = "ui center aligned container",
                 a(class = "item", img(class = "logo", src = "dcic.png"),
                   href = "http://lincs-dcic.org/"),
-                a(class = "item", "SelectivitySelectR", href = "/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-                a(class = "item", "SimilaritySelectR", href = "/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
-                a(class = "item", "LibraryR", href = "/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SelectivitySelectR", href = "https://labsyspharm.shinyapps.io/SelectivitySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "SimilaritySelectR", href = "https://labsyspharm.shinyapps.io/SimilaritySelectR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
+                a(class = "item", "LibraryR", href = "https://labsyspharm.shinyapps.io/LibraryR/", style = "font-size: 16px; padding: 5px; margin: 0px;"),
                 a(class = "item", img(class = "logo", src = "logo_harvard_150.png"),
                   href = "http://sorger.med.harvard.edu" )
             )
@@ -725,9 +743,10 @@ ui <- function(request) {
         div(class = "ui bottom attached inverted footer segment", style = "margin: 0px; width: 100%;",
             div(class = "ui center aligned container",
                 div(class = "ui horizontal inverted large divided link list",
+                    a(class = "item", "Home", href = "https://labsyspharm.shinyapps.io/smallmoleculesuite/"),
                     a(class = "item", div(class = "action-button", "About", id = "about") ),
-                    a(class = "item", "Contact Us"),
-                    a(class = "item", "Github", uiicon("github"), href = "https://github.com/sorgerlab/smallmoleculesuite")
+                    a(class = "item", div(class = "action-button", "Contact Us", id = "contact") ),
+                    a(class = "item", "Github", uiicon("github"), href = "https://github.com/labsyspharm/smallmoleculesuite")
                 )
             )
         )
