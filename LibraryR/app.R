@@ -100,8 +100,8 @@ server = function(input, output, session) {
     print("onRestore start")
     query_id = getQueryString()$bookmark
     input_name = paste0("sms_bookmarks/", query_id, "/input.rds")
-    if( object_exists(object = input_name, bucket = aws_bucket) ) {
-      new_input <<- s3readRDS(object = input_name, bucket = aws_bucket)
+    if( head_object(object = input_name, bucket = aws_bucket, check_region = F) ) {
+      new_input <<- s3readRDS(object = input_name, bucket = aws_bucket, check_region = F)
     } else {
       showElement(id = "bookmark_not_found")
     }
@@ -165,7 +165,7 @@ server = function(input, output, session) {
     } else {
       input_list_save$gene_list = input_list$gene_list
     }
-    s3saveRDS(input_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "input.rds"))
+    s3saveRDS(input_list, bucket = aws_bucket, object = paste0("sms_bookmarks/", new_id, "/", "input.rds"), check_region = F)
     updateQueryString(new_url)
   })
   
