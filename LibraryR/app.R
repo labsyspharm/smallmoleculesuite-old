@@ -287,27 +287,26 @@ server = function(input, output, session) {
                        filter(symbol %in% values$gene_list_found) %>%
                        filter(source %in% values$probes)
                      output_clindev = selection_table_clindev %>%
-                       filter_(~symbol %in% values$gene_list_found) %>%
-                       filter_(~source %in% values$clinical) %>%
+                       filter(symbol %in% values$gene_list_found) %>%
+                       filter(source %in% values$clinical) %>%
                        # sliders "sd" and "affinity" are in log10 scale
-                       filter_(~mean_Kd <= 10^input$affinity) %>%
-                       filter_(~SD_aff <= 10^input$sd | is.na(SD_aff)) %>%
-                       filter_(~n_measurement >= input$meas)
-                     output_table = rbind(output_selectivity[c("gene_id","molregno","mean_Kd", "SD_aff",
-                                                               "n_measurement","source")],
-                                          output_clindev[c("gene_id","molregno","mean_Kd", "SD_aff",
-                                                           "n_measurement","source")])
+                       filter(mean_Kd <= 10^input$affinity) %>%
+                       filter(SD_aff <= 10^input$sd | is.na(SD_aff)) %>%
+                       filter(n_measurement >= input$meas)
+                     output_chem_probes = selection_table_chemprobesdotorg %>%
+                       mutate(mean_Kd = NA, SD_aff = NA, n_measurement = NA) %>%
+                       filter(symbol %in% values$gene_list_found)
+                     cols = c("gene_id","molregno","mean_Kd", "SD_aff",
+                              "n_measurement","source")
+                     output_table = bind_rows(output_selectivity[,cols], output_clindev[,cols])
+                     if("chem_probe" %in% input$legacy) {
+                       output_table = bind_rows(output_table, output_chem_probes[,cols])
+                     }
                      print(output_table)
                      values$display_per_entry = unique(output_table %>%
                                                          merge(merge_cmpd_info[c("molregno","chembl_id","pref_name","max_phase")],
                                                                by="molregno") %>%
                                                          merge(merge_table_geneinfo,by="gene_id"))
-                     if("chem_probe" %in% input$legacy) {
-                       print("chemprobes.org")
-                       values$display_per_entry %<>% mutate(gene_id_molregno = paste(gene_id, molregno))
-                       selection_table_chemprobesdotorg %<>% mutate(gene_id_molregno = paste(gene_id, molregno))
-                       values$display_per_entry %<>% filter(gene_id_molregno %in% selection_table_chemprobesdotorg$gene_id_molregno)
-                     }
                      
                      values$display_per_entry = values$display_per_entry[c("symbol","chembl_id",
                                                                            "pref_name","source","max_phase","mean_Kd", "SD_aff","n_measurement",
@@ -326,19 +325,13 @@ server = function(input, output, session) {
                                                         merge(merge_cmpd_info[c("molregno","chembl_id","pref_name",
                                                                                 "max_phase","alt_names","inchi")], by="molregno") %>%
                                                         merge(merge_table_geneinfo,by="gene_id"))
-                     if("chem_probe" %in% input$legacy) {
-                       print("chemprobes.org")
-                       values$display_per_cmpd %<>% mutate(gene_id_molregno = paste(gene_id, molregno))
-                       selection_table_chemprobesdotorg %<>% mutate(gene_id_molregno = paste(gene_id, molregno))
-                       values$display_per_cmpd %<>% filter(gene_id_molregno %in% selection_table_chemprobesdotorg$gene_id_molregno) %>% select(-gene_id_molregno)
-                     }
                      values$display_per_cmpd %<>%
                        group_by(molregno,chembl_id,pref_name,alt_names,inchi,max_phase) %>%
                        summarise(sources=toString(paste0(symbol,";",source))) %>% as.data.frame %>% mutate(
                          molregno = factor(molregno), chembl_id = factor(chembl_id), pref_name = factor(pref_name),
                          max_phase = as.integer(max_phase)
                        ) %>% rename(reason_included = sources)
-
+                     
                    }, ignoreNULL = F)
   })
   
