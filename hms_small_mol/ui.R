@@ -58,7 +58,7 @@ shinyUI(
     href = "http://sorger.med.harvard.edu" )
         )
       ),
-      div(class = "ui main center aligned attached segment", style = "font-size: medium;",
+      div(class = "ui main center aligned attached segment", style = "font-size: medium; margin: 0px;",
         includeMarkdown("www/home.md")
       ),
       div(class = "ui bottom attached inverted footer segment", style = "margin: 0px;",

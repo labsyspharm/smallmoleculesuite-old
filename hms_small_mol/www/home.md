@@ -1,4 +1,4 @@
-<h1 style = "margin: 0px;">The Small Molecule Suite</h1>
+<h1 style = "margin: 0px;">The Small Molecule Suite<span class = "ui small red label" style = "vertical-align: text-top;">beta*</span></h1>
 <p style="margin: 5px;">Developed by the <a href = "http://hits.harvard.edu/about/">Harvard Initiative in Therapeutic Sciences (HiTS)</a></p>
 <br>
 <div class = "ui equal width stackable grid">
@@ -69,6 +69,7 @@ LibraryR
 <div class = "ten wide column">
 <div class = "ui basic center aligned segment" style = "font-size: medium; margin: 0px;">
 <b>A preprint of our accompanying manuscript is available at <a href = "https://www.biorxiv.org/content/early/2018/06/29/358978" target="_blank">bioRxiv</a>.</b>
+<div class = "ui small yellow message">*These applications are in active development. Expect them to change slightly and add new features over time. During this period, saved application states may not be persistent.</div>
 </div>
 </div>
 <div class = "three wide column">
