@@ -8,7 +8,7 @@ The apps may be visited on the web at [www.smallmoleculesuite.org](http://www.sm
 
 Publication:
 
-Nienke Moret, Marc Hafner, Nicholas A. Clark, Yuan Wang, Eugen Lounkine, Mario Medvedovic, Nathanael Gray, Jeremy Jenkins, Peter K. Sorger. *Cheminformatics tools for analyzing and designing optimized small molecule libraries*. Manuscript submitted for publication.
+Nienke Moret, Nicholas A. Clark, Marc Hafner, Yuan Wang, Eugen Lounkine, Mario Medvedovic, Jinhua Wang, Nathanael Gray, Jeremy Jenkins, Peter K. Sorger. <a href = "https://www.cell.com/cell-chemical-biology/fulltext/S2451-9456(19)30073-X" target="_blank">Cheminformatics Tools for Analyzing and Designing Optimized Small-Molecule Collections and Libraries.</a> *Cell Chem Biol* (2019). doi:10.1016/j.chembiol.2019.02.018
 
 ### Necessary R packages for offline installation:
 
@@ -43,7 +43,7 @@ shiny::runGitHub("sorgerlab/smallmoleculesuite", subdir = "SelectivitySelectR")
 
 ### SimilaritySelectR
 
-<p><b><a href = "http://www.smallmoleculesuite.org/apps/SimilaritySelectR/">SimilaritySelectR</a></b> shows the similarity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> to a reference compound. Similarity is regarded in threefold: structural similarity (Tanimoto similarity of Morgan2 fingerprints), target affinity spectrum similarity (TAS) and phenotypic fingerprint similarity (PFP). To use SimilaritySelectR, select a reference compound and adjust filters as desired. From the main plots, select a region with compounds of interest. Then, select up to three compounds in the bottom table and view their known binding affinities in detail.</p>
+<p><b><a href = "http://www.smallmoleculesuite.org/apps/SimilaritySelectR/">SimilaritySelectR</a></b> shows the similarity of compounds in the <a href = "http://lincs.hms.harvard.edu/db/sm/">HMS-LINCS collection</a> to a reference compound. Similarity is regarded in threefold: structural similarity (Tanimoto similarity of Morgan2 fingerprints&mdash; calculated using <a href = "https://www.rdkit.org/">RDKit</a>), target affinity spectrum similarity (TAS) and phenotypic fingerprint similarity (PFP). To use SimilaritySelectR, select a reference compound and adjust filters as desired. From the main plots, select a region with compounds of interest. Then, select up to three compounds in the bottom table and view their known binding affinities in detail.</p>
 
 Visit on the web:
 
@@ -57,7 +57,7 @@ shiny::runGitHub("sorgerlab/smallmoleculesuite", subdir = "SimilaritySelectR")
 
 ### LibraryR
 
-<p><b><a href = "http://www.smallmoleculesuite.org/apps/LibraryR/">LibraryR</a></b> composes custom chemical genetics libraries for gene-sets of interest. Compounds in the library are selected based on affinity, selectivity, structural similarity and clinical development phase. Additionally we source several expert opinion "best-in-class" lists. To use LibraryR, simply submit a list of genes for which the library should be designed, or load one of the example gene-sets, click 'Submit' and adjust the inclusion criteria to fit your research purpose. The library will be adjusted based on the input genes and inclusion criteria.
+<p><b><a href = "http://www.smallmoleculesuite.org/apps/LibraryR/">LibraryR</a></b> composes custom chemical genetics libraries for gene-sets of interest. Compounds in the library are selected based on affinity, selectivity, structural similarity (calculated using <a href = "https://www.rdkit.org/">RDKit</a>) and clinical development phase. Additionally we source several expert opinion "best-in-class" lists. To use LibraryR, simply submit a list of genes for which the library should be designed, or load one of the example gene-sets, click 'Submit' and adjust the inclusion criteria to fit your research purpose. The library will be adjusted based on the input genes and inclusion criteria.
 </p>
 
 Visit on the web:

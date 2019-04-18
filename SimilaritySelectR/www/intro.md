@@ -1,6 +1,6 @@
 This app is designed to let you explore compounds that are similar to your compound of interest. Similarity is regarded in threefold:
 
-1. <span style="color:#CD5C5C">**Structural similarity**</span> - similarity of the chemical structure of a compound pair, calculated with tanimoto similarity based on Morgan2 fingerprints - from 0 (least similar) to 1 (most similar)
+1. <span style="color:#CD5C5C">**Structural similarity**</span> - similarity of the chemical structure of a compound pair, calculated with tanimoto similarity based on Morgan2 fingerprints (calculated using <a href = "https://www.rdkit.org/">RDKit</a>) - from 0 (least similar) to 1 (most similar)
 
 2. <span style="color:#CD5C5C">**Target affinity spectrum (TAS) similarity**</span> - the similarity of all the targets of a compound pair, calculated with jaccard similarity - from 0 (least similar) to 1 (most similar)
 
