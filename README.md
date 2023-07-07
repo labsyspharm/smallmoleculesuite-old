@@ -1,5 +1,5 @@
 # THIS IS AN OLD INACTIVE VERSION OF THE SMALLMOLECULESUITE PROJECT
-## Please see https://smallmoleculesuire.org/ for the latest version. This repository has been archived for reference purposes only.
+## Please see https://smallmoleculesuite.org/ for the latest version. This repository has been archived for reference purposes only.
 
 
 -----
