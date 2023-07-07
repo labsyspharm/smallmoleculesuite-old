@@ -1,3 +1,9 @@
+# THIS IS AN OLD INACTIVE VERSION OF THE SMALLMOLECULESUITE PROJECT
+## Please see https://smallmoleculesuire.org/ for the latest version. This repository has been archived for reference purposes only.
+
+
+-----
+
 # <img src="SelectivitySelectR/www/dcic.png" height = "50" width= "85" alt="LINCS DCIC"> HMS-LINCS Small Molecule Suite Applications <img src="SelectivitySelectR/www/logo_harvard_150.png" height = "50" width = "42" alt = "HMS LINCS Center">
 
 This repository contains three related web applications that were developed as part of the [NIH LINCS Consortium](http://www.lincsproject.org/) in a collaboration between Harvard Medical School's [Sorger Lab](http://sorger.med.harvard.edu/) and [Laboratory of Systems Pharmacology (LSP)](http://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/about/) and the University of Cincinnati's [Laboratory for Statistical Genomics and Systems Biology](http://eh3.uc.edu/). The former (HMS) is one of the [LINCS Data and Signature Generation Centers (DSGCs)](http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers) and the latter (Cincinnati) is part of the [BD2K-LINCS Data Coordination and Integration Center (DCIC)](http://lincs-dcic.org/). 
